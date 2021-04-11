@@ -33,13 +33,13 @@
 <meta property="og:site_name" content="Luke">
 <meta property="og:description" content="本文用于复习MySQL的相关知识以及命令.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://soul-pe.gitee.io/shdsoul/shdsoul/2021/04/11/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/GitHub_Blog/myblog/source_posts/MySQL基础复习01/1.png">
+<meta property="og:image" content="https://soul-pe.gitee.io/shdsoul/2021/04/11/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/1.png">
 <meta property="article:published_time" content="2021-04-11T08:02:08.000Z">
-<meta property="article:modified_time" content="2021-04-11T08:08:41.433Z">
+<meta property="article:modified_time" content="2021-04-11T10:38:00.886Z">
 <meta property="article:author" content="Soucat">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://soul-pe.gitee.io/shdsoul/shdsoul/2021/04/11/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/GitHub_Blog/myblog/source_posts/MySQL基础复习01/1.png">
+<meta name="twitter:image" content="https://soul-pe.gitee.io/shdsoul/2021/04/11/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/1.png">
 
 
 <link rel="canonical" href="https://soul-pe.gitee.io/shdsoul/2021/04/11/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/">
@@ -227,7 +227,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-04-11 16:02:08 / 修改时间：16:08:41" itemprop="dateCreated datePublished" datetime="2021-04-11T16:02:08+08:00">2021-04-11</time>
+      <time title="创建时间：2021-04-11 16:02:08 / 修改时间：18:38:00" itemprop="dateCreated datePublished" datetime="2021-04-11T16:02:08+08:00">2021-04-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -318,9 +318,8 @@
 
 
 <p>现在给出一张样表，以便后续的举例和学习.</p>
+<img src="/shdsoul/2021/04/11/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class title="table">
 
-
-<p><img src="/shdsoul/shdsoul/2021/04/11/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/GitHub_Blog\myblog\source_posts\MySQL基础复习01\1.png" alt="image-20210411104500298"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#查询工资大于(小于)2000以上的人的名单</span><br><span class="line">select ename from emp where sal &gt;（&lt;） 2000;</span><br><span class="line"></span><br><span class="line">#查询工资大于等于2000以上的人的名单</span><br><span class="line">select ename from emp where sal &gt;&#x3D; 2000;</span><br><span class="line"></span><br><span class="line">#查询工资不等于3000的</span><br><span class="line">select ename from emp where sal &lt;&gt; 3000;</span><br><span class="line">#或者</span><br><span class="line">select ename from emp where sal !&#x3D; 3000;</span><br></pre></td></tr></table></figure>
 
 
