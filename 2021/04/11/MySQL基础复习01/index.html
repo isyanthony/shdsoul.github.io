@@ -26,28 +26,30 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
 <meta name="hexo-config" content="{&quot;hostname&quot;:&quot;soul-pe.gitee.io&quot;,&quot;root&quot;:&quot;/shdsoul/&quot;,&quot;images&quot;:&quot;/shdsoul/images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}">
-<meta name="description" content="title: MySQL基础复习(一)date: 2021-04-10 23:22:17tags: MySQLdescription: 本文用于复习MySQL的相关知识以及命令. 🎊MySQL的安装​    ①：去官网下载社区版上面的一个；​    （建议复制下载地址然后在迅雷当中下载比较快）​    ②：在非C盘建一个 MySQL 文件夹装入下载文件并且解压；​    ③：将bin目录配入环境">
+<meta name="description" content="本文用于复习MySQL的相关知识以及命令.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Luke">
-<meta property="og:url" content="https://soul-pe.gitee.io/shdsoul/2021/04/10/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0-%E4%B8%80/index.html">
+<meta property="og:title" content="MySQL基础复习01">
+<meta property="og:url" content="https://soul-pe.gitee.io/shdsoul/2021/04/11/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A001/index.html">
 <meta property="og:site_name" content="Luke">
-<meta property="og:description" content="title: MySQL基础复习(一)date: 2021-04-10 23:22:17tags: MySQLdescription: 本文用于复习MySQL的相关知识以及命令. 🎊MySQL的安装​    ①：去官网下载社区版上面的一个；​    （建议复制下载地址然后在迅雷当中下载比较快）​    ②：在非C盘建一个 MySQL 文件夹装入下载文件并且解压；​    ③：将bin目录配入环境">
+<meta property="og:description" content="本文用于复习MySQL的相关知识以及命令.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://soul-pe.gitee.io/shdsoul/shdsoul/2021/04/10/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0-%E4%B8%80/Users/user/AppData/Roaming/Typora/typora-user-images/image-20210411104500298.png">
-<meta property="article:published_time" content="2021-04-10T15:22:17.033Z">
-<meta property="article:modified_time" content="2021-04-11T07:59:10.131Z">
+<meta property="og:image" content="https://soul-pe.gitee.io/shdsoul/2021/04/11/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A001/1.png">
+<meta property="og:image" content="https://soul-pe.gitee.io/shdsoul/shdsoul/2021/04/11/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A001/GitHub_Blog/myblog/source_posts/MySQL基础复习01/1.png">
+<meta property="article:published_time" content="2021-04-11T08:02:08.000Z">
+<meta property="article:modified_time" content="2021-04-11T08:04:03.975Z">
 <meta property="article:author" content="Soucat">
+<meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://soul-pe.gitee.io/shdsoul/shdsoul/2021/04/10/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0-%E4%B8%80/Users/user/AppData/Roaming/Typora/typora-user-images/image-20210411104500298.png">
+<meta name="twitter:image" content="https://soul-pe.gitee.io/shdsoul/2021/04/11/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A001/1.png">
 
 
-<link rel="canonical" href="https://soul-pe.gitee.io/shdsoul/2021/04/10/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0-%E4%B8%80/">
+<link rel="canonical" href="https://soul-pe.gitee.io/shdsoul/2021/04/11/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A001/">
 
 
 
 <meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;}">
 <meta name="hexo-config-calendar" content="">
-<title> | Luke</title><script data-pjax src="/shdsoul/js/load-config.js"></script>
+<title>MySQL基础复习01 | Luke</title><script data-pjax src="/shdsoul/js/load-config.js"></script>
   
 
 
@@ -94,8 +96,8 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/shdsoul/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-about"><a href="/shdsoul/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/shdsoul/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">2</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/shdsoul/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/shdsoul/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">3</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/shdsoul/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a></li>
         <li class="menu-item menu-item-archives"><a href="/shdsoul/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">3</span></a></li>
         <li class="menu-item menu-item-schedule"><a href="/shdsoul/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li>
   </ul>
@@ -151,13 +153,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/shdsoul/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/shdsoul/tags/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -201,7 +203,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://soul-pe.gitee.io/shdsoul/2021/04/10/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0-%E4%B8%80/">
+    <link itemprop="mainEntityOfPage" href="https://soul-pe.gitee.io/shdsoul/2021/04/11/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A001/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/shdsoul/./images/tx.jpg">
@@ -214,7 +216,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          MySQL基础复习01
         </h1>
 
         <div class="post-meta-container">
@@ -224,16 +226,19 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2021-04-10 23:22:17" itemprop="dateCreated datePublished" datetime="2021-04-10T23:22:17+08:00">2021-04-10</time>
+      <time title="创建时间：2021-04-11 16:02:08 / 修改时间：16:04:03" itemprop="dateCreated datePublished" datetime="2021-04-11T16:02:08+08:00">2021-04-11</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-11 15:59:10" itemprop="dateModified" datetime="2021-04-11T15:59:10+08:00">2021-04-11</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
       </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/shdsoul/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+        </span>
+    </span>
 
   
       </div>
@@ -254,6 +259,7 @@
     </span>
 </div>
 
+            <div class="post-description">本文用于复习MySQL的相关知识以及命令.</div>
         </div>
       </header>
 
@@ -261,8 +267,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>title: MySQL基础复习(一)<br>date: 2021-04-10 23:22:17<br>tags: MySQL<br>description: 本文用于复习MySQL的相关知识以及命令.</p>
-<h1 id="🎊MySQL的安装"><a href="#🎊MySQL的安装" class="headerlink" title="🎊MySQL的安装"></a>🎊MySQL的安装</h1><p>​    ①：去官网下载社区版上面的一个；<br>​    （建议复制下载地址然后在迅雷当中下载比较快）<br>​    ②：在非C盘建一个 <code>MySQL</code> 文件夹装入下载文件并且解压；<br>​    ③：将bin目录配入环境变量；<br>​    ④：编写配置文件：(先建文本文件，编写好以后，将文件更改为 <code>my.ini</code> 文件并改以 <code>ANSCI</code> 编译保存)；<br>​        如下：（注意）设置 <code>mysql</code> 的安装目录和数据库的数据存放目录根据个人下载位置进更改<br>​            </p>
+        <h1 id="🎊MySQL的安装"><a href="#🎊MySQL的安装" class="headerlink" title="🎊MySQL的安装"></a>🎊MySQL的安装</h1><p>​    ①：去官网下载社区版上面的一个；<br>​    （建议复制下载地址然后在迅雷当中下载比较快）<br>​    ②：在非C盘建一个 <code>MySQL</code> 文件夹装入下载文件并且解压；<br>​    ③：将bin目录配入环境变量；<br>​    ④：编写配置文件：(先建文本文件，编写好以后，将文件更改为 <code>my.ini</code> 文件并改以 <code>ANSCI</code> 编译保存)；<br>​        如下：（注意）设置 <code>mysql</code> 的安装目录和数据库的数据存放目录根据个人下载位置进更改<br>​            </p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"></span><br><span class="line">	[mysqld]</span><br><span class="line">	# 设置3306端口</span><br><span class="line">	port=3306</span><br><span class="line">	# 设置mysql的安装目录</span><br><span class="line">	basedir=Z:\\MySQL8.0\\mysql-8.0.22-winx64</span><br><span class="line">	# 设置mysql数据库的数据的存放目录</span><br><span class="line">	datadir=Z:\\MySQL8.0\\mysql-8.0.22-winx64\\data</span><br><span class="line">	# 允许最大连接数</span><br><span class="line">	max_connections=200</span><br><span class="line">	# 允许连接失败的次数。</span><br><span class="line">	max_connect_errors=10</span><br><span class="line">	# 服务端使用的字符集默认为utf8mb4</span><br><span class="line">	character-set-server=utf8mb4</span><br><span class="line">	# 创建新表时将使用的默认存储引擎</span><br><span class="line">	default-storage-engine=INNODB</span><br><span class="line">	# 默认使用“mysql_native_password”插件认证</span><br><span class="line">	#mysql_native_password</span><br><span class="line">	default_authentication_plugin=mysql_native_password</span><br><span class="line">	[mysql]</span><br><span class="line">	# 设置mysql客户端默认字符集</span><br><span class="line">	default-character-set=utf8mb4</span><br><span class="line">	[client]</span><br><span class="line">	# 设置mysql客户端连接服务端时默认使用的端口</span><br><span class="line">	port=3306</span><br><span class="line">	default-character-set=utf8mb4</span><br><span class="line"></span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">⑤：对MySQL进行初始化安装，以管理员身份运行命令提示符；</span><br><span class="line">并且将路径切换至bin目录下；</span><br><span class="line">⑥：</span><br><span class="line">	1.输入命令：mysqld --initialize --console </span><br><span class="line">		进行初始化,最后面会显示随机生成的密码，要记住</span><br><span class="line">	2.输入命令：mysqld -install mysql</span><br><span class="line">		出现：Service successfully installed 即成功</span><br><span class="line">	3.启动mysql服务 ：net start mysql</span><br><span class="line">	   关闭mysql服务 ： net stop mysql</span><br><span class="line">	4.修改密码 </span><br><span class="line">		ALTER USER &#x27;root&#x27; @&#x27;localhost&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;密码&#x27;;</span><br></pre></td></tr></table></figure>
 
 <p><strong>补充：有的电脑会缺少一些注册表，安装一个VC++2015redist即可</strong></p>
@@ -314,7 +319,9 @@
 
 
 <p>现在给出一张样表，以便后续的举例和学习.</p>
-<p><img src="/shdsoul/shdsoul/2021/04/10/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0-%E4%B8%80/Users\user\AppData\Roaming\Typora\typora-user-images\image-20210411104500298.png" alt="image-20210411104500298"></p>
+<img src="/shdsoul/2021/04/11/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A001/1.png" class title="table">
+
+<p><img src="/shdsoul/shdsoul/2021/04/11/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A001/GitHub_Blog\myblog\source_posts\MySQL基础复习01\1.png" alt="image-20210411104500298"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#查询工资大于(小于)2000以上的人的名单</span><br><span class="line">select ename from emp where sal &gt;（&lt;） 2000;</span><br><span class="line"></span><br><span class="line">#查询工资大于等于2000以上的人的名单</span><br><span class="line">select ename from emp where sal &gt;&#x3D; 2000;</span><br><span class="line"></span><br><span class="line">#查询工资不等于3000的</span><br><span class="line">select ename from emp where sal &lt;&gt; 3000;</span><br><span class="line">#或者</span><br><span class="line">select ename from emp where sal !&#x3D; 3000;</span><br></pre></td></tr></table></figure>
 
 
@@ -406,6 +413,7 @@
 </tbody></table>
 <p>记住：所有的分组函数都是对“某一组”数据进行操作的。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#找出工资总和？</span><br><span class="line">	select sum(sal) from emp;</span><br><span class="line">#找出最高工资？</span><br><span class="line">	select max(sal) from emp;</span><br><span class="line">#找出最低工资？</span><br><span class="line">	select min(sal) from emp;</span><br><span class="line">#找出平均工资？</span><br><span class="line">	select avg(sal) from emp;</span><br><span class="line">#找出总人数？</span><br><span class="line">	select count(*) from emp;</span><br><span class="line">	select count(ename) from emp;</span><br><span class="line"></span><br><span class="line">#分组函数一共5个。</span><br><span class="line">#分组函数还有另一个名字：多行处理函数。</span><br><span class="line">#多行处理函数的特点：输入多行，最终输出的结果是1行。</span><br><span class="line">#分组函数自动忽略NULL , 并且也可以通过 as 重新命名</span><br></pre></td></tr></table></figure>
+
 <p><strong>接下来，要开始挖坑了，问题如下：查询工资高于平均工资的员工名单？</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#我们知道我们学习了分组函数，有一个avg恰好可以求平均值</span><br><span class="line">#于是</span><br><span class="line">select ename , sal from emp where sal &gt; avg(sal);</span><br><span class="line">#看似这条语句逻辑没什么问题，执行过后却直接报错~~~</span><br><span class="line">#Why？</span><br><span class="line">#这里先不进行讲述和分析，我们先接着往下面讲</span><br></pre></td></tr></table></figure>
 
@@ -506,6 +514,9 @@
     
 
     <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/shdsoul/tags/MySQL/" rel="tag"># MySQL</a>
+          </div>
 
         
 
