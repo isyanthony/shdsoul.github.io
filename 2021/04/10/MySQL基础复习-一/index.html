@@ -26,24 +26,28 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
 <meta name="hexo-config" content="{&quot;hostname&quot;:&quot;soul-pe.gitee.io&quot;,&quot;root&quot;:&quot;/shdsoul/&quot;,&quot;images&quot;:&quot;/shdsoul/images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}">
-<meta name="description" content="醉后不知天在水，满床清梦压星河">
-<meta property="og:type" content="website">
+<meta name="description" content="title: MySQL基础复习(一)date: 2021-04-10 23:22:17tags: MySQLdescription: 本文用于复习MySQL的相关知识以及命令. 🎊MySQL的安装​    ①：去官网下载社区版上面的一个；​    （建议复制下载地址然后在迅雷当中下载比较快）​    ②：在非C盘建一个 MySQL 文件夹装入下载文件并且解压；​    ③：将bin目录配入环境">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Luke">
-<meta property="og:url" content="https://soul-pe.gitee.io/shdsoul/index.html">
+<meta property="og:url" content="https://soul-pe.gitee.io/shdsoul/2021/04/10/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0-%E4%B8%80/index.html">
 <meta property="og:site_name" content="Luke">
-<meta property="og:description" content="醉后不知天在水，满床清梦压星河">
+<meta property="og:description" content="title: MySQL基础复习(一)date: 2021-04-10 23:22:17tags: MySQLdescription: 本文用于复习MySQL的相关知识以及命令. 🎊MySQL的安装​    ①：去官网下载社区版上面的一个；​    （建议复制下载地址然后在迅雷当中下载比较快）​    ②：在非C盘建一个 MySQL 文件夹装入下载文件并且解压；​    ③：将bin目录配入环境">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://soul-pe.gitee.io/shdsoul/shdsoul/2021/04/10/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0-%E4%B8%80/Users/user/AppData/Roaming/Typora/typora-user-images/image-20210411104500298.png">
+<meta property="article:published_time" content="2021-04-10T15:22:17.033Z">
+<meta property="article:modified_time" content="2021-04-11T07:59:10.131Z">
 <meta property="article:author" content="Soucat">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://soul-pe.gitee.io/shdsoul/shdsoul/2021/04/10/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0-%E4%B8%80/Users/user/AppData/Roaming/Typora/typora-user-images/image-20210411104500298.png">
 
 
-<link rel="canonical" href="https://soul-pe.gitee.io/shdsoul/">
+<link rel="canonical" href="https://soul-pe.gitee.io/shdsoul/2021/04/10/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0-%E4%B8%80/">
 
 
 
-<meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:true,&quot;isPost&quot;:false,&quot;lang&quot;:&quot;zh-CN&quot;}">
+<meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;}">
 <meta name="hexo-config-calendar" content="">
-<title>Luke</title><script data-pjax src="/shdsoul/js/load-config.js"></script>
+<title> | Luke</title><script data-pjax src="/shdsoul/js/load-config.js"></script>
   
 
 
@@ -111,7 +115,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -124,6 +128,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8E%8AMySQL%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">🎊MySQL的安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8E%8DMySQL%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">🎍MySQL相关概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8E%87MySQL%E5%9F%BA%E6%9C%AC%E8%AF%AD%E5%8F%A5"><span class="nav-number">3.</span> <span class="nav-text">🎇MySQL基本语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E8%A1%A8%E7%BB%93%E6%9E%84"><span class="nav-number">3.1.</span> <span class="nav-text">查询表结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5"><span class="nav-number">3.2.</span> <span class="nav-text">查询语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5"><span class="nav-number">3.2.1.</span> <span class="nav-text">普通查询语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5"><span class="nav-number">3.2.2.</span> <span class="nav-text">条件查询语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#between%C2%B7%C2%B7%C2%B7and-in-and-or"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">between···and, in , and , or</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">模糊查询</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E4%BB%A5%E5%8F%8A%E5%88%86%E7%BB%84%E5%87%BD%E6%95%B0"><span class="nav-number">3.2.3.</span> <span class="nav-text">排序以及分组函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E8%A1%8C%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0"><span class="nav-number">3.2.4.</span> <span class="nav-text">单行处理函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#group-by-%E4%BB%A5%E5%8F%8A-having"><span class="nav-number">3.2.5.</span> <span class="nav-text">group by 以及 having</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -185,16 +190,17 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://soul-pe.gitee.io/shdsoul/2021/04/10/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0-%E4%B8%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -207,9 +213,9 @@
       <meta itemprop="name" content="Luke">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/shdsoul/2021/04/10/MySQL%E5%9F%BA%E7%A1%80%E5%A4%8D%E4%B9%A0-%E4%B8%80/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -255,7 +261,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>title: MySQL基础复习(一)<br>date: 2021-04-10 23:22:17<br>tags: MySQL<br>description: 本文用于复习MySQL的相关知识以及命令.</p>
+        <p>title: MySQL基础复习(一)<br>date: 2021-04-10 23:22:17<br>tags: MySQL<br>description: 本文用于复习MySQL的相关知识以及命令.</p>
 <h1 id="🎊MySQL的安装"><a href="#🎊MySQL的安装" class="headerlink" title="🎊MySQL的安装"></a>🎊MySQL的安装</h1><p>​    ①：去官网下载社区版上面的一个；<br>​    （建议复制下载地址然后在迅雷当中下载比较快）<br>​    ②：在非C盘建一个 <code>MySQL</code> 文件夹装入下载文件并且解压；<br>​    ③：将bin目录配入环境变量；<br>​    ④：编写配置文件：(先建文本文件，编写好以后，将文件更改为 <code>my.ini</code> 文件并改以 <code>ANSCI</code> 编译保存)；<br>​        如下：（注意）设置 <code>mysql</code> 的安装目录和数据库的数据存放目录根据个人下载位置进更改<br>​            </p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"></span><br><span class="line">	[mysqld]</span><br><span class="line">	# 设置3306端口</span><br><span class="line">	port=3306</span><br><span class="line">	# 设置mysql的安装目录</span><br><span class="line">	basedir=Z:\\MySQL8.0\\mysql-8.0.22-winx64</span><br><span class="line">	# 设置mysql数据库的数据的存放目录</span><br><span class="line">	datadir=Z:\\MySQL8.0\\mysql-8.0.22-winx64\\data</span><br><span class="line">	# 允许最大连接数</span><br><span class="line">	max_connections=200</span><br><span class="line">	# 允许连接失败的次数。</span><br><span class="line">	max_connect_errors=10</span><br><span class="line">	# 服务端使用的字符集默认为utf8mb4</span><br><span class="line">	character-set-server=utf8mb4</span><br><span class="line">	# 创建新表时将使用的默认存储引擎</span><br><span class="line">	default-storage-engine=INNODB</span><br><span class="line">	# 默认使用“mysql_native_password”插件认证</span><br><span class="line">	#mysql_native_password</span><br><span class="line">	default_authentication_plugin=mysql_native_password</span><br><span class="line">	[mysql]</span><br><span class="line">	# 设置mysql客户端默认字符集</span><br><span class="line">	default-character-set=utf8mb4</span><br><span class="line">	[client]</span><br><span class="line">	# 设置mysql客户端连接服务端时默认使用的端口</span><br><span class="line">	port=3306</span><br><span class="line">	default-character-set=utf8mb4</span><br><span class="line"></span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">⑤：对MySQL进行初始化安装，以管理员身份运行命令提示符；</span><br><span class="line">并且将路径切换至bin目录下；</span><br><span class="line">⑥：</span><br><span class="line">	1.输入命令：mysqld --initialize --console </span><br><span class="line">		进行初始化,最后面会显示随机生成的密码，要记住</span><br><span class="line">	2.输入命令：mysqld -install mysql</span><br><span class="line">		出现：Service successfully installed 即成功</span><br><span class="line">	3.启动mysql服务 ：net start mysql</span><br><span class="line">	   关闭mysql服务 ： net stop mysql</span><br><span class="line">	4.修改密码 </span><br><span class="line">		ALTER USER &#x27;root&#x27; @&#x27;localhost&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;密码&#x27;;</span><br></pre></td></tr></table></figure>
 
@@ -493,7 +499,6 @@
 </blockquote>
 <p>通过上面说到的执行顺序可以发现 where 的执行顺序在group by 之前， where中 avg 的执行需要group by 之后才可以执行，故报错. </p>
 
-      
     </div>
 
     
@@ -501,211 +506,22 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://soul-pe.gitee.io/shdsoul/2021/04/09/%E4%BB%A3%E7%A0%81%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Git/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/shdsoul/./images/tx.jpg">
-      <meta itemprop="name" content="Soucat">
-      <meta itemprop="description" content="醉后不知天在水，满床清梦压星河">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Luke">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/shdsoul/2021/04/09/%E4%BB%A3%E7%A0%81%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Git/" class="post-title-link" itemprop="url">代码版本管理工具Git</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-04-09 22:07:21" itemprop="dateCreated datePublished" datetime="2021-04-09T22:07:21+08:00">2021-04-09</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-10 21:48:50" itemprop="dateModified" datetime="2021-04-10T21:48:50+08:00">2021-04-10</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/shdsoul/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
-        </span>
-    </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.8k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>本文用于记录Git的相关概念以及基本操作、代码托管操作等等</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/shdsoul/2021/04/09/%E4%BB%A3%E7%A0%81%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Git/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://soul-pe.gitee.io/shdsoul/2021/04/09/Markdown%E5%85%A5%E9%97%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/shdsoul/./images/tx.jpg">
-      <meta itemprop="name" content="Soucat">
-      <meta itemprop="description" content="醉后不知天在水，满床清梦压星河">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Luke">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/shdsoul/2021/04/09/Markdown%E5%85%A5%E9%97%A8/" class="post-title-link" itemprop="url">Markdown入门</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-04-09 14:53:51 / 修改时间：15:44:37" itemprop="dateCreated datePublished" datetime="2021-04-09T14:53:51+08:00">2021-04-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/shdsoul/categories/Markdown/" itemprop="url" rel="index"><span itemprop="name">Markdown</span></a>
-        </span>
-    </span>
-
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>707</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>本文用于记录Markdown的基础语法以便于后续更写博客以及复习。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/shdsoul/2021/04/09/Markdown%E5%85%A5%E9%97%A8/">
-                阅读全文 &raquo;
-              </a>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/shdsoul/2021/04/09/%E4%BB%A3%E7%A0%81%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Git/" rel="prev" title="代码版本管理工具Git">
+                  <i class="fa fa-chevron-left"></i> 代码版本管理工具Git
+                </a>
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
+
 
 
 
