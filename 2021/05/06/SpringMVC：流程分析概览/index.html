@@ -26,33 +26,30 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
 <meta name="hexo-config" content="{&quot;hostname&quot;:&quot;soul-pe.gitee.io&quot;,&quot;root&quot;:&quot;/shdsoul/&quot;,&quot;images&quot;:&quot;/shdsoul/images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}">
-<meta name="description" content="本文用于记录SpringBoot之初体验">
+<meta name="description" content="本文用于分析SpringMVC的执行流程，对执行流程有一个了解和认识">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringBoot（一）:Hello World">
-<meta property="og:url" content="https://soul-pe.gitee.io/shdsoul/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
+<meta property="og:title" content="SpringMVC：流程分析概览">
+<meta property="og:url" content="https://soul-pe.gitee.io/shdsoul/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/index.html">
 <meta property="og:site_name" content="Luke">
-<meta property="og:description" content="本文用于记录SpringBoot之初体验">
+<meta property="og:description" content="本文用于分析SpringMVC的执行流程，对执行流程有一个了解和认识">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://soul-pe.gitee.io/shdsoul/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/1.png">
-<meta property="og:image" content="https://soul-pe.gitee.io/shdsoul/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/2.png">
-<meta property="og:image" content="https://soul-pe.gitee.io/shdsoul/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/3.png">
-<meta property="og:image" content="https://soul-pe.gitee.io/shdsoul/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/4.png">
-<meta property="og:image" content="https://soul-pe.gitee.io/shdsoul/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/5.png">
-<meta property="article:published_time" content="2021-05-05T13:57:00.000Z">
-<meta property="article:modified_time" content="2021-05-06T06:00:38.337Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181030204359635.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1370903/201808/1370903-20180827201021158-682489195.png">
+<meta property="article:published_time" content="2021-05-06T06:58:51.000Z">
+<meta property="article:modified_time" content="2021-05-06T06:58:51.754Z">
 <meta property="article:author" content="Soucat">
-<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="SpringMVC">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://soul-pe.gitee.io/shdsoul/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/1.png">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20181030204359635.png">
 
 
-<link rel="canonical" href="https://soul-pe.gitee.io/shdsoul/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/">
+<link rel="canonical" href="https://soul-pe.gitee.io/shdsoul/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/">
 
 
 
 <meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;}">
 <meta name="hexo-config-calendar" content="">
-<title>SpringBoot（一）:Hello World | Luke</title><script data-pjax src="/shdsoul/js/load-config.js"></script>
+<title>SpringMVC：流程分析概览 | Luke</title><script data-pjax src="/shdsoul/js/load-config.js"></script>
   
 
 
@@ -133,7 +130,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8E%89SpringBoot%E4%B8%BA%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E4%B8%BA%E7%94%9F"><span class="nav-number">1.</span> <span class="nav-text">🎉SpringBoot为快速开发为生</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8E%88SpringMVC%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">🎈SpringMVC简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%9C%A8SpringMVC%E6%89%A7%E8%A1%8C%E6%A6%82%E8%A7%88"><span class="nav-number">2.</span> <span class="nav-text">✨SpringMVC执行概览</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">组件说明：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DispatcherServlet%EF%BC%9A%E5%89%8D%E7%AB%AF%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="nav-number">2.1.1.</span> <span class="nav-text">DispatcherServlet：前端控制器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HandlerMapping%EF%BC%9A%E5%A4%84%E7%90%86%E5%99%A8%E6%98%A0%E5%B0%84%E5%99%A8"><span class="nav-number">2.1.2.</span> <span class="nav-text">HandlerMapping：处理器映射器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Handler%EF%BC%9A%E5%A4%84%E7%90%86%E5%99%A8"><span class="nav-number">2.1.3.</span> <span class="nav-text">Handler：处理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HandlAdapter-%EF%BC%9A%E5%A4%84%E7%90%86%E5%99%A8%E9%80%82%E9%85%8D%E5%99%A8"><span class="nav-number">2.1.4.</span> <span class="nav-text">HandlAdapter ：处理器适配器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ViewResolver%EF%BC%9A%E8%A7%86%E5%9B%BE%E8%A7%A3%E6%9E%90%E5%99%A8"><span class="nav-number">2.1.5.</span> <span class="nav-text">ViewResolver：视图解析器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View%EF%BC%9A%E8%A7%86%E5%9B%BE"><span class="nav-number">2.1.6.</span> <span class="nav-text">View：视图</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -206,7 +203,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://soul-pe.gitee.io/shdsoul/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/">
+    <link itemprop="mainEntityOfPage" href="https://soul-pe.gitee.io/shdsoul/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/shdsoul/./images/tx.jpg">
@@ -219,7 +216,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          SpringBoot（一）:Hello World
+          SpringMVC：流程分析概览
         </h1>
 
         <div class="post-meta-container">
@@ -230,22 +227,15 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-05-05 21:57:00" itemprop="dateCreated datePublished" datetime="2021-05-05T21:57:00+08:00">2021-05-05</time>
+      <time title="创建时间：2021-05-06 14:58:51" itemprop="dateCreated datePublished" datetime="2021-05-06T14:58:51+08:00">2021-05-06</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-06 14:00:38" itemprop="dateModified" datetime="2021-05-06T14:00:38+08:00">2021-05-06</time>
-      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/shdsoul/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a>
+          <a href="/shdsoul/categories/SpringMVC/" itemprop="url" rel="index"><span itemprop="name">SpringMVC</span></a>
         </span>
     </span>
 
@@ -257,18 +247,18 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.5k</span>
+      <span>1.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
-            <div class="post-description">本文用于记录SpringBoot之初体验</div>
+            <div class="post-description">本文用于分析SpringMVC的执行流程，对执行流程有一个了解和认识</div>
         </div>
       </header>
 
@@ -276,66 +266,66 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="🎉SpringBoot为快速开发为生"><a href="#🎉SpringBoot为快速开发为生" class="headerlink" title="🎉SpringBoot为快速开发为生"></a>🎉SpringBoot为快速开发为生</h1><blockquote>
-<p>前言：在学完 Spring + SpringMVC + Mybatis 之后进行了 SSM整合项目的搭建，搭建项目最花费时间的其实是在各种的配置文件上，比如mybatis-config.xml 和 Spring中的applicationContext.xml 以及 SpringMVC中 Web.xml 都有固定的文件头等等内容，每次写都还要去别处复制粘贴，难搞。光是建个文件之后的复制粘贴就已经让我头大了，最难搞的还是Spring中文件配置文件中一些小东西，比如：SqlsessionFactory 以及 dao 层自动接口扫描器，完全可以说是固定写法，SpringMVC的配置中需要配置视图解析器，以及事物处理器，web.xml中需要配置请求转发器和资源过滤，配置过程几乎完全面向复制粘贴，繁琐且冗杂，也非常容易出错，我整合的SSM的项目至今没有跑起来，Debug了一个多星期无果，从Gitee上扒下来别人的项目跑，能跑，我的就是跑不起来，那几天我真是做梦都在想配置文件哪里出错了QAQ</p>
-</blockquote>
-<p>接下，进入正题：</p>
-<p>​        SpringBoot的出现就是为了解决以上问题，把配置简化到几乎没有，就连Tomcat都不需要我们自己去配置了，不得不说，SpringBoot永远滴神.接下来我将演示快速创建一个SpringBoot项目到启动的全过程.</p>
-<p><strong>在此之前，介绍一下SpringBoot的相关特点：</strong></p>
-<p>   1.<strong>创建独立的Spring应用程序</strong></p>
-<ol start="2">
-<li><p><strong>嵌入的Tomcat，无需部署WAR文件</strong></p>
+        <h1 id="🎈SpringMVC简介"><a href="#🎈SpringMVC简介" class="headerlink" title="🎈SpringMVC简介"></a>🎈SpringMVC简介</h1><p>​        <code>SpringMVC</code> 显然是由 <code>Spring</code> 以及 <code>MVC</code> 俩部分组成，先说说 <code>Spring</code> 那当然就是指 <code>Spring Framework</code> 框架了，前面的文章已经介绍过了相关的基础知识，这里就相当于在 <code>Spring</code> 中使用<code>MVC</code> 架构，当然了这里讨论应用于在 <code>Web</code> 开发之中.</p>
+<p>​        接下来简单介绍一下 <code>MVC</code> 架构以及 <code>Web </code> 开发中的三层架构，也可能是我理解浅显，在我看我 <code>MVC</code> 架构与 <code>Web</code> 中经典的三层结构十分相似，目的都是为了代码解耦合、以及高可维护性.</p>
+<ul>
+<li><p><code>MVC(MODEL-VIEW-CONTROLLER)</code> 即 模型-视图-控制</p>
+<ul>
+<li><p><code>MODEL</code> : 属于处理业务逻辑的部分，相当于三层架构中的 <code>service、dao</code> 层，可以对数据库进行直接操作，储存业务核心逻辑.</p>
 </li>
-<li><p><strong>简化Maven配置</strong></p>
+<li><p><code>VIEW</code> : 属于向用户展示的部分, <code>MODEL</code> 层处理完之后返回的数据交给 <code>CONTROLLER </code> 层，再交由 <code>VIEW</code> 层，从而呈现相应的页面.</p>
 </li>
-<li><p><strong>自动配置Spring</strong></p>
+<li><p><code>CONTROLLER</code> ：属于连接<code>MODEL</code> 与 <code>VIEW</code> 的部分，相当于<code>Servlet</code> 中的存储的映射关系，起到了<code>Servlet</code>的作用，将<code>MODLE</code> 与</p>
+<p><code>VIEW</code> 解耦合.</p>
 </li>
-<li><p><strong>提供生产就绪型功能，如指标，健康检查和外部配置</strong></p>
+</ul>
 </li>
-<li><p>**绝对没有代码生成并且对XML也没有配置要求 **</p>
-</li>
-</ol>
+</ul>
+<p>用一张图来概括：</p>
+<p>​                                        <img src="https://img-blog.csdnimg.cn/20181030204359635.png" alt="MVC"></p>
+<p>​        而 <code>SpringMVC</code> 简化了 <code>JavaWeb</code> 的开发，将<code>Servlet</code> 的相关配置简化了许多 ，只需要配置一个 <code>请求转发控制器DispatcherServlet</code> 以及 <code>资源视图解析器ResourceViewResolver</code> 即可，有效提高了开发效率.</p>
 <hr>
-<p>接下来体验一下咯：</p>
-<ul>
-<li>通过IDEA创建项目</li>
+<h1 id="✨SpringMVC执行概览"><a href="#✨SpringMVC执行概览" class="headerlink" title="✨SpringMVC执行概览"></a>✨SpringMVC执行概览</h1><p><img src="https://images2018.cnblogs.com/blog/1370903/201808/1370903-20180827201021158-682489195.png" alt="流程图"></p>
+<p>流程分析：</p>
+<ol>
+<li>用户发起请求，通过web容器中通过 <code>DispathcerServlet</code> 的映射路径将请求交给 <code>DispathcerServlet</code> 处理.</li>
+<li><code>DispatcherServlet</code>通过处理器映射器（ <code>HandlerMapping</code> ）获取请求信息对应的处理器执行链.</li>
+<li><code>DispatcherServlet</code> 将执行链交给处理器适配器（ <code>HandlerAdapter</code> ）然后其调用相应的处理器（<code>Handler </code>）执行</li>
+<li>最终返回处理结果到 <code>DispatcherServlet</code></li>
+<li><code>DispatcherServlet</code> 将结果交给视图解析器（<code>ViewResolver</code>）解析视图，随后返回解析后的View对象</li>
+<li><code>DispatcherServlet</code>再将View对象进行视图渲染最后返回给用户呈现出页面</li>
+</ol>
+<blockquote>
+<h2 id="组件说明："><a href="#组件说明：" class="headerlink" title="组件说明："></a>组件说明：</h2><ul>
+<li><h3 id="DispatcherServlet：前端控制器"><a href="#DispatcherServlet：前端控制器" class="headerlink" title="DispatcherServlet：前端控制器"></a><code>DispatcherServlet</code>：前端控制器</h3></li>
 </ul>
-<img src="/shdsoul/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class title="creat">
-
-
-
-<p>点击**<code>Next</code>**，下一步</p>
-<img src="/shdsoul/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/2.png" class title="create">
-
-
-
-<p>点击 <strong><code>Next</code></strong> ，下一步</p>
-<img src="/shdsoul/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/3.png" class title="creat">
-
-
-
-
-
-<p>点击 <strong><code>Next</code></strong> ，下一步，后面就是填写项目名称，这里就略过了，快进到创建后</p>
-<img src="/shdsoul/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/4.png" class title="create">
-
-
-
+<p>​      <strong>用户请求到达前端控制器，它就相当于<code>mvc</code>模式中的<code>c</code>，<code>dispatcherServlet</code>是整个流程控制的中心，</strong></p>
+<p>​      <strong>由它调用其它组件处理用户的请求，<code>dispatcherServlet</code>的存在降低了组件之间的耦合性。</strong></p>
 <ul>
-<li>接下来编写 <code>Controller</code> 层，注意，要在DemoApplication.java的同目录下创建包下的java文件或者java文件才能被扫描到</li>
+<li><h3 id="HandlerMapping：处理器映射器"><a href="#HandlerMapping：处理器映射器" class="headerlink" title="HandlerMapping：处理器映射器"></a><code>HandlerMapping</code>：处理器映射器</h3></li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo.controller;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">//表示不会跳转JSP、HTML 而是直接将返回的内容写入 Http响应包中的响应体中,直接将内容呈现在页面中</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="comment">//等价于</span></span><br><span class="line"><span class="comment">//@Controller</span></span><br><span class="line"><span class="comment">//@ResponseBody</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloSpringBoot</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//用于建立请求URL和处理请求方法之间的对应关系，将该方法映射到这个url路径上</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">Hello</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello SpringBoot !&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p>　　　<code>HandlerMapping</code>负责根据用户请求<code>url</code>找到<code>Handler</code>即处理器，<code>springmvc</code>提供了不同的映射器实现不同的映射方式，</p>
+<p>　　  <strong>例如：配置文件方式，实现接口方式，注解方式等。</strong></p>
 <ul>
-<li><p>接下来就可以直接启动项目了，SpringBoot不会自动打开浏览器，需要我们手动输入URL.</p>
-<p>浏览器中输入 <code>localhost:8080/hello</code></p>
-</li>
+<li><h3 id="Handler：处理器"><a href="#Handler：处理器" class="headerlink" title="Handler：处理器"></a><code>Handler</code>：处理器</h3></li>
 </ul>
-<img src="/shdsoul/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/5.png" class title="create">
-
-
-
-<p>会发现，从来到尾我们只需要在创建项目的时候需要进行配置，创建好后只需要编写业务逻辑即可运行.</p>
+<p>　　 <strong><code>Handler</code> 是继 <code>DispatcherServlet </code>前端控制器的后端控制器，在 <code>DispatcherServlet </code>的控制下 <code>Handler</code>对具体的用户请求进行处理。</strong></p>
+<p>​    <strong>由于 <code>Handler </code>涉及到具体的用户业务请求，所以一般情况需要程序员根据业务需求开发Handler。</strong></p>
+<ul>
+<li><h3 id="HandlAdapter-：处理器适配器"><a href="#HandlAdapter-：处理器适配器" class="headerlink" title="HandlAdapter ：处理器适配器"></a><code>HandlAdapter </code>：处理器适配器</h3></li>
+</ul>
+<p>　　<strong>通过<code>HandlerAdapter</code>对处理器进行执行，这是适配器模式的应用，通过扩展适配器可以对更多类型的处理器进行执行。</strong></p>
+<ul>
+<li><h3 id="ViewResolver：视图解析器"><a href="#ViewResolver：视图解析器" class="headerlink" title="ViewResolver：视图解析器"></a><code>ViewResolver</code>：视图解析器</h3></li>
+</ul>
+<p>　　<strong>View Resolver负责将处理结果生成View视图，View Resolver首先根据逻辑视图名解析成物理视图名即具体的页面地址，</strong></p>
+<p>　　<strong>再生成View视图对象，最后对View进行渲染将处理结果通过页面展示给用户。</strong></p>
+<ul>
+<li><h3 id="View：视图"><a href="#View：视图" class="headerlink" title="View：视图"></a><code>View</code>：视图</h3></li>
+</ul>
+<p>　　<strong><code>springmvc</code>框架提供了很多的View视图类型的支持，包括：<code>jstlView、freemarkerView、pdfView</code>等。我们最常用的视图就是<code>jsp</code>。</strong></p>
+<p>　　一般情况下需要通过页面标签或页面模版技术将模型数据通过页面展示给用户，需要由程序员根据业务需求开发具体的页面。</p>
+</blockquote>
 
       <div>
       
@@ -355,21 +345,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/shdsoul/tags/SpringBoot/" rel="tag"># SpringBoot</a>
+              <a href="/shdsoul/tags/SpringMVC/" rel="tag"># SpringMVC</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/shdsoul/2021/05/01/Spring5%EF%BC%88%E4%BA%8C%EF%BC%89/" rel="prev" title="Spring5(二)">
-                  <i class="fa fa-chevron-left"></i> Spring5(二)
+                <a href="/shdsoul/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/" rel="prev" title="SpringBoot（一）:Hello World">
+                  <i class="fa fa-chevron-left"></i> SpringBoot（一）:Hello World
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/shdsoul/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/" rel="next" title="SpringMVC：流程分析概览">
-                  SpringMVC：流程分析概览 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
