@@ -26,30 +26,27 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
 <meta name="hexo-config" content="{&quot;hostname&quot;:&quot;soul-pe.gitee.io&quot;,&quot;root&quot;:&quot;/shdsoul/&quot;,&quot;images&quot;:&quot;/shdsoul/images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}">
-<meta name="description" content="本文用于分析SpringMVC的执行流程，对执行流程有一个了解和认识">
+<meta name="description" content="本文用于记录权利管理工具的基本概念">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringMVC：流程分析概览">
-<meta property="og:url" content="https://soul-pe.gitee.io/shdsoul/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/index.html">
+<meta property="og:title" content="Shiro(一):介绍与基本概念">
+<meta property="og:url" content="https://soul-pe.gitee.io/shdsoul/2021/06/09/Shiro%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
 <meta property="og:site_name" content="Luke">
-<meta property="og:description" content="本文用于分析SpringMVC的执行流程，对执行流程有一个了解和认识">
+<meta property="og:description" content="本文用于记录权利管理工具的基本概念">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20181030204359635.png">
-<meta property="og:image" content="https://soul-pe.gitee.io/shdsoul/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/1.png">
-<meta property="article:published_time" content="2021-05-06T06:58:51.000Z">
-<meta property="article:modified_time" content="2021-05-06T13:56:59.433Z">
+<meta property="article:published_time" content="2021-06-09T14:20:18.000Z">
+<meta property="article:modified_time" content="2021-06-09T14:20:18.858Z">
 <meta property="article:author" content="Soucat">
-<meta property="article:tag" content="SpringMVC">
+<meta property="article:tag" content="Shiro">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20181030204359635.png">
 
 
-<link rel="canonical" href="https://soul-pe.gitee.io/shdsoul/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/">
+<link rel="canonical" href="https://soul-pe.gitee.io/shdsoul/2021/06/09/Shiro%EF%BC%88%E4%B8%80%EF%BC%89/">
 
 
 
 <meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;}">
 <meta name="hexo-config-calendar" content="">
-<title>SpringMVC：流程分析概览 | Luke</title><script data-pjax src="/shdsoul/js/load-config.js"></script>
+<title>Shiro(一):介绍与基本概念 | Luke</title><script data-pjax src="/shdsoul/js/load-config.js"></script>
   
 
 
@@ -130,7 +127,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8E%88SpringMVC%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">🎈SpringMVC简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%9C%A8SpringMVC%E6%89%A7%E8%A1%8C%E6%A6%82%E8%A7%88"><span class="nav-number">2.</span> <span class="nav-text">✨SpringMVC执行概览</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">组件说明：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DispatcherServlet%EF%BC%9A%E5%89%8D%E7%AB%AF%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="nav-number">2.1.1.</span> <span class="nav-text">DispatcherServlet：前端控制器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HandlerMapping%EF%BC%9A%E5%A4%84%E7%90%86%E5%99%A8%E6%98%A0%E5%B0%84%E5%99%A8"><span class="nav-number">2.1.2.</span> <span class="nav-text">HandlerMapping：处理器映射器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Handler%EF%BC%9A%E5%A4%84%E7%90%86%E5%99%A8"><span class="nav-number">2.1.3.</span> <span class="nav-text">Handler：处理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HandlAdapter-%EF%BC%9A%E5%A4%84%E7%90%86%E5%99%A8%E9%80%82%E9%85%8D%E5%99%A8"><span class="nav-number">2.1.4.</span> <span class="nav-text">HandlAdapter ：处理器适配器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ViewResolver%EF%BC%9A%E8%A7%86%E5%9B%BE%E8%A7%A3%E6%9E%90%E5%99%A8"><span class="nav-number">2.1.5.</span> <span class="nav-text">ViewResolver：视图解析器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View%EF%BC%9A%E8%A7%86%E5%9B%BE"><span class="nav-number">2.1.6.</span> <span class="nav-text">View：视图</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%9A%A7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">🚧权限管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">什么是权限管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81"><span class="nav-number">1.2.</span> <span class="nav-text">什么是身份认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%8E%88%E6%9D%83"><span class="nav-number">1.3.</span> <span class="nav-text">什么是授权</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8F%81%E4%BB%80%E4%B9%88%E6%98%AFshiro"><span class="nav-number">2.</span> <span class="nav-text">🏁什么是shiro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8C%8Eshiro%E7%9A%84%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">🌎shiro的核心架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Subject"><span class="nav-number">3.1.</span> <span class="nav-text">Subject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SecurityManager"><span class="nav-number">3.2.</span> <span class="nav-text">SecurityManager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Authenticator"><span class="nav-number">3.3.</span> <span class="nav-text">Authenticator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Authorizer"><span class="nav-number">3.4.</span> <span class="nav-text">Authorizer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Realm"><span class="nav-number">3.5.</span> <span class="nav-text">Realm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SessionManager"><span class="nav-number">3.6.</span> <span class="nav-text">SessionManager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SessionDAO"><span class="nav-number">3.7.</span> <span class="nav-text">SessionDAO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CacheManager"><span class="nav-number">3.8.</span> <span class="nav-text">CacheManager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cryptography"><span class="nav-number">3.9.</span> <span class="nav-text">Cryptography</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -203,7 +200,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://soul-pe.gitee.io/shdsoul/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/">
+    <link itemprop="mainEntityOfPage" href="https://soul-pe.gitee.io/shdsoul/2021/06/09/Shiro%EF%BC%88%E4%B8%80%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/shdsoul/./images/tx.jpg">
@@ -216,7 +213,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          SpringMVC：流程分析概览
+          Shiro(一):介绍与基本概念
         </h1>
 
         <div class="post-meta-container">
@@ -226,9 +223,8 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-05-06 14:58:51 / 修改时间：21:56:59" itemprop="dateCreated datePublished" datetime="2021-05-06T14:58:51+08:00">2021-05-06</time>
+      <time title="创建时间：2021-06-09 22:20:18" itemprop="dateCreated datePublished" datetime="2021-06-09T22:20:18+08:00">2021-06-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -236,7 +232,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/shdsoul/categories/SpringMVC/" itemprop="url" rel="index"><span itemprop="name">SpringMVC</span></a>
+          <a href="/shdsoul/categories/Shiro/" itemprop="url" rel="index"><span itemprop="name">Shiro</span></a>
         </span>
     </span>
 
@@ -248,7 +244,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.7k</span>
+      <span>2.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -259,7 +255,7 @@
     </span>
 </div>
 
-            <div class="post-description">本文用于分析SpringMVC的执行流程，对执行流程有一个了解和认识</div>
+            <div class="post-description">本文用于记录权利管理工具的基本概念</div>
         </div>
       </header>
 
@@ -267,69 +263,31 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="🎈SpringMVC简介"><a href="#🎈SpringMVC简介" class="headerlink" title="🎈SpringMVC简介"></a>🎈SpringMVC简介</h1><p>​        <code>SpringMVC</code> 显然是由 <code>Spring</code> 以及 <code>MVC</code> 俩部分组成，先说说 <code>Spring</code> 那当然就是指 <code>Spring Framework</code> 框架了，前面的文章已经介绍过了相关的基础知识，这里就相当于在 <code>Spring</code> 中使用<code>MVC</code> 架构，当然了这里讨论应用于在 <code>Web</code> 开发之中.</p>
-<p>​        接下来简单介绍一下 <code>MVC</code> 架构以及 <code>Web </code> 开发中的三层架构，也可能是我理解浅显，在我看我 <code>MVC</code> 架构与 <code>Web</code> 中经典的三层结构十分相似，目的都是为了代码解耦合、以及高可维护性.</p>
-<ul>
-<li><p><code>MVC(MODEL-VIEW-CONTROLLER)</code> 即 模型-视图-控制</p>
-<ul>
-<li><p><code>MODEL</code> : 属于处理业务逻辑的部分，相当于三层架构中的 <code>service、dao</code> 层，可以对数据库进行直接操作，储存业务核心逻辑.</p>
-</li>
-<li><p><code>VIEW</code> : 属于向用户展示的部分, <code>MODEL</code> 层处理完之后返回的数据交给 <code>CONTROLLER </code> 层，再交由 <code>VIEW</code> 层，从而呈现相应的页面.</p>
-</li>
-<li><p><code>CONTROLLER</code> ：属于连接<code>MODEL</code> 与 <code>VIEW</code> 的部分，相当于<code>Servlet</code> 中的存储的映射关系，起到了<code>Servlet</code>的作用，将<code>MODLE</code> 与</p>
-<p><code>VIEW</code> 解耦合.</p>
-</li>
-</ul>
-</li>
-</ul>
-<p>用一张图来概括：</p>
-<p>​                                        <img src="https://img-blog.csdnimg.cn/20181030204359635.png" alt="MVC"></p>
-<p>​        而 <code>SpringMVC</code> 简化了 <code>JavaWeb</code> 的开发，将<code>Servlet</code> 的相关配置简化了许多 ，只需要配置一个 <code>请求转发控制器DispatcherServlet</code> 以及 <code>资源视图解析器ResourceViewResolver</code> 即可，有效提高了开发效率.</p>
+        <h2 id="🚧权限管理"><a href="#🚧权限管理" class="headerlink" title="🚧权限管理"></a>🚧权限管理</h2><h3 id="什么是权限管理"><a href="#什么是权限管理" class="headerlink" title="什么是权限管理"></a>什么是权限管理</h3><p>基本上涉及到用户参与的系统都要进行权限管理，权限管理属于系统安全的范畴，权限管理实现<code>对用户访问系统的控制</code>，按照安全规则或者<a target="_blank" rel="noopener" href="http://baike.baidu.com/view/160028.htm">安全策略</a>控制用户可以访问而且只能访问自己被授权的资源。</p>
+<p>权限管理包括用户<code>身份认证</code>和<code>授权</code>两部分，简称<code>认证授权</code>。对于需要访问控制的资源用户首先经过身份认证，认证通过后用户具有该资源的访问权限方可访问。</p>
+<h3 id="什么是身份认证"><a href="#什么是身份认证" class="headerlink" title="什么是身份认证"></a>什么是身份认证</h3><p><code>身份认证</code>，就是判断一个用户是否为合法用户的处理过程。最常用的简单身份认证方式是系统通过核对用户输入的用户名和口令，看其是否与系统中存储的该用户的用户名和口令一致，来判断用户身份是否正确。对于采用<a target="_blank" rel="noopener" href="http://baike.baidu.com/view/5628.htm">指纹</a>等系统，则出示指纹；对于硬件Key等刷卡系统，则需要刷卡。</p>
+<h3 id="什么是授权"><a href="#什么是授权" class="headerlink" title="什么是授权"></a>什么是授权</h3><p><code>授权，即访问控制</code>，控制谁能访问哪些资源。主体进行身份认证后需要分配权限方可访问系统的资源，对于某些资源没有权限是无法访问的</p>
 <hr>
-<h1 id="✨SpringMVC执行概览"><a href="#✨SpringMVC执行概览" class="headerlink" title="✨SpringMVC执行概览"></a>✨SpringMVC执行概览</h1><img src="/shdsoul/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/1.png" class title="流程图">
-
-
-
-<p>流程分析：</p>
-<ol>
-<li>用户发起请求，通过web容器中通过 <code>DispathcerServlet</code> 的映射路径将请求交给 <code>DispathcerServlet</code> 处理.</li>
-<li><code>DispatcherServlet</code>通过处理器映射器（ <code>HandlerMapping</code> ）获取请求信息对应的处理器执行链.</li>
-<li><code>DispatcherServlet</code> 将执行链交给处理器适配器（ <code>HandlerAdapter</code> ）然后其调用相应的处理器（<code>Handler </code>）执行</li>
-<li>最终返回处理结果到 <code>DispatcherServlet</code></li>
-<li><code>DispatcherServlet</code> 将结果交给视图解析器（<code>ViewResolver</code>）解析视图，随后返回解析后的View对象</li>
-<li><code>DispatcherServlet</code>再将View对象进行视图渲染最后返回给用户呈现出页面</li>
-</ol>
-<blockquote>
-<h2 id="组件说明："><a href="#组件说明：" class="headerlink" title="组件说明："></a>组件说明：</h2><ul>
-<li><h3 id="DispatcherServlet：前端控制器"><a href="#DispatcherServlet：前端控制器" class="headerlink" title="DispatcherServlet：前端控制器"></a><code>DispatcherServlet</code>：前端控制器</h3></li>
-</ul>
-<p>​      <strong>用户请求到达前端控制器，它就相当于<code>mvc</code>模式中的<code>c</code>，<code>dispatcherServlet</code>是整个流程控制的中心，</strong></p>
-<p>​      <strong>由它调用其它组件处理用户的请求，<code>dispatcherServlet</code>的存在降低了组件之间的耦合性。</strong></p>
-<ul>
-<li><h3 id="HandlerMapping：处理器映射器"><a href="#HandlerMapping：处理器映射器" class="headerlink" title="HandlerMapping：处理器映射器"></a><code>HandlerMapping</code>：处理器映射器</h3></li>
-</ul>
-<p>　　　<code>HandlerMapping</code>负责根据用户请求<code>url</code>找到<code>Handler</code>即处理器，<code>springmvc</code>提供了不同的映射器实现不同的映射方式，</p>
-<p>　　  <strong>例如：配置文件方式，实现接口方式，注解方式等。</strong></p>
-<ul>
-<li><h3 id="Handler：处理器"><a href="#Handler：处理器" class="headerlink" title="Handler：处理器"></a><code>Handler</code>：处理器</h3></li>
-</ul>
-<p>　　 <strong><code>Handler</code> 是继 <code>DispatcherServlet </code>前端控制器的后端控制器，在 <code>DispatcherServlet </code>的控制下 <code>Handler</code>对具体的用户请求进行处理。</strong></p>
-<p>​    <strong>由于 <code>Handler </code>涉及到具体的用户业务请求，所以一般情况需要程序员根据业务需求开发Handler。</strong></p>
-<ul>
-<li><h3 id="HandlAdapter-：处理器适配器"><a href="#HandlAdapter-：处理器适配器" class="headerlink" title="HandlAdapter ：处理器适配器"></a><code>HandlAdapter </code>：处理器适配器</h3></li>
-</ul>
-<p>　　<strong>通过<code>HandlerAdapter</code>对处理器进行执行，这是适配器模式的应用，通过扩展适配器可以对更多类型的处理器进行执行。</strong></p>
-<ul>
-<li><h3 id="ViewResolver：视图解析器"><a href="#ViewResolver：视图解析器" class="headerlink" title="ViewResolver：视图解析器"></a><code>ViewResolver</code>：视图解析器</h3></li>
-</ul>
-<p>　　<strong>View Resolver负责将处理结果生成View视图，View Resolver首先根据逻辑视图名解析成物理视图名即具体的页面地址，</strong></p>
-<p>　　<strong>再生成View视图对象，最后对View进行渲染将处理结果通过页面展示给用户。</strong></p>
-<ul>
-<li><h3 id="View：视图"><a href="#View：视图" class="headerlink" title="View：视图"></a><code>View</code>：视图</h3></li>
-</ul>
-<p>　　<strong><code>springmvc</code>框架提供了很多的View视图类型的支持，包括：<code>jstlView、freemarkerView、pdfView</code>等。我们最常用的视图就是<code>jsp</code>。</strong></p>
-<p>　　一般情况下需要通过页面标签或页面模版技术将模型数据通过页面展示给用户，需要由程序员根据业务需求开发具体的页面。</p>
+<h2 id="🏁什么是shiro"><a href="#🏁什么是shiro" class="headerlink" title="🏁什么是shiro"></a>🏁什么是shiro</h2><blockquote>
+<p><strong>Apache Shiro™</strong> is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.  </p>
+<p>Shiro 是一个功能强大且易于使用的Java安全框架，它执行身份验证、授权、加密和会话管理。使用Shiro易于理解的API，您可以快速轻松地保护任何应用程序—从最小的移动应用程序到最大的web和企业应用程序。</p>
 </blockquote>
+<p><code>Shiro是apache旗下一个开源框架，它将软件系统的安全认证相关的功能抽取出来，实现用户身份认证，权限授权、加密、会话管理等功能，组成了一个通用的安全认证框架。</code></p>
+<hr>
+<h2 id="🌎shiro的核心架构"><a href="#🌎shiro的核心架构" class="headerlink" title="🌎shiro的核心架构"></a>🌎shiro的核心架构</h2><p>![image-20200520220413190](Z:\资料\shiro实战教程资料\Shiro 实战教程.assets\image-20200520220413190.png)</p>
+<h3 id="Subject"><a href="#Subject" class="headerlink" title="Subject"></a>Subject</h3><p><code>Subject即主体</code>，外部应用与subject进行交互，subject记录了当前操作用户，将用户的概念理解为当前操作的主体，可能是一个通过浏览器请求的用户，也可能是一个运行的程序。    Subject在shiro中是一个接口，接口中定义了很多认证授相关的方法，外部程序通过subject进行认证授，而subject是通过SecurityManager安全管理器进行认证授权</p>
+<h3 id="SecurityManager"><a href="#SecurityManager" class="headerlink" title="SecurityManager"></a>SecurityManager</h3><p><code>SecurityManager即安全管理器</code>，对全部的subject进行安全管理，它是shiro的核心，负责对所有的subject进行安全管理。通过SecurityManager可以完成subject的认证、授权等，实质上SecurityManager是通过Authenticator进行认证，通过Authorizer进行授权，通过SessionManager进行会话管理等。</p>
+<p><code>SecurityManager是一个接口，继承了Authenticator, Authorizer, SessionManager这三个接口。</code></p>
+<h3 id="Authenticator"><a href="#Authenticator" class="headerlink" title="Authenticator"></a>Authenticator</h3><p><code>Authenticator即认证器</code>，对用户身份进行认证，Authenticator是一个接口，shiro提供ModularRealmAuthenticator实现类，通过ModularRealmAuthenticator基本上可以满足大多数需求，也可以自定义认证器。</p>
+<h3 id="Authorizer"><a href="#Authorizer" class="headerlink" title="Authorizer"></a>Authorizer</h3><p><code>Authorizer即授权器</code>，用户通过认证器认证通过，在访问功能时需要通过授权器判断用户是否有此功能的操作权限。</p>
+<h3 id="Realm"><a href="#Realm" class="headerlink" title="Realm"></a>Realm</h3><p><code>Realm即领域</code>，相当于datasource数据源，securityManager进行安全认证需要通过Realm获取用户权限数据，比如：如果用户身份数据在数据库那么realm就需要从数据库获取用户身份信息。</p>
+<ul>
+<li>​    注意：不要把realm理解成只是从数据源取数据，在realm中还有认证授权校验的相关的代码。</li>
+</ul>
+<h3 id="SessionManager"><a href="#SessionManager" class="headerlink" title="SessionManager"></a>SessionManager</h3><p><code>sessionManager即会话管理</code>，shiro框架定义了一套会话管理，它不依赖web容器的session，所以shiro可以使用在非web应用上，也可以将分布式应用的会话集中在一点管理，此特性可使它实现单点登录。</p>
+<h3 id="SessionDAO"><a href="#SessionDAO" class="headerlink" title="SessionDAO"></a>SessionDAO</h3><p><code>SessionDAO即会话dao</code>，是对session会话操作的一套接口，比如要将session存储到数据库，可以通过jdbc将会话存储到数据库。</p>
+<h3 id="CacheManager"><a href="#CacheManager" class="headerlink" title="CacheManager"></a>CacheManager</h3><p><code>CacheManager即缓存管理</code>，将用户权限数据存储在缓存，这样可以提高性能。</p>
+<h3 id="Cryptography"><a href="#Cryptography" class="headerlink" title="Cryptography"></a>Cryptography</h3><p>​    <code>Cryptography即密码管理</code>，shiro提供了一套加密/解密的组件，方便开发。比如提供常用的散列、加/解密等功能。</p>
 
       <div>
       
@@ -349,21 +307,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/shdsoul/tags/SpringMVC/" rel="tag"># SpringMVC</a>
+              <a href="/shdsoul/tags/Shiro/" rel="tag"># Shiro</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/shdsoul/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/" rel="prev" title="SpringBoot（一）:Hello World">
-                  <i class="fa fa-chevron-left"></i> SpringBoot（一）:Hello World
+                <a href="/shdsoul/2021/06/08/Redis%EF%BC%88%E4%B8%80%EF%BC%89/" rel="prev" title="Redis(一):五大数据类型">
+                  <i class="fa fa-chevron-left"></i> Redis(一):五大数据类型
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/shdsoul/2021/05/06/SpringBoot%EF%BC%88%E4%BA%8C%EF%BC%89/" rel="next" title="SpringBoot（二）：整合Mybatis">
-                  SpringBoot（二）：整合Mybatis <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
