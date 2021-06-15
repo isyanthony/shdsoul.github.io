@@ -33,14 +33,14 @@
 <meta property="og:site_name" content="Luke">
 <meta property="og:description" content="本文用于记录SpringBoot整合邮箱发送验证码的功能.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://soul-pe.gitee.io/shdsoul/shdsoul/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/Users/user/AppData/Roaming/Typora/typora-user-images/image-20210615163808840.png">
-<meta property="og:image" content="https://soul-pe.gitee.io/shdsoul/shdsoul/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/Users/user/AppData/Roaming/Typora/typora-user-images/image-20210615163850541.png">
+<meta property="og:image" content="https://soul-pe.gitee.io/shdsoul/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/1.png">
+<meta property="og:image" content="https://soul-pe.gitee.io/shdsoul/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/2.png">
 <meta property="article:published_time" content="2021-06-15T09:24:20.000Z">
-<meta property="article:modified_time" content="2021-06-15T09:24:20.288Z">
+<meta property="article:modified_time" content="2021-06-15T09:28:28.808Z">
 <meta property="article:author" content="Soucat">
 <meta property="article:tag" content="SpringBoot">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://soul-pe.gitee.io/shdsoul/shdsoul/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/Users/user/AppData/Roaming/Typora/typora-user-images/image-20210615163808840.png">
+<meta name="twitter:image" content="https://soul-pe.gitee.io/shdsoul/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/1.png">
 
 
 <link rel="canonical" href="https://soul-pe.gitee.io/shdsoul/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/">
@@ -223,8 +223,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2021-06-15 17:24:20" itemprop="dateCreated datePublished" datetime="2021-06-15T17:24:20+08:00">2021-06-15</time>
+      <time title="创建时间：2021-06-15 17:24:20 / 修改时间：17:28:28" itemprop="dateCreated datePublished" datetime="2021-06-15T17:24:20+08:00">2021-06-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -268,8 +269,10 @@
 </blockquote>
 <h1 id="🎃准备工作"><a href="#🎃准备工作" class="headerlink" title="🎃准备工作"></a>🎃准备工作</h1><p>再使用代码进行发送邮箱之前需要进行一些准备工作，具体如下：</p>
 <h2 id="开启邮箱的功能服务"><a href="#开启邮箱的功能服务" class="headerlink" title="开启邮箱的功能服务"></a>开启邮箱的功能服务</h2><p>这里以QQ邮箱为例，我们需要开启<code>POP3/SMTP</code>服务、以及<code>IMAP/SMTP</code>服务.</p>
-<p><img src="/shdsoul/shdsoul/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/Users\user\AppData\Roaming\Typora\typora-user-images\image-20210615163808840.png" alt="image-20210615163808840"></p>
-<p><img src="/shdsoul/shdsoul/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/Users\user\AppData\Roaming\Typora\typora-user-images\image-20210615163850541.png" alt="image-20210615163850541"></p>
+<img src="/shdsoul/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/1.png" class title="图片">
+
+<img src="/shdsoul/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/2.png" class title="图片">
+
 <p>开启过后，会告诉我们<strong>授权码</strong>，发送邮件时，我们需要通过这个授权码得到权限，从而发送邮件，保证邮箱的使用不被滥用侵犯，这个授权码要留着，等待后续使用.</p>
 <h2 id="导入依赖"><a href="#导入依赖" class="headerlink" title="导入依赖"></a>导入依赖</h2><p>由于需要存储验证码，并且验证码存在时效性，于是这里使用了<code>Redis</code>来实现这个功能，于是也需要导入<code>Redis</code>的依赖.</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--邮箱--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-mail<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--redis--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
