@@ -33,15 +33,15 @@
 <meta property="og:site_name" content="Luke">
 <meta property="og:description" content="本文用于记录 maven 相关的概念以及操作.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://shdsoul.github.io/shdsoul/2021/04/17/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E4%B9%8BMaven/1.png">
-<meta property="og:image" content="https://shdsoul.github.io/shdsoul/2021/04/17/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E4%B9%8BMaven/2.png">
-<meta property="og:image" content="https://shdsoul.github.io/shdsoul/2021/04/17/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E4%B9%8BMaven/3.png">
+<meta property="og:image" content="https://shdsoul.github.io/2021/04/17/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E4%B9%8BMaven/1.png">
+<meta property="og:image" content="https://shdsoul.github.io/2021/04/17/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E4%B9%8BMaven/2.png">
+<meta property="og:image" content="https://shdsoul.github.io/2021/04/17/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E4%B9%8BMaven/3.png">
 <meta property="article:published_time" content="2021-04-17T05:06:26.000Z">
 <meta property="article:modified_time" content="2021-06-15T07:39:49.600Z">
 <meta property="article:author" content="Soucat">
 <meta property="article:tag" content="maven">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://shdsoul.github.io/shdsoul/2021/04/17/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E4%B9%8BMaven/1.png">
+<meta name="twitter:image" content="https://shdsoul.github.io/2021/04/17/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E4%B9%8BMaven/1.png">
 
 
 <link rel="canonical" href="https://shdsoul.github.io/2021/04/17/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E4%B9%8BMaven/">
@@ -347,11 +347,11 @@
 </li>
 </ul>
 <h1 id="🎡配置本地仓库"><a href="#🎡配置本地仓库" class="headerlink" title="🎡配置本地仓库"></a>🎡配置本地仓库</h1><p> 在安装目录中的  <code>conf</code> 文件夹中的 <code>settings.xml</code> 中可以配置本地仓库的路径，可用于存储从远程仓库下载来的 <code>jar</code> 包.</p>
-<img src="/shdsoul/2021/04/17/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E4%B9%8BMaven/1.png" class title="repository">
+<img src="/2021/04/17/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E4%B9%8BMaven/1.png" class title="repository">
 
 <p>只需新建一个 <code>localRepository</code> 标签，并且配置上本地仓库的路径，保存即可.</p>
 <h1 id="🎏配置远程阿里云镜像"><a href="#🎏配置远程阿里云镜像" class="headerlink" title="🎏配置远程阿里云镜像"></a>🎏配置远程阿里云镜像</h1><p>同样的在 <code>conf</code> 文件夹中的 <code>settings.xml</code> 文件中，添加红色框中内容就可以了.</p>
-<img src="/shdsoul/2021/04/17/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E4%B9%8BMaven/2.png" class title="mirrors">
+<img src="/2021/04/17/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E4%B9%8BMaven/2.png" class title="mirrors">
 
 <p><strong>具体代码如下：</strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>alimaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>aliyun maven<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -387,7 +387,7 @@
 <li><strong>maven-archetype-webapp : web工程</strong></li>
 </ul>
 <p>侧边栏可以直接通过点击实现 <code>maven</code> 命令的执行：</p>
-<img src="/shdsoul/2021/04/17/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E4%B9%8BMaven/3.png" class title="aside">
+<img src="/2021/04/17/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7%E4%B9%8BMaven/3.png" class title="aside">
 
 
       <div>
