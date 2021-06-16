@@ -67,6 +67,183 @@
       </tags>
   </entry>
   <entry>
+    <title>Markdown入门</title>
+    <url>/2021/04/09/Markdown%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<h2 id="1-代码块"><a href="#1-代码块" class="headerlink" title="1.代码块:"></a>1.代码块:</h2><p>​    使用三个 “ ``` ” 即可生成代码块,并且可以选择语言类型</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">( args [] string)</span></span>&#123;</span><br><span class="line">        System.println(<span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h2 id="2-标题"><a href="#2-标题" class="headerlink" title="2.标题"></a>2.标题</h2><p>​    使用 “ # ” 来表示，“ # ”越多字体越小 ， 最多六级标题，注意：# 后面必须有一个空格</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题 </span><br></pre></td></tr></table></figure>
+
+<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h1 id="3-字体"><a href="#3-字体" class="headerlink" title="3.字体"></a>3.字体</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//加粗</span></span><br><span class="line">	**加粗**</span><br><span class="line"><span class="comment">//代码高亮显示</span></span><br><span class="line">    ==高亮==</span><br><span class="line"><span class="comment">//删除线</span></span><br><span class="line">    ~删除线~</span><br><span class="line"><span class="comment">//斜体</span></span><br><span class="line">    *斜体*</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>（高亮好像有点问题哈）</p>
+<p><strong>加粗</strong></p>
+<p><del>删除线</del></p>
+<p><em>斜体</em></p>
+<h1 id="4-引用"><a href="#4-引用" class="headerlink" title="4.引用"></a>4.引用</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//引用语法</span></span><br><span class="line">&gt;作者:XXX</span><br><span class="line">&gt;&gt;作者:XXX</span><br><span class="line">&gt;&gt;&gt;作者:XXX</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>作者:XXX</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>作者:XXX</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>作者:XXX</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h1 id="5-分割线"><a href="#5-分割线" class="headerlink" title="5.分割线"></a>5.分割线</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//分割线</span></span><br><span class="line">	---</span><br><span class="line"><span class="comment">//分割线2</span></span><br><span class="line">   	***</span><br></pre></td></tr></table></figure>
+
+<hr>
+<hr>
+<h1 id="6-图片插入"><a href="#6-图片插入" class="headerlink" title="6.图片插入"></a>6.图片插入</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//在线图片和本地图片</span></span><br><span class="line">![奥特曼](https:<span class="comment">//ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/42166d224f4a20a46b610b709b529822720ed00d.jpg)</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/42166d224f4a20a46b610b709b529822720ed00d.jpg" alt="奥特曼" title="奥特曼"></p>
+<img src="/2021/04/09/Markdown%E5%85%A5%E9%97%A8/ddm.jpg" class title="叮当猫">
+
+
+
+
+
+<h1 id="7-超链接"><a href="#7-超链接" class="headerlink" title="7.超链接"></a>7.超链接</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//超链接语法</span></span><br><span class="line">[内容](链接)</span><br></pre></td></tr></table></figure>
+
+<p><a href="www.baidu.com">百度</a></p>
+<h1 id="8-列表"><a href="#8-列表" class="headerlink" title="8.列表"></a>8.列表</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//无序列表</span></span><br><span class="line">- 目录<span class="number">1</span></span><br><span class="line">- 目录<span class="number">2</span></span><br><span class="line">- 目录<span class="number">3</span></span><br><span class="line">- 目录<span class="number">4</span></span><br><span class="line"><span class="comment">//有序列表</span></span><br><span class="line"><span class="number">1</span>+. +名称</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<ul>
+<li>目录1</li>
+<li>目录2</li>
+<li>目录3</li>
+<li>目录4</li>
+</ul>
+<ol>
+<li>首页</li>
+<li>拉文克劳</li>
+<li>挖金矿为了救</li>
+</ol>
+<h1 id="9-表格"><a href="#9-表格" class="headerlink" title="9.表格"></a>9.表格</h1><p>​    一般情况下直接用Typora快速生成，十分方便</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MybatisPlus(一):极致简化</title>
+    <url>/2021/05/12/MybatisPlus%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🎉MybatisPlus基本概念"><a href="#🎉MybatisPlus基本概念" class="headerlink" title="🎉MybatisPlus基本概念"></a>🎉MybatisPlus基本概念</h1><p>​    <a href="https://github.com/baomidou/mybatis-plus">MyBatis-Plus (opens new window)</a>（简称 MP）是一个 <a href="http://www.mybatis.org/mybatis-3/">MyBatis (opens new window)</a>的增强工具，在 MyBatis 的基础上只做增强不做改变，为简化开发、提高效率而生。</p>
+<p><strong>特性：</strong></p>
+<ul>
+<li><strong>无侵入</strong>：只做增强不做改变，引入它不会对现有工程产生影响，如丝般顺滑</li>
+<li><strong>损耗小</strong>：启动即会自动注入基本 <code>CURD</code>，性能基本无损耗，直接面向对象操作</li>
+<li><strong>强大的 CRUD 操作</strong>：内置通用 <code>Mapper</code>、通用 <code>Service</code>，仅仅通过少量配置即可实现单表大部分 <code>CRUD</code> 操作，更有强大的条件构造器，满足各类使用需求</li>
+<li><strong>支持 Lambda 形式调用</strong>：通过 <code>Lambda</code> 表达式，方便的编写各类查询条件，无需再担心字段写错</li>
+<li><strong>支持主键自动生成</strong>：支持多达 4 种主键策略（内含分布式唯一 ID 生成器 -<code> Sequence</code>），可自由配置，完美解决主键问题</li>
+<li><strong>支持 ActiveRecord 模式</strong>：支持 <code>ActiveRecord </code>形式调用，实体类只需继承 Model 类即可进行强大的 CRUD 操作</li>
+<li><strong>支持自定义全局通用操作</strong>：支持全局通用方法注入（ <code>Write once</code>, <code>use anywhere</code> ）</li>
+<li><strong>内置代码生成器</strong>：采用代码或者<code> Maven</code> 插件可快速生成<code>Mapper</code>、 <code>Model </code>、<code> Service</code> 、 <code>Controller </code>层代码，支持模板引擎，更有超多自定义配置等您来使用</li>
+<li><strong>内置分页插件</strong>：基于<code>MyBatis</code> 物理分页，开发者无需关心具体操作，配置好插件之后，写分页等同于普通 List 查询</li>
+<li><strong>分页插件支持多种数据库</strong>：支持<code> MySQL</code>、<code>MariaDB</code>、<code>Oracle</code>、<code>DB2</code>、<code>H2</code>、<code>HSQL</code>、<code>SQLite</code>、<code>Postgre</code>、<code>SQLServer</code> 等多种数据库</li>
+<li><strong>内置性能分析插件</strong>：可输出<code> Sql</code> 语句以及其执行时间，建议开发测试时启用该功能，能快速揪出慢查询</li>
+<li><strong>内置全局拦截插件</strong>：提供全表<code> delete</code> 、<code>update</code>操作智能分析阻断，也可自定义拦截规则，预防误操作</li>
+</ul>
+<p>​    </p>
+<p>对于<code>SpringBoot</code>项目而言，使用<code>MybatisPlus</code>十分便携，直接在依赖文件中添加相关依赖即可</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中已经包含了<code>Mybatis</code>的相关依赖，不用额外添加.</p>
+<h1 id="🎇基本的SQL语句"><a href="#🎇基本的SQL语句" class="headerlink" title="🎇基本的SQL语句"></a>🎇基本的SQL语句</h1><p>构建实体类：</p>
+<p>（其中的注释会在后续文章中做汇总）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//对应的数据库表名，表名的首字母大写就是类名的话可以不用写，不过还是建议加上，方便维护</span></span><br><span class="line"><span class="meta">@TableName(value = &quot;books&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Books</span> </span>&#123;</span><br><span class="line">	<span class="comment">//   数据表主键，value值为表中的字段  类型为主键自增 </span></span><br><span class="line">  <span class="meta">@TableId(value = &quot;book_id&quot; , type = IdType.AUTO)</span></span><br><span class="line">  <span class="keyword">private</span> Integer bookId;</span><br><span class="line">  <span class="keyword">private</span> String bookName;</span><br><span class="line">  <span class="keyword">private</span> Integer bookCounts;</span><br><span class="line">  <span class="keyword">private</span> String detail;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookId</span><span class="params">(Integer bookId)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookId = bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getBookName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookName</span><span class="params">(String bookName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookName = bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookCounts</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookCounts</span><span class="params">(Integer bookCounts)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookCounts = bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getDetail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDetail</span><span class="params">(String detail)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.detail = detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Books&#123;&quot;</span> +</span><br><span class="line">            <span class="string">&quot;bookId=&quot;</span> + bookId +</span><br><span class="line">            <span class="string">&quot;, bookName=&#x27;&quot;</span> + bookName + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&quot;, bookCounts=&quot;</span> + bookCounts +</span><br><span class="line">            <span class="string">&quot;, detail=&#x27;&quot;</span> + detail + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>构建 <code>dao</code> 层：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//继承之后才会有基本的SQL语句，这里使用了泛型，避免需要强制类型转换</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BooksMapper</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后在启动类配置扫描包：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="comment">//用于让SpringBoot自动帮dao接口进行注册</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;com.soucat.mapper&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(DemoApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上完成之后就可以进行测试了，十分的方便.</p>
+<p>在测试类中先要将<code>dao</code>接口自动注入，<code>idea</code>会报错，只是因为这个对象是在程序运行时才会产生，编译阶段没有创建</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> BooksMapper booksMapper;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>查询用户</strong></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectBook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//查询一本书</span></span><br><span class="line">    System.out.println(booksMapper.selectById(<span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectBoos</span><span class="params">()</span></span>&#123;</span><br><span class="line">    List&lt;Integer&gt; list = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">6</span>).collect(Collectors.toList());</span><br><span class="line">    <span class="comment">//这里当然了也可以创建List对象后一个一个加进去也没有问题，只是以上方式比较方便</span></span><br><span class="line">    System.out.println(booksMapper.selectBatchIds(list));</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>​        其余的也都是类似的，毕竟只是基本的 <code>SQL</code> 语句，当然了，<code>MybatisPlus</code> 也可以像 <code>Mybatis</code> 那样自定义 <code>SQL</code> 语句，编写配置文件实现.就不一一演示了.</p>
+<h1 id="🎨AR模式"><a href="#🎨AR模式" class="headerlink" title="🎨AR模式"></a>🎨AR模式</h1><p>​        <code>Active Record</code>(活动记录)，是一种领域模型模式，特点是一个模型类对应关系型数据库中的一个表，而模型类的一个实例对应表中的一行记录，属于动态模型。而Java作为准静态语言，对于 <code>ActiveRecord </code>往往只能感叹其优雅，所以 <code>MP</code> 也在 <code>AR </code>道路上进行了一定的探索，才有了现在的功能Java也能实现AR模式。简而言之，就是直接用实体类对数据库进行<code>CRUD</code>操作，接下来看具体代码：</p>
+<p><strong>要实现AR模式需要两个前提：一是实体类继承Model抽象类，二是定义实体类对应的mapper接口继承BaseMapper</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@TableName(value = &quot;books&quot;)</span></span><br><span class="line">				<span class="comment">//一定要继承这个Model</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Books</span> <span class="keyword">extends</span> <span class="title">Model</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@TableId(value = &quot;book_id&quot; , type = IdType.AUTO)</span></span><br><span class="line">  <span class="keyword">private</span> Integer bookId;</span><br><span class="line">  <span class="keyword">private</span> String bookName;</span><br><span class="line">  <span class="keyword">private</span> Integer bookCounts;</span><br><span class="line">  <span class="keyword">private</span> String detail;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookId</span><span class="params">(Integer bookId)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookId = bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getBookName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookName</span><span class="params">(String bookName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookName = bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookCounts</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookCounts</span><span class="params">(Integer bookCounts)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookCounts = bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getDetail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDetail</span><span class="params">(String detail)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.detail = detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Books&#123;&quot;</span> +</span><br><span class="line">            <span class="string">&quot;bookId=&quot;</span> + bookId +</span><br><span class="line">            <span class="string">&quot;, bookName=&#x27;&quot;</span> + bookName + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&quot;, bookCounts=&quot;</span> + bookCounts +</span><br><span class="line">            <span class="string">&quot;, detail=&#x27;&quot;</span> + detail + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>dao</code>接口类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//继承之后才会有基本的SQL语句，这里使用了泛型，避免需要强制类型转换</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BooksMapper</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动类:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="comment">//用于让SpringBoot自动帮dao接口进行注册</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;com.soucat.mapper&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(DemoApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>查询功能</strong></p>
+</blockquote>
+<p>AR模式和普通的模式不同之处就在于可以直接使用实体类进行查询,不需要 <code>dao</code> 接口对象来调，当然了这不意味着接口类可以不写了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectBook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//查询一本书</span></span><br><span class="line">    Books books = <span class="keyword">new</span> Books();</span><br><span class="line">    books.setBookId(<span class="number">1</span>);</span><br><span class="line">    Books books1 = books.selectById();</span><br><span class="line">    System.out.println(books1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其余的基本语句也都类似，就不一一介绍了.</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>MybatisPlus</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MySQL(一)</title>
     <url>/2021/04/11/MySQL%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🎊MySQL的安装"><a href="#🎊MySQL的安装" class="headerlink" title="🎊MySQL的安装"></a>🎊MySQL的安装</h1><p>​    ①：去官网下载社区版上面的一个；<br>​    （建议复制下载地址然后在迅雷当中下载比较快）<br>​    ②：在非C盘建一个 <code>MySQL</code> 文件夹装入下载文件并且解压；<br>​    ③：将bin目录配入环境变量；<br>​    ④：编写配置文件：(先建文本文件，编写好以后，将文件更改为 <code>my.ini</code> 文件并改以 <code>ANSCI</code> 编译保存)；<br>​        如下：（注意）设置 <code>mysql</code> 的安装目录和数据库的数据存放目录根据个人下载位置进更改<br>​            </p>
@@ -338,183 +515,6 @@
       </categories>
       <tags>
         <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Markdown入门</title>
-    <url>/2021/04/09/Markdown%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[<h2 id="1-代码块"><a href="#1-代码块" class="headerlink" title="1.代码块:"></a>1.代码块:</h2><p>​    使用三个 “ ``` ” 即可生成代码块,并且可以选择语言类型</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">( args [] string)</span></span>&#123;</span><br><span class="line">        System.println(<span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<h2 id="2-标题"><a href="#2-标题" class="headerlink" title="2.标题"></a>2.标题</h2><p>​    使用 “ # ” 来表示，“ # ”越多字体越小 ， 最多六级标题，注意：# 后面必须有一个空格</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题 </span><br></pre></td></tr></table></figure>
-
-<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h1 id="3-字体"><a href="#3-字体" class="headerlink" title="3.字体"></a>3.字体</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//加粗</span></span><br><span class="line">	**加粗**</span><br><span class="line"><span class="comment">//代码高亮显示</span></span><br><span class="line">    ==高亮==</span><br><span class="line"><span class="comment">//删除线</span></span><br><span class="line">    ~删除线~</span><br><span class="line"><span class="comment">//斜体</span></span><br><span class="line">    *斜体*</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>（高亮好像有点问题哈）</p>
-<p><strong>加粗</strong></p>
-<p><del>删除线</del></p>
-<p><em>斜体</em></p>
-<h1 id="4-引用"><a href="#4-引用" class="headerlink" title="4.引用"></a>4.引用</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//引用语法</span></span><br><span class="line">&gt;作者:XXX</span><br><span class="line">&gt;&gt;作者:XXX</span><br><span class="line">&gt;&gt;&gt;作者:XXX</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>作者:XXX</p>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>作者:XXX</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>作者:XXX</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<h1 id="5-分割线"><a href="#5-分割线" class="headerlink" title="5.分割线"></a>5.分割线</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//分割线</span></span><br><span class="line">	---</span><br><span class="line"><span class="comment">//分割线2</span></span><br><span class="line">   	***</span><br></pre></td></tr></table></figure>
-
-<hr>
-<hr>
-<h1 id="6-图片插入"><a href="#6-图片插入" class="headerlink" title="6.图片插入"></a>6.图片插入</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//在线图片和本地图片</span></span><br><span class="line">![奥特曼](https:<span class="comment">//ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/42166d224f4a20a46b610b709b529822720ed00d.jpg)</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/42166d224f4a20a46b610b709b529822720ed00d.jpg" alt="奥特曼" title="奥特曼"></p>
-<img src="/2021/04/09/Markdown%E5%85%A5%E9%97%A8/ddm.jpg" class title="叮当猫">
-
-
-
-
-
-<h1 id="7-超链接"><a href="#7-超链接" class="headerlink" title="7.超链接"></a>7.超链接</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//超链接语法</span></span><br><span class="line">[内容](链接)</span><br></pre></td></tr></table></figure>
-
-<p><a href="www.baidu.com">百度</a></p>
-<h1 id="8-列表"><a href="#8-列表" class="headerlink" title="8.列表"></a>8.列表</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//无序列表</span></span><br><span class="line">- 目录<span class="number">1</span></span><br><span class="line">- 目录<span class="number">2</span></span><br><span class="line">- 目录<span class="number">3</span></span><br><span class="line">- 目录<span class="number">4</span></span><br><span class="line"><span class="comment">//有序列表</span></span><br><span class="line"><span class="number">1</span>+. +名称</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<ul>
-<li>目录1</li>
-<li>目录2</li>
-<li>目录3</li>
-<li>目录4</li>
-</ul>
-<ol>
-<li>首页</li>
-<li>拉文克劳</li>
-<li>挖金矿为了救</li>
-</ol>
-<h1 id="9-表格"><a href="#9-表格" class="headerlink" title="9.表格"></a>9.表格</h1><p>​    一般情况下直接用Typora快速生成，十分方便</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>Markdown</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MybatisPlus(一):极致简化</title>
-    <url>/2021/05/12/MybatisPlus%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🎉MybatisPlus基本概念"><a href="#🎉MybatisPlus基本概念" class="headerlink" title="🎉MybatisPlus基本概念"></a>🎉MybatisPlus基本概念</h1><p>​    <a href="https://github.com/baomidou/mybatis-plus">MyBatis-Plus (opens new window)</a>（简称 MP）是一个 <a href="http://www.mybatis.org/mybatis-3/">MyBatis (opens new window)</a>的增强工具，在 MyBatis 的基础上只做增强不做改变，为简化开发、提高效率而生。</p>
-<p><strong>特性：</strong></p>
-<ul>
-<li><strong>无侵入</strong>：只做增强不做改变，引入它不会对现有工程产生影响，如丝般顺滑</li>
-<li><strong>损耗小</strong>：启动即会自动注入基本 <code>CURD</code>，性能基本无损耗，直接面向对象操作</li>
-<li><strong>强大的 CRUD 操作</strong>：内置通用 <code>Mapper</code>、通用 <code>Service</code>，仅仅通过少量配置即可实现单表大部分 <code>CRUD</code> 操作，更有强大的条件构造器，满足各类使用需求</li>
-<li><strong>支持 Lambda 形式调用</strong>：通过 <code>Lambda</code> 表达式，方便的编写各类查询条件，无需再担心字段写错</li>
-<li><strong>支持主键自动生成</strong>：支持多达 4 种主键策略（内含分布式唯一 ID 生成器 -<code> Sequence</code>），可自由配置，完美解决主键问题</li>
-<li><strong>支持 ActiveRecord 模式</strong>：支持 <code>ActiveRecord </code>形式调用，实体类只需继承 Model 类即可进行强大的 CRUD 操作</li>
-<li><strong>支持自定义全局通用操作</strong>：支持全局通用方法注入（ <code>Write once</code>, <code>use anywhere</code> ）</li>
-<li><strong>内置代码生成器</strong>：采用代码或者<code> Maven</code> 插件可快速生成<code>Mapper</code>、 <code>Model </code>、<code> Service</code> 、 <code>Controller </code>层代码，支持模板引擎，更有超多自定义配置等您来使用</li>
-<li><strong>内置分页插件</strong>：基于<code>MyBatis</code> 物理分页，开发者无需关心具体操作，配置好插件之后，写分页等同于普通 List 查询</li>
-<li><strong>分页插件支持多种数据库</strong>：支持<code> MySQL</code>、<code>MariaDB</code>、<code>Oracle</code>、<code>DB2</code>、<code>H2</code>、<code>HSQL</code>、<code>SQLite</code>、<code>Postgre</code>、<code>SQLServer</code> 等多种数据库</li>
-<li><strong>内置性能分析插件</strong>：可输出<code> Sql</code> 语句以及其执行时间，建议开发测试时启用该功能，能快速揪出慢查询</li>
-<li><strong>内置全局拦截插件</strong>：提供全表<code> delete</code> 、<code>update</code>操作智能分析阻断，也可自定义拦截规则，预防误操作</li>
-</ul>
-<p>​    </p>
-<p>对于<code>SpringBoot</code>项目而言，使用<code>MybatisPlus</code>十分便携，直接在依赖文件中添加相关依赖即可</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>其中已经包含了<code>Mybatis</code>的相关依赖，不用额外添加.</p>
-<h1 id="🎇基本的SQL语句"><a href="#🎇基本的SQL语句" class="headerlink" title="🎇基本的SQL语句"></a>🎇基本的SQL语句</h1><p>构建实体类：</p>
-<p>（其中的注释会在后续文章中做汇总）</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//对应的数据库表名，表名的首字母大写就是类名的话可以不用写，不过还是建议加上，方便维护</span></span><br><span class="line"><span class="meta">@TableName(value = &quot;books&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Books</span> </span>&#123;</span><br><span class="line">	<span class="comment">//   数据表主键，value值为表中的字段  类型为主键自增 </span></span><br><span class="line">  <span class="meta">@TableId(value = &quot;book_id&quot; , type = IdType.AUTO)</span></span><br><span class="line">  <span class="keyword">private</span> Integer bookId;</span><br><span class="line">  <span class="keyword">private</span> String bookName;</span><br><span class="line">  <span class="keyword">private</span> Integer bookCounts;</span><br><span class="line">  <span class="keyword">private</span> String detail;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookId</span><span class="params">(Integer bookId)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookId = bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getBookName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookName</span><span class="params">(String bookName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookName = bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookCounts</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookCounts</span><span class="params">(Integer bookCounts)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookCounts = bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getDetail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDetail</span><span class="params">(String detail)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.detail = detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Books&#123;&quot;</span> +</span><br><span class="line">            <span class="string">&quot;bookId=&quot;</span> + bookId +</span><br><span class="line">            <span class="string">&quot;, bookName=&#x27;&quot;</span> + bookName + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&quot;, bookCounts=&quot;</span> + bookCounts +</span><br><span class="line">            <span class="string">&quot;, detail=&#x27;&quot;</span> + detail + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>构建 <code>dao</code> 层：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//继承之后才会有基本的SQL语句，这里使用了泛型，避免需要强制类型转换</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BooksMapper</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>最后在启动类配置扫描包：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="comment">//用于让SpringBoot自动帮dao接口进行注册</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;com.soucat.mapper&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(DemoApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>以上完成之后就可以进行测试了，十分的方便.</p>
-<p>在测试类中先要将<code>dao</code>接口自动注入，<code>idea</code>会报错，只是因为这个对象是在程序运行时才会产生，编译阶段没有创建</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> BooksMapper booksMapper;</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p><strong>查询用户</strong></p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectBook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//查询一本书</span></span><br><span class="line">    System.out.println(booksMapper.selectById(<span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectBoos</span><span class="params">()</span></span>&#123;</span><br><span class="line">    List&lt;Integer&gt; list = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">6</span>).collect(Collectors.toList());</span><br><span class="line">    <span class="comment">//这里当然了也可以创建List对象后一个一个加进去也没有问题，只是以上方式比较方便</span></span><br><span class="line">    System.out.println(booksMapper.selectBatchIds(list));</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>​        其余的也都是类似的，毕竟只是基本的 <code>SQL</code> 语句，当然了，<code>MybatisPlus</code> 也可以像 <code>Mybatis</code> 那样自定义 <code>SQL</code> 语句，编写配置文件实现.就不一一演示了.</p>
-<h1 id="🎨AR模式"><a href="#🎨AR模式" class="headerlink" title="🎨AR模式"></a>🎨AR模式</h1><p>​        <code>Active Record</code>(活动记录)，是一种领域模型模式，特点是一个模型类对应关系型数据库中的一个表，而模型类的一个实例对应表中的一行记录，属于动态模型。而Java作为准静态语言，对于 <code>ActiveRecord </code>往往只能感叹其优雅，所以 <code>MP</code> 也在 <code>AR </code>道路上进行了一定的探索，才有了现在的功能Java也能实现AR模式。简而言之，就是直接用实体类对数据库进行<code>CRUD</code>操作，接下来看具体代码：</p>
-<p><strong>要实现AR模式需要两个前提：一是实体类继承Model抽象类，二是定义实体类对应的mapper接口继承BaseMapper</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@TableName(value = &quot;books&quot;)</span></span><br><span class="line">				<span class="comment">//一定要继承这个Model</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Books</span> <span class="keyword">extends</span> <span class="title">Model</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@TableId(value = &quot;book_id&quot; , type = IdType.AUTO)</span></span><br><span class="line">  <span class="keyword">private</span> Integer bookId;</span><br><span class="line">  <span class="keyword">private</span> String bookName;</span><br><span class="line">  <span class="keyword">private</span> Integer bookCounts;</span><br><span class="line">  <span class="keyword">private</span> String detail;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookId</span><span class="params">(Integer bookId)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookId = bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getBookName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookName</span><span class="params">(String bookName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookName = bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookCounts</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookCounts</span><span class="params">(Integer bookCounts)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookCounts = bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getDetail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDetail</span><span class="params">(String detail)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.detail = detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Books&#123;&quot;</span> +</span><br><span class="line">            <span class="string">&quot;bookId=&quot;</span> + bookId +</span><br><span class="line">            <span class="string">&quot;, bookName=&#x27;&quot;</span> + bookName + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&quot;, bookCounts=&quot;</span> + bookCounts +</span><br><span class="line">            <span class="string">&quot;, detail=&#x27;&quot;</span> + detail + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><code>dao</code>接口类</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//继承之后才会有基本的SQL语句，这里使用了泛型，避免需要强制类型转换</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BooksMapper</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>启动类:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="comment">//用于让SpringBoot自动帮dao接口进行注册</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;com.soucat.mapper&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(DemoApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p><strong>查询功能</strong></p>
-</blockquote>
-<p>AR模式和普通的模式不同之处就在于可以直接使用实体类进行查询,不需要 <code>dao</code> 接口对象来调，当然了这不意味着接口类可以不写了</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectBook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//查询一本书</span></span><br><span class="line">    Books books = <span class="keyword">new</span> Books();</span><br><span class="line">    books.setBookId(<span class="number">1</span>);</span><br><span class="line">    Books books1 = books.selectById();</span><br><span class="line">    System.out.println(books1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其余的基本语句也都类似，就不一一介绍了.</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>MybatisPlus</tag>
       </tags>
   </entry>
   <entry>
@@ -1291,72 +1291,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot(三):数据库连接池</title>
-    <url>/2021/05/08/SpringBoot%EF%BC%88%E4%B8%89%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🎡数据库连接池相关概念"><a href="#🎡数据库连接池相关概念" class="headerlink" title="🎡数据库连接池相关概念"></a>🎡数据库连接池相关概念</h1><ul>
-<li><p><strong>什么是数据库连接池？</strong></p>
-<p>​        数据库连接池可以用于管理对数据库的连接，用于存放和管理这些连接，当使用完这些连接之后会将连接还回池中而不是直接关闭掉，可以等待下次进行连接可以直接使用。</p>
-</li>
-<li><p><strong>为什么需要数据库连接池?</strong></p>
-<p>​        在实际业务中，会存在对数据库的操作，如果每次操作都要进行一次数据库连接，那么消耗的内存和资源十分巨大，再加上高并发量，那么会导致性能下降，造成无法估计的损失.有了数据库连接池之后，可以动态的分配已经有的连接，可以动态控制连接数量，合理的分配连接，大大提高了使用率和运行效率.</p>
-</li>
-<li><p><strong>数据库连接池的底层原理？</strong></p>
-<p>​        数据库连接池可以用 <code>Java</code> 中的集合对象来实现 ， 比如 <code>LinkedList</code> ，初始化数据库连接数为10个，依次加入 <code>LinkedList</code>  当需要执行 <code>SQL</code> 语句的时候，请求从集合中获得连接，先要判断目前是否有闲置的连接，如果有则返回给请求对象，本质就是将连接从集合中移除，使用完毕后重新加入集合等待请求也就是所谓的闲置状态，如果请求时恰好没有闲置的连接，则进入等待，超过等待时间后，抛出异常等待下一次请求.</p>
-</li>
-</ul>
-<h1 id="🥽常见数据库连接池"><a href="#🥽常见数据库连接池" class="headerlink" title="🥽常见数据库连接池"></a>🥽常见数据库连接池</h1><p>常用的数据库连接池有如下四种：</p>
-<table>
-<thead>
-<tr>
-<th align="center">DBCP</th>
-<th align="center">Tomcat内部集成</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><strong>C3P0</strong></td>
-<td align="center"><strong>性能较差架构复杂</strong></td>
-</tr>
-<tr>
-<td align="center"><strong>Druid</strong></td>
-<td align="center"><strong>SQL监控黑名单拦截性能卓越</strong></td>
-</tr>
-<tr>
-<td align="center"><strong>HikariCP</strong></td>
-<td align="center"><strong>性能最强稳定性较好screw内置使用</strong></td>
-</tr>
-</tbody></table>
-<p>​        <code>SpringBoot</code>默认将<code>HikariCP</code>作为默认的数据库连接池.<code>Java</code> 常用于构建大型的 <code>Web</code> 项目，在存在高并发的情况下，必然要挑选一个性能极强的数据库连接池而<code>HikariCP</code>当之无愧为性能之王.</p>
-<h1 id="✨SpringBoot中HikariCP配置"><a href="#✨SpringBoot中HikariCP配置" class="headerlink" title="✨SpringBoot中HikariCP配置"></a>✨SpringBoot中HikariCP配置</h1><p>1.<code>autoCommit</code><br>        自动提交从池中返回的连接，默认为<code>true</code>。</p>
-<p>2.<code>connectionTimeout</code><br>        等待来自池的连接的最大毫秒数，默认为30000，如果小于250毫秒，则被重置回30秒。</p>
-<p>3.<code>idleTimeout</code><br>        连接允许在池中闲置的最长时间，默认为600000，即10分钟。如果<code>idleTimeout</code>+1秒&gt;<code>maxLifetime</code> 且 <code>maxLifetime</code>&gt;0，则会被重置为0（代表永远不会退出）；如果<code>idleTimeout</code>!=0且小于10秒，则会被重置为10秒。只有当<code>minimumIdle</code>小于<code>maximumPoolSize</code>时，这个参数才生效，当空闲连接数超过<code>minimumIdle</code>，而且空闲时间超过<code>idleTimeout</code>，则会被移除。</p>
-<p>4.<code>maxLifetime</code><br>        池中连接最长生命周期。默认为1800000，如果不等于0且小于30秒则会被重置回30分钟。</p>
-<p>5.<code>minimumIdle</code><br>        控制连接池空闲连接的最小数量，当连接池空闲连接少于<code>minimumIdle</code>，而且总共连接数不大于<code>maximumPoolSize</code>时，<code>HikariCP</code>会尽力补充新的连接。为了性能考虑，不建议设置此值，而是让<code>HikariCP</code>把连接池当做固定大小的处理，默认<code>minimumIdle</code>与<code>maximumPoolSize</code>一样。当<code>minIdle</code>&lt;0或者<code>minIdle</code>&gt;<code>maxPoolSize</code>,则被重置为<code>maxPoolSize</code>，该值默认为10。</p>
-<p>6.<code>maximumPoolSize</code><br>        池中最大连接数，包括闲置和使用中的连接。默认为10。如果<code>maxPoolSize</code>小于1，则会被重置。当<code>minIdle</code>&lt;=0被重置为<code>DEFAULT_POOL_SIZE</code>则为10;如果<code>minIdle</code>&gt;0则重置为<code>minIdle</code>的值。</p>
-<p>7.<code>poolName</code><br>连接池的用户定义名称，主要出现在日志记录和JMX管理控制台中以识别池和池配置。默认为<code>HikariPool-1</code>。</p>
-<p>8.<code>readOnly</code><br>从池中获取的连接是否默认处于只读模式。默认为<code>false</code>。</p>
-<p>9.<code>connection-test-query</code><br>如果您的驱动程序支持<code>JDBC4</code>，我们强烈建议您不要设置此属性。这是针对不支持<code>JDBC4</code>的“传统”驱动程序<code>Connection.isValid() API</code>。这是在连接从池中获得连接以确认与数据库的连接仍然存在之前将要执行的查询。再一次，尝试运行没有此属性的池，如果您的驱动程序不符合<code>JDBC4</code>的要求，<code>HikariCP</code>将记录一个错误以告知您。 默认值：无</p>
-<h1 id="🎊SpringBoot中Druid配置"><a href="#🎊SpringBoot中Druid配置" class="headerlink" title="🎊SpringBoot中Druid配置"></a>🎊SpringBoot中Druid配置</h1><p>1.纯配置文件配置：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="comment"># 数据源配置</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">    <span class="comment"># 连接池配置</span></span><br><span class="line">    <span class="attr">druid:</span></span><br><span class="line">      <span class="comment"># 初始化大小，最小，最大</span></span><br><span class="line">      <span class="attr">initial-size:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">min-idle:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">max-active:</span> <span class="number">20</span></span><br><span class="line">      <span class="comment"># 配置获取连接等待超时的时间</span></span><br><span class="line">      <span class="attr">max-wait:</span> <span class="number">60000</span></span><br><span class="line">      <span class="comment"># 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位毫秒</span></span><br><span class="line">      <span class="attr">time-between-eviction-runs-millis:</span> <span class="number">60000</span></span><br><span class="line">      <span class="comment"># 配置一个连接在池中最小生存时间</span></span><br><span class="line">      <span class="attr">min-evictable-idle-time-millis:</span> <span class="number">300000</span></span><br><span class="line">      <span class="attr">validation-query:</span> <span class="string">SELECT</span> <span class="number">1</span> <span class="string">FROM</span> <span class="string">sys_user</span></span><br><span class="line">      <span class="attr">test-while-idle:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">test-on-borrow:</span> <span class="literal">false</span></span><br><span class="line">      <span class="attr">test-on-return:</span> <span class="literal">false</span></span><br><span class="line">      <span class="comment"># 打开 PSCache，并且指定每个连接上 PSCache 的大小</span></span><br><span class="line">      <span class="attr">pool-prepared-statements:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">max-pool-prepared-statement-per-connection-size:</span> <span class="number">20</span></span><br><span class="line">      <span class="comment"># 配置监控统计拦截的 Filter，去掉后监控界面 SQL 无法统计，wall 用于防火墙</span></span><br><span class="line">      <span class="attr">filters:</span> <span class="string">stat,wall,log4j</span></span><br><span class="line">      <span class="comment"># 通过 connection-properties 属性打开 mergeSql 功能；慢 SQL 记录</span></span><br><span class="line">      <span class="attr">connection-properties:</span> <span class="string">druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000</span></span><br><span class="line">      <span class="comment"># 配置 DruidStatFilter</span></span><br><span class="line">      <span class="attr">web-stat-filter:</span></span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">url-pattern:</span> <span class="string">/*</span></span><br><span class="line">        <span class="attr">exclusions:</span> <span class="string">.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*</span></span><br><span class="line">      <span class="comment"># 配置 DruidStatViewServlet</span></span><br><span class="line">      <span class="attr">stat-view-servlet:</span></span><br><span class="line">        <span class="attr">url-pattern:</span> <span class="string">/druid/*</span></span><br><span class="line">        <span class="comment"># IP 白名单，没有配置或者为空，则允许所有访问</span></span><br><span class="line">        <span class="attr">allow:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">        <span class="comment"># IP 黑名单，若白名单也存在，则优先使用</span></span><br><span class="line">        <span class="attr">deny:</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.253</span></span><br><span class="line">        <span class="comment"># 禁用 HTML 中 Reset All 按钮</span></span><br><span class="line">        <span class="attr">reset-enable:</span> <span class="literal">false</span></span><br><span class="line">        <span class="comment"># 登录用户名/密码</span></span><br><span class="line">        <span class="attr">login-username:</span> <span class="string">root</span></span><br><span class="line">        <span class="attr">login-password:</span> <span class="number">123</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>2.配置类版本：</p>
-<p>​    配置文件：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">datasource:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">        <span class="comment"># 数据源的其他配置</span></span><br><span class="line">        <span class="attr">initialSize:</span> <span class="number">5</span></span><br><span class="line">        <span class="attr">minIdle:</span> <span class="number">5</span></span><br><span class="line">        <span class="attr">maxActive:</span> <span class="number">20</span></span><br><span class="line">        <span class="attr">maxWait:</span> <span class="number">60000</span></span><br><span class="line">        <span class="attr">timeBetweenEvictionRunsMillis:</span> <span class="number">60000</span></span><br><span class="line">        <span class="attr">minEvictableIdleTimeMillis:</span> <span class="number">300000</span></span><br><span class="line">        <span class="attr">validationQuery:</span> <span class="string">SELECT</span> <span class="number">1</span> <span class="string">FROM</span> <span class="string">DUAL</span></span><br><span class="line">        <span class="attr">testWhileIdle:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">testOnBorrow:</span> <span class="literal">false</span></span><br><span class="line">        <span class="attr">testOnReturn:</span> <span class="literal">false</span></span><br><span class="line">        <span class="attr">poolPreparedStatements:</span> <span class="literal">true</span></span><br><span class="line">        <span class="comment"># 配置监控统计拦截的 filters，去掉后监控界面 sql 无法统计，&#x27;wall&#x27;用于防火墙</span></span><br><span class="line">        <span class="attr">filters:</span> <span class="string">stat,wall,log4j</span></span><br><span class="line">        <span class="attr">maxPoolPreparedStatementPerConnectionSize:</span> <span class="number">20</span></span><br><span class="line">        <span class="attr">useGlobalDataSourceStat:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">connectionProperties:</span> <span class="string">druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500</span></span><br></pre></td></tr></table></figure>
-
-<p>​    配置类：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.servlet.Filter;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.Servlet;</span><br><span class="line"><span class="keyword">import</span> javax.sql.DataSource;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.web.servlet.FilterRegistrationBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.web.servlet.ServletRegistrationBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.pool.DruidDataSource;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.support.http.StatViewServlet;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.support.http.WebStatFilter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DruidConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="comment">// 将所有前缀为spring.datasource下的配置项都加载DataSource中</span></span><br><span class="line">    <span class="meta">@ConfigurationProperties(prefix = &quot;spring.datasource&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">druidDataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DruidDataSource();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServletRegistrationBean&lt;Servlet&gt; <span class="title">druidServlet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 进行 druid 监控的配置处理</span></span><br><span class="line">        ServletRegistrationBean&lt;Servlet&gt; srb = <span class="keyword">new</span> ServletRegistrationBean&lt;&gt;(<span class="keyword">new</span> StatViewServlet(), <span class="string">&quot;/druid/**&quot;</span>);</span><br><span class="line">        <span class="comment">// 白名单</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;allow&quot;</span>, <span class="string">&quot;127.0.0.1&quot;</span>);</span><br><span class="line">        <span class="comment">// 黑名单</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;deny&quot;</span>, <span class="string">&quot;192.168.31.253&quot;</span>);</span><br><span class="line">        <span class="comment">// 用户名</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;loginUsername&quot;</span>, <span class="string">&quot;root&quot;</span>);</span><br><span class="line">        <span class="comment">// 密码</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;loginPassword&quot;</span>, <span class="string">&quot;root&quot;</span>);</span><br><span class="line">        <span class="comment">// 是否可以重置数据源</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;resetEnable&quot;</span>, <span class="string">&quot;false&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> srb;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> FilterRegistrationBean&lt;Filter&gt; <span class="title">filterRegistrationBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        FilterRegistrationBean&lt;Filter&gt; frb = <span class="keyword">new</span> FilterRegistrationBean&lt;&gt;();</span><br><span class="line">        frb.setFilter(<span class="keyword">new</span> WebStatFilter());</span><br><span class="line">        <span class="comment">// 所有请求进行监控处理</span></span><br><span class="line">        frb.addUrlPatterns(<span class="string">&quot;/*&quot;</span>);</span><br><span class="line">        <span class="comment">// 排除名单</span></span><br><span class="line">        frb.addInitParameter(<span class="string">&quot;exclusions&quot;</span>, <span class="string">&quot;*.js,*.gif,*.jpg,*.css,/druid/*&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> frb;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>启动<code>SpringBoot</code>后可在 <code> http://localhost:8080/druid/login.html</code> 中查看监控信息.</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringBoot(二):整合Mybatis</title>
     <url>/2021/05/06/SpringBoot%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🎉SpringBoot-Mybatis整合"><a href="#🎉SpringBoot-Mybatis整合" class="headerlink" title="🎉SpringBoot-Mybatis整合"></a>🎉SpringBoot-Mybatis整合</h1><blockquote>
@@ -1439,6 +1373,72 @@
 
 <p>到此就整合完毕咯，接下来就是进行测试了，当然了正常开发中还是得写一点测试一点，免得写完之后很难 <code>debug</code>.</p>
 <p>经过测试，没有问题，全部正常运行，这里就不展示了hhh~~</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot(三):数据库连接池</title>
+    <url>/2021/05/08/SpringBoot%EF%BC%88%E4%B8%89%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🎡数据库连接池相关概念"><a href="#🎡数据库连接池相关概念" class="headerlink" title="🎡数据库连接池相关概念"></a>🎡数据库连接池相关概念</h1><ul>
+<li><p><strong>什么是数据库连接池？</strong></p>
+<p>​        数据库连接池可以用于管理对数据库的连接，用于存放和管理这些连接，当使用完这些连接之后会将连接还回池中而不是直接关闭掉，可以等待下次进行连接可以直接使用。</p>
+</li>
+<li><p><strong>为什么需要数据库连接池?</strong></p>
+<p>​        在实际业务中，会存在对数据库的操作，如果每次操作都要进行一次数据库连接，那么消耗的内存和资源十分巨大，再加上高并发量，那么会导致性能下降，造成无法估计的损失.有了数据库连接池之后，可以动态的分配已经有的连接，可以动态控制连接数量，合理的分配连接，大大提高了使用率和运行效率.</p>
+</li>
+<li><p><strong>数据库连接池的底层原理？</strong></p>
+<p>​        数据库连接池可以用 <code>Java</code> 中的集合对象来实现 ， 比如 <code>LinkedList</code> ，初始化数据库连接数为10个，依次加入 <code>LinkedList</code>  当需要执行 <code>SQL</code> 语句的时候，请求从集合中获得连接，先要判断目前是否有闲置的连接，如果有则返回给请求对象，本质就是将连接从集合中移除，使用完毕后重新加入集合等待请求也就是所谓的闲置状态，如果请求时恰好没有闲置的连接，则进入等待，超过等待时间后，抛出异常等待下一次请求.</p>
+</li>
+</ul>
+<h1 id="🥽常见数据库连接池"><a href="#🥽常见数据库连接池" class="headerlink" title="🥽常见数据库连接池"></a>🥽常见数据库连接池</h1><p>常用的数据库连接池有如下四种：</p>
+<table>
+<thead>
+<tr>
+<th align="center">DBCP</th>
+<th align="center">Tomcat内部集成</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>C3P0</strong></td>
+<td align="center"><strong>性能较差架构复杂</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>Druid</strong></td>
+<td align="center"><strong>SQL监控黑名单拦截性能卓越</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>HikariCP</strong></td>
+<td align="center"><strong>性能最强稳定性较好screw内置使用</strong></td>
+</tr>
+</tbody></table>
+<p>​        <code>SpringBoot</code>默认将<code>HikariCP</code>作为默认的数据库连接池.<code>Java</code> 常用于构建大型的 <code>Web</code> 项目，在存在高并发的情况下，必然要挑选一个性能极强的数据库连接池而<code>HikariCP</code>当之无愧为性能之王.</p>
+<h1 id="✨SpringBoot中HikariCP配置"><a href="#✨SpringBoot中HikariCP配置" class="headerlink" title="✨SpringBoot中HikariCP配置"></a>✨SpringBoot中HikariCP配置</h1><p>1.<code>autoCommit</code><br>        自动提交从池中返回的连接，默认为<code>true</code>。</p>
+<p>2.<code>connectionTimeout</code><br>        等待来自池的连接的最大毫秒数，默认为30000，如果小于250毫秒，则被重置回30秒。</p>
+<p>3.<code>idleTimeout</code><br>        连接允许在池中闲置的最长时间，默认为600000，即10分钟。如果<code>idleTimeout</code>+1秒&gt;<code>maxLifetime</code> 且 <code>maxLifetime</code>&gt;0，则会被重置为0（代表永远不会退出）；如果<code>idleTimeout</code>!=0且小于10秒，则会被重置为10秒。只有当<code>minimumIdle</code>小于<code>maximumPoolSize</code>时，这个参数才生效，当空闲连接数超过<code>minimumIdle</code>，而且空闲时间超过<code>idleTimeout</code>，则会被移除。</p>
+<p>4.<code>maxLifetime</code><br>        池中连接最长生命周期。默认为1800000，如果不等于0且小于30秒则会被重置回30分钟。</p>
+<p>5.<code>minimumIdle</code><br>        控制连接池空闲连接的最小数量，当连接池空闲连接少于<code>minimumIdle</code>，而且总共连接数不大于<code>maximumPoolSize</code>时，<code>HikariCP</code>会尽力补充新的连接。为了性能考虑，不建议设置此值，而是让<code>HikariCP</code>把连接池当做固定大小的处理，默认<code>minimumIdle</code>与<code>maximumPoolSize</code>一样。当<code>minIdle</code>&lt;0或者<code>minIdle</code>&gt;<code>maxPoolSize</code>,则被重置为<code>maxPoolSize</code>，该值默认为10。</p>
+<p>6.<code>maximumPoolSize</code><br>        池中最大连接数，包括闲置和使用中的连接。默认为10。如果<code>maxPoolSize</code>小于1，则会被重置。当<code>minIdle</code>&lt;=0被重置为<code>DEFAULT_POOL_SIZE</code>则为10;如果<code>minIdle</code>&gt;0则重置为<code>minIdle</code>的值。</p>
+<p>7.<code>poolName</code><br>连接池的用户定义名称，主要出现在日志记录和JMX管理控制台中以识别池和池配置。默认为<code>HikariPool-1</code>。</p>
+<p>8.<code>readOnly</code><br>从池中获取的连接是否默认处于只读模式。默认为<code>false</code>。</p>
+<p>9.<code>connection-test-query</code><br>如果您的驱动程序支持<code>JDBC4</code>，我们强烈建议您不要设置此属性。这是针对不支持<code>JDBC4</code>的“传统”驱动程序<code>Connection.isValid() API</code>。这是在连接从池中获得连接以确认与数据库的连接仍然存在之前将要执行的查询。再一次，尝试运行没有此属性的池，如果您的驱动程序不符合<code>JDBC4</code>的要求，<code>HikariCP</code>将记录一个错误以告知您。 默认值：无</p>
+<h1 id="🎊SpringBoot中Druid配置"><a href="#🎊SpringBoot中Druid配置" class="headerlink" title="🎊SpringBoot中Druid配置"></a>🎊SpringBoot中Druid配置</h1><p>1.纯配置文件配置：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="comment"># 数据源配置</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">    <span class="comment"># 连接池配置</span></span><br><span class="line">    <span class="attr">druid:</span></span><br><span class="line">      <span class="comment"># 初始化大小，最小，最大</span></span><br><span class="line">      <span class="attr">initial-size:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">min-idle:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">max-active:</span> <span class="number">20</span></span><br><span class="line">      <span class="comment"># 配置获取连接等待超时的时间</span></span><br><span class="line">      <span class="attr">max-wait:</span> <span class="number">60000</span></span><br><span class="line">      <span class="comment"># 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位毫秒</span></span><br><span class="line">      <span class="attr">time-between-eviction-runs-millis:</span> <span class="number">60000</span></span><br><span class="line">      <span class="comment"># 配置一个连接在池中最小生存时间</span></span><br><span class="line">      <span class="attr">min-evictable-idle-time-millis:</span> <span class="number">300000</span></span><br><span class="line">      <span class="attr">validation-query:</span> <span class="string">SELECT</span> <span class="number">1</span> <span class="string">FROM</span> <span class="string">sys_user</span></span><br><span class="line">      <span class="attr">test-while-idle:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">test-on-borrow:</span> <span class="literal">false</span></span><br><span class="line">      <span class="attr">test-on-return:</span> <span class="literal">false</span></span><br><span class="line">      <span class="comment"># 打开 PSCache，并且指定每个连接上 PSCache 的大小</span></span><br><span class="line">      <span class="attr">pool-prepared-statements:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">max-pool-prepared-statement-per-connection-size:</span> <span class="number">20</span></span><br><span class="line">      <span class="comment"># 配置监控统计拦截的 Filter，去掉后监控界面 SQL 无法统计，wall 用于防火墙</span></span><br><span class="line">      <span class="attr">filters:</span> <span class="string">stat,wall,log4j</span></span><br><span class="line">      <span class="comment"># 通过 connection-properties 属性打开 mergeSql 功能；慢 SQL 记录</span></span><br><span class="line">      <span class="attr">connection-properties:</span> <span class="string">druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000</span></span><br><span class="line">      <span class="comment"># 配置 DruidStatFilter</span></span><br><span class="line">      <span class="attr">web-stat-filter:</span></span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">url-pattern:</span> <span class="string">/*</span></span><br><span class="line">        <span class="attr">exclusions:</span> <span class="string">.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*</span></span><br><span class="line">      <span class="comment"># 配置 DruidStatViewServlet</span></span><br><span class="line">      <span class="attr">stat-view-servlet:</span></span><br><span class="line">        <span class="attr">url-pattern:</span> <span class="string">/druid/*</span></span><br><span class="line">        <span class="comment"># IP 白名单，没有配置或者为空，则允许所有访问</span></span><br><span class="line">        <span class="attr">allow:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">        <span class="comment"># IP 黑名单，若白名单也存在，则优先使用</span></span><br><span class="line">        <span class="attr">deny:</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.253</span></span><br><span class="line">        <span class="comment"># 禁用 HTML 中 Reset All 按钮</span></span><br><span class="line">        <span class="attr">reset-enable:</span> <span class="literal">false</span></span><br><span class="line">        <span class="comment"># 登录用户名/密码</span></span><br><span class="line">        <span class="attr">login-username:</span> <span class="string">root</span></span><br><span class="line">        <span class="attr">login-password:</span> <span class="number">123</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.配置类版本：</p>
+<p>​    配置文件：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">datasource:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">        <span class="comment"># 数据源的其他配置</span></span><br><span class="line">        <span class="attr">initialSize:</span> <span class="number">5</span></span><br><span class="line">        <span class="attr">minIdle:</span> <span class="number">5</span></span><br><span class="line">        <span class="attr">maxActive:</span> <span class="number">20</span></span><br><span class="line">        <span class="attr">maxWait:</span> <span class="number">60000</span></span><br><span class="line">        <span class="attr">timeBetweenEvictionRunsMillis:</span> <span class="number">60000</span></span><br><span class="line">        <span class="attr">minEvictableIdleTimeMillis:</span> <span class="number">300000</span></span><br><span class="line">        <span class="attr">validationQuery:</span> <span class="string">SELECT</span> <span class="number">1</span> <span class="string">FROM</span> <span class="string">DUAL</span></span><br><span class="line">        <span class="attr">testWhileIdle:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">testOnBorrow:</span> <span class="literal">false</span></span><br><span class="line">        <span class="attr">testOnReturn:</span> <span class="literal">false</span></span><br><span class="line">        <span class="attr">poolPreparedStatements:</span> <span class="literal">true</span></span><br><span class="line">        <span class="comment"># 配置监控统计拦截的 filters，去掉后监控界面 sql 无法统计，&#x27;wall&#x27;用于防火墙</span></span><br><span class="line">        <span class="attr">filters:</span> <span class="string">stat,wall,log4j</span></span><br><span class="line">        <span class="attr">maxPoolPreparedStatementPerConnectionSize:</span> <span class="number">20</span></span><br><span class="line">        <span class="attr">useGlobalDataSourceStat:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">connectionProperties:</span> <span class="string">druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500</span></span><br></pre></td></tr></table></figure>
+
+<p>​    配置类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.servlet.Filter;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.Servlet;</span><br><span class="line"><span class="keyword">import</span> javax.sql.DataSource;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.web.servlet.FilterRegistrationBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.web.servlet.ServletRegistrationBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.pool.DruidDataSource;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.support.http.StatViewServlet;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.support.http.WebStatFilter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DruidConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="comment">// 将所有前缀为spring.datasource下的配置项都加载DataSource中</span></span><br><span class="line">    <span class="meta">@ConfigurationProperties(prefix = &quot;spring.datasource&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">druidDataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DruidDataSource();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServletRegistrationBean&lt;Servlet&gt; <span class="title">druidServlet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 进行 druid 监控的配置处理</span></span><br><span class="line">        ServletRegistrationBean&lt;Servlet&gt; srb = <span class="keyword">new</span> ServletRegistrationBean&lt;&gt;(<span class="keyword">new</span> StatViewServlet(), <span class="string">&quot;/druid/**&quot;</span>);</span><br><span class="line">        <span class="comment">// 白名单</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;allow&quot;</span>, <span class="string">&quot;127.0.0.1&quot;</span>);</span><br><span class="line">        <span class="comment">// 黑名单</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;deny&quot;</span>, <span class="string">&quot;192.168.31.253&quot;</span>);</span><br><span class="line">        <span class="comment">// 用户名</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;loginUsername&quot;</span>, <span class="string">&quot;root&quot;</span>);</span><br><span class="line">        <span class="comment">// 密码</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;loginPassword&quot;</span>, <span class="string">&quot;root&quot;</span>);</span><br><span class="line">        <span class="comment">// 是否可以重置数据源</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;resetEnable&quot;</span>, <span class="string">&quot;false&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> srb;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> FilterRegistrationBean&lt;Filter&gt; <span class="title">filterRegistrationBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        FilterRegistrationBean&lt;Filter&gt; frb = <span class="keyword">new</span> FilterRegistrationBean&lt;&gt;();</span><br><span class="line">        frb.setFilter(<span class="keyword">new</span> WebStatFilter());</span><br><span class="line">        <span class="comment">// 所有请求进行监控处理</span></span><br><span class="line">        frb.addUrlPatterns(<span class="string">&quot;/*&quot;</span>);</span><br><span class="line">        <span class="comment">// 排除名单</span></span><br><span class="line">        frb.addInitParameter(<span class="string">&quot;exclusions&quot;</span>, <span class="string">&quot;*.js,*.gif,*.jpg,*.css,/druid/*&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> frb;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动<code>SpringBoot</code>后可在 <code> http://localhost:8080/druid/login.html</code> 中查看监控信息.</p>
 ]]></content>
       <categories>
         <category>Java</category>
@@ -1613,13 +1613,18 @@
       </tags>
   </entry>
   <entry>
+    <title>Test1</title>
+    <url>/2021/06/17/Test1/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>Test</title>
     <url>/2021/06/17/Test/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>Test1</title>
-    <url>/2021/06/17/Test1/</url>
+    <title>Test2</title>
+    <url>/2021/06/17/Test2/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -1802,6 +1807,63 @@
       </tags>
   </entry>
   <entry>
+    <title>每日一题(一):快速排序</title>
+    <url>/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🚡快速排序"><a href="#🚡快速排序" class="headerlink" title="🚡快速排序"></a>🚡快速排序</h1><blockquote>
+<p>​        快速排序由C. A. R. Hoare在1962年提出。它的基本思想是:通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以<a href="https://baike.so.com/doc/5725016-5937752.html">递归</a>进行，以此达到整个数据变成有序序列。</p>
+</blockquote>
+<p>快速排序简称快排，是基本的排序方法之一，快排在最好的情况下的时间复杂度为<code>O(nlogn)</code> ，最坏的情况下为 O(n<sup>2</sup>)，总体来说还算可以了，有一说一.</p>
+<h2 id="思路解析"><a href="#思路解析" class="headerlink" title="思路解析"></a>思路解析</h2><p>快速排序属于典型的<code>分治+递归</code>实现的算法，所谓分治，就是分而治之，然后对每一块进行同样的操作处理从而达到排序的效果.具体分析就是，我们<font color="red">选定一个基准值，然后将一个数组通过某些操作划分为俩个区间（分治），区间的值<code>&gt;=</code>基准值 ， 一个区间的值 <code>&lt;=</code> 基准值 ，也就是将比基准值小的值放到其左边，大的值放到其右边， 这样再分别对这俩个小区间进行同样的操作(递归)，最终将数组排成有序的.</font></p>
+<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><img src="/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class title="题目">
+
+<p>题目来源于：Acwing</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义数组长度</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">100010</span>;</span><br><span class="line"><span class="comment">//用于接收需要排序的数组</span></span><br><span class="line"><span class="keyword">int</span> a[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quick_sort</span><span class="params">(<span class="keyword">int</span> l , <span class="keyword">int</span> r , <span class="keyword">int</span> s[])</span></span>&#123;</span><br><span class="line">    <span class="comment">//如果区间中只有一个值或者没有值，则递归结束</span></span><br><span class="line">    <span class="keyword">if</span>(l&gt;=r) <span class="keyword">return</span>;</span><br><span class="line">	<span class="comment">// 取中间点为基准值</span></span><br><span class="line">    <span class="keyword">int</span> x = s[(l+r) &gt;&gt; <span class="number">1</span>];</span><br><span class="line">    <span class="comment">//为了配合下方循环的形式，故做了一定坐标的偏移</span></span><br><span class="line">    <span class="keyword">int</span> i = l<span class="number">-1</span> , j = r+<span class="number">1</span>;</span><br><span class="line">    <span class="comment">//当左端点 小于 右端点的时候继续循环</span></span><br><span class="line">    <span class="keyword">while</span>(i &lt; j)&#123;</span><br><span class="line">        <span class="comment">//当值小于基准值的时候一直向右端移动</span></span><br><span class="line">        <span class="keyword">do</span> i++; <span class="keyword">while</span>(s[i] &lt; x);</span><br><span class="line">        <span class="comment">//当值大于基准值的时候一直向左端移动</span></span><br><span class="line">        <span class="keyword">do</span> j--; <span class="keyword">while</span>(s[j] &gt; x);</span><br><span class="line">        <span class="comment">//如果 i 小于 j 则交换这两处的值</span></span><br><span class="line">        <span class="keyword">if</span>(i &lt; j) <span class="built_in">swap</span>(s[i],s[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//分别对基准值左右俩个区间进行分别排序</span></span><br><span class="line">    <span class="built_in">quick_sort</span>(l , j , s),<span class="built_in">quick_sort</span>(j+<span class="number">1</span> , r , s);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m;</span><br><span class="line">    cin &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; m ; i++)&#123;</span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//传入初始坐标,末尾坐标,需要排序的数组</span></span><br><span class="line">    <span class="built_in">quick_sort</span>(<span class="number">0</span> , m<span class="number">-1</span> , a);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; m ; i++)&#123;</span><br><span class="line">        cout &lt;&lt; a[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><ul>
+<li><strong>使用Scanner读入</strong>：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">//Java没有自带的交换函数,同时想要高交换效率</span></span><br><span class="line">    <span class="comment">//在别人的博客中学到了这一种高效率的交换方式</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        nums[i] ^= nums[j];</span><br><span class="line">        nums[j] ^= nums[i];</span><br><span class="line">        nums[i] ^= nums[j];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quick_sort</span><span class="params">(<span class="keyword">int</span> l , <span class="keyword">int</span> r , <span class="keyword">int</span> q[])</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(l &gt;= r ) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">int</span> x = q[l+r&gt;&gt;<span class="number">1</span>],i = l-<span class="number">1</span> , j = r+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; j) &#123;</span><br><span class="line">            <span class="keyword">do</span> i++; <span class="keyword">while</span>(q[i] &lt; x);</span><br><span class="line">            <span class="keyword">do</span> j--; <span class="keyword">while</span>(q[j] &gt; x);</span><br><span class="line">            <span class="keyword">if</span>(i &lt; j) swap(q,i,j);</span><br><span class="line">        &#125;</span><br><span class="line">        quick_sort(l , j , q);</span><br><span class="line">        quick_sort(j+<span class="number">1</span> , r , q);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span></span>&#123;</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">int</span> n = sc.nextInt();</span><br><span class="line">        <span class="keyword">int</span> [] a = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; n ; j++) a[j] = sc.nextInt() ;</span><br><span class="line">        </span><br><span class="line">        quick_sort(<span class="number">0</span>,n-<span class="number">1</span>,a);</span><br><span class="line">        </span><br><span class="line">      	<span class="keyword">for</span>(<span class="keyword">int</span> i : a) System.out.print(i+<span class="string">&quot; &quot;</span>);</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><strong>使用BufferRead进行读入</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] swap(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> i, <span class="keyword">int</span> j) &#123;</span><br><span class="line">        nums[i] ^= nums[j];</span><br><span class="line">        nums[j] ^= nums[i];</span><br><span class="line">        nums[i] ^= nums[j];</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quick_sort</span><span class="params">(<span class="keyword">int</span> l , <span class="keyword">int</span> r , <span class="keyword">int</span> q[])</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(l &gt;= r ) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">int</span> x = q[l+r&gt;&gt;<span class="number">1</span>],i = l-<span class="number">1</span> , j = r+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; j) &#123;</span><br><span class="line">            <span class="keyword">do</span> i++; <span class="keyword">while</span>(q[i] &lt; x);</span><br><span class="line">            <span class="keyword">do</span> j--; <span class="keyword">while</span>(q[j] &gt; x);</span><br><span class="line">            <span class="keyword">if</span>(i &lt; j) swap(q,i,j);</span><br><span class="line">        &#125;</span><br><span class="line">        quick_sort(l , j , q);</span><br><span class="line">        quick_sort(j+<span class="number">1</span> , r , q);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span><span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">int</span> n = Integer.parseInt(reader.readLine());</span><br><span class="line">        <span class="keyword">int</span> [] a = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        String [] str = reader.readLine().split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; str.length ; j++) a[j] = Integer.parseInt(str[j]);</span><br><span class="line">        </span><br><span class="line">        quick_sort(<span class="number">0</span>,n-<span class="number">1</span>,a);</span><br><span class="line">        </span><br><span class="line">       	<span class="keyword">for</span>(<span class="keyword">int</span> i : a) System.out.print(i+<span class="string">&quot; &quot;</span>);</span><br><span class="line">        reader.close();</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>注意：俩种不同的方式读入差距还是比较大的，推荐使用<code>BufferedReader</code>读入</p>
+<img src="/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/2.png" class title="比较">
+
+
+
+<h2 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h2><img src="/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/3.png" class title="图解">
+
+<img src="/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/4.png" class title="图解">
+
+<img src="/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/5.png" class title="图解">
+
+<img src="/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/6.png" class title="图解">
+
+<img src="/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/7.png" class title="图解">
+
+<img src="/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/8.png" class title="图解">
+
+
+
+<p><strong>有一说一</strong>：画图真的好累，要不是没有找到比较好的图解，也不至于自己画，2333.</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>微信公众号后端开发(一):access_token以及OpenID</title>
     <url>/2021/05/24/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🎑基本概念"><a href="#🎑基本概念" class="headerlink" title="🎑基本概念"></a>🎑基本概念</h1><p>​    </p>
@@ -1914,63 +1976,6 @@
       </categories>
       <tags>
         <tag>微信公众号</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>每日一题(一):快速排序</title>
-    <url>/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🚡快速排序"><a href="#🚡快速排序" class="headerlink" title="🚡快速排序"></a>🚡快速排序</h1><blockquote>
-<p>​        快速排序由C. A. R. Hoare在1962年提出。它的基本思想是:通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以<a href="https://baike.so.com/doc/5725016-5937752.html">递归</a>进行，以此达到整个数据变成有序序列。</p>
-</blockquote>
-<p>快速排序简称快排，是基本的排序方法之一，快排在最好的情况下的时间复杂度为<code>O(nlogn)</code> ，最坏的情况下为 O(n<sup>2</sup>)，总体来说还算可以了，有一说一.</p>
-<h2 id="思路解析"><a href="#思路解析" class="headerlink" title="思路解析"></a>思路解析</h2><p>快速排序属于典型的<code>分治+递归</code>实现的算法，所谓分治，就是分而治之，然后对每一块进行同样的操作处理从而达到排序的效果.具体分析就是，我们<font color="red">选定一个基准值，然后将一个数组通过某些操作划分为俩个区间（分治），区间的值<code>&gt;=</code>基准值 ， 一个区间的值 <code>&lt;=</code> 基准值 ，也就是将比基准值小的值放到其左边，大的值放到其右边， 这样再分别对这俩个小区间进行同样的操作(递归)，最终将数组排成有序的.</font></p>
-<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><img src="/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class title="题目">
-
-<p>题目来源于：Acwing</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义数组长度</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">100010</span>;</span><br><span class="line"><span class="comment">//用于接收需要排序的数组</span></span><br><span class="line"><span class="keyword">int</span> a[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quick_sort</span><span class="params">(<span class="keyword">int</span> l , <span class="keyword">int</span> r , <span class="keyword">int</span> s[])</span></span>&#123;</span><br><span class="line">    <span class="comment">//如果区间中只有一个值或者没有值，则递归结束</span></span><br><span class="line">    <span class="keyword">if</span>(l&gt;=r) <span class="keyword">return</span>;</span><br><span class="line">	<span class="comment">// 取中间点为基准值</span></span><br><span class="line">    <span class="keyword">int</span> x = s[(l+r) &gt;&gt; <span class="number">1</span>];</span><br><span class="line">    <span class="comment">//为了配合下方循环的形式，故做了一定坐标的偏移</span></span><br><span class="line">    <span class="keyword">int</span> i = l<span class="number">-1</span> , j = r+<span class="number">1</span>;</span><br><span class="line">    <span class="comment">//当左端点 小于 右端点的时候继续循环</span></span><br><span class="line">    <span class="keyword">while</span>(i &lt; j)&#123;</span><br><span class="line">        <span class="comment">//当值小于基准值的时候一直向右端移动</span></span><br><span class="line">        <span class="keyword">do</span> i++; <span class="keyword">while</span>(s[i] &lt; x);</span><br><span class="line">        <span class="comment">//当值大于基准值的时候一直向左端移动</span></span><br><span class="line">        <span class="keyword">do</span> j--; <span class="keyword">while</span>(s[j] &gt; x);</span><br><span class="line">        <span class="comment">//如果 i 小于 j 则交换这两处的值</span></span><br><span class="line">        <span class="keyword">if</span>(i &lt; j) <span class="built_in">swap</span>(s[i],s[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//分别对基准值左右俩个区间进行分别排序</span></span><br><span class="line">    <span class="built_in">quick_sort</span>(l , j , s),<span class="built_in">quick_sort</span>(j+<span class="number">1</span> , r , s);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m;</span><br><span class="line">    cin &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; m ; i++)&#123;</span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//传入初始坐标,末尾坐标,需要排序的数组</span></span><br><span class="line">    <span class="built_in">quick_sort</span>(<span class="number">0</span> , m<span class="number">-1</span> , a);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; m ; i++)&#123;</span><br><span class="line">        cout &lt;&lt; a[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><ul>
-<li><strong>使用Scanner读入</strong>：</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">//Java没有自带的交换函数,同时想要高交换效率</span></span><br><span class="line">    <span class="comment">//在别人的博客中学到了这一种高效率的交换方式</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        nums[i] ^= nums[j];</span><br><span class="line">        nums[j] ^= nums[i];</span><br><span class="line">        nums[i] ^= nums[j];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quick_sort</span><span class="params">(<span class="keyword">int</span> l , <span class="keyword">int</span> r , <span class="keyword">int</span> q[])</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(l &gt;= r ) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">int</span> x = q[l+r&gt;&gt;<span class="number">1</span>],i = l-<span class="number">1</span> , j = r+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; j) &#123;</span><br><span class="line">            <span class="keyword">do</span> i++; <span class="keyword">while</span>(q[i] &lt; x);</span><br><span class="line">            <span class="keyword">do</span> j--; <span class="keyword">while</span>(q[j] &gt; x);</span><br><span class="line">            <span class="keyword">if</span>(i &lt; j) swap(q,i,j);</span><br><span class="line">        &#125;</span><br><span class="line">        quick_sort(l , j , q);</span><br><span class="line">        quick_sort(j+<span class="number">1</span> , r , q);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span></span>&#123;</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">int</span> n = sc.nextInt();</span><br><span class="line">        <span class="keyword">int</span> [] a = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; n ; j++) a[j] = sc.nextInt() ;</span><br><span class="line">        </span><br><span class="line">        quick_sort(<span class="number">0</span>,n-<span class="number">1</span>,a);</span><br><span class="line">        </span><br><span class="line">      	<span class="keyword">for</span>(<span class="keyword">int</span> i : a) System.out.print(i+<span class="string">&quot; &quot;</span>);</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li><strong>使用BufferRead进行读入</strong></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] swap(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> i, <span class="keyword">int</span> j) &#123;</span><br><span class="line">        nums[i] ^= nums[j];</span><br><span class="line">        nums[j] ^= nums[i];</span><br><span class="line">        nums[i] ^= nums[j];</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quick_sort</span><span class="params">(<span class="keyword">int</span> l , <span class="keyword">int</span> r , <span class="keyword">int</span> q[])</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(l &gt;= r ) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">int</span> x = q[l+r&gt;&gt;<span class="number">1</span>],i = l-<span class="number">1</span> , j = r+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; j) &#123;</span><br><span class="line">            <span class="keyword">do</span> i++; <span class="keyword">while</span>(q[i] &lt; x);</span><br><span class="line">            <span class="keyword">do</span> j--; <span class="keyword">while</span>(q[j] &gt; x);</span><br><span class="line">            <span class="keyword">if</span>(i &lt; j) swap(q,i,j);</span><br><span class="line">        &#125;</span><br><span class="line">        quick_sort(l , j , q);</span><br><span class="line">        quick_sort(j+<span class="number">1</span> , r , q);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span><span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">int</span> n = Integer.parseInt(reader.readLine());</span><br><span class="line">        <span class="keyword">int</span> [] a = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        String [] str = reader.readLine().split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; str.length ; j++) a[j] = Integer.parseInt(str[j]);</span><br><span class="line">        </span><br><span class="line">        quick_sort(<span class="number">0</span>,n-<span class="number">1</span>,a);</span><br><span class="line">        </span><br><span class="line">       	<span class="keyword">for</span>(<span class="keyword">int</span> i : a) System.out.print(i+<span class="string">&quot; &quot;</span>);</span><br><span class="line">        reader.close();</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>注意：俩种不同的方式读入差距还是比较大的，推荐使用<code>BufferedReader</code>读入</p>
-<img src="/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/2.png" class title="比较">
-
-
-
-<h2 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h2><img src="/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/3.png" class title="图解">
-
-<img src="/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/4.png" class title="图解">
-
-<img src="/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/5.png" class title="图解">
-
-<img src="/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/6.png" class title="图解">
-
-<img src="/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/7.png" class title="图解">
-
-<img src="/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/8.png" class title="图解">
-
-
-
-<p><strong>有一说一</strong>：画图真的好累，要不是没有找到比较好的图解，也不至于自己画，2333.</p>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
