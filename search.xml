@@ -169,81 +169,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MybatisPlus(一):极致简化</title>
-    <url>/2021/05/12/MybatisPlus%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🎉MybatisPlus基本概念"><a href="#🎉MybatisPlus基本概念" class="headerlink" title="🎉MybatisPlus基本概念"></a>🎉MybatisPlus基本概念</h1><p>​    <a href="https://github.com/baomidou/mybatis-plus">MyBatis-Plus (opens new window)</a>（简称 MP）是一个 <a href="http://www.mybatis.org/mybatis-3/">MyBatis (opens new window)</a>的增强工具，在 MyBatis 的基础上只做增强不做改变，为简化开发、提高效率而生。</p>
-<p><strong>特性：</strong></p>
-<ul>
-<li><strong>无侵入</strong>：只做增强不做改变，引入它不会对现有工程产生影响，如丝般顺滑</li>
-<li><strong>损耗小</strong>：启动即会自动注入基本 <code>CURD</code>，性能基本无损耗，直接面向对象操作</li>
-<li><strong>强大的 CRUD 操作</strong>：内置通用 <code>Mapper</code>、通用 <code>Service</code>，仅仅通过少量配置即可实现单表大部分 <code>CRUD</code> 操作，更有强大的条件构造器，满足各类使用需求</li>
-<li><strong>支持 Lambda 形式调用</strong>：通过 <code>Lambda</code> 表达式，方便的编写各类查询条件，无需再担心字段写错</li>
-<li><strong>支持主键自动生成</strong>：支持多达 4 种主键策略（内含分布式唯一 ID 生成器 -<code> Sequence</code>），可自由配置，完美解决主键问题</li>
-<li><strong>支持 ActiveRecord 模式</strong>：支持 <code>ActiveRecord </code>形式调用，实体类只需继承 Model 类即可进行强大的 CRUD 操作</li>
-<li><strong>支持自定义全局通用操作</strong>：支持全局通用方法注入（ <code>Write once</code>, <code>use anywhere</code> ）</li>
-<li><strong>内置代码生成器</strong>：采用代码或者<code> Maven</code> 插件可快速生成<code>Mapper</code>、 <code>Model </code>、<code> Service</code> 、 <code>Controller </code>层代码，支持模板引擎，更有超多自定义配置等您来使用</li>
-<li><strong>内置分页插件</strong>：基于<code>MyBatis</code> 物理分页，开发者无需关心具体操作，配置好插件之后，写分页等同于普通 List 查询</li>
-<li><strong>分页插件支持多种数据库</strong>：支持<code> MySQL</code>、<code>MariaDB</code>、<code>Oracle</code>、<code>DB2</code>、<code>H2</code>、<code>HSQL</code>、<code>SQLite</code>、<code>Postgre</code>、<code>SQLServer</code> 等多种数据库</li>
-<li><strong>内置性能分析插件</strong>：可输出<code> Sql</code> 语句以及其执行时间，建议开发测试时启用该功能，能快速揪出慢查询</li>
-<li><strong>内置全局拦截插件</strong>：提供全表<code> delete</code> 、<code>update</code>操作智能分析阻断，也可自定义拦截规则，预防误操作</li>
-</ul>
-<p>​    </p>
-<p>对于<code>SpringBoot</code>项目而言，使用<code>MybatisPlus</code>十分便携，直接在依赖文件中添加相关依赖即可</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>其中已经包含了<code>Mybatis</code>的相关依赖，不用额外添加.</p>
-<h1 id="🎇基本的SQL语句"><a href="#🎇基本的SQL语句" class="headerlink" title="🎇基本的SQL语句"></a>🎇基本的SQL语句</h1><p>构建实体类：</p>
-<p>（其中的注释会在后续文章中做汇总）</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//对应的数据库表名，表名的首字母大写就是类名的话可以不用写，不过还是建议加上，方便维护</span></span><br><span class="line"><span class="meta">@TableName(value = &quot;books&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Books</span> </span>&#123;</span><br><span class="line">	<span class="comment">//   数据表主键，value值为表中的字段  类型为主键自增 </span></span><br><span class="line">  <span class="meta">@TableId(value = &quot;book_id&quot; , type = IdType.AUTO)</span></span><br><span class="line">  <span class="keyword">private</span> Integer bookId;</span><br><span class="line">  <span class="keyword">private</span> String bookName;</span><br><span class="line">  <span class="keyword">private</span> Integer bookCounts;</span><br><span class="line">  <span class="keyword">private</span> String detail;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookId</span><span class="params">(Integer bookId)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookId = bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getBookName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookName</span><span class="params">(String bookName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookName = bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookCounts</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookCounts</span><span class="params">(Integer bookCounts)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookCounts = bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getDetail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDetail</span><span class="params">(String detail)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.detail = detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Books&#123;&quot;</span> +</span><br><span class="line">            <span class="string">&quot;bookId=&quot;</span> + bookId +</span><br><span class="line">            <span class="string">&quot;, bookName=&#x27;&quot;</span> + bookName + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&quot;, bookCounts=&quot;</span> + bookCounts +</span><br><span class="line">            <span class="string">&quot;, detail=&#x27;&quot;</span> + detail + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>构建 <code>dao</code> 层：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//继承之后才会有基本的SQL语句，这里使用了泛型，避免需要强制类型转换</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BooksMapper</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>最后在启动类配置扫描包：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="comment">//用于让SpringBoot自动帮dao接口进行注册</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;com.soucat.mapper&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(DemoApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>以上完成之后就可以进行测试了，十分的方便.</p>
-<p>在测试类中先要将<code>dao</code>接口自动注入，<code>idea</code>会报错，只是因为这个对象是在程序运行时才会产生，编译阶段没有创建</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> BooksMapper booksMapper;</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p><strong>查询用户</strong></p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectBook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//查询一本书</span></span><br><span class="line">    System.out.println(booksMapper.selectById(<span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectBoos</span><span class="params">()</span></span>&#123;</span><br><span class="line">    List&lt;Integer&gt; list = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">6</span>).collect(Collectors.toList());</span><br><span class="line">    <span class="comment">//这里当然了也可以创建List对象后一个一个加进去也没有问题，只是以上方式比较方便</span></span><br><span class="line">    System.out.println(booksMapper.selectBatchIds(list));</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>​        其余的也都是类似的，毕竟只是基本的 <code>SQL</code> 语句，当然了，<code>MybatisPlus</code> 也可以像 <code>Mybatis</code> 那样自定义 <code>SQL</code> 语句，编写配置文件实现.就不一一演示了.</p>
-<h1 id="🎨AR模式"><a href="#🎨AR模式" class="headerlink" title="🎨AR模式"></a>🎨AR模式</h1><p>​        <code>Active Record</code>(活动记录)，是一种领域模型模式，特点是一个模型类对应关系型数据库中的一个表，而模型类的一个实例对应表中的一行记录，属于动态模型。而Java作为准静态语言，对于 <code>ActiveRecord </code>往往只能感叹其优雅，所以 <code>MP</code> 也在 <code>AR </code>道路上进行了一定的探索，才有了现在的功能Java也能实现AR模式。简而言之，就是直接用实体类对数据库进行<code>CRUD</code>操作，接下来看具体代码：</p>
-<p><strong>要实现AR模式需要两个前提：一是实体类继承Model抽象类，二是定义实体类对应的mapper接口继承BaseMapper</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@TableName(value = &quot;books&quot;)</span></span><br><span class="line">				<span class="comment">//一定要继承这个Model</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Books</span> <span class="keyword">extends</span> <span class="title">Model</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@TableId(value = &quot;book_id&quot; , type = IdType.AUTO)</span></span><br><span class="line">  <span class="keyword">private</span> Integer bookId;</span><br><span class="line">  <span class="keyword">private</span> String bookName;</span><br><span class="line">  <span class="keyword">private</span> Integer bookCounts;</span><br><span class="line">  <span class="keyword">private</span> String detail;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookId</span><span class="params">(Integer bookId)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookId = bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getBookName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookName</span><span class="params">(String bookName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookName = bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookCounts</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookCounts</span><span class="params">(Integer bookCounts)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookCounts = bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getDetail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDetail</span><span class="params">(String detail)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.detail = detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Books&#123;&quot;</span> +</span><br><span class="line">            <span class="string">&quot;bookId=&quot;</span> + bookId +</span><br><span class="line">            <span class="string">&quot;, bookName=&#x27;&quot;</span> + bookName + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&quot;, bookCounts=&quot;</span> + bookCounts +</span><br><span class="line">            <span class="string">&quot;, detail=&#x27;&quot;</span> + detail + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><code>dao</code>接口类</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//继承之后才会有基本的SQL语句，这里使用了泛型，避免需要强制类型转换</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BooksMapper</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>启动类:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="comment">//用于让SpringBoot自动帮dao接口进行注册</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;com.soucat.mapper&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(DemoApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p><strong>查询功能</strong></p>
-</blockquote>
-<p>AR模式和普通的模式不同之处就在于可以直接使用实体类进行查询,不需要 <code>dao</code> 接口对象来调，当然了这不意味着接口类可以不写了</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectBook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//查询一本书</span></span><br><span class="line">    Books books = <span class="keyword">new</span> Books();</span><br><span class="line">    books.setBookId(<span class="number">1</span>);</span><br><span class="line">    Books books1 = books.selectById();</span><br><span class="line">    System.out.println(books1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其余的基本语句也都类似，就不一一介绍了.</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>MybatisPlus</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MySQL(一)</title>
     <url>/2021/04/11/MySQL%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🎊MySQL的安装"><a href="#🎊MySQL的安装" class="headerlink" title="🎊MySQL的安装"></a>🎊MySQL的安装</h1><p>​    ①：去官网下载社区版上面的一个；<br>​    （建议复制下载地址然后在迅雷当中下载比较快）<br>​    ②：在非C盘建一个 <code>MySQL</code> 文件夹装入下载文件并且解压；<br>​    ③：将bin目录配入环境变量；<br>​    ④：编写配置文件：(先建文本文件，编写好以后，将文件更改为 <code>my.ini</code> 文件并改以 <code>ANSCI</code> 编译保存)；<br>​        如下：（注意）设置 <code>mysql</code> 的安装目录和数据库的数据存放目录根据个人下载位置进更改<br>​            </p>
@@ -515,6 +440,120 @@
       </categories>
       <tags>
         <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MybatisPlus(一):极致简化</title>
+    <url>/2021/05/12/MybatisPlus%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🎉MybatisPlus基本概念"><a href="#🎉MybatisPlus基本概念" class="headerlink" title="🎉MybatisPlus基本概念"></a>🎉MybatisPlus基本概念</h1><p>​    <a href="https://github.com/baomidou/mybatis-plus">MyBatis-Plus (opens new window)</a>（简称 MP）是一个 <a href="http://www.mybatis.org/mybatis-3/">MyBatis (opens new window)</a>的增强工具，在 MyBatis 的基础上只做增强不做改变，为简化开发、提高效率而生。</p>
+<p><strong>特性：</strong></p>
+<ul>
+<li><strong>无侵入</strong>：只做增强不做改变，引入它不会对现有工程产生影响，如丝般顺滑</li>
+<li><strong>损耗小</strong>：启动即会自动注入基本 <code>CURD</code>，性能基本无损耗，直接面向对象操作</li>
+<li><strong>强大的 CRUD 操作</strong>：内置通用 <code>Mapper</code>、通用 <code>Service</code>，仅仅通过少量配置即可实现单表大部分 <code>CRUD</code> 操作，更有强大的条件构造器，满足各类使用需求</li>
+<li><strong>支持 Lambda 形式调用</strong>：通过 <code>Lambda</code> 表达式，方便的编写各类查询条件，无需再担心字段写错</li>
+<li><strong>支持主键自动生成</strong>：支持多达 4 种主键策略（内含分布式唯一 ID 生成器 -<code> Sequence</code>），可自由配置，完美解决主键问题</li>
+<li><strong>支持 ActiveRecord 模式</strong>：支持 <code>ActiveRecord </code>形式调用，实体类只需继承 Model 类即可进行强大的 CRUD 操作</li>
+<li><strong>支持自定义全局通用操作</strong>：支持全局通用方法注入（ <code>Write once</code>, <code>use anywhere</code> ）</li>
+<li><strong>内置代码生成器</strong>：采用代码或者<code> Maven</code> 插件可快速生成<code>Mapper</code>、 <code>Model </code>、<code> Service</code> 、 <code>Controller </code>层代码，支持模板引擎，更有超多自定义配置等您来使用</li>
+<li><strong>内置分页插件</strong>：基于<code>MyBatis</code> 物理分页，开发者无需关心具体操作，配置好插件之后，写分页等同于普通 List 查询</li>
+<li><strong>分页插件支持多种数据库</strong>：支持<code> MySQL</code>、<code>MariaDB</code>、<code>Oracle</code>、<code>DB2</code>、<code>H2</code>、<code>HSQL</code>、<code>SQLite</code>、<code>Postgre</code>、<code>SQLServer</code> 等多种数据库</li>
+<li><strong>内置性能分析插件</strong>：可输出<code> Sql</code> 语句以及其执行时间，建议开发测试时启用该功能，能快速揪出慢查询</li>
+<li><strong>内置全局拦截插件</strong>：提供全表<code> delete</code> 、<code>update</code>操作智能分析阻断，也可自定义拦截规则，预防误操作</li>
+</ul>
+<p>​    </p>
+<p>对于<code>SpringBoot</code>项目而言，使用<code>MybatisPlus</code>十分便携，直接在依赖文件中添加相关依赖即可</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中已经包含了<code>Mybatis</code>的相关依赖，不用额外添加.</p>
+<h1 id="🎇基本的SQL语句"><a href="#🎇基本的SQL语句" class="headerlink" title="🎇基本的SQL语句"></a>🎇基本的SQL语句</h1><p>构建实体类：</p>
+<p>（其中的注释会在后续文章中做汇总）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//对应的数据库表名，表名的首字母大写就是类名的话可以不用写，不过还是建议加上，方便维护</span></span><br><span class="line"><span class="meta">@TableName(value = &quot;books&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Books</span> </span>&#123;</span><br><span class="line">	<span class="comment">//   数据表主键，value值为表中的字段  类型为主键自增 </span></span><br><span class="line">  <span class="meta">@TableId(value = &quot;book_id&quot; , type = IdType.AUTO)</span></span><br><span class="line">  <span class="keyword">private</span> Integer bookId;</span><br><span class="line">  <span class="keyword">private</span> String bookName;</span><br><span class="line">  <span class="keyword">private</span> Integer bookCounts;</span><br><span class="line">  <span class="keyword">private</span> String detail;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookId</span><span class="params">(Integer bookId)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookId = bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getBookName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookName</span><span class="params">(String bookName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookName = bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookCounts</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookCounts</span><span class="params">(Integer bookCounts)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookCounts = bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getDetail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDetail</span><span class="params">(String detail)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.detail = detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Books&#123;&quot;</span> +</span><br><span class="line">            <span class="string">&quot;bookId=&quot;</span> + bookId +</span><br><span class="line">            <span class="string">&quot;, bookName=&#x27;&quot;</span> + bookName + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&quot;, bookCounts=&quot;</span> + bookCounts +</span><br><span class="line">            <span class="string">&quot;, detail=&#x27;&quot;</span> + detail + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>构建 <code>dao</code> 层：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//继承之后才会有基本的SQL语句，这里使用了泛型，避免需要强制类型转换</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BooksMapper</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后在启动类配置扫描包：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="comment">//用于让SpringBoot自动帮dao接口进行注册</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;com.soucat.mapper&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(DemoApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上完成之后就可以进行测试了，十分的方便.</p>
+<p>在测试类中先要将<code>dao</code>接口自动注入，<code>idea</code>会报错，只是因为这个对象是在程序运行时才会产生，编译阶段没有创建</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> BooksMapper booksMapper;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>查询用户</strong></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectBook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//查询一本书</span></span><br><span class="line">    System.out.println(booksMapper.selectById(<span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectBoos</span><span class="params">()</span></span>&#123;</span><br><span class="line">    List&lt;Integer&gt; list = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">6</span>).collect(Collectors.toList());</span><br><span class="line">    <span class="comment">//这里当然了也可以创建List对象后一个一个加进去也没有问题，只是以上方式比较方便</span></span><br><span class="line">    System.out.println(booksMapper.selectBatchIds(list));</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>​        其余的也都是类似的，毕竟只是基本的 <code>SQL</code> 语句，当然了，<code>MybatisPlus</code> 也可以像 <code>Mybatis</code> 那样自定义 <code>SQL</code> 语句，编写配置文件实现.就不一一演示了.</p>
+<h1 id="🎨AR模式"><a href="#🎨AR模式" class="headerlink" title="🎨AR模式"></a>🎨AR模式</h1><p>​        <code>Active Record</code>(活动记录)，是一种领域模型模式，特点是一个模型类对应关系型数据库中的一个表，而模型类的一个实例对应表中的一行记录，属于动态模型。而Java作为准静态语言，对于 <code>ActiveRecord </code>往往只能感叹其优雅，所以 <code>MP</code> 也在 <code>AR </code>道路上进行了一定的探索，才有了现在的功能Java也能实现AR模式。简而言之，就是直接用实体类对数据库进行<code>CRUD</code>操作，接下来看具体代码：</p>
+<p><strong>要实现AR模式需要两个前提：一是实体类继承Model抽象类，二是定义实体类对应的mapper接口继承BaseMapper</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@TableName(value = &quot;books&quot;)</span></span><br><span class="line">				<span class="comment">//一定要继承这个Model</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Books</span> <span class="keyword">extends</span> <span class="title">Model</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@TableId(value = &quot;book_id&quot; , type = IdType.AUTO)</span></span><br><span class="line">  <span class="keyword">private</span> Integer bookId;</span><br><span class="line">  <span class="keyword">private</span> String bookName;</span><br><span class="line">  <span class="keyword">private</span> Integer bookCounts;</span><br><span class="line">  <span class="keyword">private</span> String detail;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookId</span><span class="params">(Integer bookId)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookId = bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getBookName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookName</span><span class="params">(String bookName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookName = bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookCounts</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookCounts</span><span class="params">(Integer bookCounts)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookCounts = bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getDetail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDetail</span><span class="params">(String detail)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.detail = detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Books&#123;&quot;</span> +</span><br><span class="line">            <span class="string">&quot;bookId=&quot;</span> + bookId +</span><br><span class="line">            <span class="string">&quot;, bookName=&#x27;&quot;</span> + bookName + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&quot;, bookCounts=&quot;</span> + bookCounts +</span><br><span class="line">            <span class="string">&quot;, detail=&#x27;&quot;</span> + detail + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>dao</code>接口类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//继承之后才会有基本的SQL语句，这里使用了泛型，避免需要强制类型转换</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BooksMapper</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动类:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="comment">//用于让SpringBoot自动帮dao接口进行注册</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;com.soucat.mapper&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(DemoApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>查询功能</strong></p>
+</blockquote>
+<p>AR模式和普通的模式不同之处就在于可以直接使用实体类进行查询,不需要 <code>dao</code> 接口对象来调，当然了这不意味着接口类可以不写了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectBook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//查询一本书</span></span><br><span class="line">    Books books = <span class="keyword">new</span> Books();</span><br><span class="line">    books.setBookId(<span class="number">1</span>);</span><br><span class="line">    Books books1 = books.selectById();</span><br><span class="line">    System.out.println(books1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其余的基本语句也都类似，就不一一介绍了.</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>MybatisPlus</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Shiro(一):介绍与基本概念</title>
+    <url>/2021/06/09/Shiro%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="🚧权限管理"><a href="#🚧权限管理" class="headerlink" title="🚧权限管理"></a>🚧权限管理</h2><h3 id="什么是权限管理"><a href="#什么是权限管理" class="headerlink" title="什么是权限管理"></a>什么是权限管理</h3><p>基本上涉及到用户参与的系统都要进行权限管理，权限管理属于系统安全的范畴，权限管理实现<code>对用户访问系统的控制</code>，按照安全规则或者<a href="http://baike.baidu.com/view/160028.htm">安全策略</a>控制用户可以访问而且只能访问自己被授权的资源。</p>
+<p>权限管理包括用户<code>身份认证</code>和<code>授权</code>两部分，简称<code>认证授权</code>。对于需要访问控制的资源用户首先经过身份认证，认证通过后用户具有该资源的访问权限方可访问。</p>
+<h3 id="什么是身份认证"><a href="#什么是身份认证" class="headerlink" title="什么是身份认证"></a>什么是身份认证</h3><p><code>身份认证</code>，就是判断一个用户是否为合法用户的处理过程。最常用的简单身份认证方式是系统通过核对用户输入的用户名和口令，看其是否与系统中存储的该用户的用户名和口令一致，来判断用户身份是否正确。对于采用<a href="http://baike.baidu.com/view/5628.htm">指纹</a>等系统，则出示指纹；对于硬件Key等刷卡系统，则需要刷卡。</p>
+<h3 id="什么是授权"><a href="#什么是授权" class="headerlink" title="什么是授权"></a>什么是授权</h3><p><code>授权，即访问控制</code>，控制谁能访问哪些资源。主体进行身份认证后需要分配权限方可访问系统的资源，对于某些资源没有权限是无法访问的</p>
+<hr>
+<h2 id="🏁什么是shiro"><a href="#🏁什么是shiro" class="headerlink" title="🏁什么是shiro"></a>🏁什么是shiro</h2><blockquote>
+<p><strong>Apache Shiro™</strong> is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.  </p>
+<p>Shiro 是一个功能强大且易于使用的Java安全框架，它执行身份验证、授权、加密和会话管理。使用Shiro易于理解的API，您可以快速轻松地保护任何应用程序—从最小的移动应用程序到最大的web和企业应用程序。</p>
+</blockquote>
+<p><code>Shiro是apache旗下一个开源框架，它将软件系统的安全认证相关的功能抽取出来，实现用户身份认证，权限授权、加密、会话管理等功能，组成了一个通用的安全认证框架。</code></p>
+<hr>
+<h2 id="🌎shiro的核心架构"><a href="#🌎shiro的核心架构" class="headerlink" title="🌎shiro的核心架构"></a>🌎shiro的核心架构</h2><img src="/2021/06/09/Shiro%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class title="架构图">
+
+
+
+<h3 id="Subject"><a href="#Subject" class="headerlink" title="Subject"></a>Subject</h3><p><code>Subject即主体</code>，外部应用与subject进行交互，subject记录了当前操作用户，将用户的概念理解为当前操作的主体，可能是一个通过浏览器请求的用户，也可能是一个运行的程序。    Subject在shiro中是一个接口，接口中定义了很多认证授相关的方法，外部程序通过subject进行认证授，而subject是通过SecurityManager安全管理器进行认证授权</p>
+<h3 id="SecurityManager"><a href="#SecurityManager" class="headerlink" title="SecurityManager"></a>SecurityManager</h3><p><code>SecurityManager即安全管理器</code>，对全部的subject进行安全管理，它是shiro的核心，负责对所有的subject进行安全管理。通过SecurityManager可以完成subject的认证、授权等，实质上SecurityManager是通过Authenticator进行认证，通过Authorizer进行授权，通过SessionManager进行会话管理等。</p>
+<p><code>SecurityManager是一个接口，继承了Authenticator, Authorizer, SessionManager这三个接口。</code></p>
+<h3 id="Authenticator"><a href="#Authenticator" class="headerlink" title="Authenticator"></a>Authenticator</h3><p><code>Authenticator即认证器</code>，对用户身份进行认证，Authenticator是一个接口，shiro提供ModularRealmAuthenticator实现类，通过ModularRealmAuthenticator基本上可以满足大多数需求，也可以自定义认证器。</p>
+<h3 id="Authorizer"><a href="#Authorizer" class="headerlink" title="Authorizer"></a>Authorizer</h3><p><code>Authorizer即授权器</code>，用户通过认证器认证通过，在访问功能时需要通过授权器判断用户是否有此功能的操作权限。</p>
+<h3 id="Realm"><a href="#Realm" class="headerlink" title="Realm"></a>Realm</h3><p><code>Realm即领域</code>，相当于datasource数据源，securityManager进行安全认证需要通过Realm获取用户权限数据，比如：如果用户身份数据在数据库那么realm就需要从数据库获取用户身份信息。</p>
+<ul>
+<li>​    注意：不要把realm理解成只是从数据源取数据，在realm中还有认证授权校验的相关的代码。</li>
+</ul>
+<h3 id="SessionManager"><a href="#SessionManager" class="headerlink" title="SessionManager"></a>SessionManager</h3><p><code>sessionManager即会话管理</code>，shiro框架定义了一套会话管理，它不依赖web容器的session，所以shiro可以使用在非web应用上，也可以将分布式应用的会话集中在一点管理，此特性可使它实现单点登录。</p>
+<h3 id="SessionDAO"><a href="#SessionDAO" class="headerlink" title="SessionDAO"></a>SessionDAO</h3><p><code>SessionDAO即会话dao</code>，是对session会话操作的一套接口，比如要将session存储到数据库，可以通过jdbc将会话存储到数据库。</p>
+<h3 id="CacheManager"><a href="#CacheManager" class="headerlink" title="CacheManager"></a>CacheManager</h3><p><code>CacheManager即缓存管理</code>，将用户权限数据存储在缓存，这样可以提高性能。</p>
+<h3 id="Cryptography"><a href="#Cryptography" class="headerlink" title="Cryptography"></a>Cryptography</h3><p>​    <code>Cryptography即密码管理</code>，shiro提供了一套加密/解密的组件，方便开发。比如提供常用的散列、加/解密等功能。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Shiro</tag>
       </tags>
   </entry>
   <entry>
@@ -1075,45 +1114,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Shiro(一):介绍与基本概念</title>
-    <url>/2021/06/09/Shiro%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="🚧权限管理"><a href="#🚧权限管理" class="headerlink" title="🚧权限管理"></a>🚧权限管理</h2><h3 id="什么是权限管理"><a href="#什么是权限管理" class="headerlink" title="什么是权限管理"></a>什么是权限管理</h3><p>基本上涉及到用户参与的系统都要进行权限管理，权限管理属于系统安全的范畴，权限管理实现<code>对用户访问系统的控制</code>，按照安全规则或者<a href="http://baike.baidu.com/view/160028.htm">安全策略</a>控制用户可以访问而且只能访问自己被授权的资源。</p>
-<p>权限管理包括用户<code>身份认证</code>和<code>授权</code>两部分，简称<code>认证授权</code>。对于需要访问控制的资源用户首先经过身份认证，认证通过后用户具有该资源的访问权限方可访问。</p>
-<h3 id="什么是身份认证"><a href="#什么是身份认证" class="headerlink" title="什么是身份认证"></a>什么是身份认证</h3><p><code>身份认证</code>，就是判断一个用户是否为合法用户的处理过程。最常用的简单身份认证方式是系统通过核对用户输入的用户名和口令，看其是否与系统中存储的该用户的用户名和口令一致，来判断用户身份是否正确。对于采用<a href="http://baike.baidu.com/view/5628.htm">指纹</a>等系统，则出示指纹；对于硬件Key等刷卡系统，则需要刷卡。</p>
-<h3 id="什么是授权"><a href="#什么是授权" class="headerlink" title="什么是授权"></a>什么是授权</h3><p><code>授权，即访问控制</code>，控制谁能访问哪些资源。主体进行身份认证后需要分配权限方可访问系统的资源，对于某些资源没有权限是无法访问的</p>
-<hr>
-<h2 id="🏁什么是shiro"><a href="#🏁什么是shiro" class="headerlink" title="🏁什么是shiro"></a>🏁什么是shiro</h2><blockquote>
-<p><strong>Apache Shiro™</strong> is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.  </p>
-<p>Shiro 是一个功能强大且易于使用的Java安全框架，它执行身份验证、授权、加密和会话管理。使用Shiro易于理解的API，您可以快速轻松地保护任何应用程序—从最小的移动应用程序到最大的web和企业应用程序。</p>
-</blockquote>
-<p><code>Shiro是apache旗下一个开源框架，它将软件系统的安全认证相关的功能抽取出来，实现用户身份认证，权限授权、加密、会话管理等功能，组成了一个通用的安全认证框架。</code></p>
-<hr>
-<h2 id="🌎shiro的核心架构"><a href="#🌎shiro的核心架构" class="headerlink" title="🌎shiro的核心架构"></a>🌎shiro的核心架构</h2><img src="/2021/06/09/Shiro%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class title="架构图">
-
-
-
-<h3 id="Subject"><a href="#Subject" class="headerlink" title="Subject"></a>Subject</h3><p><code>Subject即主体</code>，外部应用与subject进行交互，subject记录了当前操作用户，将用户的概念理解为当前操作的主体，可能是一个通过浏览器请求的用户，也可能是一个运行的程序。    Subject在shiro中是一个接口，接口中定义了很多认证授相关的方法，外部程序通过subject进行认证授，而subject是通过SecurityManager安全管理器进行认证授权</p>
-<h3 id="SecurityManager"><a href="#SecurityManager" class="headerlink" title="SecurityManager"></a>SecurityManager</h3><p><code>SecurityManager即安全管理器</code>，对全部的subject进行安全管理，它是shiro的核心，负责对所有的subject进行安全管理。通过SecurityManager可以完成subject的认证、授权等，实质上SecurityManager是通过Authenticator进行认证，通过Authorizer进行授权，通过SessionManager进行会话管理等。</p>
-<p><code>SecurityManager是一个接口，继承了Authenticator, Authorizer, SessionManager这三个接口。</code></p>
-<h3 id="Authenticator"><a href="#Authenticator" class="headerlink" title="Authenticator"></a>Authenticator</h3><p><code>Authenticator即认证器</code>，对用户身份进行认证，Authenticator是一个接口，shiro提供ModularRealmAuthenticator实现类，通过ModularRealmAuthenticator基本上可以满足大多数需求，也可以自定义认证器。</p>
-<h3 id="Authorizer"><a href="#Authorizer" class="headerlink" title="Authorizer"></a>Authorizer</h3><p><code>Authorizer即授权器</code>，用户通过认证器认证通过，在访问功能时需要通过授权器判断用户是否有此功能的操作权限。</p>
-<h3 id="Realm"><a href="#Realm" class="headerlink" title="Realm"></a>Realm</h3><p><code>Realm即领域</code>，相当于datasource数据源，securityManager进行安全认证需要通过Realm获取用户权限数据，比如：如果用户身份数据在数据库那么realm就需要从数据库获取用户身份信息。</p>
-<ul>
-<li>​    注意：不要把realm理解成只是从数据源取数据，在realm中还有认证授权校验的相关的代码。</li>
-</ul>
-<h3 id="SessionManager"><a href="#SessionManager" class="headerlink" title="SessionManager"></a>SessionManager</h3><p><code>sessionManager即会话管理</code>，shiro框架定义了一套会话管理，它不依赖web容器的session，所以shiro可以使用在非web应用上，也可以将分布式应用的会话集中在一点管理，此特性可使它实现单点登录。</p>
-<h3 id="SessionDAO"><a href="#SessionDAO" class="headerlink" title="SessionDAO"></a>SessionDAO</h3><p><code>SessionDAO即会话dao</code>，是对session会话操作的一套接口，比如要将session存储到数据库，可以通过jdbc将会话存储到数据库。</p>
-<h3 id="CacheManager"><a href="#CacheManager" class="headerlink" title="CacheManager"></a>CacheManager</h3><p><code>CacheManager即缓存管理</code>，将用户权限数据存储在缓存，这样可以提高性能。</p>
-<h3 id="Cryptography"><a href="#Cryptography" class="headerlink" title="Cryptography"></a>Cryptography</h3><p>​    <code>Cryptography即密码管理</code>，shiro提供了一套加密/解密的组件，方便开发。比如提供常用的散列、加/解密等功能。</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Shiro</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Spring5(一)</title>
     <url>/2021/04/22/Spring5%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<blockquote>
@@ -1495,50 +1495,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot(四):注解开发</title>
-    <url>/2021/06/15/SpringBoot%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
-    <content><![CDATA[<blockquote>
-<p>可以说注解是SpringBoot的精髓，有着非常非常多的注解，这篇博客将持续更新我平时所用到的注解~~</p>
-<p>当然了，这篇博客主要是为了作为一份备忘录，具体的底层解析，会另外写博客进行分析~</p>
-</blockquote>
-<h1 id="🎁类注解"><a href="#🎁类注解" class="headerlink" title="🎁类注解"></a>🎁类注解</h1><ul>
-<li><code>@Component</code> ：当不明确类属于哪一层架构时，用于注册<code>Spring</code>组件.</li>
-<li><code>@Repository</code> ：对应持久层即<code>Dao</code>层，主要用于数据库相关操作.</li>
-<li><code>@Service</code> ：对应服务层，主要涉及一些复杂的逻辑，需要用到 <code>Dao </code>层.</li>
-<li><code>@Controller</code> ：对应MVC 控制层，用户接受用户请求并调用 <code>Service </code>层返回数据给前端页面.</li>
-<li><code>@RestController</code>：相较于<code>@Controller</code> 而言，限制了控制器中的方法返回值只能为<code>return</code>中内容本身</li>
-<li><code>@SpringBootAplication</code>：用于标注SpringBoot启动类，也是启动自动配置扫描的注解</li>
-<li><code>@SpringBootTest</code>：用于进行单元测试</li>
-<li><code>@Configuration</code>：用于声明某个类为配置类，多用于<code>Spring</code>应用中，相当于在全局配置文件中进行相关配置</li>
-<li><code>@SpringBootConfiguration</code>：更多的用于<code>SpringBoot</code>应用中，效果同<code>@Configuration</code></li>
-<li><code>@ComponentScan</code>：使<code>SpringBoot</code>应用自动扫描<code>@SpringBootApplication</code>所在类的同级包以及它的子包中的配置</li>
-<li><code>@EnableAutoConfiguration</code>：使<code>SpringBoot</code>根据当前应用项目的依赖进行相关的配置</li>
-<li><code>@ConfigurationProperties(prefix = &quot;xxxx&quot;)</code>：用于读取配置文件中的数据</li>
-<li><code>@PropertySource</code>：可以指定需要加载的配置文件，可以一个也可以多个(多个使用{}括起来即可)，读取数据需要使用<code>@Value</code></li>
-</ul>
-<h1 id="🎫方法注解"><a href="#🎫方法注解" class="headerlink" title="🎫方法注解"></a>🎫方法注解</h1><ul>
-<li><code>@RequestMapping</code>：请求映射路径</li>
-<li><code>@GetMapping</code>：<code>get</code>请求映射路径，只接受<code>get</code>请求</li>
-<li><code>@PostMapping</code>: <code>post</code>请求映射路径，只接受<code>post</code>请求</li>
-<li><code>@ResponseBody</code>: 当使用<code>@controller</code>的时候，在方法上加次注解等价于使用<code>@RestController</code></li>
-<li><code>@Test</code>：标注测试方法，让方法可以独立运行</li>
-</ul>
-<h1 id="🎨属性注解"><a href="#🎨属性注解" class="headerlink" title="🎨属性注解"></a>🎨属性注解</h1><ul>
-<li><code>@Value</code> : 用于读取配置文件中值</li>
-<li><code>@Autowired</code>：用于自动注入<code>Spring IOC</code> 容器中的对象</li>
-<li><code>@RequestBody</code>：只能用于获取<code>Post</code>请求中的请求体</li>
-<li><code>@PathVarible</code>：用于获取<code>RESTful</code>风格的<code>get</code>请求参数</li>
-<li><code>@RequestParam</code>：用于获取<code>post/get</code>请求方式的请求体中的数据，如果变量名不一致，可以手动配置</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringMVC：流程分析概览</title>
     <url>/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/</url>
     <content><![CDATA[<h1 id="🎈SpringMVC简介"><a href="#🎈SpringMVC简介" class="headerlink" title="🎈SpringMVC简介"></a>🎈SpringMVC简介</h1><p>​        <code>SpringMVC</code> 显然是由 <code>Spring</code> 以及 <code>MVC</code> 俩部分组成，先说说 <code>Spring</code> 那当然就是指 <code>Spring Framework</code> 框架了，前面的文章已经介绍过了相关的基础知识，这里就相当于在 <code>Spring</code> 中使用<code>MVC</code> 架构，当然了这里讨论应用于在 <code>Web</code> 开发之中.</p>
@@ -1610,6 +1566,165 @@
       </categories>
       <tags>
         <tag>SpringMVC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot(四):注解开发</title>
+    <url>/2021/06/15/SpringBoot%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
+    <content><![CDATA[<blockquote>
+<p>可以说注解是SpringBoot的精髓，有着非常非常多的注解，这篇博客将持续更新我平时所用到的注解~~</p>
+<p>当然了，这篇博客主要是为了作为一份备忘录，具体的底层解析，会另外写博客进行分析~</p>
+</blockquote>
+<h1 id="🎁类注解"><a href="#🎁类注解" class="headerlink" title="🎁类注解"></a>🎁类注解</h1><ul>
+<li><code>@Component</code> ：当不明确类属于哪一层架构时，用于注册<code>Spring</code>组件.</li>
+<li><code>@Repository</code> ：对应持久层即<code>Dao</code>层，主要用于数据库相关操作.</li>
+<li><code>@Service</code> ：对应服务层，主要涉及一些复杂的逻辑，需要用到 <code>Dao </code>层.</li>
+<li><code>@Controller</code> ：对应MVC 控制层，用户接受用户请求并调用 <code>Service </code>层返回数据给前端页面.</li>
+<li><code>@RestController</code>：相较于<code>@Controller</code> 而言，限制了控制器中的方法返回值只能为<code>return</code>中内容本身</li>
+<li><code>@SpringBootAplication</code>：用于标注SpringBoot启动类，也是启动自动配置扫描的注解</li>
+<li><code>@SpringBootTest</code>：用于进行单元测试</li>
+<li><code>@Configuration</code>：用于声明某个类为配置类，多用于<code>Spring</code>应用中，相当于在全局配置文件中进行相关配置</li>
+<li><code>@SpringBootConfiguration</code>：更多的用于<code>SpringBoot</code>应用中，效果同<code>@Configuration</code></li>
+<li><code>@ComponentScan</code>：使<code>SpringBoot</code>应用自动扫描<code>@SpringBootApplication</code>所在类的同级包以及它的子包中的配置</li>
+<li><code>@EnableAutoConfiguration</code>：使<code>SpringBoot</code>根据当前应用项目的依赖进行相关的配置</li>
+<li><code>@ConfigurationProperties(prefix = &quot;xxxx&quot;)</code>：用于读取配置文件中的数据</li>
+<li><code>@PropertySource</code>：可以指定需要加载的配置文件，可以一个也可以多个(多个使用{}括起来即可)，读取数据需要使用<code>@Value</code></li>
+</ul>
+<h1 id="🎫方法注解"><a href="#🎫方法注解" class="headerlink" title="🎫方法注解"></a>🎫方法注解</h1><ul>
+<li><code>@RequestMapping</code>：请求映射路径</li>
+<li><code>@GetMapping</code>：<code>get</code>请求映射路径，只接受<code>get</code>请求</li>
+<li><code>@PostMapping</code>: <code>post</code>请求映射路径，只接受<code>post</code>请求</li>
+<li><code>@ResponseBody</code>: 当使用<code>@controller</code>的时候，在方法上加次注解等价于使用<code>@RestController</code></li>
+<li><code>@Test</code>：标注测试方法，让方法可以独立运行</li>
+</ul>
+<h1 id="🎨属性注解"><a href="#🎨属性注解" class="headerlink" title="🎨属性注解"></a>🎨属性注解</h1><ul>
+<li><code>@Value</code> : 用于读取配置文件中值</li>
+<li><code>@Autowired</code>：用于自动注入<code>Spring IOC</code> 容器中的对象</li>
+<li><code>@RequestBody</code>：只能用于获取<code>Post</code>请求中的请求体</li>
+<li><code>@PathVarible</code>：用于获取<code>RESTful</code>风格的<code>get</code>请求参数</li>
+<li><code>@RequestParam</code>：用于获取<code>post/get</code>请求方式的请求体中的数据，如果变量名不一致，可以手动配置</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>微信公众号后端开发(一):access_token以及OpenID</title>
+    <url>/2021/05/24/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🎑基本概念"><a href="#🎑基本概念" class="headerlink" title="🎑基本概念"></a>🎑基本概念</h1><p>​    </p>
+<p><strong><code>access_token</code></strong></p>
+<p>​        <code>access_token</code>是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用<code>access_token</code>。开发者需要进行妥善保存。<code>access_token</code>的存储至少要保留512个字符空间。<code>access_token</code>的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的<code>access_token</code>失效。</p>
+<p><strong><code>OpenID</code></strong></p>
+<p>​        为了识别用户，每个用户针对每个公众号会产生一个安全的<code>OpenID</code>，如果需要在多公众号、移动应用之间做用户共通，则需前往微信开放平台，将这些公众号和应用绑定到一个开放平台账号下，绑定后，一个用户虽然对多个公众号和应用有多个不同的<code>OpenID</code>，但他对所有这些同一开放平台账号下的公众号和应用，只有一个<code>UnionID</code>，可以在用户管理-获取用户基本信息（<code>UnionID</code>机制）文档了解详情。</p>
+<h1 id="✨获取access-token"><a href="#✨获取access-token" class="headerlink" title="✨获取access_token"></a>✨获取access_token</h1><p><strong>接口调用请求说明</strong></p>
+<blockquote>
+<p>https请求方式: GET</p>
+<p> <code>https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=&#123;&#123;appid&#125;&#125;&amp;secret=&#123;&#123;appsecret&#125;&#125;</code></p>
+</blockquote>
+<p><strong>参数说明</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">是否必须</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">grant_type</td>
+<td align="left">是</td>
+<td align="left">获取access_token填写client_credential</td>
+</tr>
+<tr>
+<td align="left">appid</td>
+<td align="left">是</td>
+<td align="left">第三方用户唯一凭证</td>
+</tr>
+<tr>
+<td align="left">secret</td>
+<td align="left">是</td>
+<td align="left">第三方用户唯一凭证密钥，即appsecret</td>
+</tr>
+</tbody></table>
+<p><strong>返回说明</strong></p>
+<p>正常情况下，微信会返回下述JSON数据包给公众号：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;access_token&quot;</span>:<span class="string">&quot;ACCESS_TOKEN&quot;</span>,<span class="attr">&quot;expires_in&quot;</span>:<span class="number">7200</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数说明</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">access_token</td>
+<td align="left">获取到的凭证</td>
+</tr>
+<tr>
+<td align="left">expires_in</td>
+<td align="left">凭证有效时间，单位：秒</td>
+</tr>
+</tbody></table>
+<p>错误时微信会返回错误码等信息，JSON数据包示例如下（该示例为AppID无效错误）:</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;errcode&quot;</span>:<span class="number">40013</span>,<span class="attr">&quot;errmsg&quot;</span>:<span class="string">&quot;invalid appid&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>返回码说明</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">返回码</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-1</td>
+<td align="left">系统繁忙，此时请开发者稍候再试</td>
+</tr>
+<tr>
+<td align="left">0</td>
+<td align="left">请求成功</td>
+</tr>
+<tr>
+<td align="left">40001</td>
+<td align="left">AppSecret错误或者AppSecret不属于这个公众号，请开发者确认AppSecret的正确性</td>
+</tr>
+<tr>
+<td align="left">40002</td>
+<td align="left">请确保grant_type字段值为client_credential</td>
+</tr>
+<tr>
+<td align="left">40164</td>
+<td align="left">调用接口的IP地址不在白名单中，请在接口IP白名单中进行设置。（小程序及小游戏调用不要求IP地址在白名单内。）</td>
+</tr>
+<tr>
+<td align="left">89503</td>
+<td align="left">此IP调用需要管理员确认,请联系管理员</td>
+</tr>
+<tr>
+<td align="left">89501</td>
+<td align="left">此IP正在等待管理员确认,请联系管理员</td>
+</tr>
+<tr>
+<td align="left">89506</td>
+<td align="left">24小时内该IP被管理员拒绝调用两次，24小时内不可再使用该IP调用</td>
+</tr>
+<tr>
+<td align="left">89507</td>
+<td align="left">1小时内该IP被管理员拒绝调用一次，1小时内不可再使用该IP调用</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>微信公众号</tag>
       </tags>
   </entry>
   <entry>
@@ -1792,121 +1907,6 @@
       </tags>
   </entry>
   <entry>
-    <title>微信公众号后端开发(一):access_token以及OpenID</title>
-    <url>/2021/05/24/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🎑基本概念"><a href="#🎑基本概念" class="headerlink" title="🎑基本概念"></a>🎑基本概念</h1><p>​    </p>
-<p><strong><code>access_token</code></strong></p>
-<p>​        <code>access_token</code>是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用<code>access_token</code>。开发者需要进行妥善保存。<code>access_token</code>的存储至少要保留512个字符空间。<code>access_token</code>的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的<code>access_token</code>失效。</p>
-<p><strong><code>OpenID</code></strong></p>
-<p>​        为了识别用户，每个用户针对每个公众号会产生一个安全的<code>OpenID</code>，如果需要在多公众号、移动应用之间做用户共通，则需前往微信开放平台，将这些公众号和应用绑定到一个开放平台账号下，绑定后，一个用户虽然对多个公众号和应用有多个不同的<code>OpenID</code>，但他对所有这些同一开放平台账号下的公众号和应用，只有一个<code>UnionID</code>，可以在用户管理-获取用户基本信息（<code>UnionID</code>机制）文档了解详情。</p>
-<h1 id="✨获取access-token"><a href="#✨获取access-token" class="headerlink" title="✨获取access_token"></a>✨获取access_token</h1><p><strong>接口调用请求说明</strong></p>
-<blockquote>
-<p>https请求方式: GET</p>
-<p> <code>https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=&#123;&#123;appid&#125;&#125;&amp;secret=&#123;&#123;appsecret&#125;&#125;</code></p>
-</blockquote>
-<p><strong>参数说明</strong></p>
-<table>
-<thead>
-<tr>
-<th align="left">参数</th>
-<th align="left">是否必须</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">grant_type</td>
-<td align="left">是</td>
-<td align="left">获取access_token填写client_credential</td>
-</tr>
-<tr>
-<td align="left">appid</td>
-<td align="left">是</td>
-<td align="left">第三方用户唯一凭证</td>
-</tr>
-<tr>
-<td align="left">secret</td>
-<td align="left">是</td>
-<td align="left">第三方用户唯一凭证密钥，即appsecret</td>
-</tr>
-</tbody></table>
-<p><strong>返回说明</strong></p>
-<p>正常情况下，微信会返回下述JSON数据包给公众号：</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;access_token&quot;</span>:<span class="string">&quot;ACCESS_TOKEN&quot;</span>,<span class="attr">&quot;expires_in&quot;</span>:<span class="number">7200</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>参数说明</strong></p>
-<table>
-<thead>
-<tr>
-<th align="left">参数</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">access_token</td>
-<td align="left">获取到的凭证</td>
-</tr>
-<tr>
-<td align="left">expires_in</td>
-<td align="left">凭证有效时间，单位：秒</td>
-</tr>
-</tbody></table>
-<p>错误时微信会返回错误码等信息，JSON数据包示例如下（该示例为AppID无效错误）:</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;errcode&quot;</span>:<span class="number">40013</span>,<span class="attr">&quot;errmsg&quot;</span>:<span class="string">&quot;invalid appid&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>返回码说明</strong></p>
-<table>
-<thead>
-<tr>
-<th align="left">返回码</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">-1</td>
-<td align="left">系统繁忙，此时请开发者稍候再试</td>
-</tr>
-<tr>
-<td align="left">0</td>
-<td align="left">请求成功</td>
-</tr>
-<tr>
-<td align="left">40001</td>
-<td align="left">AppSecret错误或者AppSecret不属于这个公众号，请开发者确认AppSecret的正确性</td>
-</tr>
-<tr>
-<td align="left">40002</td>
-<td align="left">请确保grant_type字段值为client_credential</td>
-</tr>
-<tr>
-<td align="left">40164</td>
-<td align="left">调用接口的IP地址不在白名单中，请在接口IP白名单中进行设置。（小程序及小游戏调用不要求IP地址在白名单内。）</td>
-</tr>
-<tr>
-<td align="left">89503</td>
-<td align="left">此IP调用需要管理员确认,请联系管理员</td>
-</tr>
-<tr>
-<td align="left">89501</td>
-<td align="left">此IP正在等待管理员确认,请联系管理员</td>
-</tr>
-<tr>
-<td align="left">89506</td>
-<td align="left">24小时内该IP被管理员拒绝调用两次，24小时内不可再使用该IP调用</td>
-</tr>
-<tr>
-<td align="left">89507</td>
-<td align="left">1小时内该IP被管理员拒绝调用一次，1小时内不可再使用该IP调用</td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>微信公众号</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>每日一题(一):快速排序</title>
     <url>/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🚡快速排序"><a href="#🚡快速排序" class="headerlink" title="🚡快速排序"></a>🚡快速排序</h1><blockquote>
@@ -1964,31 +1964,6 @@
       </tags>
   </entry>
   <entry>
-    <title>每日一题(二):双指针算法</title>
-    <url>/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🎃双指针算法"><a href="#🎃双指针算法" class="headerlink" title="🎃双指针算法"></a>🎃双指针算法</h1><p>何为双指针？其实在算法中是一种技巧性的东西，这个指针也并非如同<code>C语言</code> 那种指针，只是一种标识，用于表示状态，很凑巧，在上一篇每日一题中的快速排序就使用了双指针算法,十分经典，并且属于对撞指针（通俗的讲就是相向扫描），当然了，既然有相向扫描，也肯定有同向扫描，比较常用于字符串比对，分治之中.</p>
-<p>突然有个不错的想法，每日一题连续更新同一类型的题目，这样有便于全面掌握一种算法.</p>
-<p>这里附上上一篇文章的链接以供复习.</p>
-<p><a href="https://soul-pe.gitee.io/shdsoul/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">每日一题(一):快速排序</a></p>
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><img src="/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/1.png" class title="题目">
-
-<p>题目来源：Acwing：<a href="https://www.acwing.com/problem/content/description/773/">原题链接</a></p>
-<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>我们只需要，遍历每一个字符，然后将字符与后方的字符逐一比较，相同则继续向后比较并记录连续次数，不同则停止比较，继续向后方遍历即可.</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串</span></span><br><span class="line">    string str;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串数量</span></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="comment">//当 n 为 0 的时候停止输入</span></span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        cin &gt;&gt; str;</span><br><span class="line">        <span class="comment">//定义最大长度为 -1</span></span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">-1</span>;</span><br><span class="line">        <span class="comment">//记录最多重复的字符</span></span><br><span class="line">        string maxs;</span><br><span class="line">        <span class="comment">//指针i :遍历输入的字符</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; str.<span class="built_in">size</span>() ; i++)&#123;</span><br><span class="line">            <span class="comment">//指针j :用于字符串比较</span></span><br><span class="line">            <span class="keyword">int</span> j = i; <span class="comment">//由于要求连续,所以默认开始扫描的地方为 指针i 的位置,只需要遍历后面，不需要管前面</span></span><br><span class="line">            <span class="keyword">int</span> nums = <span class="number">0</span>;<span class="comment">//用于记录连续次数</span></span><br><span class="line">            <span class="comment">//当指针j指向的值与指针i指向的值相同的时候,并且j指针没有越界的时候</span></span><br><span class="line">            <span class="keyword">while</span>(str[j] == str[i] &amp;&amp; j &lt; str.<span class="built_in">size</span>())</span><br><span class="line">                <span class="comment">//指针j向后移动,连续次数自增1</span></span><br><span class="line">                j++ , nums++;</span><br><span class="line">            <span class="comment">//如果连续次数大于最大值则进行记录,并且记录当前字符    </span></span><br><span class="line">            <span class="keyword">if</span>(nums &gt; max)</span><br><span class="line">                max = nums,maxs = str[i];</span><br><span class="line">            <span class="comment">//当指针j停止移动时,[i,j)区间中必然全是相同的字符,此时 i只需要从j的位置开始继续遍历即可</span></span><br><span class="line">            i = j <span class="number">-1</span>;<span class="comment">//这里减1,是为了抵消掉循环中的 i++</span></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; nums &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; max;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">int</span> n = Integer.parseInt(reader.readLine());</span><br><span class="line">        <span class="keyword">while</span>(n-- != <span class="number">0</span>)&#123;</span><br><span class="line">            String s = reader.readLine();</span><br><span class="line">            <span class="keyword">char</span> c = <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">            <span class="keyword">int</span> max = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; s.length() ; i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> j = i;</span><br><span class="line">                <span class="keyword">int</span> nums = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span>(j &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(j))&#123; </span><br><span class="line">                    j++;</span><br><span class="line">                    nums++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(nums &gt; max)&#123;</span><br><span class="line">                    max = nums ;</span><br><span class="line">                    c = s.charAt(i);</span><br><span class="line">                &#125;</span><br><span class="line">                i = j - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(c + <span class="string">&quot; &quot;</span> + max);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>每日一题(三):双指针算法</title>
     <url>/2021/06/15/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%89%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🚠双指针算法"><a href="#🚠双指针算法" class="headerlink" title="🚠双指针算法"></a>🚠双指针算法</h1><p>范式：</p>
@@ -2019,20 +1994,28 @@
       </tags>
   </entry>
   <entry>
-    <title>近期杂谈</title>
-    <url>/2021/04/18/%E8%BF%91%E6%9C%9F%E6%9D%82%E8%B0%88/</url>
-    <content><![CDATA[<h1 id="🕶开学了？"><a href="#🕶开学了？" class="headerlink" title="🕶开学了？"></a>🕶开学了？</h1><p>&emsp;&emsp;其实在4月初的时候我依旧保持着放假的状态，上课不是很认真，在寝室也是学技术效率比较慢，整个人也就是处于悠哉悠哉的那种状态，感觉目标有点不明确，不知道到底自己想干嘛，期间最引发我思考的莫过于那一份关于考研和就业选择的问卷，在我上大学没多久的时候，觉得我肯定是会考研的，目的是为了提升自己的学历，顺便也可以锻炼自己，然而到了现在我却感觉不是很确定了，内心可能更向往技术开发的方向，实在不想加入考研大军，就算有保研这条路子，也不是很想做研究的那种方向.自知能力有限，觉得自己还是不合适的.不过呢，关于这个以后或许会有新的思考，以后再说吧hhhh.</p>
-<p>&emsp;&emsp;开学至4月初期，对自己的表现怎么说呢，比较懒散，很浮躁，也很对不起我家小朋友，老是惹她不开心，自己犯的错误比较多，唉.道阻且长，同志仍然需要努力啊.</p>
-<h1 id="🎃参加了数学竞赛？"><a href="#🎃参加了数学竞赛？" class="headerlink" title="🎃参加了数学竞赛？"></a>🎃参加了数学竞赛？</h1><p>&emsp;&emsp;怎么说呢，源于从小对于数学的兴趣吧，数学的巧妙逻辑实在是让我沉迷，高数中，各大数学家巧妙的定理证明也着实很吸引我，大一上还是有好好学高等数学的.下学期其实也有好好学，只是中途有点划水哈….这也算是我大一下生活中一件趣事，与其说是参加比赛，不如说是去感受的.</p>
-<h1 id="🥼-提前步入社畜生活？"><a href="#🥼-提前步入社畜生活？" class="headerlink" title="🥼 提前步入社畜生活？"></a>🥼 提前步入社畜生活？</h1><p>&emsp;&emsp;hhhh，其实有点标题党的味道了，哪里是社畜，还是个学徒哈.说来也十分偶然，我近期也只是想找个做项目的团队，一起做项目，共同学习进步，然后翻阅QQ群，发现了网安协会的项目部，再一番咨询后，投了简历，然后参加了笔试以及面试，然后成功进入了这个部门，去的时候很惊奇这个部门居然有办公室，我还会有工位，后来第一天去的时候才了解到部门旗下有一所公司，我相当于进入了一个公司，成为了里面的职员，哦对了，我选择了开发岗中的后端开发，恰好也是他们部门现在缺人的岗位，怎么说呢也挺有压力的.据说等以后学成接手的时候，有绩效了，我就会有工资了hhh，还挺激动的. 话又说回来，在这个团队中，自己也挺想快点学习可以参加到项目中，自己最近也变得开始好好搞学习，不是很懒散了，有点大一上学期的感觉了hhh，也多亏了我家小朋友，给予我理解和帮助，十分体贴我，温柔又可爱，有了我家小朋友，感觉能把我从紧张的环境中解脱出来，让我轻松不少，真好啊.</p>
-<p>&emsp;&emsp;对于现阶段目标，就是学习经典的 <code>SSM</code> 技术框架，说多也不多，说少也不少，慢慢来咯，后期才能运用自如，而且团队中缺少，<code>Java</code> 后端开发的老师傅，现在自己只能一步一个脚印，脚踏实地的进行学习.未来的路还是挺长的，我对现在自己的状态很满意，希望自己能多保持保持，也希望多陪陪我家小朋友hhh，也希望我家小朋友能理解我哦.</p>
-<h1 id="✨结束END"><a href="#✨结束END" class="headerlink" title="✨结束END"></a>✨结束END</h1><p>放上一句自己特别喜欢的一句诗：“醉后不知天在水，满船清梦压星河.”   莫名喜欢这句诗的意境，让我对未来生活有着无限畅想hhhh</p>
+    <title>每日一题(二):双指针算法</title>
+    <url>/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🎃双指针算法"><a href="#🎃双指针算法" class="headerlink" title="🎃双指针算法"></a>🎃双指针算法</h1><p>何为双指针？其实在算法中是一种技巧性的东西，这个指针也并非如同<code>C语言</code> 那种指针，只是一种标识，用于表示状态，很凑巧，在上一篇每日一题中的快速排序就使用了双指针算法,十分经典，并且属于对撞指针（通俗的讲就是相向扫描），当然了，既然有相向扫描，也肯定有同向扫描，比较常用于字符串比对，分治之中.</p>
+<p>突然有个不错的想法，每日一题连续更新同一类型的题目，这样有便于全面掌握一种算法.</p>
+<p>这里附上上一篇文章的链接以供复习.</p>
+<p><a href="https://soul-pe.gitee.io/shdsoul/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">每日一题(一):快速排序</a></p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><img src="/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/1.png" class title="题目">
+
+<p>题目来源：Acwing：<a href="https://www.acwing.com/problem/content/description/773/">原题链接</a></p>
+<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>我们只需要，遍历每一个字符，然后将字符与后方的字符逐一比较，相同则继续向后比较并记录连续次数，不同则停止比较，继续向后方遍历即可.</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串</span></span><br><span class="line">    string str;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串数量</span></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="comment">//当 n 为 0 的时候停止输入</span></span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        cin &gt;&gt; str;</span><br><span class="line">        <span class="comment">//定义最大长度为 -1</span></span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">-1</span>;</span><br><span class="line">        <span class="comment">//记录最多重复的字符</span></span><br><span class="line">        string maxs;</span><br><span class="line">        <span class="comment">//指针i :遍历输入的字符</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; str.<span class="built_in">size</span>() ; i++)&#123;</span><br><span class="line">            <span class="comment">//指针j :用于字符串比较</span></span><br><span class="line">            <span class="keyword">int</span> j = i; <span class="comment">//由于要求连续,所以默认开始扫描的地方为 指针i 的位置,只需要遍历后面，不需要管前面</span></span><br><span class="line">            <span class="keyword">int</span> nums = <span class="number">0</span>;<span class="comment">//用于记录连续次数</span></span><br><span class="line">            <span class="comment">//当指针j指向的值与指针i指向的值相同的时候,并且j指针没有越界的时候</span></span><br><span class="line">            <span class="keyword">while</span>(str[j] == str[i] &amp;&amp; j &lt; str.<span class="built_in">size</span>())</span><br><span class="line">                <span class="comment">//指针j向后移动,连续次数自增1</span></span><br><span class="line">                j++ , nums++;</span><br><span class="line">            <span class="comment">//如果连续次数大于最大值则进行记录,并且记录当前字符    </span></span><br><span class="line">            <span class="keyword">if</span>(nums &gt; max)</span><br><span class="line">                max = nums,maxs = str[i];</span><br><span class="line">            <span class="comment">//当指针j停止移动时,[i,j)区间中必然全是相同的字符,此时 i只需要从j的位置开始继续遍历即可</span></span><br><span class="line">            i = j <span class="number">-1</span>;<span class="comment">//这里减1,是为了抵消掉循环中的 i++</span></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; nums &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; max;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">int</span> n = Integer.parseInt(reader.readLine());</span><br><span class="line">        <span class="keyword">while</span>(n-- != <span class="number">0</span>)&#123;</span><br><span class="line">            String s = reader.readLine();</span><br><span class="line">            <span class="keyword">char</span> c = <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">            <span class="keyword">int</span> max = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; s.length() ; i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> j = i;</span><br><span class="line">                <span class="keyword">int</span> nums = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span>(j &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(j))&#123; </span><br><span class="line">                    j++;</span><br><span class="line">                    nums++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(nums &gt; max)&#123;</span><br><span class="line">                    max = nums ;</span><br><span class="line">                    c = s.charAt(i);</span><br><span class="line">                &#125;</span><br><span class="line">                i = j - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(c + <span class="string">&quot; &quot;</span> + max);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
-        <category>生活杂谈</category>
+        <category>算法</category>
       </categories>
       <tags>
-        <tag>生活杂谈</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -2165,252 +2148,20 @@
       </tags>
   </entry>
   <entry>
-    <title>MybatisPlus(二):常用功能解析</title>
-    <url>/2021/06/06/MybatisPlus%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<blockquote>
-<p>时隔多日，最近在熟悉SpringBoot后端项目代码，并进行了一些调试和配置，在和学长进行代码对接，忙活了好一整子，再加上期末考试，这篇博客闲置了很久，总还是差俩个点没有时间写.</p>
-</blockquote>
-<h1 id="🥙多种主键类型"><a href="#🥙多种主键类型" class="headerlink" title="🥙多种主键类型"></a>🥙多种主键类型</h1><p>在实体类中，在主键的属性上添加如下注解，其中type有如下选择：</p>
-<p>接下来会挑选几个比较常用的进行详细解释</p>
-<p><strong><code>@TableId(value=&quot; &quot;,type=Id.type.xxx)</code></strong></p>
-<table>
-<thead>
-<tr>
-<th align="center">值</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">AUTO</td>
-<td align="center">数据库ID自增</td>
-</tr>
-<tr>
-<td align="center">NONE</td>
-<td align="center">无状态,该类型为未设置主键类型(注解里等于跟随全局,全局里约等于 INPUT)</td>
-</tr>
-<tr>
-<td align="center">INPUT</td>
-<td align="center">insert前自行set主键值</td>
-</tr>
-<tr>
-<td align="center">ASSIGN_ID</td>
-<td align="center">分配ID(主键类型为Number(Long和Integer)或String)(since 3.3.0),使用接口<code>IdentifierGenerator</code>的方法<code>nextId</code>(默认实现类为<code>DefaultIdentifierGenerator</code>雪花算法)</td>
-</tr>
-<tr>
-<td align="center">ASSIGN_UUID</td>
-<td align="center">分配UUID,主键类型为String(since 3.3.0),使用接口<code>IdentifierGenerator</code>的方法<code>nextUUID</code>(默认default方法)</td>
-</tr>
-<tr>
-<td align="center">ID_WORKER</td>
-<td align="center">分布式全局唯一ID 长整型类型(please use <code>ASSIGN_ID</code>)</td>
-</tr>
-<tr>
-<td align="center">UUID</td>
-<td align="center">32位UUID字符串(please use <code>ASSIGN_UUID</code>)</td>
-</tr>
-<tr>
-<td align="center">ID_WORKER_STR</td>
-<td align="center">分布式全局唯一ID 字符串类型(please use <code>ASSIGN_ID</code>)</td>
-</tr>
-</tbody></table>
-<ul>
-<li><strong><code>Auto</code></strong> : 主键自动递增 +1 ，插入数据的时候无需手动设定主键值，如若设定安装设定的主键值进行插入.</li>
-<li><strong><code>INPUT</code></strong> ：插入数据时自己手动设定</li>
-<li><strong><code>ASSIGN_ID</code></strong> : 使用雪花算法生成一个 64  bit 的 <code>long</code> 型主键值，核心思想是：64 个 bit 中，其中 1 个 bit 是不用的，然后用其中的 41 bit 作为毫秒数，用 10 bit 作为工作机器 id，12 bit 作为序列号</li>
-<li><strong><code>ASSIGN_UUID</code></strong> : 重新自动生成排除中划线的UUID作为主键,类型为String</li>
-</ul>
-<h1 id="🥚自动填充"><a href="#🥚自动填充" class="headerlink" title="🥚自动填充"></a>🥚自动填充</h1><p>​        在实际业务中，通常需要存储数据的创建时间以及更新时间，如果需要进行手动的插入和更新的话十分繁琐，并且这个操作本身不具有唯一性，实际上只是重复着一个操作，于是<code>MybatisPlus</code>提供了自动填充机制.</p>
-<p>实体类：其中 <strong><code>@TableField</code></strong> 中<code>value</code>用于标记属性与数据库中对应的字段，由于配置中默认开启了驼峰命名因此<code>value</code>值可以不写.</p>
-<ul>
-<li>实体类需要自动填充的字段加上  <strong><code>@TableField</code></strong> 注解</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@TableName(value = &quot;books&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Books</span> <span class="keyword">extends</span> <span class="title">Model</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@TableId(value = &quot;book_id&quot; , type = IdType.AUTO)</span></span><br><span class="line">  <span class="keyword">private</span> Integer bookId;</span><br><span class="line">  <span class="keyword">private</span> String bookName;</span><br><span class="line">  <span class="keyword">private</span> Integer bookCounts;</span><br><span class="line">  <span class="keyword">private</span> String detail;</span><br><span class="line">  <span class="meta">@Version</span></span><br><span class="line">  <span class="keyword">private</span> Integer version;</span><br><span class="line">  <span class="keyword">private</span> Integer deleteFlag;</span><br><span class="line">    </span><br><span class="line">  <span class="comment">//表示插入时填充</span></span><br><span class="line">  <span class="meta">@TableField(fill = FieldFill.INSERT)</span></span><br><span class="line">  <span class="keyword">private</span> Date createTime;</span><br><span class="line">  <span class="comment">//表示插入和更新时填充</span></span><br><span class="line">  <span class="meta">@TableField(fill = FieldFill.INSERT_UPDATE)</span></span><br><span class="line">  <span class="keyword">private</span> Date updateTime;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>编写处理器类</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MybatisAutoFill</span> <span class="keyword">implements</span> <span class="title">MetaObjectHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertFill</span><span class="params">(MetaObject metaObject)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">this</span>.setFieldValByName(<span class="string">&quot;createTime&quot;</span>,<span class="keyword">new</span> Date(),metaObject);</span><br><span class="line">        <span class="keyword">this</span>.setFieldValByName(<span class="string">&quot;updateTime&quot;</span>,<span class="keyword">new</span> Date(),metaObject);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateFill</span><span class="params">(MetaObject metaObject)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.setFieldValByName(<span class="string">&quot;updateTime&quot;</span> , <span class="keyword">new</span> Date(), metaObject);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><strong>注意：如果数据库<code>URL</code> 时区设置的不是东八区的时区，那么更新的时间会与当前系统时间差几个小时，需要保证东八区的时区，只需要将 <code>ServerTimezone=Asia/shangHai</code></strong></p>
-<h1 id="🍖乐观锁"><a href="#🍖乐观锁" class="headerlink" title="🍖乐观锁"></a>🍖乐观锁</h1><p>​        在并发量大的时候，可能会存在多个用户同时对一条数据进行了操作，从而导致数据混乱错误，因此需要保证一个用户操作完成之后，另一个用户才能继续操作，这就需要给数据上锁.</p>
-<blockquote>
-<p><strong>什么是锁？</strong></p>
-</blockquote>
-<p>​        顾名思义就是保证某一时刻的更新者是唯一的，更新数据所需要的钥匙只有一把，任何时刻只能有一个人拥有钥匙.</p>
-<ul>
-<li><p><strong>悲观锁</strong> ：每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会block直到它拿到锁———&gt;版本号或时间戳控制，适用于多读少写的场景</p>
-</li>
-<li><p><strong>乐观锁</strong>：每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在更新的时候会判断一下在此期间别人有没有去更新这个数据———&gt;DB的行锁、表锁等，适用于数据一致性比较高的场景</p>
-</li>
-</ul>
-<p><code>MybatisPlus</code>中提供了乐观锁机制，需要在数据库表中添加 <code>version</code> 字段 ,  类型为 <code>int</code> 长度 5-6即可，实体类中 <code>version</code> 属性值,数据类型为<code>Integer</code></p>
-<ul>
-<li>加上**<code>@Version</code>** 注解</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Version</span></span><br><span class="line"><span class="keyword">private</span> Integer version;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>编写配置类</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MybatisPlusConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MybatisPlusInterceptor <span class="title">mybatisPlusInterceptor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        MybatisPlusInterceptor interceptor = <span class="keyword">new</span> MybatisPlusInterceptor();</span><br><span class="line">        <span class="comment">//乐观锁配置</span></span><br><span class="line">        interceptor.addInnerInterceptor(<span class="keyword">new</span> OptimisticLockerInnerInterceptor());</span><br><span class="line">        <span class="comment">//分页插件配置</span></span><br><span class="line">        interceptor.addInnerInterceptor(<span class="keyword">new</span> PaginationInnerInterceptor(DbType.MYSQL));</span><br><span class="line">        <span class="keyword">return</span> interceptor;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>查询使用</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">updateBook</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//乐观锁只有在更新查到的数据的时候才会起作用，单纯的更新是不会起作用的</span></span><br><span class="line">        Books books = booksMapper.selectById(<span class="number">11</span>);</span><br><span class="line">        books.setBookCounts(<span class="number">777</span>);</span><br><span class="line">        books.setDetail(<span class="string">&quot;更新测试06&quot;</span>);</span><br><span class="line">        books.updateById();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">控制台输出的SQL语句:</span><br><span class="line">UPDATE books SET book_name=?, book_counts=?, detail=?, version=?, create_time=?, update_time=? WHERE book_id=? AND version=? AND delete_flag=<span class="number">0</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>在数据库中，<code>version</code>字段默认值设置为1，过后每次查询后更新一次之后，<code>version</code>值在查询出的值之上自增 1 .</p>
-<h1 id="🥟分页查询"><a href="#🥟分页查询" class="headerlink" title="🥟分页查询"></a>🥟分页查询</h1><p><code>MybatisPlus</code> 中内置了分页插件，只需要进行简单的配置即可完成分页操作</p>
-<ul>
-<li>编写配置文件</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MybatisPlusConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MybatisPlusInterceptor <span class="title">mybatisPlusInterceptor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        MybatisPlusInterceptor interceptor = <span class="keyword">new</span> MybatisPlusInterceptor();</span><br><span class="line">        <span class="comment">//乐观锁配置</span></span><br><span class="line">        interceptor.addInnerInterceptor(<span class="keyword">new</span> OptimisticLockerInnerInterceptor());</span><br><span class="line">        <span class="comment">//分页插件配置</span></span><br><span class="line">        interceptor.addInnerInterceptor(<span class="keyword">new</span> PaginationInnerInterceptor(DbType.MYSQL));</span><br><span class="line">        <span class="keyword">return</span> interceptor;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>查询使用</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">selectBoos</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//分页对象             (第几页，一页中显示几个)   </span></span><br><span class="line">        Page&lt;Books&gt; page = <span class="keyword">new</span> Page&lt;&gt;(<span class="number">2</span>,<span class="number">2</span>);</span><br><span class="line">        <span class="comment">//查询返回 page对象</span></span><br><span class="line">        Page&lt;Books&gt; page1 = booksMapper.selectPage(page, <span class="keyword">null</span>);</span><br><span class="line">        System.out.println(page1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h1 id="🧇-逻辑删除"><a href="#🧇-逻辑删除" class="headerlink" title="🧇 逻辑删除"></a>🧇 逻辑删除</h1><p>​        在实际业务中，存在查询历史记录的情况，以卡券为例，过期或者已经使用的卡券在数据库中直接进行删除，则永远无法查询到已经删除的卡券，<code>MybatisPlus</code> 提供了逻辑删除的配置，只需要在数据库中添加逻辑删除标志字段即可，默认值为 0 ，比如<code>delete_flag</code> ，<code>int </code> 类型，值为 1 的时候 表示删除，值为 0 的时候表示未删除.</p>
-<ul>
-<li>配置文件编写</li>
-</ul>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 绑定逻辑删除判断的属性</span></span><br><span class="line"><span class="meta">mybatis-plus.global-config.db-config.logic-delete-field</span>= <span class="string">deleteFlag</span></span><br><span class="line"><span class="comment">#设置值为1的时候为删除</span></span><br><span class="line"><span class="meta">mybatis-plus.global-config.db-config.logic-delete-value</span>= <span class="string">1</span></span><br><span class="line"><span class="comment">#值为0的时候表示未删除</span></span><br><span class="line"><span class="meta">mybatis-plus.global-config.db-config.logic-not-delete-value</span>= <span class="string">0</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>配置完成之后，进行测试：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">deleteBook</span><span class="params">()</span></span>&#123;</span><br><span class="line">    booksMapper.deleteById(<span class="number">10</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>删除操作变成了对 <code>delete_flag</code> 的更新操作</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">JDBC Connection [HikariProxyConnection@816918962 wrapping com.mysql.cj.jdbc.ConnectionImpl@2924f1d8] will not be managed by Spring</span><br><span class="line">==&gt;  Preparing: UPDATE books SET delete_flag=1 WHERE book_id=? AND delete_flag=0</span><br><span class="line">==&gt; Parameters: 10(Integer)</span><br><span class="line">&lt;==    Updates: 1</span><br></pre></td></tr></table></figure>
-
-
-
-<p>当然了，此时进行全表查询的时候，也会显示不出来这些已经进行逻辑删除的数据：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> book_id,book_name,book_counts,detail,version,delete_flag,create_time,update_time </span><br><span class="line"><span class="keyword">FROM</span> books </span><br><span class="line"><span class="keyword">WHERE</span> delete_flag<span class="operator">=</span><span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-<p>全表查询的时候，会在末尾默认评价逻辑删除判断条件</p>
-<h1 id="🎭-条件构造器"><a href="#🎭-条件构造器" class="headerlink" title="🎭 条件构造器"></a>🎭 条件构造器</h1><blockquote>
-<p>该部分搬运自 Mybatis-plus官方文档，这一部分内容，其实有利也有弊，使用时只需要翻阅一下官方文档即可，对于复杂的语句建议还是xml文件搞起，便于后期debug</p>
-</blockquote>
-<p><strong>注意：</strong> <code>Wrapper</code>构造器存在俩个实现类：<code>QueryWrapper </code> 以及 <code>UpdateWrapper</code> ，实际运用中，创建这俩个实现类对象即可进行下面这般操作了</p>
-<h2 id="allEq（全等于）"><a href="#allEq（全等于）" class="headerlink" title="allEq（全等于）"></a><font size="4" color="orange"><strong><code>allEq</code></strong></font>（全等于）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">allEq(Map&lt;R, V&gt; params)</span><br><span class="line">allEq(Map&lt;R, V&gt; params, <span class="keyword">boolean</span> null2IsNull)</span><br><span class="line">allEq(<span class="keyword">boolean</span> condition, Map&lt;R, V&gt; params, <span class="keyword">boolean</span> null2IsNull)</span><br></pre></td></tr></table></figure>
-
-<p><code>params</code> : <code>key</code>为数据库字段名,<code>value</code>为字段值<br><code>null2IsNull</code> : 为<code>true</code>则在<code>map</code>的<code>value</code>为<code>null</code>时调用 <a href="https://mp.baomidou.com/guide/wrapper.html#isnull">isNull</a> 方法,为<code>false</code>时则忽略<code>value</code>为<code>null</code>的</p>
-<h2 id="eq（等于）"><a href="#eq（等于）" class="headerlink" title="eq（等于）"></a><font size="4" color="orange"><strong><code>eq</code></strong></font>（等于）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">eq(R column, Object val)</span><br><span class="line">eq(<span class="keyword">boolean</span> condition, R column, Object val)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>例: <code>eq(&quot;name&quot;, &quot;老王&quot;)</code>—&gt;<code>name = &#39;老王&#39;</code></li>
-</ul>
-<h2 id="ne（不等于）"><a href="#ne（不等于）" class="headerlink" title="ne（不等于）"></a><font size="4" color="orange"><strong><code>ne</code></strong></font>（不等于）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ne(R column, Object val)</span><br><span class="line">ne(<span class="keyword">boolean</span> condition, R column, Object val)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>不等于 &lt;&gt;</li>
-<li>例: <code>ne(&quot;name&quot;, &quot;老王&quot;)</code>—&gt;<code>name &lt;&gt; &#39;老王&#39;</code></li>
-</ul>
-<h2 id="gt（大于）"><a href="#gt（大于）" class="headerlink" title="gt（大于）"></a><font size="4" color="orange"><strong><code>gt</code></strong></font>（大于）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">gt(R column, Object val)</span><br><span class="line">gt(<span class="keyword">boolean</span> condition, R column, Object val)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>大于 &gt;</li>
-<li>例: <code>gt(&quot;age&quot;, 18)</code>—&gt;<code>age &gt; 18</code></li>
-</ul>
-<h2 id="ge（大于等于）"><a href="#ge（大于等于）" class="headerlink" title="ge（大于等于）"></a><font size="4" color="orange"><strong><code>ge</code></strong></font>（大于等于）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ge(R column, Object val)</span><br><span class="line">ge(<span class="keyword">boolean</span> condition, R column, Object val)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>大于等于 &gt;=</li>
-<li>例: <code>ge(&quot;age&quot;, 18)</code>—&gt;<code>age &gt;= 18</code></li>
-</ul>
-<h2 id="lt（小于）"><a href="#lt（小于）" class="headerlink" title="lt（小于）"></a><font size="4" color="orange"><strong><code>lt</code></strong></font>（小于）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">lt(R column, Object val)</span><br><span class="line">lt(<span class="keyword">boolean</span> condition, R column, Object val)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>小于 &lt;</li>
-<li>例: <code>lt(&quot;age&quot;, 18)</code>—&gt;<code>age &lt; 18</code></li>
-</ul>
-<h2 id="le（小于等于）"><a href="#le（小于等于）" class="headerlink" title="le（小于等于）"></a><font size="4" color="orange"><strong><code>le</code></strong></font>（小于等于）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">le(R column, Object val)</span><br><span class="line">le(<span class="keyword">boolean</span> condition, R column, Object val)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>小于等于 &lt;=</li>
-<li>例: <code>le(&quot;age&quot;, 18)</code>—&gt;<code>age &lt;= 18</code></li>
-</ul>
-<h2 id="between（区间）"><a href="#between（区间）" class="headerlink" title="between（区间）"></a><font size="4" color="orange"><strong><code>between</code></strong></font>（区间）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">between(R column, Object val1, Object val2)</span><br><span class="line">between(<span class="keyword">boolean</span> condition, R column, Object val1, Object val2)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>BETWEEN 值1 AND 值2</li>
-<li>例: <code>between(&quot;age&quot;, 18, 30)</code>—&gt;<code>age between 18 and 30</code></li>
-</ul>
-<h2 id="notbetween（不在某区间）"><a href="#notbetween（不在某区间）" class="headerlink" title="notbetween（不在某区间）"></a><font size="4" color="orange"><strong><code>notbetween</code></strong></font>（不在某区间）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">notBetween(R column, Object val1, Object val2)</span><br><span class="line">notBetween(<span class="keyword">boolean</span> condition, R column, Object val1, Object val2)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>NOT BETWEEN 值1 AND 值2</li>
-<li>例: <code>notBetween(&quot;age&quot;, 18, 30)</code>—&gt;<code>age not between 18 and 30</code></li>
-</ul>
-<h2 id="like（像）"><a href="#like（像）" class="headerlink" title="like（像）"></a><font size="4" color="orange"><strong><code>like</code></strong></font>（像）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">like(R column, Object val)</span><br><span class="line">like(<span class="keyword">boolean</span> condition, R column, Object val)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>LIKE ‘%值%’</li>
-<li>例: <code>like(&quot;name&quot;, &quot;王&quot;)</code>—&gt;<code>name like &#39;%王%&#39;</code></li>
-</ul>
-<h2 id="notlike（不像）"><a href="#notlike（不像）" class="headerlink" title="notlike（不像）"></a><font size="4" color="orange"><strong><code>notlike</code></strong></font>（不像）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">notLike(R column, Object val)</span><br><span class="line">notLike(<span class="keyword">boolean</span> condition, R column, Object val)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>NOT LIKE ‘%值%’</li>
-<li>例: <code>notLike(&quot;name&quot;, &quot;王&quot;)</code>—&gt;<code>name not like &#39;%王%&#39;</code></li>
-</ul>
-<h2 id="in（其中之一）"><a href="#in（其中之一）" class="headerlink" title="in（其中之一）"></a><font size="4" color="orange"><strong><code>in</code></strong></font>（其中之一）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">in(R column, Collection&lt;?&gt; value)</span><br><span class="line">in(<span class="keyword">boolean</span> condition, R column, Collection&lt;?&gt; value)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>字段 IN (value.get(0), value.get(1), …)</li>
-<li>例: <code>in(&quot;age&quot;,&#123;1,2,3&#125;)</code>—&gt;<code>age in (1,2,3)</code></li>
-</ul>
-<h2 id="notin（非其中之一）"><a href="#notin（非其中之一）" class="headerlink" title="notin（非其中之一）"></a><font size="4" color="orange"><strong><code>notin</code></strong></font>（非其中之一）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">notIn(R column, Collection&lt;?&gt; value)</span><br><span class="line">notIn(<span class="keyword">boolean</span> condition, R column, Collection&lt;?&gt; value)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>字段 NOT IN (value.get(0), value.get(1), …)</li>
-<li>例: <code>notIn(&quot;age&quot;,&#123;1,2,3&#125;)</code>—&gt;<code>age not in (1,2,3)</code></li>
-</ul>
-<h2 id="inSql（集合中之一）"><a href="#inSql（集合中之一）" class="headerlink" title="inSql（集合中之一）"></a><font size="4" color="orange"><strong><code>inSql</code></strong></font>（集合中之一）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">inSql(R column, String inValue)</span><br><span class="line">inSql(<span class="keyword">boolean</span> condition, R column, String inValue)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>字段 IN ( sql语句 )</li>
-<li>例: <code>inSql(&quot;age&quot;, &quot;1,2,3,4,5,6&quot;)</code>—&gt;<code>age in (1,2,3,4,5,6)</code></li>
-<li>例: <code>inSql(&quot;id&quot;, &quot;select id from table where id &lt; 3&quot;)</code>—&gt;<code>id in (select id from table where id &lt; 3)</code></li>
-</ul>
-<h2 id="notinSql（非集合中之一）"><a href="#notinSql（非集合中之一）" class="headerlink" title="notinSql（非集合中之一）"></a><font size="4" color="orange"><strong><code>notinSql</code></strong></font>（非集合中之一）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">notInSql(R column, String inValue)</span><br><span class="line">notInSql(<span class="keyword">boolean</span> condition, R column, String inValue)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>字段 NOT IN ( sql语句 )</li>
-<li>例: <code>notInSql(&quot;age&quot;, &quot;1,2,3,4,5,6&quot;)</code>—&gt;<code>age not in (1,2,3,4,5,6)</code></li>
-<li>例: <code>notInSql(&quot;id&quot;, &quot;select id from table where id &lt; 3&quot;)</code>—&gt;<code>id not in (select id from table where id &lt; 3)</code></li>
-</ul>
-<h1 id="🍛代码生成器"><a href="#🍛代码生成器" class="headerlink" title="🍛代码生成器"></a>🍛代码生成器</h1><p>​        在创建项目之初，构建工程结构是非常相似的操作，即 配置数据库并连接数据库—–&gt;创建数据库表实体类 —&gt; 编写<code>dao</code>层对数据库进行操作—-&gt;编写<code>service</code>层调用<code>dao</code>层 —&gt; 编写<code>controller</code>层</p>
-<p>​        如果含有多个表，这样的操作是十分繁琐的，于是<code>MybatisPlus</code>提供了代码生成器，帮助开发人员快速生成每一张表的结构，极大提高了开发效率.</p>
-<ul>
-<li><strong>引入相关依赖</strong></li>
-</ul>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.velocity<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>velocity-engine-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-generator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li><strong>编写代码生成器设置类</strong></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Generate</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建代码生成器</span></span><br><span class="line">        AutoGenerator mpg = <span class="keyword">new</span> AutoGenerator();</span><br><span class="line">        <span class="comment">//全局配置</span></span><br><span class="line">        GlobalConfig gc = <span class="keyword">new</span> GlobalConfig();</span><br><span class="line">        gc.setAuthor(<span class="string">&quot;Soucat&quot;</span>);</span><br><span class="line">        <span class="comment">//获取当前模块项目位置</span></span><br><span class="line">        String property = System.getProperty(<span class="string">&quot;user.dir&quot;</span>);</span><br><span class="line">        <span class="comment">//设置输出目录</span></span><br><span class="line">        gc.setOutputDir(property+<span class="string">&quot;/src/main/java&quot;</span>);</span><br><span class="line">        gc.setOpen(<span class="keyword">false</span>);</span><br><span class="line">        gc.setFileOverride(<span class="keyword">false</span>);</span><br><span class="line">        <span class="comment">//去掉Service的I前缀</span></span><br><span class="line">        gc.setServiceName(<span class="string">&quot;%sService&quot;</span>);</span><br><span class="line">        <span class="comment">//设置时间类型</span></span><br><span class="line">        gc.setDateType(DateType.ONLY_DATE);</span><br><span class="line">        <span class="comment">//设置主键</span></span><br><span class="line">        gc.setIdType(IdType.AUTO);</span><br><span class="line">        <span class="comment">//Swagger</span></span><br><span class="line">        gc.setSwagger2(<span class="keyword">true</span>);</span><br><span class="line">        <span class="comment">//将全局配置加入代码生成器</span></span><br><span class="line">        mpg.setGlobalConfig(gc);</span><br><span class="line">        </span><br><span class="line">		<span class="comment">//配置数据源</span></span><br><span class="line">        DataSourceConfig dsc = <span class="keyword">new</span> DataSourceConfig();</span><br><span class="line">        <span class="comment">//url</span></span><br><span class="line">        dsc.setUrl(<span class="string">&quot;jdbc:mysql://localhost:3306/ssmbuild?serverTimezone=Asia/Shanghai&quot;</span>);</span><br><span class="line">        <span class="comment">//drivername</span></span><br><span class="line">        dsc.setDriverName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);</span><br><span class="line">        <span class="comment">//密码</span></span><br><span class="line">        dsc.setPassword(<span class="string">&quot;qwe123456&quot;</span>);</span><br><span class="line">        <span class="comment">//用户名</span></span><br><span class="line">        dsc.setUsername(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">        <span class="comment">//数据库类型</span></span><br><span class="line">        dsc.setDbType(DbType.MYSQL);</span><br><span class="line">        </span><br><span class="line">        mpg.setDataSource(dsc);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//包配置</span></span><br><span class="line">        PackageConfig pk = <span class="keyword">new</span> PackageConfig();</span><br><span class="line">        <span class="comment">//包父类</span></span><br><span class="line">        pk.setParent(<span class="string">&quot;com.soucat&quot;</span>);</span><br><span class="line">        <span class="comment">//设置实体类包包名</span></span><br><span class="line">        pk.setEntity(<span class="string">&quot;entity&quot;</span>);</span><br><span class="line">        <span class="comment">//设置dao层包名</span></span><br><span class="line">        pk.setMapper(<span class="string">&quot;mapper&quot;</span>);</span><br><span class="line">        <span class="comment">//设置控制器包名</span></span><br><span class="line">        pk.setController(<span class="string">&quot;controller&quot;</span>);</span><br><span class="line">        <span class="comment">//设置服务层包名</span></span><br><span class="line">        pk.setService(<span class="string">&quot;service&quot;</span>);</span><br><span class="line">        <span class="comment">//将包配置加入代码生成器</span></span><br><span class="line">        mpg.setPackageInfo(pk);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//策略配置</span></span><br><span class="line">        StrategyConfig sc = <span class="keyword">new</span> StrategyConfig();</span><br><span class="line">        <span class="comment">//数据库表名</span></span><br><span class="line">        sc.setInclude(<span class="string">&quot;books&quot;</span>);</span><br><span class="line">        <span class="comment">//开启实体类Lombok</span></span><br><span class="line">        sc.setEntityLombokModel(<span class="keyword">true</span>);</span><br><span class="line">        <span class="comment">//开启属性名驼峰命名转换</span></span><br><span class="line">        sc.setNaming(NamingStrategy.underline_to_camel);</span><br><span class="line">        <span class="comment">//开启字段名驼峰命名转换</span></span><br><span class="line">        sc.setColumnNaming(NamingStrategy.underline_to_camel);</span><br><span class="line">        sc.setLogicDeleteFieldName(<span class="string">&quot;deleted_flag&quot;</span>);</span><br><span class="line">		<span class="comment">//设置字段自动填入</span></span><br><span class="line">        TableFill createTime = <span class="keyword">new</span> TableFill(<span class="string">&quot;create_time&quot;</span>, FieldFill.INSERT);</span><br><span class="line">        TableFill updateTime = <span class="keyword">new</span> TableFill(<span class="string">&quot;update_time&quot;</span>, FieldFill.INSERT_UPDATE);</span><br><span class="line">        <span class="comment">//设置集合</span></span><br><span class="line">        ArrayList&lt;TableFill&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        list.add(createTime);</span><br><span class="line">        list.add(updateTime);</span><br><span class="line">        <span class="comment">//加入字段集合</span></span><br><span class="line">        sc.setTableFillList(list);</span><br><span class="line">        <span class="comment">//设置乐观锁字段名</span></span><br><span class="line">        sc.setVersionFieldName(<span class="string">&quot;version&quot;</span>);</span><br><span class="line">        <span class="comment">//开始RestController注解</span></span><br><span class="line">        sc.setRestControllerStyle(<span class="keyword">true</span>);</span><br><span class="line">        <span class="comment">//驼峰转成连字符</span></span><br><span class="line">        sc.setControllerMappingHyphenStyle(<span class="keyword">true</span>);</span><br><span class="line">        <span class="comment">//将策略配置加入到代码生成器</span></span><br><span class="line">        mpg.setStrategy(sc);</span><br><span class="line">		<span class="comment">//启动代码生成器</span></span><br><span class="line">        mpg.execute();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+    <title>近期杂谈</title>
+    <url>/2021/04/18/%E8%BF%91%E6%9C%9F%E6%9D%82%E8%B0%88/</url>
+    <content><![CDATA[<h1 id="🕶开学了？"><a href="#🕶开学了？" class="headerlink" title="🕶开学了？"></a>🕶开学了？</h1><p>&emsp;&emsp;其实在4月初的时候我依旧保持着放假的状态，上课不是很认真，在寝室也是学技术效率比较慢，整个人也就是处于悠哉悠哉的那种状态，感觉目标有点不明确，不知道到底自己想干嘛，期间最引发我思考的莫过于那一份关于考研和就业选择的问卷，在我上大学没多久的时候，觉得我肯定是会考研的，目的是为了提升自己的学历，顺便也可以锻炼自己，然而到了现在我却感觉不是很确定了，内心可能更向往技术开发的方向，实在不想加入考研大军，就算有保研这条路子，也不是很想做研究的那种方向.自知能力有限，觉得自己还是不合适的.不过呢，关于这个以后或许会有新的思考，以后再说吧hhhh.</p>
+<p>&emsp;&emsp;开学至4月初期，对自己的表现怎么说呢，比较懒散，很浮躁，也很对不起我家小朋友，老是惹她不开心，自己犯的错误比较多，唉.道阻且长，同志仍然需要努力啊.</p>
+<h1 id="🎃参加了数学竞赛？"><a href="#🎃参加了数学竞赛？" class="headerlink" title="🎃参加了数学竞赛？"></a>🎃参加了数学竞赛？</h1><p>&emsp;&emsp;怎么说呢，源于从小对于数学的兴趣吧，数学的巧妙逻辑实在是让我沉迷，高数中，各大数学家巧妙的定理证明也着实很吸引我，大一上还是有好好学高等数学的.下学期其实也有好好学，只是中途有点划水哈….这也算是我大一下生活中一件趣事，与其说是参加比赛，不如说是去感受的.</p>
+<h1 id="🥼-提前步入社畜生活？"><a href="#🥼-提前步入社畜生活？" class="headerlink" title="🥼 提前步入社畜生活？"></a>🥼 提前步入社畜生活？</h1><p>&emsp;&emsp;hhhh，其实有点标题党的味道了，哪里是社畜，还是个学徒哈.说来也十分偶然，我近期也只是想找个做项目的团队，一起做项目，共同学习进步，然后翻阅QQ群，发现了网安协会的项目部，再一番咨询后，投了简历，然后参加了笔试以及面试，然后成功进入了这个部门，去的时候很惊奇这个部门居然有办公室，我还会有工位，后来第一天去的时候才了解到部门旗下有一所公司，我相当于进入了一个公司，成为了里面的职员，哦对了，我选择了开发岗中的后端开发，恰好也是他们部门现在缺人的岗位，怎么说呢也挺有压力的.据说等以后学成接手的时候，有绩效了，我就会有工资了hhh，还挺激动的. 话又说回来，在这个团队中，自己也挺想快点学习可以参加到项目中，自己最近也变得开始好好搞学习，不是很懒散了，有点大一上学期的感觉了hhh，也多亏了我家小朋友，给予我理解和帮助，十分体贴我，温柔又可爱，有了我家小朋友，感觉能把我从紧张的环境中解脱出来，让我轻松不少，真好啊.</p>
+<p>&emsp;&emsp;对于现阶段目标，就是学习经典的 <code>SSM</code> 技术框架，说多也不多，说少也不少，慢慢来咯，后期才能运用自如，而且团队中缺少，<code>Java</code> 后端开发的老师傅，现在自己只能一步一个脚印，脚踏实地的进行学习.未来的路还是挺长的，我对现在自己的状态很满意，希望自己能多保持保持，也希望多陪陪我家小朋友hhh，也希望我家小朋友能理解我哦.</p>
+<h1 id="✨结束END"><a href="#✨结束END" class="headerlink" title="✨结束END"></a>✨结束END</h1><p>放上一句自己特别喜欢的一句诗：“醉后不知天在水，满船清梦压星河.”   莫名喜欢这句诗的意境，让我对未来生活有着无限畅想hhhh</p>
 ]]></content>
       <categories>
-        <category>Java</category>
+        <category>生活杂谈</category>
       </categories>
       <tags>
-        <tag>MybatisPlus</tag>
+        <tag>生活杂谈</tag>
       </tags>
   </entry>
   <entry>
@@ -2797,6 +2548,255 @@
       </categories>
       <tags>
         <tag>Mybatis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MybatisPlus(二):常用功能解析</title>
+    <url>/2021/06/06/MybatisPlus%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<blockquote>
+<p>时隔多日，最近在熟悉SpringBoot后端项目代码，并进行了一些调试和配置，在和学长进行代码对接，忙活了好一整子，再加上期末考试，这篇博客闲置了很久，总还是差俩个点没有时间写.</p>
+</blockquote>
+<h1 id="🥙多种主键类型"><a href="#🥙多种主键类型" class="headerlink" title="🥙多种主键类型"></a>🥙多种主键类型</h1><p>在实体类中，在主键的属性上添加如下注解，其中type有如下选择：</p>
+<p>接下来会挑选几个比较常用的进行详细解释</p>
+<p><strong><code>@TableId(value=&quot; &quot;,type=Id.type.xxx)</code></strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">值</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">AUTO</td>
+<td align="center">数据库ID自增</td>
+</tr>
+<tr>
+<td align="center">NONE</td>
+<td align="center">无状态,该类型为未设置主键类型(注解里等于跟随全局,全局里约等于 INPUT)</td>
+</tr>
+<tr>
+<td align="center">INPUT</td>
+<td align="center">insert前自行set主键值</td>
+</tr>
+<tr>
+<td align="center">ASSIGN_ID</td>
+<td align="center">分配ID(主键类型为Number(Long和Integer)或String)(since 3.3.0),使用接口<code>IdentifierGenerator</code>的方法<code>nextId</code>(默认实现类为<code>DefaultIdentifierGenerator</code>雪花算法)</td>
+</tr>
+<tr>
+<td align="center">ASSIGN_UUID</td>
+<td align="center">分配UUID,主键类型为String(since 3.3.0),使用接口<code>IdentifierGenerator</code>的方法<code>nextUUID</code>(默认default方法)</td>
+</tr>
+<tr>
+<td align="center">ID_WORKER</td>
+<td align="center">分布式全局唯一ID 长整型类型(please use <code>ASSIGN_ID</code>)</td>
+</tr>
+<tr>
+<td align="center">UUID</td>
+<td align="center">32位UUID字符串(please use <code>ASSIGN_UUID</code>)</td>
+</tr>
+<tr>
+<td align="center">ID_WORKER_STR</td>
+<td align="center">分布式全局唯一ID 字符串类型(please use <code>ASSIGN_ID</code>)</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong><code>Auto</code></strong> : 主键自动递增 +1 ，插入数据的时候无需手动设定主键值，如若设定安装设定的主键值进行插入.</li>
+<li><strong><code>INPUT</code></strong> ：插入数据时自己手动设定</li>
+<li><strong><code>ASSIGN_ID</code></strong> : 使用雪花算法生成一个 64  bit 的 <code>long</code> 型主键值，核心思想是：64 个 bit 中，其中 1 个 bit 是不用的，然后用其中的 41 bit 作为毫秒数，用 10 bit 作为工作机器 id，12 bit 作为序列号</li>
+<li><strong><code>ASSIGN_UUID</code></strong> : 重新自动生成排除中划线的UUID作为主键,类型为String</li>
+</ul>
+<h1 id="🥚自动填充"><a href="#🥚自动填充" class="headerlink" title="🥚自动填充"></a>🥚自动填充</h1><p>​        在实际业务中，通常需要存储数据的创建时间以及更新时间，如果需要进行手动的插入和更新的话十分繁琐，并且这个操作本身不具有唯一性，实际上只是重复着一个操作，于是<code>MybatisPlus</code>提供了自动填充机制.</p>
+<p>实体类：其中 <strong><code>@TableField</code></strong> 中<code>value</code>用于标记属性与数据库中对应的字段，由于配置中默认开启了驼峰命名因此<code>value</code>值可以不写.</p>
+<ul>
+<li>实体类需要自动填充的字段加上  <strong><code>@TableField</code></strong> 注解</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@TableName(value = &quot;books&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Books</span> <span class="keyword">extends</span> <span class="title">Model</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@TableId(value = &quot;book_id&quot; , type = IdType.AUTO)</span></span><br><span class="line">  <span class="keyword">private</span> Integer bookId;</span><br><span class="line">  <span class="keyword">private</span> String bookName;</span><br><span class="line">  <span class="keyword">private</span> Integer bookCounts;</span><br><span class="line">  <span class="keyword">private</span> String detail;</span><br><span class="line">  <span class="meta">@Version</span></span><br><span class="line">  <span class="keyword">private</span> Integer version;</span><br><span class="line">  <span class="keyword">private</span> Integer deleteFlag;</span><br><span class="line">    </span><br><span class="line">  <span class="comment">//表示插入时填充</span></span><br><span class="line">  <span class="meta">@TableField(fill = FieldFill.INSERT)</span></span><br><span class="line">  <span class="keyword">private</span> Date createTime;</span><br><span class="line">  <span class="comment">//表示插入和更新时填充</span></span><br><span class="line">  <span class="meta">@TableField(fill = FieldFill.INSERT_UPDATE)</span></span><br><span class="line">  <span class="keyword">private</span> Date updateTime;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>编写处理器类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MybatisAutoFill</span> <span class="keyword">implements</span> <span class="title">MetaObjectHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertFill</span><span class="params">(MetaObject metaObject)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">this</span>.setFieldValByName(<span class="string">&quot;createTime&quot;</span>,<span class="keyword">new</span> Date(),metaObject);</span><br><span class="line">        <span class="keyword">this</span>.setFieldValByName(<span class="string">&quot;updateTime&quot;</span>,<span class="keyword">new</span> Date(),metaObject);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateFill</span><span class="params">(MetaObject metaObject)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.setFieldValByName(<span class="string">&quot;updateTime&quot;</span> , <span class="keyword">new</span> Date(), metaObject);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：如果数据库<code>URL</code> 时区设置的不是东八区的时区，那么更新的时间会与当前系统时间差几个小时，需要保证东八区的时区，只需要将 <code>ServerTimezone=Asia/shangHai</code></strong></p>
+<h1 id="🍖乐观锁"><a href="#🍖乐观锁" class="headerlink" title="🍖乐观锁"></a>🍖乐观锁</h1><p>​        在并发量大的时候，可能会存在多个用户同时对一条数据进行了操作，从而导致数据混乱错误，因此需要保证一个用户操作完成之后，另一个用户才能继续操作，这就需要给数据上锁.</p>
+<blockquote>
+<p><strong>什么是锁？</strong></p>
+</blockquote>
+<p>​        顾名思义就是保证某一时刻的更新者是唯一的，更新数据所需要的钥匙只有一把，任何时刻只能有一个人拥有钥匙.</p>
+<ul>
+<li><p><strong>悲观锁</strong> ：每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会block直到它拿到锁———&gt;版本号或时间戳控制，适用于多读少写的场景</p>
+</li>
+<li><p><strong>乐观锁</strong>：每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在更新的时候会判断一下在此期间别人有没有去更新这个数据———&gt;DB的行锁、表锁等，适用于数据一致性比较高的场景</p>
+</li>
+</ul>
+<p><code>MybatisPlus</code>中提供了乐观锁机制，需要在数据库表中添加 <code>version</code> 字段 ,  类型为 <code>int</code> 长度 5-6即可，实体类中 <code>version</code> 属性值,数据类型为<code>Integer</code></p>
+<ul>
+<li>加上**<code>@Version</code>** 注解</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Version</span></span><br><span class="line"><span class="keyword">private</span> Integer version;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>编写配置类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MybatisPlusConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MybatisPlusInterceptor <span class="title">mybatisPlusInterceptor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        MybatisPlusInterceptor interceptor = <span class="keyword">new</span> MybatisPlusInterceptor();</span><br><span class="line">        <span class="comment">//乐观锁配置</span></span><br><span class="line">        interceptor.addInnerInterceptor(<span class="keyword">new</span> OptimisticLockerInnerInterceptor());</span><br><span class="line">        <span class="comment">//分页插件配置</span></span><br><span class="line">        interceptor.addInnerInterceptor(<span class="keyword">new</span> PaginationInnerInterceptor(DbType.MYSQL));</span><br><span class="line">        <span class="keyword">return</span> interceptor;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查询使用</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">updateBook</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//乐观锁只有在更新查到的数据的时候才会起作用，单纯的更新是不会起作用的</span></span><br><span class="line">        Books books = booksMapper.selectById(<span class="number">11</span>);</span><br><span class="line">        books.setBookCounts(<span class="number">777</span>);</span><br><span class="line">        books.setDetail(<span class="string">&quot;更新测试06&quot;</span>);</span><br><span class="line">        books.updateById();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">控制台输出的SQL语句:</span><br><span class="line">UPDATE books SET book_name=?, book_counts=?, detail=?, version=?, create_time=?, update_time=? WHERE book_id=? AND version=? AND delete_flag=<span class="number">0</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>在数据库中，<code>version</code>字段默认值设置为1，过后每次查询后更新一次之后，<code>version</code>值在查询出的值之上自增 1 .</p>
+<h1 id="🥟分页查询"><a href="#🥟分页查询" class="headerlink" title="🥟分页查询"></a>🥟分页查询</h1><p><code>MybatisPlus</code> 中内置了分页插件，只需要进行简单的配置即可完成分页操作</p>
+<ul>
+<li>编写配置文件</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MybatisPlusConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MybatisPlusInterceptor <span class="title">mybatisPlusInterceptor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        MybatisPlusInterceptor interceptor = <span class="keyword">new</span> MybatisPlusInterceptor();</span><br><span class="line">        <span class="comment">//乐观锁配置</span></span><br><span class="line">        interceptor.addInnerInterceptor(<span class="keyword">new</span> OptimisticLockerInnerInterceptor());</span><br><span class="line">        <span class="comment">//分页插件配置</span></span><br><span class="line">        interceptor.addInnerInterceptor(<span class="keyword">new</span> PaginationInnerInterceptor(DbType.MYSQL));</span><br><span class="line">        <span class="keyword">return</span> interceptor;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查询使用</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">selectBoos</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//分页对象             (第几页，一页中显示几个)   </span></span><br><span class="line">        Page&lt;Books&gt; page = <span class="keyword">new</span> Page&lt;&gt;(<span class="number">2</span>,<span class="number">2</span>);</span><br><span class="line">        <span class="comment">//查询返回 page对象</span></span><br><span class="line">        Page&lt;Books&gt; page1 = booksMapper.selectPage(page, <span class="keyword">null</span>);</span><br><span class="line">        System.out.println(page1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="🧇-逻辑删除"><a href="#🧇-逻辑删除" class="headerlink" title="🧇 逻辑删除"></a>🧇 逻辑删除</h1><p>​        在实际业务中，存在查询历史记录的情况，以卡券为例，过期或者已经使用的卡券在数据库中直接进行删除，则永远无法查询到已经删除的卡券，<code>MybatisPlus</code> 提供了逻辑删除的配置，只需要在数据库中添加逻辑删除标志字段即可，默认值为 0 ，比如<code>delete_flag</code> ，<code>int </code> 类型，值为 1 的时候 表示删除，值为 0 的时候表示未删除.</p>
+<ul>
+<li>配置文件编写</li>
+</ul>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 绑定逻辑删除判断的属性</span></span><br><span class="line"><span class="meta">mybatis-plus.global-config.db-config.logic-delete-field</span>= <span class="string">deleteFlag</span></span><br><span class="line"><span class="comment">#设置值为1的时候为删除</span></span><br><span class="line"><span class="meta">mybatis-plus.global-config.db-config.logic-delete-value</span>= <span class="string">1</span></span><br><span class="line"><span class="comment">#值为0的时候表示未删除</span></span><br><span class="line"><span class="meta">mybatis-plus.global-config.db-config.logic-not-delete-value</span>= <span class="string">0</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>配置完成之后，进行测试：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">deleteBook</span><span class="params">()</span></span>&#123;</span><br><span class="line">    booksMapper.deleteById(<span class="number">10</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>删除操作变成了对 <code>delete_flag</code> 的更新操作</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">JDBC Connection [HikariProxyConnection@816918962 wrapping com.mysql.cj.jdbc.ConnectionImpl@2924f1d8] will not be managed by Spring</span><br><span class="line">==&gt;  Preparing: UPDATE books SET delete_flag=1 WHERE book_id=? AND delete_flag=0</span><br><span class="line">==&gt; Parameters: 10(Integer)</span><br><span class="line">&lt;==    Updates: 1</span><br></pre></td></tr></table></figure>
+
+
+
+<p>当然了，此时进行全表查询的时候，也会显示不出来这些已经进行逻辑删除的数据：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> book_id,book_name,book_counts,detail,version,delete_flag,create_time,update_time </span><br><span class="line"><span class="keyword">FROM</span> books </span><br><span class="line"><span class="keyword">WHERE</span> delete_flag<span class="operator">=</span><span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>全表查询的时候，会在末尾默认评价逻辑删除判断条件</p>
+<h1 id="🎭-条件构造器"><a href="#🎭-条件构造器" class="headerlink" title="🎭 条件构造器"></a>🎭 条件构造器</h1><blockquote>
+<p>该部分搬运自 Mybatis-plus官方文档，这一部分内容，其实有利也有弊，使用时只需要翻阅一下官方文档即可，对于复杂的语句建议还是xml文件搞起，便于后期debug</p>
+</blockquote>
+<p><strong>注意：</strong> <code>Wrapper</code>构造器存在俩个实现类：<code>QueryWrapper </code> 以及 <code>UpdateWrapper</code> ，实际运用中，创建这俩个实现类对象即可进行下面这般操作了</p>
+<h2 id="allEq（全等于）"><a href="#allEq（全等于）" class="headerlink" title="allEq（全等于）"></a><font size="4" color="orange"><strong><code>allEq</code></strong></font>（全等于）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">allEq(Map&lt;R, V&gt; params)</span><br><span class="line">allEq(Map&lt;R, V&gt; params, <span class="keyword">boolean</span> null2IsNull)</span><br><span class="line">allEq(<span class="keyword">boolean</span> condition, Map&lt;R, V&gt; params, <span class="keyword">boolean</span> null2IsNull)</span><br></pre></td></tr></table></figure>
+
+<p><code>params</code> : <code>key</code>为数据库字段名,<code>value</code>为字段值<br><code>null2IsNull</code> : 为<code>true</code>则在<code>map</code>的<code>value</code>为<code>null</code>时调用 <a href="https://mp.baomidou.com/guide/wrapper.html#isnull">isNull</a> 方法,为<code>false</code>时则忽略<code>value</code>为<code>null</code>的</p>
+<h2 id="eq（等于）"><a href="#eq（等于）" class="headerlink" title="eq（等于）"></a><font size="4" color="orange"><strong><code>eq</code></strong></font>（等于）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">eq(R column, Object val)</span><br><span class="line">eq(<span class="keyword">boolean</span> condition, R column, Object val)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>例: <code>eq(&quot;name&quot;, &quot;老王&quot;)</code>—&gt;<code>name = &#39;老王&#39;</code></li>
+</ul>
+<h2 id="ne（不等于）"><a href="#ne（不等于）" class="headerlink" title="ne（不等于）"></a><font size="4" color="orange"><strong><code>ne</code></strong></font>（不等于）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ne(R column, Object val)</span><br><span class="line">ne(<span class="keyword">boolean</span> condition, R column, Object val)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>不等于 &lt;&gt;</li>
+<li>例: <code>ne(&quot;name&quot;, &quot;老王&quot;)</code>—&gt;<code>name &lt;&gt; &#39;老王&#39;</code></li>
+</ul>
+<h2 id="gt（大于）"><a href="#gt（大于）" class="headerlink" title="gt（大于）"></a><font size="4" color="orange"><strong><code>gt</code></strong></font>（大于）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">gt(R column, Object val)</span><br><span class="line">gt(<span class="keyword">boolean</span> condition, R column, Object val)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>大于 &gt;</li>
+<li>例: <code>gt(&quot;age&quot;, 18)</code>—&gt;<code>age &gt; 18</code></li>
+</ul>
+<h2 id="ge（大于等于）"><a href="#ge（大于等于）" class="headerlink" title="ge（大于等于）"></a><font size="4" color="orange"><strong><code>ge</code></strong></font>（大于等于）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ge(R column, Object val)</span><br><span class="line">ge(<span class="keyword">boolean</span> condition, R column, Object val)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>大于等于 &gt;=</li>
+<li>例: <code>ge(&quot;age&quot;, 18)</code>—&gt;<code>age &gt;= 18</code></li>
+</ul>
+<h2 id="lt（小于）"><a href="#lt（小于）" class="headerlink" title="lt（小于）"></a><font size="4" color="orange"><strong><code>lt</code></strong></font>（小于）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">lt(R column, Object val)</span><br><span class="line">lt(<span class="keyword">boolean</span> condition, R column, Object val)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>小于 &lt;</li>
+<li>例: <code>lt(&quot;age&quot;, 18)</code>—&gt;<code>age &lt; 18</code></li>
+</ul>
+<h2 id="le（小于等于）"><a href="#le（小于等于）" class="headerlink" title="le（小于等于）"></a><font size="4" color="orange"><strong><code>le</code></strong></font>（小于等于）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">le(R column, Object val)</span><br><span class="line">le(<span class="keyword">boolean</span> condition, R column, Object val)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>小于等于 &lt;=</li>
+<li>例: <code>le(&quot;age&quot;, 18)</code>—&gt;<code>age &lt;= 18</code></li>
+</ul>
+<h2 id="between（区间）"><a href="#between（区间）" class="headerlink" title="between（区间）"></a><font size="4" color="orange"><strong><code>between</code></strong></font>（区间）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">between(R column, Object val1, Object val2)</span><br><span class="line">between(<span class="keyword">boolean</span> condition, R column, Object val1, Object val2)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>BETWEEN 值1 AND 值2</li>
+<li>例: <code>between(&quot;age&quot;, 18, 30)</code>—&gt;<code>age between 18 and 30</code></li>
+</ul>
+<h2 id="notbetween（不在某区间）"><a href="#notbetween（不在某区间）" class="headerlink" title="notbetween（不在某区间）"></a><font size="4" color="orange"><strong><code>notbetween</code></strong></font>（不在某区间）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">notBetween(R column, Object val1, Object val2)</span><br><span class="line">notBetween(<span class="keyword">boolean</span> condition, R column, Object val1, Object val2)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>NOT BETWEEN 值1 AND 值2</li>
+<li>例: <code>notBetween(&quot;age&quot;, 18, 30)</code>—&gt;<code>age not between 18 and 30</code></li>
+</ul>
+<h2 id="like（像）"><a href="#like（像）" class="headerlink" title="like（像）"></a><font size="4" color="orange"><strong><code>like</code></strong></font>（像）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">like(R column, Object val)</span><br><span class="line">like(<span class="keyword">boolean</span> condition, R column, Object val)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>LIKE ‘%值%’</li>
+<li>例: <code>like(&quot;name&quot;, &quot;王&quot;)</code>—&gt;<code>name like &#39;%王%&#39;</code></li>
+</ul>
+<h2 id="notlike（不像）"><a href="#notlike（不像）" class="headerlink" title="notlike（不像）"></a><font size="4" color="orange"><strong><code>notlike</code></strong></font>（不像）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">notLike(R column, Object val)</span><br><span class="line">notLike(<span class="keyword">boolean</span> condition, R column, Object val)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>NOT LIKE ‘%值%’</li>
+<li>例: <code>notLike(&quot;name&quot;, &quot;王&quot;)</code>—&gt;<code>name not like &#39;%王%&#39;</code></li>
+</ul>
+<h2 id="in（其中之一）"><a href="#in（其中之一）" class="headerlink" title="in（其中之一）"></a><font size="4" color="orange"><strong><code>in</code></strong></font>（其中之一）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">in(R column, Collection&lt;?&gt; value)</span><br><span class="line">in(<span class="keyword">boolean</span> condition, R column, Collection&lt;?&gt; value)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字段 IN (value.get(0), value.get(1), …)</li>
+<li>例: <code>in(&quot;age&quot;,&#123;1,2,3&#125;)</code>—&gt;<code>age in (1,2,3)</code></li>
+</ul>
+<h2 id="notin（非其中之一）"><a href="#notin（非其中之一）" class="headerlink" title="notin（非其中之一）"></a><font size="4" color="orange"><strong><code>notin</code></strong></font>（非其中之一）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">notIn(R column, Collection&lt;?&gt; value)</span><br><span class="line">notIn(<span class="keyword">boolean</span> condition, R column, Collection&lt;?&gt; value)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字段 NOT IN (value.get(0), value.get(1), …)</li>
+<li>例: <code>notIn(&quot;age&quot;,&#123;1,2,3&#125;)</code>—&gt;<code>age not in (1,2,3)</code></li>
+</ul>
+<h2 id="inSql（集合中之一）"><a href="#inSql（集合中之一）" class="headerlink" title="inSql（集合中之一）"></a><font size="4" color="orange"><strong><code>inSql</code></strong></font>（集合中之一）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">inSql(R column, String inValue)</span><br><span class="line">inSql(<span class="keyword">boolean</span> condition, R column, String inValue)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字段 IN ( sql语句 )</li>
+<li>例: <code>inSql(&quot;age&quot;, &quot;1,2,3,4,5,6&quot;)</code>—&gt;<code>age in (1,2,3,4,5,6)</code></li>
+<li>例: <code>inSql(&quot;id&quot;, &quot;select id from table where id &lt; 3&quot;)</code>—&gt;<code>id in (select id from table where id &lt; 3)</code></li>
+</ul>
+<h2 id="notinSql（非集合中之一）"><a href="#notinSql（非集合中之一）" class="headerlink" title="notinSql（非集合中之一）"></a><font size="4" color="orange"><strong><code>notinSql</code></strong></font>（非集合中之一）</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">notInSql(R column, String inValue)</span><br><span class="line">notInSql(<span class="keyword">boolean</span> condition, R column, String inValue)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字段 NOT IN ( sql语句 )</li>
+<li>例: <code>notInSql(&quot;age&quot;, &quot;1,2,3,4,5,6&quot;)</code>—&gt;<code>age not in (1,2,3,4,5,6)</code></li>
+<li>例: <code>notInSql(&quot;id&quot;, &quot;select id from table where id &lt; 3&quot;)</code>—&gt;<code>id not in (select id from table where id &lt; 3)</code></li>
+</ul>
+<h1 id="🍛代码生成器"><a href="#🍛代码生成器" class="headerlink" title="🍛代码生成器"></a>🍛代码生成器</h1><p>​        在创建项目之初，构建工程结构是非常相似的操作，即 配置数据库并连接数据库—–&gt;创建数据库表实体类 —&gt; 编写<code>dao</code>层对数据库进行操作—-&gt;编写<code>service</code>层调用<code>dao</code>层 —&gt; 编写<code>controller</code>层</p>
+<p>​        如果含有多个表，这样的操作是十分繁琐的，于是<code>MybatisPlus</code>提供了代码生成器，帮助开发人员快速生成每一张表的结构，极大提高了开发效率.</p>
+<ul>
+<li><strong>引入相关依赖</strong></li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.velocity<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>velocity-engine-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-generator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><strong>编写代码生成器设置类</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Generate</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建代码生成器</span></span><br><span class="line">        AutoGenerator mpg = <span class="keyword">new</span> AutoGenerator();</span><br><span class="line">        <span class="comment">//全局配置</span></span><br><span class="line">        GlobalConfig gc = <span class="keyword">new</span> GlobalConfig();</span><br><span class="line">        gc.setAuthor(<span class="string">&quot;Soucat&quot;</span>);</span><br><span class="line">        <span class="comment">//获取当前模块项目位置</span></span><br><span class="line">        String property = System.getProperty(<span class="string">&quot;user.dir&quot;</span>);</span><br><span class="line">        <span class="comment">//设置输出目录</span></span><br><span class="line">        gc.setOutputDir(property+<span class="string">&quot;/src/main/java&quot;</span>);</span><br><span class="line">        gc.setOpen(<span class="keyword">false</span>);</span><br><span class="line">        gc.setFileOverride(<span class="keyword">false</span>);</span><br><span class="line">        <span class="comment">//去掉Service的I前缀</span></span><br><span class="line">        gc.setServiceName(<span class="string">&quot;%sService&quot;</span>);</span><br><span class="line">        <span class="comment">//设置时间类型</span></span><br><span class="line">        gc.setDateType(DateType.ONLY_DATE);</span><br><span class="line">        <span class="comment">//设置主键</span></span><br><span class="line">        gc.setIdType(IdType.AUTO);</span><br><span class="line">        <span class="comment">//Swagger</span></span><br><span class="line">        gc.setSwagger2(<span class="keyword">true</span>);</span><br><span class="line">        <span class="comment">//将全局配置加入代码生成器</span></span><br><span class="line">        mpg.setGlobalConfig(gc);</span><br><span class="line">        </span><br><span class="line">		<span class="comment">//配置数据源</span></span><br><span class="line">        DataSourceConfig dsc = <span class="keyword">new</span> DataSourceConfig();</span><br><span class="line">        <span class="comment">//url</span></span><br><span class="line">        dsc.setUrl(<span class="string">&quot;jdbc:mysql://localhost:3306/ssmbuild?serverTimezone=Asia/Shanghai&quot;</span>);</span><br><span class="line">        <span class="comment">//drivername</span></span><br><span class="line">        dsc.setDriverName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);</span><br><span class="line">        <span class="comment">//密码</span></span><br><span class="line">        dsc.setPassword(<span class="string">&quot;qwe123456&quot;</span>);</span><br><span class="line">        <span class="comment">//用户名</span></span><br><span class="line">        dsc.setUsername(<span class="string">&quot;root&quot;</span>);</span><br><span class="line">        <span class="comment">//数据库类型</span></span><br><span class="line">        dsc.setDbType(DbType.MYSQL);</span><br><span class="line">        </span><br><span class="line">        mpg.setDataSource(dsc);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//包配置</span></span><br><span class="line">        PackageConfig pk = <span class="keyword">new</span> PackageConfig();</span><br><span class="line">        <span class="comment">//包父类</span></span><br><span class="line">        pk.setParent(<span class="string">&quot;com.soucat&quot;</span>);</span><br><span class="line">        <span class="comment">//设置实体类包包名</span></span><br><span class="line">        pk.setEntity(<span class="string">&quot;entity&quot;</span>);</span><br><span class="line">        <span class="comment">//设置dao层包名</span></span><br><span class="line">        pk.setMapper(<span class="string">&quot;mapper&quot;</span>);</span><br><span class="line">        <span class="comment">//设置控制器包名</span></span><br><span class="line">        pk.setController(<span class="string">&quot;controller&quot;</span>);</span><br><span class="line">        <span class="comment">//设置服务层包名</span></span><br><span class="line">        pk.setService(<span class="string">&quot;service&quot;</span>);</span><br><span class="line">        <span class="comment">//将包配置加入代码生成器</span></span><br><span class="line">        mpg.setPackageInfo(pk);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//策略配置</span></span><br><span class="line">        StrategyConfig sc = <span class="keyword">new</span> StrategyConfig();</span><br><span class="line">        <span class="comment">//数据库表名</span></span><br><span class="line">        sc.setInclude(<span class="string">&quot;books&quot;</span>);</span><br><span class="line">        <span class="comment">//开启实体类Lombok</span></span><br><span class="line">        sc.setEntityLombokModel(<span class="keyword">true</span>);</span><br><span class="line">        <span class="comment">//开启属性名驼峰命名转换</span></span><br><span class="line">        sc.setNaming(NamingStrategy.underline_to_camel);</span><br><span class="line">        <span class="comment">//开启字段名驼峰命名转换</span></span><br><span class="line">        sc.setColumnNaming(NamingStrategy.underline_to_camel);</span><br><span class="line">        sc.setLogicDeleteFieldName(<span class="string">&quot;deleted_flag&quot;</span>);</span><br><span class="line">		<span class="comment">//设置字段自动填入</span></span><br><span class="line">        TableFill createTime = <span class="keyword">new</span> TableFill(<span class="string">&quot;create_time&quot;</span>, FieldFill.INSERT);</span><br><span class="line">        TableFill updateTime = <span class="keyword">new</span> TableFill(<span class="string">&quot;update_time&quot;</span>, FieldFill.INSERT_UPDATE);</span><br><span class="line">        <span class="comment">//设置集合</span></span><br><span class="line">        ArrayList&lt;TableFill&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        list.add(createTime);</span><br><span class="line">        list.add(updateTime);</span><br><span class="line">        <span class="comment">//加入字段集合</span></span><br><span class="line">        sc.setTableFillList(list);</span><br><span class="line">        <span class="comment">//设置乐观锁字段名</span></span><br><span class="line">        sc.setVersionFieldName(<span class="string">&quot;version&quot;</span>);</span><br><span class="line">        <span class="comment">//开始RestController注解</span></span><br><span class="line">        sc.setRestControllerStyle(<span class="keyword">true</span>);</span><br><span class="line">        <span class="comment">//驼峰转成连字符</span></span><br><span class="line">        sc.setControllerMappingHyphenStyle(<span class="keyword">true</span>);</span><br><span class="line">        <span class="comment">//将策略配置加入到代码生成器</span></span><br><span class="line">        mpg.setStrategy(sc);</span><br><span class="line">		<span class="comment">//启动代码生成器</span></span><br><span class="line">        mpg.execute();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>MybatisPlus</tag>
       </tags>
   </entry>
   <entry>
