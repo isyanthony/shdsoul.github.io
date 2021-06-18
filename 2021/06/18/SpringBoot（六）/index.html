@@ -36,33 +36,27 @@
 
 
 <meta name="hexo-config" content="{&quot;hostname&quot;:&quot;shdsoul.github.io&quot;,&quot;root&quot;:&quot;/&quot;,&quot;images&quot;:&quot;/images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;/search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}">
-<meta name="description" content="本文用于记录SpringBoot之初体验">
+<meta name="description" content="本文用于记录前后端分离开发模式下常见的跨域问题解决方案">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringBoot（一）:Hello World">
-<meta property="og:url" content="https://shdsoul.github.io/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
+<meta property="og:title" content="SpringBoot(六):解决前后端分离跨域">
+<meta property="og:url" content="https://shdsoul.github.io/2021/06/18/SpringBoot%EF%BC%88%E5%85%AD%EF%BC%89/index.html">
 <meta property="og:site_name" content="Luke">
-<meta property="og:description" content="本文用于记录SpringBoot之初体验">
+<meta property="og:description" content="本文用于记录前后端分离开发模式下常见的跨域问题解决方案">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://shdsoul.github.io/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/1.png">
-<meta property="og:image" content="https://shdsoul.github.io/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/2.png">
-<meta property="og:image" content="https://shdsoul.github.io/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/3.png">
-<meta property="og:image" content="https://shdsoul.github.io/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/4.png">
-<meta property="og:image" content="https://shdsoul.github.io/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/5.png">
-<meta property="article:published_time" content="2021-05-05T13:57:00.000Z">
-<meta property="article:modified_time" content="2021-06-15T07:41:38.269Z">
+<meta property="article:published_time" content="2021-06-18T09:45:56.000Z">
+<meta property="article:modified_time" content="2021-06-18T09:45:56.103Z">
 <meta property="article:author" content="Soucat">
 <meta property="article:tag" content="SpringBoot">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://shdsoul.github.io/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/1.png">
 
 
-<link rel="canonical" href="https://shdsoul.github.io/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/">
+<link rel="canonical" href="https://shdsoul.github.io/2021/06/18/SpringBoot%EF%BC%88%E5%85%AD%EF%BC%89/">
 
 
 
 <meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;}">
 <meta name="hexo-config-calendar" content="">
-<title>SpringBoot（一）:Hello World | Luke</title><script data-pjax src="/js/load-config.js"></script>
+<title>SpringBoot(六):解决前后端分离跨域 | Luke</title><script data-pjax src="/js/load-config.js"></script>
   
 
 
@@ -170,7 +164,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8E%89SpringBoot%E4%B8%BA%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E4%B8%BA%E7%94%9F"><span class="nav-number">1.</span> <span class="nav-text">🎉SpringBoot为快速开发为生</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%9A%80%E4%BB%80%E4%B9%88%E6%98%AF%E8%B7%A8%E5%9F%9F%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">🚀什么是跨域？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE"><span class="nav-number">2.1.</span> <span class="nav-text">全局配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%B9%E6%A1%88%E4%B8%80"><span class="nav-number">2.1.1.</span> <span class="nav-text">配置方案一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%B9%E6%A1%88%E4%BA%8C"><span class="nav-number">2.1.2.</span> <span class="nav-text">配置方案二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CrossOrigin"><span class="nav-number">2.2.</span> <span class="nav-text">@CrossOrigin</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -240,7 +234,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://shdsoul.github.io/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/">
+    <link itemprop="mainEntityOfPage" href="https://shdsoul.github.io/2021/06/18/SpringBoot%EF%BC%88%E5%85%AD%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/./images/tx.jpg">
@@ -253,7 +247,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          SpringBoot（一）:Hello World
+          SpringBoot(六):解决前后端分离跨域
         </h1>
 
         <div class="post-meta-container">
@@ -264,15 +258,8 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-05-05 21:57:00" itemprop="dateCreated datePublished" datetime="2021-05-05T21:57:00+08:00">2021-05-05</time>
+      <time title="创建时间：2021-06-18 17:45:56" itemprop="dateCreated datePublished" datetime="2021-06-18T17:45:56+08:00">2021-06-18</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-15 15:41:38" itemprop="dateModified" datetime="2021-06-15T15:41:38+08:00">2021-06-15</time>
-      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -291,18 +278,18 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.5k</span>
+      <span>2.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
-            <div class="post-description">本文用于记录SpringBoot之初体验</div>
+            <div class="post-description">本文用于记录前后端分离开发模式下常见的跨域问题解决方案</div>
         </div>
       </header>
 
@@ -310,66 +297,36 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="🎉SpringBoot为快速开发为生"><a href="#🎉SpringBoot为快速开发为生" class="headerlink" title="🎉SpringBoot为快速开发为生"></a>🎉SpringBoot为快速开发为生</h1><blockquote>
-<p>前言：在学完 Spring + SpringMVC + Mybatis 之后进行了 SSM整合项目的搭建，搭建项目最花费时间的其实是在各种的配置文件上，比如mybatis-config.xml 和 Spring中的applicationContext.xml 以及 SpringMVC中 Web.xml 都有固定的文件头等等内容，每次写都还要去别处复制粘贴，难搞。光是建个文件之后的复制粘贴就已经让我头大了，最难搞的还是Spring中文件配置文件中一些小东西，比如：SqlsessionFactory 以及 dao 层自动接口扫描器，完全可以说是固定写法，SpringMVC的配置中需要配置视图解析器，以及事物处理器，web.xml中需要配置请求转发器和资源过滤，配置过程几乎完全面向复制粘贴，繁琐且冗杂，也非常容易出错，我整合的SSM的项目至今没有跑起来，Debug了一个多星期无果，从Gitee上扒下来别人的项目跑，能跑，我的就是跑不起来，那几天我真是做梦都在想配置文件哪里出错了QAQ</p>
+        <h1 id="🚀什么是跨域？"><a href="#🚀什么是跨域？" class="headerlink" title="🚀什么是跨域？"></a>🚀什么是跨域？</h1><ul>
+<li><strong>url的一般格式</strong>：</li>
+</ul>
+<p><font color="skyblue">协议 + 域名（子域名 + 主域名） + 端口号 + 资源地址</font></p>
+<ul>
+<li><strong>示例</strong>：</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.dustyblog.cn:8080/say/Hello">https://www.dustyblog.cn:8080/say/Hello</a> 是由</p>
+<p>https + www + dustyblog.cn + 8080 + say/Hello组成。</p>
+<blockquote>
+<p>只要<font color="red">协议，子域名，主域名，端口号这四项组成部分中有一项不同</font>就可以认为是不同的域，不同的域之间互相访问资源，就被称之为跨域。</p>
 </blockquote>
-<p>接下，进入正题：</p>
-<p>​        SpringBoot的出现就是为了解决以上问题，把配置简化到几乎没有，就连Tomcat都不需要我们自己去配置了，不得不说，SpringBoot永远滴神.接下来我将演示快速创建一个SpringBoot项目到启动的全过程.</p>
-<p><strong>在此之前，介绍一下SpringBoot的相关特点：</strong></p>
-<p>   1.<strong>创建独立的Spring应用程序</strong></p>
-<ol start="2">
-<li><p><strong>嵌入的Tomcat，无需部署WAR文件</strong></p>
-</li>
-<li><p><strong>简化Maven配置</strong></p>
-</li>
-<li><p><strong>自动配置Spring</strong></p>
-</li>
-<li><p><strong>提供生产就绪型功能，如指标，健康检查和外部配置</strong></p>
-</li>
-<li><p>**绝对没有代码生成并且对XML也没有配置要求 **</p>
-</li>
-</ol>
-<hr>
-<p>接下来体验一下咯：</p>
-<ul>
-<li>通过IDEA创建项目</li>
-</ul>
-<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class title="creat">
+<p>前后端分离项目中，前端项目后端项目分别占用不同的端口号(这里只是针对个人开发而言，实际业务中不一定)从而导致了跨域问题</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p><strong>注意</strong>：解决方案既可以在前端解决也可以在后端解决，这里只讨论后端的解决方案.</p>
+<h2 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h2><blockquote>
+<p>解决跨域问题有多种全局配置的方案，接下来一一列举</p>
+</blockquote>
+<h3 id="配置方案一"><a href="#配置方案一" class="headerlink" title="配置方案一"></a>配置方案一</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.cors.CorsConfiguration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.cors.UrlBasedCorsConfigurationSource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.filter.CorsFilter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CorsConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CorsConfiguration <span class="title">corsConfiguration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        CorsConfiguration corsConfiguration = <span class="keyword">new</span> CorsConfiguration();</span><br><span class="line">        <span class="comment">//实际请求中允许携带的首部字段</span></span><br><span class="line">        corsConfiguration.addAllowedHeader(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="comment">//允许那些域跨域访问</span></span><br><span class="line">        corsConfiguration.addAllowedOrigin(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="comment">//允许那些请求方法</span></span><br><span class="line">        corsConfiguration.addAllowedMethod(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> corsConfiguration;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CorsFilter <span class="title">corsFilter</span><span class="params">(CorsConfiguration corsConfiguration)</span> </span>&#123;</span><br><span class="line">        UrlBasedCorsConfigurationSource source = <span class="keyword">new</span> UrlBasedCorsConfigurationSource();</span><br><span class="line">        source.registerCorsConfiguration(<span class="string">&quot;/**&quot;</span>, corsConfiguration); <span class="comment">// 4</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> CorsFilter(source);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<p>点击**<code>Next</code>**，下一步</p>
-<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/2.png" class title="create">
+<h3 id="配置方案二"><a href="#配置方案二" class="headerlink" title="配置方案二"></a>配置方案二</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.CorsRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebAllowConfig</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//添加访问什么路径时需要配置跨域</span></span><br><span class="line">        <span class="comment">//此处配置所有路径</span></span><br><span class="line">        registry.addMapping(<span class="string">&quot;/**&quot;</span>) <span class="comment">//允许谁跨域,vue开启服务默认跑在8080</span></span><br><span class="line">                .allowedOrigins(<span class="string">&quot;http://localhost:8080&quot;</span>, <span class="string">&quot;null&quot;</span>)  <span class="comment">//允许谁跨域,vue开启服务默认跑在8080</span></span><br><span class="line">                .allowedMethods(<span class="string">&quot;POST&quot;</span>, <span class="string">&quot;GET&quot;</span>, <span class="string">&quot;PUT&quot;</span>, <span class="string">&quot;OPTIONS&quot;</span>, <span class="string">&quot;DELETE&quot;</span>) <span class="comment">//设置需要进行配置的http请求方法</span></span><br><span class="line">                .maxAge(<span class="number">3600</span>) <span class="comment">//设置最大相应时间</span></span><br><span class="line">                .allowCredentials(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 
-<p>点击 <strong><code>Next</code></strong> ，下一步</p>
-<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/3.png" class title="creat">
+<h2 id="CrossOrigin"><a href="#CrossOrigin" class="headerlink" title="@CrossOrigin"></a>@CrossOrigin</h2><p><code>@CrossOrigin</code> 用于<code>controller</code>类上，使用相对较为简单.</p>
+<p>但是有坑：<code>CROS</code>复杂请求时会首先发送一个<code>OPTIONS</code>请求做嗅探，来测试服务器是否支持本次请求，请求成功后才会发送真实的请求；而<code>OPTIONS</code>请求不会携带任何数据，导致这个请求不符合我们拦截器的校验规则被拦截了，直接返回了状态码，响应头中也没携带解决跨域需要的头部信息，进而出现了跨域问题.</p>
+<p>只需要重写<code>handler</code>中<code>preHandlr</code>并且加上下方代码即可</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="string">&quot;OPTIONS&quot;</span>.equals(request.getMethod().toUpperCase())) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Method:OPTIONS&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
-
-
-<p>点击 <strong><code>Next</code></strong> ，下一步，后面就是填写项目名称，这里就略过了，快进到创建后</p>
-<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/4.png" class title="create">
-
-
-
-<ul>
-<li>接下来编写 <code>Controller</code> 层，注意，要在DemoApplication.java的同目录下创建包下的java文件或者java文件才能被扫描到</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo.controller;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">//表示不会跳转JSP、HTML 而是直接将返回的内容写入 Http响应包中的响应体中,直接将内容呈现在页面中</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="comment">//等价于</span></span><br><span class="line"><span class="comment">//@Controller</span></span><br><span class="line"><span class="comment">//@ResponseBody</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloSpringBoot</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//用于建立请求URL和处理请求方法之间的对应关系，将该方法映射到这个url路径上</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">Hello</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello SpringBoot !&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>接下来就可以直接启动项目了，SpringBoot不会自动打开浏览器，需要我们手动输入URL.</p>
-<p>浏览器中输入 <code>localhost:8080/hello</code></p>
-</li>
-</ul>
-<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/5.png" class title="create">
-
-
-
-<p>会发现，从来到尾我们只需要在创建项目的时候需要进行配置，创建好后只需要编写业务逻辑即可运行.</p>
 
       <div>
       
@@ -396,14 +353,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/05/01/Spring5%EF%BC%88%E4%BA%8C%EF%BC%89/" rel="prev" title="Spring5(二)">
-                  <i class="fa fa-chevron-left"></i> Spring5(二)
+                <a href="/2021/06/15/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%89%EF%BC%89/" rel="prev" title="每日一题(三):双指针算法">
+                  <i class="fa fa-chevron-left"></i> 每日一题(三):双指针算法
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/" rel="next" title="SpringMVC：流程分析概览">
-                  SpringMVC：流程分析概览 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -490,7 +444,7 @@ setInterval("createtime()",250);
 <script>
 NexT.utils.loadComments('#lv-container', () => {
   window.livereOptions = {
-    refer: "2021/05/05/SpringBoot（一）/"
+    refer: "2021/06/18/SpringBoot（六）/"
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
