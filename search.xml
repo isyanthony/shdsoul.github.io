@@ -1669,7 +1669,7 @@
 <h1 id="自定义starter"><a href="#自定义starter" class="headerlink" title="自定义starter"></a>自定义starter</h1><ul>
 <li><p>创建一个<code>SpringBoot</code>项目</p>
 <p>目录结构如下，删除<code>SpringBoot</code>启动类以及配置文件，可以选择性删掉<code>test</code>目录，再删除<code>pom.xml</code>中<code>plugins</code>，不然打包会报错.</p>
-<p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/1.png?Expires=1624522496&OSSAccessKeyId=TMP.3KhesJgqutbdBu5TC72QSQ4Pz8fhdYUQKs8nDsxhNmk1JpguW4N1CZq7uaL8yjLA5aGjTtEnGPGmKW1nPa8de5XLZap6VX&Signature=Q0nRRv/EjGriGkx0yfarX5RE9z0=" alt="img"></p>
+<p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/2.png?Expires=1624556368&OSSAccessKeyId=TMP.3KhesJgqutbdBu5TC72QSQ4Pz8fhdYUQKs8nDsxhNmk1JpguW4N1CZq7uaL8yjLA5aGjTtEnGPGmKW1nPa8de5XLZap6VX&Signature=3bkRIAEW9FllLi+ORcrqdN/ZviM=" alt="img"></p>
 </li>
 <li><p>引入相关依赖</p>
 </li>
@@ -1700,7 +1700,7 @@
 <ul>
 <li>打包发布安装到本地仓库</li>
 </ul>
-<p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/2.png?Expires=1624522519&OSSAccessKeyId=TMP.3KhesJgqutbdBu5TC72QSQ4Pz8fhdYUQKs8nDsxhNmk1JpguW4N1CZq7uaL8yjLA5aGjTtEnGPGmKW1nPa8de5XLZap6VX&Signature=XXtIWNlUUXKb8eZzTIzA5ypY9FQ=" alt="img"></p>
+<p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/1.png?Expires=1624556342&OSSAccessKeyId=TMP.3KhesJgqutbdBu5TC72QSQ4Pz8fhdYUQKs8nDsxhNmk1JpguW4N1CZq7uaL8yjLA5aGjTtEnGPGmKW1nPa8de5XLZap6VX&Signature=TLhwGCx25q9U3qjN9udUKrkRVzM=" alt="img"></p>
 <ul>
 <li>引用时只需要像普通依赖一样引入就可以了，也可以直接复制当前项目中的项目坐标</li>
 </ul>
