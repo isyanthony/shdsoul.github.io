@@ -46,7 +46,7 @@
 <meta property="og:image" content="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/2.png?Expires=1624556368&OSSAccessKeyId=TMP.3KhesJgqutbdBu5TC72QSQ4Pz8fhdYUQKs8nDsxhNmk1JpguW4N1CZq7uaL8yjLA5aGjTtEnGPGmKW1nPa8de5XLZap6VX&Signature=3bkRIAEW9FllLi+ORcrqdN/ZviM=">
 <meta property="og:image" content="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/1.png?Expires=1624556342&OSSAccessKeyId=TMP.3KhesJgqutbdBu5TC72QSQ4Pz8fhdYUQKs8nDsxhNmk1JpguW4N1CZq7uaL8yjLA5aGjTtEnGPGmKW1nPa8de5XLZap6VX&Signature=TLhwGCx25q9U3qjN9udUKrkRVzM=">
 <meta property="article:published_time" content="2021-06-24T08:13:02.000Z">
-<meta property="article:modified_time" content="2021-06-24T08:43:02.250Z">
+<meta property="article:modified_time" content="2021-06-24T08:46:21.078Z">
 <meta property="article:author" content="Soucat">
 <meta property="article:tag" content="SpringBoot">
 <meta name="twitter:card" content="summary">
@@ -167,7 +167,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%9A%80SpringBoot-starter%E6%9C%BA%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">🚀SpringBoot starter机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8F%9B%E8%87%AA%E5%AE%9A%E4%B9%89starter%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99"><span class="nav-number">2.</span> <span class="nav-text">🏛自定义starter的命名规则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89starter"><span class="nav-number">3.</span> <span class="nav-text">自定义starter</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%9A%80SpringBoot-starter%E6%9C%BA%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">🚀SpringBoot starter机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8F%9B%E8%87%AA%E5%AE%9A%E4%B9%89starter%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99"><span class="nav-number">2.</span> <span class="nav-text">🏛自定义starter的命名规则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8E%A1%E8%87%AA%E5%AE%9A%E4%B9%89starter"><span class="nav-number">3.</span> <span class="nav-text">🎡自定义starter</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -262,7 +262,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-06-24 16:13:02 / 修改时间：16:43:02" itemprop="dateCreated datePublished" datetime="2021-06-24T16:13:02+08:00">2021-06-24</time>
+      <time title="创建时间：2021-06-24 16:13:02 / 修改时间：16:46:21" itemprop="dateCreated datePublished" datetime="2021-06-24T16:13:02+08:00">2021-06-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -303,7 +303,7 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="🚀SpringBoot-starter机制"><a href="#🚀SpringBoot-starter机制" class="headerlink" title="🚀SpringBoot starter机制"></a>🚀SpringBoot starter机制</h1><p><code>SpringBoot</code>中提供了大量开箱即用的<code>starter</code>，<code>starter</code>中配置了一定业务场景中所需要的依赖以及各种服务，让开发者摆脱了大量配置和依赖文件，让工程的整体结构更加优美而不臃肿，其具体实现依托于<code>SpringBoot</code>中自动配置原理，自动进行包扫描，既可以自定义配置，也可以使用默认配置.</p>
 <h1 id="🏛自定义starter的命名规则"><a href="#🏛自定义starter的命名规则" class="headerlink" title="🏛自定义starter的命名规则"></a>🏛自定义starter的命名规则</h1><p><code>SpringBoot</code>提供的<code>starter</code>以<code>spring-boot-starter-xxx</code>的方式命名的。官方建议自定义的<code>starter</code>使用<code>xxx-spring-boot-starter</code>命名规则。以区分<code>SpringBoot</code>生态提供的<code>starter</code></p>
-<h1 id="自定义starter"><a href="#自定义starter" class="headerlink" title="自定义starter"></a>自定义starter</h1><ul>
+<h1 id="🎡自定义starter"><a href="#🎡自定义starter" class="headerlink" title="🎡自定义starter"></a>🎡自定义starter</h1><ul>
 <li><p>创建一个<code>SpringBoot</code>项目</p>
 <p>目录结构如下，删除<code>SpringBoot</code>启动类以及配置文件，可以选择性删掉<code>test</code>目录，再删除<code>pom.xml</code>中<code>plugins</code>，不然打包会报错.</p>
 <p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/2.png?Expires=1624556368&OSSAccessKeyId=TMP.3KhesJgqutbdBu5TC72QSQ4Pz8fhdYUQKs8nDsxhNmk1JpguW4N1CZq7uaL8yjLA5aGjTtEnGPGmKW1nPa8de5XLZap6VX&Signature=3bkRIAEW9FllLi+ORcrqdN/ZviM=" alt="img"></p>
