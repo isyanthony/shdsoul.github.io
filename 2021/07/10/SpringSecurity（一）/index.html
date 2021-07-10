@@ -44,7 +44,7 @@
 <meta property="og:description" content="记录SpringSecurity简单的认证配置与简单使用.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-07-10T15:57:11.000Z">
-<meta property="article:modified_time" content="2021-07-10T15:57:11.703Z">
+<meta property="article:modified_time" content="2021-07-10T16:01:08.032Z">
 <meta property="article:author" content="Soucat">
 <meta property="article:tag" content="SpringSecurity">
 <meta name="twitter:card" content="summary">
@@ -260,6 +260,13 @@
 
       <time title="创建时间：2021-07-10 23:57:11" itemprop="dateCreated datePublished" datetime="2021-07-10T23:57:11+08:00">2021-07-10</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-07-11 00:01:08" itemprop="dateModified" datetime="2021-07-11T00:01:08+08:00">2021-07-11</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -315,8 +322,12 @@
 
 
 <h1 id="🛰内存中配置用户"><a href="#🛰内存中配置用户" class="headerlink" title="🛰内存中配置用户"></a>🛰内存中配置用户</h1><ul>
-<li>继承<code>WebSecurityConfigurerAdapter</code> 重写 <code>protected void configure(AuthenticationManagerBuilder auth)</code>.<ul>
-<li>开启方法级别授权<code>@EnableGlobalMethodSecurity(prePostEnabled = true)</code></li>
+<li><p>继承<code>WebSecurityConfigurerAdapter</code></p>
+<ul>
+<li><p>重写 <code>protected void configure(AuthenticationManagerBuilder auth)</code>.</p>
+</li>
+<li><p>开启方法级别授权<code>@EnableGlobalMethodSecurity(prePostEnabled = true)</code></p>
+</li>
 </ul>
 </li>
 </ul>
