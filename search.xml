@@ -1,72 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Linux中配置Redis</title>
-    <url>/2021/05/27/Linux%E4%B8%AD%E9%85%8D%E7%BD%AERedis/</url>
-    <content><![CDATA[<h1 id="🎇Linux系统下安装Redis"><a href="#🎇Linux系统下安装Redis" class="headerlink" title="🎇Linux系统下安装Redis"></a>🎇Linux系统下安装Redis</h1><p>这里先给出所用到的版本：</p>
-<blockquote>
-<p>VMware 15.x+</p>
-<p>CentOS 7 </p>
-<p>Redis 4.0.10</p>
-</blockquote>
-<p>​        还要使用 <code>xshell</code> 以及 <code>xftp</code> 这两个工具，一个是用来远程连接服务器进行命令行操作服务器，一个是连接远程服务器进行文件传输以及对服务器中的文件进行一系列操作.</p>
-<ul>
-<li>利用<code>xftp</code> 将下载好的 <code>redis.tar</code> 上传到虚拟机中，通常情况下，是上传到根目录下的<code>opt</code>目录之中</li>
-<li>利用 <code>xshell</code> 或者 <code>VMware</code> 终端将压缩包进行解压安装，解压缩之前需要把终端路径切换到<code>tar</code>包所在路径</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 对tar包进行解压</span></span><br><span class="line"><span class="bullet">-</span> tar -zxvf redis-4.0.10.tar.gz</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>安装<code>gcc</code>编译<code>redis</code> 源码 (<code>Redis</code>是<code>C</code>语言所编写的，所以需要<code>c</code>语言的编译器 <code>gcc</code>进行编译)</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 5.安装gcc  </span></span><br><span class="line"><span class="bullet">-</span> yum install -y gcc</span><br><span class="line"></span><br><span class="line"><span class="section"># 6.进入解压缩目录执行如下命令</span></span><br><span class="line"><span class="bullet">-</span> make MALLOC=libc</span><br><span class="line"></span><br><span class="line"><span class="section"># 7.编译完成后执行如下命令</span></span><br><span class="line"><span class="bullet">-</span> make install PREFIX=/usr/redis</span><br><span class="line"></span><br><span class="line"><span class="section"># 8.进入/usr/redis目录启动redis服务 </span></span><br><span class="line"><span class="bullet">-</span> ./redis-server</span><br></pre></td></tr></table></figure>
-
-<img src="/2021/05/27/Linux%E4%B8%AD%E9%85%8D%E7%BD%AERedis/1.png" class title="配置成功提示">
-
-<ul>
-<li>复制一个会话，进行客户端连接</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 9.Redis服务端口默认是 6379</span></span><br><span class="line"></span><br><span class="line"><span class="section"># 10.进入bin目录执行客户端连接操作</span></span><br><span class="line"><span class="bullet">-</span> ./redis-cli –p 6379</span><br></pre></td></tr></table></figure>
-
-<p>出现如下提示即连接成功 !</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[root@localhost bin]# ./redis-cli -p 6379</span><br><span class="line">127.0.0.1:6379&gt; </span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="🎉配置Redis服务远程连接"><a href="#🎉配置Redis服务远程连接" class="headerlink" title="🎉配置Redis服务远程连接"></a>🎉配置Redis服务远程连接</h1><p>​        通常情况下，需要在自己的电脑上看<code>Redis</code>中的数据，使用<code>xshell</code>用命令来查询效率十分低下，于是我们可以利用<code>Redis</code>可视化工具在本地连接后，本地查看数据库中的内容.</p>
-<ul>
-<li><p>可以在本地先安装 <code>RedisDeskManager</code></p>
-</li>
-<li><p>Linux中安装防火墙服务</p>
-</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 安装iptables-services</span></span><br><span class="line"><span class="bullet">-</span> yum install iptables-services</span><br><span class="line"></span><br><span class="line"><span class="section"># 启动服务</span></span><br><span class="line"><span class="bullet">-</span> systemctl enable iptables</span><br><span class="line"><span class="bullet">-</span> systemctl start iptables</span><br><span class="line"></span><br><span class="line"><span class="section"># 查看防火墙状态</span></span><br><span class="line"><span class="bullet">-</span> service iptables status</span><br><span class="line"></span><br><span class="line"><span class="section"># 关闭防火墙</span></span><br><span class="line"><span class="bullet">-</span> service iptables stop</span><br><span class="line"></span><br><span class="line"><span class="section"># 打开防火墙</span></span><br><span class="line"><span class="bullet">-</span> service iptables start </span><br><span class="line"></span><br><span class="line"><span class="section"># 重启防火墙</span></span><br><span class="line"><span class="bullet">-</span> service iptables restart </span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li><p>编辑<code>Linux</code>防火墙 </p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 增加防火墙规则</span></span><br><span class="line"><span class="bullet">-</span> vi /etc/sysconfig/iptables</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>加入防火墙规则：<code>-A INPUT -m state –state NEW -m tcp -p tcp –dport 6379 -j ACCEPT</code></p>
-</li>
-<li><p>将压缩包解压目录之中的<code>redis.conf</code> 移动到 <code>usr/redis</code> 下（主要是为了方便操作）</p>
-<ul>
-<li>注意：一定要用管理员身份进行编辑，不然文件为只读文件无法更改</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 更改白名单</span></span><br><span class="line">bind 127.0.0.1 </span><br><span class="line"><span class="section"># 改为 （注释掉）</span></span><br><span class="line">= &gt; # bind 127.0.0.1 </span><br><span class="line"></span><br><span class="line"><span class="section"># 将yes改为no</span></span><br><span class="line">protected-mode yes</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Markdown入门</title>
     <url>/2021/04/09/Markdown%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<h2 id="1-代码块"><a href="#1-代码块" class="headerlink" title="1.代码块:"></a>1.代码块:</h2><p>​    使用三个 “ ``` ” 即可生成代码块,并且可以选择语言类型</p>
@@ -166,6 +100,72 @@
       </categories>
       <tags>
         <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux中配置Redis</title>
+    <url>/2021/05/27/Linux%E4%B8%AD%E9%85%8D%E7%BD%AERedis/</url>
+    <content><![CDATA[<h1 id="🎇Linux系统下安装Redis"><a href="#🎇Linux系统下安装Redis" class="headerlink" title="🎇Linux系统下安装Redis"></a>🎇Linux系统下安装Redis</h1><p>这里先给出所用到的版本：</p>
+<blockquote>
+<p>VMware 15.x+</p>
+<p>CentOS 7 </p>
+<p>Redis 4.0.10</p>
+</blockquote>
+<p>​        还要使用 <code>xshell</code> 以及 <code>xftp</code> 这两个工具，一个是用来远程连接服务器进行命令行操作服务器，一个是连接远程服务器进行文件传输以及对服务器中的文件进行一系列操作.</p>
+<ul>
+<li>利用<code>xftp</code> 将下载好的 <code>redis.tar</code> 上传到虚拟机中，通常情况下，是上传到根目录下的<code>opt</code>目录之中</li>
+<li>利用 <code>xshell</code> 或者 <code>VMware</code> 终端将压缩包进行解压安装，解压缩之前需要把终端路径切换到<code>tar</code>包所在路径</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 对tar包进行解压</span></span><br><span class="line"><span class="bullet">-</span> tar -zxvf redis-4.0.10.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装<code>gcc</code>编译<code>redis</code> 源码 (<code>Redis</code>是<code>C</code>语言所编写的，所以需要<code>c</code>语言的编译器 <code>gcc</code>进行编译)</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 5.安装gcc  </span></span><br><span class="line"><span class="bullet">-</span> yum install -y gcc</span><br><span class="line"></span><br><span class="line"><span class="section"># 6.进入解压缩目录执行如下命令</span></span><br><span class="line"><span class="bullet">-</span> make MALLOC=libc</span><br><span class="line"></span><br><span class="line"><span class="section"># 7.编译完成后执行如下命令</span></span><br><span class="line"><span class="bullet">-</span> make install PREFIX=/usr/redis</span><br><span class="line"></span><br><span class="line"><span class="section"># 8.进入/usr/redis目录启动redis服务 </span></span><br><span class="line"><span class="bullet">-</span> ./redis-server</span><br></pre></td></tr></table></figure>
+
+<img src="/2021/05/27/Linux%E4%B8%AD%E9%85%8D%E7%BD%AERedis/1.png" class title="配置成功提示">
+
+<ul>
+<li>复制一个会话，进行客户端连接</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 9.Redis服务端口默认是 6379</span></span><br><span class="line"></span><br><span class="line"><span class="section"># 10.进入bin目录执行客户端连接操作</span></span><br><span class="line"><span class="bullet">-</span> ./redis-cli –p 6379</span><br></pre></td></tr></table></figure>
+
+<p>出现如下提示即连接成功 !</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[root@localhost bin]# ./redis-cli -p 6379</span><br><span class="line">127.0.0.1:6379&gt; </span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="🎉配置Redis服务远程连接"><a href="#🎉配置Redis服务远程连接" class="headerlink" title="🎉配置Redis服务远程连接"></a>🎉配置Redis服务远程连接</h1><p>​        通常情况下，需要在自己的电脑上看<code>Redis</code>中的数据，使用<code>xshell</code>用命令来查询效率十分低下，于是我们可以利用<code>Redis</code>可视化工具在本地连接后，本地查看数据库中的内容.</p>
+<ul>
+<li><p>可以在本地先安装 <code>RedisDeskManager</code></p>
+</li>
+<li><p>Linux中安装防火墙服务</p>
+</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 安装iptables-services</span></span><br><span class="line"><span class="bullet">-</span> yum install iptables-services</span><br><span class="line"></span><br><span class="line"><span class="section"># 启动服务</span></span><br><span class="line"><span class="bullet">-</span> systemctl enable iptables</span><br><span class="line"><span class="bullet">-</span> systemctl start iptables</span><br><span class="line"></span><br><span class="line"><span class="section"># 查看防火墙状态</span></span><br><span class="line"><span class="bullet">-</span> service iptables status</span><br><span class="line"></span><br><span class="line"><span class="section"># 关闭防火墙</span></span><br><span class="line"><span class="bullet">-</span> service iptables stop</span><br><span class="line"></span><br><span class="line"><span class="section"># 打开防火墙</span></span><br><span class="line"><span class="bullet">-</span> service iptables start </span><br><span class="line"></span><br><span class="line"><span class="section"># 重启防火墙</span></span><br><span class="line"><span class="bullet">-</span> service iptables restart </span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>编辑<code>Linux</code>防火墙 </p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 增加防火墙规则</span></span><br><span class="line"><span class="bullet">-</span> vi /etc/sysconfig/iptables</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>加入防火墙规则：<code>-A INPUT -m state –state NEW -m tcp -p tcp –dport 6379 -j ACCEPT</code></p>
+</li>
+<li><p>将压缩包解压目录之中的<code>redis.conf</code> 移动到 <code>usr/redis</code> 下（主要是为了方便操作）</p>
+<ul>
+<li>注意：一定要用管理员身份进行编辑，不然文件为只读文件无法更改</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 更改白名单</span></span><br><span class="line">bind 127.0.0.1 </span><br><span class="line"><span class="section"># 改为 （注释掉）</span></span><br><span class="line">= &gt; # bind 127.0.0.1 </span><br><span class="line"></span><br><span class="line"><span class="section"># 将yes改为no</span></span><br><span class="line">protected-mode yes</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
       </tags>
   </entry>
   <entry>
@@ -722,45 +722,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Shiro(一):介绍与基本概念</title>
-    <url>/2021/06/09/Shiro%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="🚧权限管理"><a href="#🚧权限管理" class="headerlink" title="🚧权限管理"></a>🚧权限管理</h2><h3 id="什么是权限管理"><a href="#什么是权限管理" class="headerlink" title="什么是权限管理"></a>什么是权限管理</h3><p>基本上涉及到用户参与的系统都要进行权限管理，权限管理属于系统安全的范畴，权限管理实现<code>对用户访问系统的控制</code>，按照安全规则或者<a href="http://baike.baidu.com/view/160028.htm">安全策略</a>控制用户可以访问而且只能访问自己被授权的资源。</p>
-<p>权限管理包括用户<code>身份认证</code>和<code>授权</code>两部分，简称<code>认证授权</code>。对于需要访问控制的资源用户首先经过身份认证，认证通过后用户具有该资源的访问权限方可访问。</p>
-<h3 id="什么是身份认证"><a href="#什么是身份认证" class="headerlink" title="什么是身份认证"></a>什么是身份认证</h3><p><code>身份认证</code>，就是判断一个用户是否为合法用户的处理过程。最常用的简单身份认证方式是系统通过核对用户输入的用户名和口令，看其是否与系统中存储的该用户的用户名和口令一致，来判断用户身份是否正确。对于采用<a href="http://baike.baidu.com/view/5628.htm">指纹</a>等系统，则出示指纹；对于硬件Key等刷卡系统，则需要刷卡。</p>
-<h3 id="什么是授权"><a href="#什么是授权" class="headerlink" title="什么是授权"></a>什么是授权</h3><p><code>授权，即访问控制</code>，控制谁能访问哪些资源。主体进行身份认证后需要分配权限方可访问系统的资源，对于某些资源没有权限是无法访问的</p>
-<hr>
-<h2 id="🏁什么是shiro"><a href="#🏁什么是shiro" class="headerlink" title="🏁什么是shiro"></a>🏁什么是shiro</h2><blockquote>
-<p><strong>Apache Shiro™</strong> is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.  </p>
-<p>Shiro 是一个功能强大且易于使用的Java安全框架，它执行身份验证、授权、加密和会话管理。使用Shiro易于理解的API，您可以快速轻松地保护任何应用程序—从最小的移动应用程序到最大的web和企业应用程序。</p>
-</blockquote>
-<p><code>Shiro是apache旗下一个开源框架，它将软件系统的安全认证相关的功能抽取出来，实现用户身份认证，权限授权、加密、会话管理等功能，组成了一个通用的安全认证框架。</code></p>
-<hr>
-<h2 id="🌎shiro的核心架构"><a href="#🌎shiro的核心架构" class="headerlink" title="🌎shiro的核心架构"></a>🌎shiro的核心架构</h2><img src="/2021/06/09/Shiro%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class title="架构图">
-
-
-
-<h3 id="Subject"><a href="#Subject" class="headerlink" title="Subject"></a>Subject</h3><p><code>Subject即主体</code>，外部应用与subject进行交互，subject记录了当前操作用户，将用户的概念理解为当前操作的主体，可能是一个通过浏览器请求的用户，也可能是一个运行的程序。    Subject在shiro中是一个接口，接口中定义了很多认证授相关的方法，外部程序通过subject进行认证授，而subject是通过SecurityManager安全管理器进行认证授权</p>
-<h3 id="SecurityManager"><a href="#SecurityManager" class="headerlink" title="SecurityManager"></a>SecurityManager</h3><p><code>SecurityManager即安全管理器</code>，对全部的subject进行安全管理，它是shiro的核心，负责对所有的subject进行安全管理。通过SecurityManager可以完成subject的认证、授权等，实质上SecurityManager是通过Authenticator进行认证，通过Authorizer进行授权，通过SessionManager进行会话管理等。</p>
-<p><code>SecurityManager是一个接口，继承了Authenticator, Authorizer, SessionManager这三个接口。</code></p>
-<h3 id="Authenticator"><a href="#Authenticator" class="headerlink" title="Authenticator"></a>Authenticator</h3><p><code>Authenticator即认证器</code>，对用户身份进行认证，Authenticator是一个接口，shiro提供ModularRealmAuthenticator实现类，通过ModularRealmAuthenticator基本上可以满足大多数需求，也可以自定义认证器。</p>
-<h3 id="Authorizer"><a href="#Authorizer" class="headerlink" title="Authorizer"></a>Authorizer</h3><p><code>Authorizer即授权器</code>，用户通过认证器认证通过，在访问功能时需要通过授权器判断用户是否有此功能的操作权限。</p>
-<h3 id="Realm"><a href="#Realm" class="headerlink" title="Realm"></a>Realm</h3><p><code>Realm即领域</code>，相当于datasource数据源，securityManager进行安全认证需要通过Realm获取用户权限数据，比如：如果用户身份数据在数据库那么realm就需要从数据库获取用户身份信息。</p>
-<ul>
-<li>​    注意：不要把realm理解成只是从数据源取数据，在realm中还有认证授权校验的相关的代码。</li>
-</ul>
-<h3 id="SessionManager"><a href="#SessionManager" class="headerlink" title="SessionManager"></a>SessionManager</h3><p><code>sessionManager即会话管理</code>，shiro框架定义了一套会话管理，它不依赖web容器的session，所以shiro可以使用在非web应用上，也可以将分布式应用的会话集中在一点管理，此特性可使它实现单点登录。</p>
-<h3 id="SessionDAO"><a href="#SessionDAO" class="headerlink" title="SessionDAO"></a>SessionDAO</h3><p><code>SessionDAO即会话dao</code>，是对session会话操作的一套接口，比如要将session存储到数据库，可以通过jdbc将会话存储到数据库。</p>
-<h3 id="CacheManager"><a href="#CacheManager" class="headerlink" title="CacheManager"></a>CacheManager</h3><p><code>CacheManager即缓存管理</code>，将用户权限数据存储在缓存，这样可以提高性能。</p>
-<h3 id="Cryptography"><a href="#Cryptography" class="headerlink" title="Cryptography"></a>Cryptography</h3><p>​    <code>Cryptography即密码管理</code>，shiro提供了一套加密/解密的组件，方便开发。比如提供常用的散列、加/解密等功能。</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Shiro</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Redis(一):五大数据类型</title>
     <url>/2021/06/08/Redis%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<h1 id="⛵NoSQL"><a href="#⛵NoSQL" class="headerlink" title="⛵NoSQL"></a>⛵NoSQL</h1><p>​    <code>NoSQL</code>，泛指非关系型的数据库。随着互联网<a href="https://baike.so.com/doc/7119987-7343121.html">web2.0</a>网站的兴起，传统的关系数据库在应付<code>web2.0</code>网站，特别是超大规模和高并发的<a href="https://baike.so.com/doc/3656419-3843163.html">SNS</a>类型的<code>web2.0</code>纯动态网站已经显得力不从心，暴露了很多难以克服的问题，而非关系型的数据库则由于其本身的特点得到了非常迅速的发展。<code>NoSQL</code>数据库的产生就是为了解决大规模数据集合多重数据种类带来的挑战，尤其是大数据应用难题。</p>
@@ -1111,6 +1072,45 @@
       </categories>
       <tags>
         <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Shiro(一):介绍与基本概念</title>
+    <url>/2021/06/09/Shiro%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="🚧权限管理"><a href="#🚧权限管理" class="headerlink" title="🚧权限管理"></a>🚧权限管理</h2><h3 id="什么是权限管理"><a href="#什么是权限管理" class="headerlink" title="什么是权限管理"></a>什么是权限管理</h3><p>基本上涉及到用户参与的系统都要进行权限管理，权限管理属于系统安全的范畴，权限管理实现<code>对用户访问系统的控制</code>，按照安全规则或者<a href="http://baike.baidu.com/view/160028.htm">安全策略</a>控制用户可以访问而且只能访问自己被授权的资源。</p>
+<p>权限管理包括用户<code>身份认证</code>和<code>授权</code>两部分，简称<code>认证授权</code>。对于需要访问控制的资源用户首先经过身份认证，认证通过后用户具有该资源的访问权限方可访问。</p>
+<h3 id="什么是身份认证"><a href="#什么是身份认证" class="headerlink" title="什么是身份认证"></a>什么是身份认证</h3><p><code>身份认证</code>，就是判断一个用户是否为合法用户的处理过程。最常用的简单身份认证方式是系统通过核对用户输入的用户名和口令，看其是否与系统中存储的该用户的用户名和口令一致，来判断用户身份是否正确。对于采用<a href="http://baike.baidu.com/view/5628.htm">指纹</a>等系统，则出示指纹；对于硬件Key等刷卡系统，则需要刷卡。</p>
+<h3 id="什么是授权"><a href="#什么是授权" class="headerlink" title="什么是授权"></a>什么是授权</h3><p><code>授权，即访问控制</code>，控制谁能访问哪些资源。主体进行身份认证后需要分配权限方可访问系统的资源，对于某些资源没有权限是无法访问的</p>
+<hr>
+<h2 id="🏁什么是shiro"><a href="#🏁什么是shiro" class="headerlink" title="🏁什么是shiro"></a>🏁什么是shiro</h2><blockquote>
+<p><strong>Apache Shiro™</strong> is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.  </p>
+<p>Shiro 是一个功能强大且易于使用的Java安全框架，它执行身份验证、授权、加密和会话管理。使用Shiro易于理解的API，您可以快速轻松地保护任何应用程序—从最小的移动应用程序到最大的web和企业应用程序。</p>
+</blockquote>
+<p><code>Shiro是apache旗下一个开源框架，它将软件系统的安全认证相关的功能抽取出来，实现用户身份认证，权限授权、加密、会话管理等功能，组成了一个通用的安全认证框架。</code></p>
+<hr>
+<h2 id="🌎shiro的核心架构"><a href="#🌎shiro的核心架构" class="headerlink" title="🌎shiro的核心架构"></a>🌎shiro的核心架构</h2><img src="/2021/06/09/Shiro%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class title="架构图">
+
+
+
+<h3 id="Subject"><a href="#Subject" class="headerlink" title="Subject"></a>Subject</h3><p><code>Subject即主体</code>，外部应用与subject进行交互，subject记录了当前操作用户，将用户的概念理解为当前操作的主体，可能是一个通过浏览器请求的用户，也可能是一个运行的程序。    Subject在shiro中是一个接口，接口中定义了很多认证授相关的方法，外部程序通过subject进行认证授，而subject是通过SecurityManager安全管理器进行认证授权</p>
+<h3 id="SecurityManager"><a href="#SecurityManager" class="headerlink" title="SecurityManager"></a>SecurityManager</h3><p><code>SecurityManager即安全管理器</code>，对全部的subject进行安全管理，它是shiro的核心，负责对所有的subject进行安全管理。通过SecurityManager可以完成subject的认证、授权等，实质上SecurityManager是通过Authenticator进行认证，通过Authorizer进行授权，通过SessionManager进行会话管理等。</p>
+<p><code>SecurityManager是一个接口，继承了Authenticator, Authorizer, SessionManager这三个接口。</code></p>
+<h3 id="Authenticator"><a href="#Authenticator" class="headerlink" title="Authenticator"></a>Authenticator</h3><p><code>Authenticator即认证器</code>，对用户身份进行认证，Authenticator是一个接口，shiro提供ModularRealmAuthenticator实现类，通过ModularRealmAuthenticator基本上可以满足大多数需求，也可以自定义认证器。</p>
+<h3 id="Authorizer"><a href="#Authorizer" class="headerlink" title="Authorizer"></a>Authorizer</h3><p><code>Authorizer即授权器</code>，用户通过认证器认证通过，在访问功能时需要通过授权器判断用户是否有此功能的操作权限。</p>
+<h3 id="Realm"><a href="#Realm" class="headerlink" title="Realm"></a>Realm</h3><p><code>Realm即领域</code>，相当于datasource数据源，securityManager进行安全认证需要通过Realm获取用户权限数据，比如：如果用户身份数据在数据库那么realm就需要从数据库获取用户身份信息。</p>
+<ul>
+<li>​    注意：不要把realm理解成只是从数据源取数据，在realm中还有认证授权校验的相关的代码。</li>
+</ul>
+<h3 id="SessionManager"><a href="#SessionManager" class="headerlink" title="SessionManager"></a>SessionManager</h3><p><code>sessionManager即会话管理</code>，shiro框架定义了一套会话管理，它不依赖web容器的session，所以shiro可以使用在非web应用上，也可以将分布式应用的会话集中在一点管理，此特性可使它实现单点登录。</p>
+<h3 id="SessionDAO"><a href="#SessionDAO" class="headerlink" title="SessionDAO"></a>SessionDAO</h3><p><code>SessionDAO即会话dao</code>，是对session会话操作的一套接口，比如要将session存储到数据库，可以通过jdbc将会话存储到数据库。</p>
+<h3 id="CacheManager"><a href="#CacheManager" class="headerlink" title="CacheManager"></a>CacheManager</h3><p><code>CacheManager即缓存管理</code>，将用户权限数据存储在缓存，这样可以提高性能。</p>
+<h3 id="Cryptography"><a href="#Cryptography" class="headerlink" title="Cryptography"></a>Cryptography</h3><p>​    <code>Cryptography即密码管理</code>，shiro提供了一套加密/解密的组件，方便开发。比如提供常用的散列、加/解密等功能。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Shiro</tag>
       </tags>
   </entry>
   <entry>
@@ -1618,6 +1618,47 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringBoot(六):解决前后端分离跨域</title>
+    <url>/2021/06/18/SpringBoot%EF%BC%88%E5%85%AD%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🚀什么是跨域？"><a href="#🚀什么是跨域？" class="headerlink" title="🚀什么是跨域？"></a>🚀什么是跨域？</h1><ul>
+<li><strong>url的一般格式</strong>：</li>
+</ul>
+<p><font color="skyblue">协议 + 域名（子域名 + 主域名） + 端口号 + 资源地址</font></p>
+<ul>
+<li><strong>示例</strong>：</li>
+</ul>
+<p><a href="https://www.dustyblog.cn:8080/say/Hello">https://www.dustyblog.cn:8080/say/Hello</a> 是由</p>
+<p>https + www + dustyblog.cn + 8080 + say/Hello组成。</p>
+<blockquote>
+<p>只要<font color="red">协议，子域名，主域名，端口号这四项组成部分中有一项不同</font>就可以认为是不同的域，不同的域之间互相访问资源，就被称之为跨域。</p>
+</blockquote>
+<p>前后端分离项目中，前端项目后端项目分别占用不同的端口号(这里只是针对个人开发而言，实际业务中不一定)从而导致了跨域问题</p>
+<h1 id="🚑解决方案"><a href="#🚑解决方案" class="headerlink" title="🚑解决方案"></a>🚑解决方案</h1><p><strong>注意</strong>：解决方案既可以在前端解决也可以在后端解决，这里只讨论后端的解决方案.</p>
+<h2 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h2><blockquote>
+<p>解决跨域问题有多种全局配置的方案，接下来一一列举</p>
+</blockquote>
+<h3 id="配置方案一"><a href="#配置方案一" class="headerlink" title="配置方案一"></a>配置方案一</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.cors.CorsConfiguration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.cors.UrlBasedCorsConfigurationSource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.filter.CorsFilter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CorsConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CorsConfiguration <span class="title">corsConfiguration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        CorsConfiguration corsConfiguration = <span class="keyword">new</span> CorsConfiguration();</span><br><span class="line">        <span class="comment">//实际请求中允许携带的首部字段</span></span><br><span class="line">        corsConfiguration.addAllowedHeader(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="comment">//允许那些域跨域访问</span></span><br><span class="line">        corsConfiguration.addAllowedOrigin(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="comment">//允许那些请求方法</span></span><br><span class="line">        corsConfiguration.addAllowedMethod(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> corsConfiguration;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CorsFilter <span class="title">corsFilter</span><span class="params">(CorsConfiguration corsConfiguration)</span> </span>&#123;</span><br><span class="line">        UrlBasedCorsConfigurationSource source = <span class="keyword">new</span> UrlBasedCorsConfigurationSource();</span><br><span class="line">        source.registerCorsConfiguration(<span class="string">&quot;/**&quot;</span>, corsConfiguration); <span class="comment">// 4</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> CorsFilter(source);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="配置方案二"><a href="#配置方案二" class="headerlink" title="配置方案二"></a>配置方案二</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.CorsRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebAllowConfig</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//添加访问什么路径时需要配置跨域</span></span><br><span class="line">        <span class="comment">//此处配置所有路径</span></span><br><span class="line">        registry.addMapping(<span class="string">&quot;/**&quot;</span>) <span class="comment">//允许谁跨域,vue开启服务默认跑在8080</span></span><br><span class="line">                .allowedOrigins(<span class="string">&quot;http://localhost:8080&quot;</span>, <span class="string">&quot;null&quot;</span>)  <span class="comment">//允许谁跨域,vue开启服务默认跑在8080</span></span><br><span class="line">                .allowedMethods(<span class="string">&quot;POST&quot;</span>, <span class="string">&quot;GET&quot;</span>, <span class="string">&quot;PUT&quot;</span>, <span class="string">&quot;OPTIONS&quot;</span>, <span class="string">&quot;DELETE&quot;</span>) <span class="comment">//设置需要进行配置的http请求方法</span></span><br><span class="line">                .maxAge(<span class="number">3600</span>) <span class="comment">//设置最大相应时间</span></span><br><span class="line">                .allowCredentials(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="CrossOrigin"><a href="#CrossOrigin" class="headerlink" title="@CrossOrigin"></a>@CrossOrigin</h2><p><code>@CrossOrigin</code> 用于<code>controller</code>类上，使用相对较为简单.</p>
+<p>但是有坑：<code>CROS</code>复杂请求时会首先发送一个<code>OPTIONS</code>请求做嗅探，来测试服务器是否支持本次请求，请求成功后才会发送真实的请求；而<code>OPTIONS</code>请求不会携带任何数据，导致这个请求不符合我们拦截器的校验规则被拦截了，直接返回了状态码，响应头中也没携带解决跨域需要的头部信息，进而出现了跨域问题.</p>
+<p>只需要重写<code>handler</code>中<code>preHandlr</code>并且加上下方代码即可</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="string">&quot;OPTIONS&quot;</span>.equals(request.getMethod().toUpperCase())) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Method:OPTIONS&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot(八):自定义starter</title>
     <url>/2021/06/24/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🚀SpringBoot-starter机制"><a href="#🚀SpringBoot-starter机制" class="headerlink" title="🚀SpringBoot starter机制"></a>🚀SpringBoot starter机制</h1><p><code>SpringBoot</code>中提供了大量开箱即用的<code>starter</code>，<code>starter</code>中配置了一定业务场景中所需要的依赖以及各种服务，让开发者摆脱了大量配置和依赖文件，让工程的整体结构更加优美而不臃肿，其具体实现依托于<code>SpringBoot</code>中自动配置原理，自动进行包扫描，既可以自定义配置，也可以使用默认配置.</p>
@@ -1669,47 +1710,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot(六):解决前后端分离跨域</title>
-    <url>/2021/06/18/SpringBoot%EF%BC%88%E5%85%AD%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🚀什么是跨域？"><a href="#🚀什么是跨域？" class="headerlink" title="🚀什么是跨域？"></a>🚀什么是跨域？</h1><ul>
-<li><strong>url的一般格式</strong>：</li>
-</ul>
-<p><font color="skyblue">协议 + 域名（子域名 + 主域名） + 端口号 + 资源地址</font></p>
-<ul>
-<li><strong>示例</strong>：</li>
-</ul>
-<p><a href="https://www.dustyblog.cn:8080/say/Hello">https://www.dustyblog.cn:8080/say/Hello</a> 是由</p>
-<p>https + www + dustyblog.cn + 8080 + say/Hello组成。</p>
-<blockquote>
-<p>只要<font color="red">协议，子域名，主域名，端口号这四项组成部分中有一项不同</font>就可以认为是不同的域，不同的域之间互相访问资源，就被称之为跨域。</p>
-</blockquote>
-<p>前后端分离项目中，前端项目后端项目分别占用不同的端口号(这里只是针对个人开发而言，实际业务中不一定)从而导致了跨域问题</p>
-<h1 id="🚑解决方案"><a href="#🚑解决方案" class="headerlink" title="🚑解决方案"></a>🚑解决方案</h1><p><strong>注意</strong>：解决方案既可以在前端解决也可以在后端解决，这里只讨论后端的解决方案.</p>
-<h2 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h2><blockquote>
-<p>解决跨域问题有多种全局配置的方案，接下来一一列举</p>
-</blockquote>
-<h3 id="配置方案一"><a href="#配置方案一" class="headerlink" title="配置方案一"></a>配置方案一</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.cors.CorsConfiguration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.cors.UrlBasedCorsConfigurationSource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.filter.CorsFilter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CorsConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CorsConfiguration <span class="title">corsConfiguration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        CorsConfiguration corsConfiguration = <span class="keyword">new</span> CorsConfiguration();</span><br><span class="line">        <span class="comment">//实际请求中允许携带的首部字段</span></span><br><span class="line">        corsConfiguration.addAllowedHeader(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="comment">//允许那些域跨域访问</span></span><br><span class="line">        corsConfiguration.addAllowedOrigin(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="comment">//允许那些请求方法</span></span><br><span class="line">        corsConfiguration.addAllowedMethod(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> corsConfiguration;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CorsFilter <span class="title">corsFilter</span><span class="params">(CorsConfiguration corsConfiguration)</span> </span>&#123;</span><br><span class="line">        UrlBasedCorsConfigurationSource source = <span class="keyword">new</span> UrlBasedCorsConfigurationSource();</span><br><span class="line">        source.registerCorsConfiguration(<span class="string">&quot;/**&quot;</span>, corsConfiguration); <span class="comment">// 4</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> CorsFilter(source);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="配置方案二"><a href="#配置方案二" class="headerlink" title="配置方案二"></a>配置方案二</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.CorsRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebAllowConfig</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//添加访问什么路径时需要配置跨域</span></span><br><span class="line">        <span class="comment">//此处配置所有路径</span></span><br><span class="line">        registry.addMapping(<span class="string">&quot;/**&quot;</span>) <span class="comment">//允许谁跨域,vue开启服务默认跑在8080</span></span><br><span class="line">                .allowedOrigins(<span class="string">&quot;http://localhost:8080&quot;</span>, <span class="string">&quot;null&quot;</span>)  <span class="comment">//允许谁跨域,vue开启服务默认跑在8080</span></span><br><span class="line">                .allowedMethods(<span class="string">&quot;POST&quot;</span>, <span class="string">&quot;GET&quot;</span>, <span class="string">&quot;PUT&quot;</span>, <span class="string">&quot;OPTIONS&quot;</span>, <span class="string">&quot;DELETE&quot;</span>) <span class="comment">//设置需要进行配置的http请求方法</span></span><br><span class="line">                .maxAge(<span class="number">3600</span>) <span class="comment">//设置最大相应时间</span></span><br><span class="line">                .allowCredentials(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="CrossOrigin"><a href="#CrossOrigin" class="headerlink" title="@CrossOrigin"></a>@CrossOrigin</h2><p><code>@CrossOrigin</code> 用于<code>controller</code>类上，使用相对较为简单.</p>
-<p>但是有坑：<code>CROS</code>复杂请求时会首先发送一个<code>OPTIONS</code>请求做嗅探，来测试服务器是否支持本次请求，请求成功后才会发送真实的请求；而<code>OPTIONS</code>请求不会携带任何数据，导致这个请求不符合我们拦截器的校验规则被拦截了，直接返回了状态码，响应头中也没携带解决跨域需要的头部信息，进而出现了跨域问题.</p>
-<p>只需要重写<code>handler</code>中<code>preHandlr</code>并且加上下方代码即可</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="string">&quot;OPTIONS&quot;</span>.equals(request.getMethod().toUpperCase())) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Method:OPTIONS&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringBoot(四):注解开发</title>
     <url>/2021/06/15/SpringBoot%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
     <content><![CDATA[<blockquote>
@@ -1751,6 +1751,72 @@
       </categories>
       <tags>
         <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringSecurity(二):整合mybatis</title>
+    <url>/2021/07/12/SpringSecurity%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="构建数据库表"><a href="#构建数据库表" class="headerlink" title="构建数据库表"></a>构建数据库表</h1><ul>
+<li>用户表:<code>sys_user</code><ul>
+<li>其中 <code>is_enable</code> 、 <code>is_lock</code> 、<code>is_credentials</code> 、<code>is_expired</code> 来源于<code>SpringSecurity</code>中用户抽象类中的四个属性，本质上，这张表也是基于用户抽象类进行自定义实现的.</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/SpringSecurity%EF%BC%88%E4%BA%8C%EF%BC%89/1.png"></p>
+<ul>
+<li>权限表: <code>sys_role</code></li>
+</ul>
+<p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/SpringSecurity%EF%BC%88%E4%BA%8C%EF%BC%89/2.png" alt="image-20210712205655520"></p>
+<ul>
+<li>用户-权限中间表：<code>sys_user_role</code></li>
+</ul>
+<p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/SpringSecurity%EF%BC%88%E4%BA%8C%EF%BC%89/3.png" alt="image-20210712205805311"></p>
+<h1 id="构建项目、引入Mybatis依赖"><a href="#构建项目、引入Mybatis依赖" class="headerlink" title="构建项目、引入Mybatis依赖"></a>构建项目、引入Mybatis依赖</h1><p>此步骤就不再进行过多赘述.</p>
+<p><font color="red"> 注意：</font> <code>mybatis</code>并没有自动开启驼峰命名与下划线之间的转换，需要手动开启(用习惯了<code>mybatis-plus</code> 导致找这个bug找了半天QAQ)，同时也要记得在启动类处加上<code>@MapperScan</code>这个注解.</p>
+<h1 id="创建实体类"><a href="#创建实体类" class="headerlink" title="创建实体类"></a>创建实体类</h1><ul>
+<li>用户类实现 <code>UserDetails</code> 类，并重写方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SysUser</span> <span class="keyword">implements</span> <span class="title">UserDetails</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">    <span class="keyword">private</span> String realName;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isEnable;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isLock;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isCredentials;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isExpired;</span><br><span class="line">    <span class="keyword">private</span> Date createTime;</span><br><span class="line">    <span class="keyword">private</span> Date loginTime;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;GrantedAuthority&gt; authorities;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Collection&lt;? extends GrantedAuthority&gt; getAuthorities() &#123;</span><br><span class="line">        <span class="keyword">return</span> authorities;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPassword</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> password;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUsername</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> username;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAccountNonExpired</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> isExpired;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAccountNonLocked</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> isLock;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isCredentialsNonExpired</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> isCredentials;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEnabled</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> isEnable;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>权限类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SysRole</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String roleName;</span><br><span class="line">    <span class="keyword">private</span> String roleMemo;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getRoleName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> roleName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRoleName</span><span class="params">(String roleName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.roleName = roleName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getRoleMemo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> roleMemo;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRoleMemo</span><span class="params">(String roleMemo)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.roleMemo = roleMemo;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="创建数据库操作接口"><a href="#创建数据库操作接口" class="headerlink" title="创建数据库操作接口"></a>创建数据库操作接口</h1><ul>
+<li><code>SysUserMappper</code>、<code>xml</code>文件</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SysUserMapper</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">insert</span><span class="params">(SysUser user)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">SysUser <span class="title">selectAllUsers</span><span class="params">(String username)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">mapper</span></span></span><br><span class="line"><span class="meta">        <span class="meta-keyword">PUBLIC</span> <span class="meta-string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span></span></span><br><span class="line"><span class="meta">        <span class="meta-string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;com.anthony.dao.SysUserMapper&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">&quot;insert&quot;</span> &gt;</span></span><br><span class="line">        insert into sys_user</span><br><span class="line">            (username, password, real_name, is_enable, is_lock, is_credentials, create_time, login_time)</span><br><span class="line">        values</span><br><span class="line">            (#&#123;username&#125;,#&#123;password&#125;,#&#123;realName&#125;,#&#123;isEnable&#125;,#&#123;isLock&#125;,#&#123;isCredentials&#125;,#&#123;createTime&#125;,#&#123;loginTime&#125;)</span><br><span class="line">    <span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectAllUsers&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;com.anthony.entity.SysUser&quot;</span>&gt;</span></span><br><span class="line">        select * from sys_user where username = #&#123;username&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>SysRoleMapper</code> 、<code>xml</code>文件</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SysUserMapper</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">insert</span><span class="params">(SysUser user)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">SysUser <span class="title">selectAllUsers</span><span class="params">(String username)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">mapper</span></span></span><br><span class="line"><span class="meta">        <span class="meta-keyword">PUBLIC</span> <span class="meta-string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span></span></span><br><span class="line"><span class="meta">        <span class="meta-string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;com.anthony.dao.SysRoleMapper&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectAll&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;com.anthony.entity.SysRole&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;java.lang.Integer&quot;</span> &gt;</span></span><br><span class="line">        select r.role_memo ,r.role_name</span><br><span class="line">        from sys_role r , sys_user_role ur</span><br><span class="line">        where ur.user_id = #&#123;id&#125; and ur.role_id = r.id</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="实现业务层"><a href="#实现业务层" class="headerlink" title="实现业务层"></a>实现业务层</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JdbcUserDetailService</span> <span class="keyword">implements</span> <span class="title">UserDetailsService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SysRoleMapper sysRoleMapper;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SysUserMapper sysUserMapper;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> UserDetails <span class="title">loadUserByUsername</span><span class="params">(String username)</span> <span class="keyword">throws</span> UsernameNotFoundException </span>&#123;</span><br><span class="line">        <span class="comment">//通过用户名查询用户</span></span><br><span class="line">        SysUser sysUsers = sysUserMapper.selectAllUsers(username);</span><br><span class="line">        System.out.println(<span class="string">&quot;=======&quot;</span>+ sysUsers.toString());</span><br><span class="line">        <span class="comment">//创建权限集合</span></span><br><span class="line">        List&lt;GrantedAuthority&gt; authorities = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span>(sysUsers != <span class="keyword">null</span>)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Role查询开始！&quot;</span> + sysUsers.getId());</span><br><span class="line">            <span class="comment">//查询用户权限</span></span><br><span class="line">            SysRole sysRole = sysRoleMapper.selectAll(sysUsers.getId());</span><br><span class="line">            <span class="keyword">if</span>(sysRole == <span class="keyword">null</span>) System.out.println(<span class="string">&quot; =============null===========&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;Role查询完成！&quot;</span> + sysRole.getRoleName());</span><br><span class="line">            <span class="comment">//注册权限信息</span></span><br><span class="line">            GrantedAuthority grantedAuthority = <span class="keyword">new</span> SimpleGrantedAuthority(<span class="string">&quot;ROLE_&quot;</span>+sysRole.getRoleName());</span><br><span class="line">            System.out.println(<span class="string">&quot;建立权限成功！&quot;</span>+ grantedAuthority.toString());</span><br><span class="line">            authorities.add(grantedAuthority);</span><br><span class="line">            System.out.println(<span class="string">&quot;权限名&quot;</span>+ sysRole.getRoleName()+<span class="string">&quot;权限描述&quot;</span>+ sysRole.getRoleMemo());</span><br><span class="line">            <span class="comment">//设置权限信息</span></span><br><span class="line">            sysUsers.setAuthorities(authorities);</span><br><span class="line">        &#125;</span><br><span class="line">		<span class="comment">//返回</span></span><br><span class="line">        <span class="keyword">return</span> sysUsers;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="编写配置类"><a href="#编写配置类" class="headerlink" title="编写配置类"></a>编写配置类</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomSecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserDetailsService service;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//super.configure(auth);</span></span><br><span class="line">        <span class="comment">//填入自定义的用户类与密码加密方式</span></span><br><span class="line">        auth.userDetailsService(service).passwordEncoder(<span class="keyword">new</span> BCryptPasswordEncoder());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//super.configure(http);</span></span><br><span class="line">        <span class="comment">//发送授权请求时</span></span><br><span class="line">        http.authorizeRequests()</span><br><span class="line">            	<span class="comment">//当访问接口 /index</span></span><br><span class="line">                .antMatchers(<span class="string">&quot;/index&quot;</span>)</span><br><span class="line">            	<span class="comment">//允许访问不需要登录</span></span><br><span class="line">                .permitAll()</span><br><span class="line">            	<span class="comment">//访问如下接口，需要具有后面的身份信息</span></span><br><span class="line">                .antMatchers(<span class="string">&quot;/access/user/**&quot;</span>).hasRole(<span class="string">&quot;user&quot;</span>)</span><br><span class="line">                .antMatchers(<span class="string">&quot;/access/admin/**&quot;</span>).hasRole(<span class="string">&quot;admin&quot;</span>)</span><br><span class="line">            	<span class="comment">//所有请求都需要认证授权</span></span><br><span class="line">                .anyRequest().authenticated()</span><br><span class="line">                .and()</span><br><span class="line">            	<span class="comment">//使用表单登录</span></span><br><span class="line">                .formLogin();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="控制层"><a href="#控制层" class="headerlink" title="控制层"></a>控制层</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IndexController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/index&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toIndexHtml</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//跳转页面</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;forward:/index.html&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(value = &quot;/access/user&quot;, produces = &quot;text/html;charset=utf-8&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hiUser</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello User!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(value = &quot;/access/admin&quot;,produces = &quot;text/html;charset=utf-8&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hiAdmin</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello admin!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringSecurity</tag>
       </tags>
   </entry>
   <entry>
@@ -1825,6 +1891,76 @@
       </categories>
       <tags>
         <tag>SpringMVC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue(一):介绍与起步使用</title>
+    <url>/2021/06/01/Vue%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="Vue-js介绍"><a href="#Vue-js介绍" class="headerlink" title="Vue.js介绍"></a>Vue.js介绍</h1><p>​        Vue (读音 /vjuː/，类似于 <strong>view</strong>) 是一套用于构建用户界面的<strong>渐进式框架</strong>。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与<a href="https://cn.vuejs.org/v2/guide/single-file-components.html">现代化的工具链</a>以及各种<a href="https://github.com/vuejs/awesome-vue#libraries--plugins">支持类库</a>结合使用时，Vue 也完全能够为复杂的单页应用提供驱动，并且采用了<code>SPA</code>的设计思想来对页面进行开发，让开发十分便携且可维护性得到提高.</p>
+<h1 id="引入Vue"><a href="#引入Vue" class="headerlink" title="引入Vue"></a>引入Vue</h1><p>​        尝试 Vue.js 最简单的方法是使用 <a href="https://codesandbox.io/s/github/vuejs/vuejs.org/tree/master/src/v2/examples/vue-20-hello-world">Hello World 例子</a>。你可以在浏览器新标签页中打开它，跟着例子学习一些基础用法。或者你也可以<a href="https://github.com/vuejs/vuejs.org/blob/master/src/v2/examples/vue-20-hello-world/index.html">创建一个 <code>.html</code> 文件</a>，然后通过如下方式引入 Vue：</p>
+<p><code>CDN</code>引入：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!-- 开发环境版本，包含了有帮助的命令行警告 --&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>或者：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!-- 生产环境版本，优化了尺寸和速度 --&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;https://cdn.jsdelivr.net/npm/vue&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>本地引入：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!-- 开发环境版本，包含了有帮助的命令行警告 --&gt;</span><br><span class="line">&lt;!--进入网站，下载文件到本地，在本地引入即可 --&gt;</span><br><span class="line">https:<span class="comment">//cdn.jsdelivr.net/npm/vue/dist/vue.js</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="Vue实例"><a href="#Vue实例" class="headerlink" title="Vue实例"></a>Vue实例</h1><p>​        使用 <code>Vue</code> 开发，遵循只有一个<code>Vue</code>实例的原则，这一点在以后使用了<code>vue-cli</code>以后会更加明了，这里先不做赘述.</p>
+<p><strong>创建一个<code>Vue</code>实例</strong></p>
+<p>先大致了解下一个 <code>Vue</code> 实例能写哪些东西先大致上认识熟悉一下，以后会慢慢介绍，</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    <span class="comment">//挂载html元素,使用id进行挂载绑定，因为id具有唯一性</span></span><br><span class="line">    el: <span class="string">&#x27;#app&#x27;</span> ,</span><br><span class="line">    <span class="comment">//声明数据</span></span><br><span class="line">    data: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//编写函数</span></span><br><span class="line">    methods: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//用于注册组件</span></span><br><span class="line">    components: &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//计算方法</span></span><br><span class="line">    computed: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//以下均是Vue实例的生命周期钩子，后面会慢慢讲到</span></span><br><span class="line">    beforeCreate: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    created: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    beforeMount: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    mounted: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    beforeUpdate: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    updated: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><code>Vue</code>实例当中的 <code>data</code>  可以通过声明 <code>js</code> 对象的方式，在外部赋值，在内部使用变量直接使用.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">    name : <span class="string">&#x27;张三&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    data: data</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="模板语法"><a href="#模板语法" class="headerlink" title="模板语法"></a>模板语法</h1><p>​        Vue.js 使用了基于 HTML 的模板语法，允许开发者声明式地将 DOM 绑定至底层 Vue 实例的数据。所有 Vue.js 的模板都是合法的 HTML，所以能被遵循规范的浏览器和 HTML 解析器解析。</p>
+<p>在底层的实现上，Vue 将模板编译成虚拟 DOM 渲染函数。结合响应系统，Vue 能够智能地计算出最少需要重新渲染多少组件，并把 DOM 操作次数减到最少。</p>
+<p>如果你熟悉虚拟 DOM 并且偏爱 JavaScript 的原始力量，你也可以不用模板，<a href="https://cn.vuejs.org/v2/guide/render-function.html">直接写渲染 (render) 函数</a>，使用可选的 JSX 语法。</p>
+<h2 id="Mustache语法"><a href="#Mustache语法" class="headerlink" title="Mustache语法"></a><strong>Mustache语法</strong></h2><h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>文本数据绑定经常使用到的双大括号绑定：<code>&#123;&#123; msg &#125;&#125;</code></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&#x27;app&#x27;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--注意外层需要用 id = app 的块级元素进行包裹--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--这样就可以从实例中取出值,并且渲染在页面上--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--如果加入了 v-once 那么这个值就不会随着 实例中参数值的变化而变化了--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">v-once</span>&gt;</span>&#123;&#123; name &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在<code>vue</code>实例当中声明这个数据</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">    name : <span class="string">&#x27;张三&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    data: data</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>​    **注意:**如果<code>data</code>中的属性值中有<code>html</code> 标签，如果想要解析这个标签，需要在使用数据的标签上加上 <code>v-html</code>这个属性.</p>
+<h3 id="使用JavaScript表达式"><a href="#使用JavaScript表达式" class="headerlink" title="使用JavaScript表达式"></a>使用<code>JavaScript表达式</code></h3><p>​        迄今为止，在我们的模板中，我们一直都只绑定简单的 property 键值。但实际上，对于所有的数据绑定，Vue.js 都提供了完全的 JavaScript 表达式支持。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;&#123; number + <span class="number">1</span> &#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123; ok ? <span class="string">&#x27;YES&#x27;</span> : <span class="string">&#x27;NO&#x27;</span> &#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123; message.split(<span class="string">&#x27;&#x27;</span>).reverse().join(<span class="string">&#x27;&#x27;</span>) &#125;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>​        这些表达式会在所属 Vue 实例的数据作用域下作为 JavaScript 被解析。有个限制就是，每个绑定都只能包含<strong>单个表达式</strong>，所以下面的例子都<strong>不会</strong>生效。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!-- 这是语句，不是表达式 --&gt;</span><br><span class="line">&#123;&#123; <span class="keyword">var</span> a = <span class="number">1</span> &#125;&#125;</span><br><span class="line"></span><br><span class="line">&lt;!-- 流控制也不会生效，请使用三元表达式 --&gt;</span><br><span class="line">&#123;&#123; <span class="keyword">if</span> (ok) &#123; <span class="keyword">return</span> message &#125; &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="动态绑定"><a href="#动态绑定" class="headerlink" title="动态绑定"></a>动态绑定</h2><p>​        通常情况下，页面中的数据并不是永远不会变的，可能在触发某些时间过后会实时更新数据，当然了，这里不是指<code>&#123;&#123; &#125;&#125;</code>中的数据，因为这里面的数据本身就由<code>vue</code>来管理来进行动态更新的.这里的动态绑定指的是标签的属性值，我们可以进行动态的更新. </p>
+<h3 id="v-bind-的使用"><a href="#v-bind-的使用" class="headerlink" title="**v-bind**的使用"></a>**<code>v-bind</code>**的使用</h3><figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">  //当对 h2 标签不进行任何处理 是无法读取到ids 我们需要将 id属性交给 vue去管理就可以读取到了</span><br><span class="line">  &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">       &lt;h2 id =&quot;ids&quot;&gt;&lt;/h2&gt;</span><br><span class="line">   &lt;/div&gt;</span><br><span class="line">   </span><br><span class="line">   &lt;script&gt;</span><br><span class="line">       let app = new Vue(&#123;</span><br><span class="line">           //挂载html元素,使用id进行挂载绑定，因为id具有唯一性</span><br><span class="line">           el: &#x27;#app&#x27; ,</span><br><span class="line">           //声明数据</span><br><span class="line">           data: &#123;</span><br><span class="line">               ids: &quot;test&quot;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>正确的方式只需要修改一下即可：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">h2</span> <span class="attr">v-bind:id</span> = <span class="string">&quot;ids&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--或者--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span> <span class="attr">:id</span> = <span class="string">&quot;ids&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="v-on的使用"><a href="#v-on的使用" class="headerlink" title="v-on的使用"></a><strong><code>v-on</code>的使用</strong></h3><p>如果需要使用<code>vue </code> 实例当中的 <code>methods</code> 同样的，我们需要把触发事件交给 <code>vue </code>去管理 </p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">&quot;test&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--或者--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;test&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--或者 动态绑定事件--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @[<span class="attr">event</span>]=<span class="string">&quot;test&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>vue</code>中的方法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">      <span class="comment">//挂载html元素,使用id进行挂载绑定，因为id具有唯一性</span></span><br><span class="line">      el: <span class="string">&#x27;#app&#x27;</span> ,</span><br><span class="line">      <span class="comment">//声明数据</span></span><br><span class="line">      data: &#123;</span><br><span class="line">          ids: <span class="string">&quot;test&quot;</span>,</span><br><span class="line">          event: <span class="string">&quot;click&quot;</span></span><br><span class="line">      &#125;,</span><br><span class="line">    	methods: &#123;</span><br><span class="line">          <span class="comment">//ES5写法</span></span><br><span class="line">          test: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">              </span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="comment">//ES6写法</span></span><br><span class="line">          <span class="function"><span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">              </span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
@@ -2135,76 +2271,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Vue(一):介绍与起步使用</title>
-    <url>/2021/06/01/Vue%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="Vue-js介绍"><a href="#Vue-js介绍" class="headerlink" title="Vue.js介绍"></a>Vue.js介绍</h1><p>​        Vue (读音 /vjuː/，类似于 <strong>view</strong>) 是一套用于构建用户界面的<strong>渐进式框架</strong>。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与<a href="https://cn.vuejs.org/v2/guide/single-file-components.html">现代化的工具链</a>以及各种<a href="https://github.com/vuejs/awesome-vue#libraries--plugins">支持类库</a>结合使用时，Vue 也完全能够为复杂的单页应用提供驱动，并且采用了<code>SPA</code>的设计思想来对页面进行开发，让开发十分便携且可维护性得到提高.</p>
-<h1 id="引入Vue"><a href="#引入Vue" class="headerlink" title="引入Vue"></a>引入Vue</h1><p>​        尝试 Vue.js 最简单的方法是使用 <a href="https://codesandbox.io/s/github/vuejs/vuejs.org/tree/master/src/v2/examples/vue-20-hello-world">Hello World 例子</a>。你可以在浏览器新标签页中打开它，跟着例子学习一些基础用法。或者你也可以<a href="https://github.com/vuejs/vuejs.org/blob/master/src/v2/examples/vue-20-hello-world/index.html">创建一个 <code>.html</code> 文件</a>，然后通过如下方式引入 Vue：</p>
-<p><code>CDN</code>引入：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!-- 开发环境版本，包含了有帮助的命令行警告 --&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>或者：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!-- 生产环境版本，优化了尺寸和速度 --&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;https://cdn.jsdelivr.net/npm/vue&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>本地引入：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!-- 开发环境版本，包含了有帮助的命令行警告 --&gt;</span><br><span class="line">&lt;!--进入网站，下载文件到本地，在本地引入即可 --&gt;</span><br><span class="line">https:<span class="comment">//cdn.jsdelivr.net/npm/vue/dist/vue.js</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h1 id="Vue实例"><a href="#Vue实例" class="headerlink" title="Vue实例"></a>Vue实例</h1><p>​        使用 <code>Vue</code> 开发，遵循只有一个<code>Vue</code>实例的原则，这一点在以后使用了<code>vue-cli</code>以后会更加明了，这里先不做赘述.</p>
-<p><strong>创建一个<code>Vue</code>实例</strong></p>
-<p>先大致了解下一个 <code>Vue</code> 实例能写哪些东西先大致上认识熟悉一下，以后会慢慢介绍，</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    <span class="comment">//挂载html元素,使用id进行挂载绑定，因为id具有唯一性</span></span><br><span class="line">    el: <span class="string">&#x27;#app&#x27;</span> ,</span><br><span class="line">    <span class="comment">//声明数据</span></span><br><span class="line">    data: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//编写函数</span></span><br><span class="line">    methods: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//用于注册组件</span></span><br><span class="line">    components: &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//计算方法</span></span><br><span class="line">    computed: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//以下均是Vue实例的生命周期钩子，后面会慢慢讲到</span></span><br><span class="line">    beforeCreate: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    created: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    beforeMount: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    mounted: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    beforeUpdate: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    updated: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p><code>Vue</code>实例当中的 <code>data</code>  可以通过声明 <code>js</code> 对象的方式，在外部赋值，在内部使用变量直接使用.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">    name : <span class="string">&#x27;张三&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    data: data</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="模板语法"><a href="#模板语法" class="headerlink" title="模板语法"></a>模板语法</h1><p>​        Vue.js 使用了基于 HTML 的模板语法，允许开发者声明式地将 DOM 绑定至底层 Vue 实例的数据。所有 Vue.js 的模板都是合法的 HTML，所以能被遵循规范的浏览器和 HTML 解析器解析。</p>
-<p>在底层的实现上，Vue 将模板编译成虚拟 DOM 渲染函数。结合响应系统，Vue 能够智能地计算出最少需要重新渲染多少组件，并把 DOM 操作次数减到最少。</p>
-<p>如果你熟悉虚拟 DOM 并且偏爱 JavaScript 的原始力量，你也可以不用模板，<a href="https://cn.vuejs.org/v2/guide/render-function.html">直接写渲染 (render) 函数</a>，使用可选的 JSX 语法。</p>
-<h2 id="Mustache语法"><a href="#Mustache语法" class="headerlink" title="Mustache语法"></a><strong>Mustache语法</strong></h2><h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>文本数据绑定经常使用到的双大括号绑定：<code>&#123;&#123; msg &#125;&#125;</code></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&#x27;app&#x27;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--注意外层需要用 id = app 的块级元素进行包裹--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--这样就可以从实例中取出值,并且渲染在页面上--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--如果加入了 v-once 那么这个值就不会随着 实例中参数值的变化而变化了--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">v-once</span>&gt;</span>&#123;&#123; name &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在<code>vue</code>实例当中声明这个数据</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">    name : <span class="string">&#x27;张三&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    data: data</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>​    **注意:**如果<code>data</code>中的属性值中有<code>html</code> 标签，如果想要解析这个标签，需要在使用数据的标签上加上 <code>v-html</code>这个属性.</p>
-<h3 id="使用JavaScript表达式"><a href="#使用JavaScript表达式" class="headerlink" title="使用JavaScript表达式"></a>使用<code>JavaScript表达式</code></h3><p>​        迄今为止，在我们的模板中，我们一直都只绑定简单的 property 键值。但实际上，对于所有的数据绑定，Vue.js 都提供了完全的 JavaScript 表达式支持。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;&#123; number + <span class="number">1</span> &#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123; ok ? <span class="string">&#x27;YES&#x27;</span> : <span class="string">&#x27;NO&#x27;</span> &#125;&#125;</span><br><span class="line"></span><br><span class="line">&#123;&#123; message.split(<span class="string">&#x27;&#x27;</span>).reverse().join(<span class="string">&#x27;&#x27;</span>) &#125;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>​        这些表达式会在所属 Vue 实例的数据作用域下作为 JavaScript 被解析。有个限制就是，每个绑定都只能包含<strong>单个表达式</strong>，所以下面的例子都<strong>不会</strong>生效。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!-- 这是语句，不是表达式 --&gt;</span><br><span class="line">&#123;&#123; <span class="keyword">var</span> a = <span class="number">1</span> &#125;&#125;</span><br><span class="line"></span><br><span class="line">&lt;!-- 流控制也不会生效，请使用三元表达式 --&gt;</span><br><span class="line">&#123;&#123; <span class="keyword">if</span> (ok) &#123; <span class="keyword">return</span> message &#125; &#125;&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="动态绑定"><a href="#动态绑定" class="headerlink" title="动态绑定"></a>动态绑定</h2><p>​        通常情况下，页面中的数据并不是永远不会变的，可能在触发某些时间过后会实时更新数据，当然了，这里不是指<code>&#123;&#123; &#125;&#125;</code>中的数据，因为这里面的数据本身就由<code>vue</code>来管理来进行动态更新的.这里的动态绑定指的是标签的属性值，我们可以进行动态的更新. </p>
-<h3 id="v-bind-的使用"><a href="#v-bind-的使用" class="headerlink" title="**v-bind**的使用"></a>**<code>v-bind</code>**的使用</h3><figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">  //当对 h2 标签不进行任何处理 是无法读取到ids 我们需要将 id属性交给 vue去管理就可以读取到了</span><br><span class="line">  &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">       &lt;h2 id =&quot;ids&quot;&gt;&lt;/h2&gt;</span><br><span class="line">   &lt;/div&gt;</span><br><span class="line">   </span><br><span class="line">   &lt;script&gt;</span><br><span class="line">       let app = new Vue(&#123;</span><br><span class="line">           //挂载html元素,使用id进行挂载绑定，因为id具有唯一性</span><br><span class="line">           el: &#x27;#app&#x27; ,</span><br><span class="line">           //声明数据</span><br><span class="line">           data: &#123;</span><br><span class="line">               ids: &quot;test&quot;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>正确的方式只需要修改一下即可：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">h2</span> <span class="attr">v-bind:id</span> = <span class="string">&quot;ids&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--或者--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span> <span class="attr">:id</span> = <span class="string">&quot;ids&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="v-on的使用"><a href="#v-on的使用" class="headerlink" title="v-on的使用"></a><strong><code>v-on</code>的使用</strong></h3><p>如果需要使用<code>vue </code> 实例当中的 <code>methods</code> 同样的，我们需要把触发事件交给 <code>vue </code>去管理 </p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">&quot;test&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--或者--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;test&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--或者 动态绑定事件--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @[<span class="attr">event</span>]=<span class="string">&quot;test&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><code>vue</code>中的方法：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">      <span class="comment">//挂载html元素,使用id进行挂载绑定，因为id具有唯一性</span></span><br><span class="line">      el: <span class="string">&#x27;#app&#x27;</span> ,</span><br><span class="line">      <span class="comment">//声明数据</span></span><br><span class="line">      data: &#123;</span><br><span class="line">          ids: <span class="string">&quot;test&quot;</span>,</span><br><span class="line">          event: <span class="string">&quot;click&quot;</span></span><br><span class="line">      &#125;,</span><br><span class="line">    	methods: &#123;</span><br><span class="line">          <span class="comment">//ES5写法</span></span><br><span class="line">          test: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">              </span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="comment">//ES6写法</span></span><br><span class="line">          <span class="function"><span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">              </span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Vue</category>
-      </categories>
-      <tags>
-        <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>每日一题(一):快速排序</title>
     <url>/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🚡快速排序"><a href="#🚡快速排序" class="headerlink" title="🚡快速排序"></a>🚡快速排序</h1><blockquote>
@@ -2262,31 +2328,6 @@
       </tags>
   </entry>
   <entry>
-    <title>每日一题(二):双指针算法</title>
-    <url>/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🎃双指针算法"><a href="#🎃双指针算法" class="headerlink" title="🎃双指针算法"></a>🎃双指针算法</h1><p>何为双指针？其实在算法中是一种技巧性的东西，这个指针也并非如同<code>C语言</code> 那种指针，只是一种标识，用于表示状态，很凑巧，在上一篇每日一题中的快速排序就使用了双指针算法,十分经典，并且属于对撞指针（通俗的讲就是相向扫描），当然了，既然有相向扫描，也肯定有同向扫描，比较常用于字符串比对，分治之中.</p>
-<p>突然有个不错的想法，每日一题连续更新同一类型的题目，这样有便于全面掌握一种算法.</p>
-<p>这里附上上一篇文章的链接以供复习.</p>
-<p><a href="https://soul-pe.gitee.io/shdsoul/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">每日一题(一):快速排序</a></p>
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><img src="/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/1.png" class title="题目">
-
-<p>题目来源：Acwing：<a href="https://www.acwing.com/problem/content/description/773/">原题链接</a></p>
-<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>我们只需要，遍历每一个字符，然后将字符与后方的字符逐一比较，相同则继续向后比较并记录连续次数，不同则停止比较，继续向后方遍历即可.</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串</span></span><br><span class="line">    string str;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串数量</span></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="comment">//当 n 为 0 的时候停止输入</span></span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        cin &gt;&gt; str;</span><br><span class="line">        <span class="comment">//定义最大长度为 -1</span></span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">-1</span>;</span><br><span class="line">        <span class="comment">//记录最多重复的字符</span></span><br><span class="line">        string maxs;</span><br><span class="line">        <span class="comment">//指针i :遍历输入的字符</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; str.<span class="built_in">size</span>() ; i++)&#123;</span><br><span class="line">            <span class="comment">//指针j :用于字符串比较</span></span><br><span class="line">            <span class="keyword">int</span> j = i; <span class="comment">//由于要求连续,所以默认开始扫描的地方为 指针i 的位置,只需要遍历后面，不需要管前面</span></span><br><span class="line">            <span class="keyword">int</span> nums = <span class="number">0</span>;<span class="comment">//用于记录连续次数</span></span><br><span class="line">            <span class="comment">//当指针j指向的值与指针i指向的值相同的时候,并且j指针没有越界的时候</span></span><br><span class="line">            <span class="keyword">while</span>(str[j] == str[i] &amp;&amp; j &lt; str.<span class="built_in">size</span>())</span><br><span class="line">                <span class="comment">//指针j向后移动,连续次数自增1</span></span><br><span class="line">                j++ , nums++;</span><br><span class="line">            <span class="comment">//如果连续次数大于最大值则进行记录,并且记录当前字符    </span></span><br><span class="line">            <span class="keyword">if</span>(nums &gt; max)</span><br><span class="line">                max = nums,maxs = str[i];</span><br><span class="line">            <span class="comment">//当指针j停止移动时,[i,j)区间中必然全是相同的字符,此时 i只需要从j的位置开始继续遍历即可</span></span><br><span class="line">            i = j <span class="number">-1</span>;<span class="comment">//这里减1,是为了抵消掉循环中的 i++</span></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; nums &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; max;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">int</span> n = Integer.parseInt(reader.readLine());</span><br><span class="line">        <span class="keyword">while</span>(n-- != <span class="number">0</span>)&#123;</span><br><span class="line">            String s = reader.readLine();</span><br><span class="line">            <span class="keyword">char</span> c = <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">            <span class="keyword">int</span> max = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; s.length() ; i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> j = i;</span><br><span class="line">                <span class="keyword">int</span> nums = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span>(j &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(j))&#123; </span><br><span class="line">                    j++;</span><br><span class="line">                    nums++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(nums &gt; max)&#123;</span><br><span class="line">                    max = nums ;</span><br><span class="line">                    c = s.charAt(i);</span><br><span class="line">                &#125;</span><br><span class="line">                i = j - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(c + <span class="string">&quot; &quot;</span> + max);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>每日一题(三):双指针算法</title>
     <url>/2021/06/15/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%89%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🚠双指针算法"><a href="#🚠双指针算法" class="headerlink" title="🚠双指针算法"></a>🚠双指针算法</h1><p>范式：</p>
@@ -2314,23 +2355,6 @@
       </categories>
       <tags>
         <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>近期杂谈</title>
-    <url>/2021/04/18/%E8%BF%91%E6%9C%9F%E6%9D%82%E8%B0%88/</url>
-    <content><![CDATA[<h1 id="🕶开学了？"><a href="#🕶开学了？" class="headerlink" title="🕶开学了？"></a>🕶开学了？</h1><p>&emsp;&emsp;其实在4月初的时候我依旧保持着放假的状态，上课不是很认真，在寝室也是学技术效率比较慢，整个人也就是处于悠哉悠哉的那种状态，感觉目标有点不明确，不知道到底自己想干嘛，期间最引发我思考的莫过于那一份关于考研和就业选择的问卷，在我上大学没多久的时候，觉得我肯定是会考研的，目的是为了提升自己的学历，顺便也可以锻炼自己，然而到了现在我却感觉不是很确定了，内心可能更向往技术开发的方向，实在不想加入考研大军，就算有保研这条路子，也不是很想做研究的那种方向.自知能力有限，觉得自己还是不合适的.不过呢，关于这个以后或许会有新的思考，以后再说吧hhhh.</p>
-<p>&emsp;&emsp;开学至4月初期，对自己的表现怎么说呢，比较懒散，很浮躁，也很对不起我家小朋友，老是惹她不开心，自己犯的错误比较多，唉.道阻且长，同志仍然需要努力啊.</p>
-<h1 id="🎃参加了数学竞赛？"><a href="#🎃参加了数学竞赛？" class="headerlink" title="🎃参加了数学竞赛？"></a>🎃参加了数学竞赛？</h1><p>&emsp;&emsp;怎么说呢，源于从小对于数学的兴趣吧，数学的巧妙逻辑实在是让我沉迷，高数中，各大数学家巧妙的定理证明也着实很吸引我，大一上还是有好好学高等数学的.下学期其实也有好好学，只是中途有点划水哈….这也算是我大一下生活中一件趣事，与其说是参加比赛，不如说是去感受的.</p>
-<h1 id="🥼-提前步入社畜生活？"><a href="#🥼-提前步入社畜生活？" class="headerlink" title="🥼 提前步入社畜生活？"></a>🥼 提前步入社畜生活？</h1><p>&emsp;&emsp;hhhh，其实有点标题党的味道了，哪里是社畜，还是个学徒哈.说来也十分偶然，我近期也只是想找个做项目的团队，一起做项目，共同学习进步，然后翻阅QQ群，发现了网安协会的项目部，再一番咨询后，投了简历，然后参加了笔试以及面试，然后成功进入了这个部门，去的时候很惊奇这个部门居然有办公室，我还会有工位，后来第一天去的时候才了解到部门旗下有一所公司，我相当于进入了一个公司，成为了里面的职员，哦对了，我选择了开发岗中的后端开发，恰好也是他们部门现在缺人的岗位，怎么说呢也挺有压力的.据说等以后学成接手的时候，有绩效了，我就会有工资了hhh，还挺激动的. 话又说回来，在这个团队中，自己也挺想快点学习可以参加到项目中，自己最近也变得开始好好搞学习，不是很懒散了，有点大一上学期的感觉了hhh，也多亏了我家小朋友，给予我理解和帮助，十分体贴我，温柔又可爱，有了我家小朋友，感觉能把我从紧张的环境中解脱出来，让我轻松不少，真好啊.</p>
-<p>&emsp;&emsp;对于现阶段目标，就是学习经典的 <code>SSM</code> 技术框架，说多也不多，说少也不少，慢慢来咯，后期才能运用自如，而且团队中缺少，<code>Java</code> 后端开发的老师傅，现在自己只能一步一个脚印，脚踏实地的进行学习.未来的路还是挺长的，我对现在自己的状态很满意，希望自己能多保持保持，也希望多陪陪我家小朋友hhh，也希望我家小朋友能理解我哦.</p>
-<h1 id="✨结束END"><a href="#✨结束END" class="headerlink" title="✨结束END"></a>✨结束END</h1><p>放上一句自己特别喜欢的一句诗：“醉后不知天在水，满船清梦压星河.”   莫名喜欢这句诗的意境，让我对未来生活有着无限畅想hhhh</p>
-]]></content>
-      <categories>
-        <category>生活杂谈</category>
-      </categories>
-      <tags>
-        <tag>生活杂谈</tag>
       </tags>
   </entry>
   <entry>
@@ -2460,6 +2484,48 @@
       </categories>
       <tags>
         <tag>maven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>每日一题(二):双指针算法</title>
+    <url>/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🎃双指针算法"><a href="#🎃双指针算法" class="headerlink" title="🎃双指针算法"></a>🎃双指针算法</h1><p>何为双指针？其实在算法中是一种技巧性的东西，这个指针也并非如同<code>C语言</code> 那种指针，只是一种标识，用于表示状态，很凑巧，在上一篇每日一题中的快速排序就使用了双指针算法,十分经典，并且属于对撞指针（通俗的讲就是相向扫描），当然了，既然有相向扫描，也肯定有同向扫描，比较常用于字符串比对，分治之中.</p>
+<p>突然有个不错的想法，每日一题连续更新同一类型的题目，这样有便于全面掌握一种算法.</p>
+<p>这里附上上一篇文章的链接以供复习.</p>
+<p><a href="https://soul-pe.gitee.io/shdsoul/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">每日一题(一):快速排序</a></p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><img src="/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/1.png" class title="题目">
+
+<p>题目来源：Acwing：<a href="https://www.acwing.com/problem/content/description/773/">原题链接</a></p>
+<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>我们只需要，遍历每一个字符，然后将字符与后方的字符逐一比较，相同则继续向后比较并记录连续次数，不同则停止比较，继续向后方遍历即可.</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串</span></span><br><span class="line">    string str;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串数量</span></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="comment">//当 n 为 0 的时候停止输入</span></span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        cin &gt;&gt; str;</span><br><span class="line">        <span class="comment">//定义最大长度为 -1</span></span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">-1</span>;</span><br><span class="line">        <span class="comment">//记录最多重复的字符</span></span><br><span class="line">        string maxs;</span><br><span class="line">        <span class="comment">//指针i :遍历输入的字符</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; str.<span class="built_in">size</span>() ; i++)&#123;</span><br><span class="line">            <span class="comment">//指针j :用于字符串比较</span></span><br><span class="line">            <span class="keyword">int</span> j = i; <span class="comment">//由于要求连续,所以默认开始扫描的地方为 指针i 的位置,只需要遍历后面，不需要管前面</span></span><br><span class="line">            <span class="keyword">int</span> nums = <span class="number">0</span>;<span class="comment">//用于记录连续次数</span></span><br><span class="line">            <span class="comment">//当指针j指向的值与指针i指向的值相同的时候,并且j指针没有越界的时候</span></span><br><span class="line">            <span class="keyword">while</span>(str[j] == str[i] &amp;&amp; j &lt; str.<span class="built_in">size</span>())</span><br><span class="line">                <span class="comment">//指针j向后移动,连续次数自增1</span></span><br><span class="line">                j++ , nums++;</span><br><span class="line">            <span class="comment">//如果连续次数大于最大值则进行记录,并且记录当前字符    </span></span><br><span class="line">            <span class="keyword">if</span>(nums &gt; max)</span><br><span class="line">                max = nums,maxs = str[i];</span><br><span class="line">            <span class="comment">//当指针j停止移动时,[i,j)区间中必然全是相同的字符,此时 i只需要从j的位置开始继续遍历即可</span></span><br><span class="line">            i = j <span class="number">-1</span>;<span class="comment">//这里减1,是为了抵消掉循环中的 i++</span></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; nums &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; max;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">int</span> n = Integer.parseInt(reader.readLine());</span><br><span class="line">        <span class="keyword">while</span>(n-- != <span class="number">0</span>)&#123;</span><br><span class="line">            String s = reader.readLine();</span><br><span class="line">            <span class="keyword">char</span> c = <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">            <span class="keyword">int</span> max = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; s.length() ; i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> j = i;</span><br><span class="line">                <span class="keyword">int</span> nums = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span>(j &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(j))&#123; </span><br><span class="line">                    j++;</span><br><span class="line">                    nums++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(nums &gt; max)&#123;</span><br><span class="line">                    max = nums ;</span><br><span class="line">                    c = s.charAt(i);</span><br><span class="line">                &#125;</span><br><span class="line">                i = j - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(c + <span class="string">&quot; &quot;</span> + max);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>近期杂谈</title>
+    <url>/2021/04/18/%E8%BF%91%E6%9C%9F%E6%9D%82%E8%B0%88/</url>
+    <content><![CDATA[<h1 id="🕶开学了？"><a href="#🕶开学了？" class="headerlink" title="🕶开学了？"></a>🕶开学了？</h1><p>&emsp;&emsp;其实在4月初的时候我依旧保持着放假的状态，上课不是很认真，在寝室也是学技术效率比较慢，整个人也就是处于悠哉悠哉的那种状态，感觉目标有点不明确，不知道到底自己想干嘛，期间最引发我思考的莫过于那一份关于考研和就业选择的问卷，在我上大学没多久的时候，觉得我肯定是会考研的，目的是为了提升自己的学历，顺便也可以锻炼自己，然而到了现在我却感觉不是很确定了，内心可能更向往技术开发的方向，实在不想加入考研大军，就算有保研这条路子，也不是很想做研究的那种方向.自知能力有限，觉得自己还是不合适的.不过呢，关于这个以后或许会有新的思考，以后再说吧hhhh.</p>
+<p>&emsp;&emsp;开学至4月初期，对自己的表现怎么说呢，比较懒散，很浮躁，也很对不起我家小朋友，老是惹她不开心，自己犯的错误比较多，唉.道阻且长，同志仍然需要努力啊.</p>
+<h1 id="🎃参加了数学竞赛？"><a href="#🎃参加了数学竞赛？" class="headerlink" title="🎃参加了数学竞赛？"></a>🎃参加了数学竞赛？</h1><p>&emsp;&emsp;怎么说呢，源于从小对于数学的兴趣吧，数学的巧妙逻辑实在是让我沉迷，高数中，各大数学家巧妙的定理证明也着实很吸引我，大一上还是有好好学高等数学的.下学期其实也有好好学，只是中途有点划水哈….这也算是我大一下生活中一件趣事，与其说是参加比赛，不如说是去感受的.</p>
+<h1 id="🥼-提前步入社畜生活？"><a href="#🥼-提前步入社畜生活？" class="headerlink" title="🥼 提前步入社畜生活？"></a>🥼 提前步入社畜生活？</h1><p>&emsp;&emsp;hhhh，其实有点标题党的味道了，哪里是社畜，还是个学徒哈.说来也十分偶然，我近期也只是想找个做项目的团队，一起做项目，共同学习进步，然后翻阅QQ群，发现了网安协会的项目部，再一番咨询后，投了简历，然后参加了笔试以及面试，然后成功进入了这个部门，去的时候很惊奇这个部门居然有办公室，我还会有工位，后来第一天去的时候才了解到部门旗下有一所公司，我相当于进入了一个公司，成为了里面的职员，哦对了，我选择了开发岗中的后端开发，恰好也是他们部门现在缺人的岗位，怎么说呢也挺有压力的.据说等以后学成接手的时候，有绩效了，我就会有工资了hhh，还挺激动的. 话又说回来，在这个团队中，自己也挺想快点学习可以参加到项目中，自己最近也变得开始好好搞学习，不是很懒散了，有点大一上学期的感觉了hhh，也多亏了我家小朋友，给予我理解和帮助，十分体贴我，温柔又可爱，有了我家小朋友，感觉能把我从紧张的环境中解脱出来，让我轻松不少，真好啊.</p>
+<p>&emsp;&emsp;对于现阶段目标，就是学习经典的 <code>SSM</code> 技术框架，说多也不多，说少也不少，慢慢来咯，后期才能运用自如，而且团队中缺少，<code>Java</code> 后端开发的老师傅，现在自己只能一步一个脚印，脚踏实地的进行学习.未来的路还是挺长的，我对现在自己的状态很满意，希望自己能多保持保持，也希望多陪陪我家小朋友hhh，也希望我家小朋友能理解我哦.</p>
+<h1 id="✨结束END"><a href="#✨结束END" class="headerlink" title="✨结束END"></a>✨结束END</h1><p>放上一句自己特别喜欢的一句诗：“醉后不知天在水，满船清梦压星河.”   莫名喜欢这句诗的意境，让我对未来生活有着无限畅想hhhh</p>
+]]></content>
+      <categories>
+        <category>生活杂谈</category>
+      </categories>
+      <tags>
+        <tag>生活杂谈</tag>
       </tags>
   </entry>
   <entry>
