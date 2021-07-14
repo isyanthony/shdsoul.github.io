@@ -36,30 +36,29 @@
 
 
 <meta name="hexo-config" content="{&quot;hostname&quot;:&quot;shdsoul.github.io&quot;,&quot;root&quot;:&quot;/&quot;,&quot;images&quot;:&quot;/images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;/search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}">
-<meta name="description" content="本文用于分析SpringMVC的执行流程，对执行流程有一个了解和认识">
+<meta name="description" content="双指针算法之滑动窗口.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringMVC：流程分析概览">
-<meta property="og:url" content="https://shdsoul.github.io/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/index.html">
+<meta property="og:title" content="每日一题(四):滑动窗口">
+<meta property="og:url" content="https://shdsoul.github.io/2021/07/14/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%9B%9B%EF%BC%89/index.html">
 <meta property="og:site_name" content="Luke">
-<meta property="og:description" content="本文用于分析SpringMVC的执行流程，对执行流程有一个了解和认识">
+<meta property="og:description" content="双指针算法之滑动窗口.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20181030204359635.png">
-<meta property="og:image" content="https://shdsoul.github.io/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/1.png">
-<meta property="article:published_time" content="2021-05-06T06:58:51.000Z">
-<meta property="article:modified_time" content="2021-06-15T07:41:42.465Z">
+<meta property="og:image" content="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%9B%9B%EF%BC%89/1.png">
+<meta property="article:published_time" content="2021-07-14T08:49:53.000Z">
+<meta property="article:modified_time" content="2021-07-14T08:49:53.654Z">
 <meta property="article:author" content="Soucat">
-<meta property="article:tag" content="SpringMVC">
+<meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20181030204359635.png">
+<meta name="twitter:image" content="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%9B%9B%EF%BC%89/1.png">
 
 
-<link rel="canonical" href="https://shdsoul.github.io/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/">
+<link rel="canonical" href="https://shdsoul.github.io/2021/07/14/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%9B%9B%EF%BC%89/">
 
 
 
 <meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;}">
 <meta name="hexo-config-calendar" content="">
-<title>SpringMVC：流程分析概览 | Luke</title><script data-pjax src="/js/load-config.js"></script>
+<title>每日一题(四):滑动窗口 | Luke</title><script data-pjax src="/js/load-config.js"></script>
   
 
 
@@ -167,7 +166,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%8E%88SpringMVC%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">🎈SpringMVC简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%9C%A8SpringMVC%E6%89%A7%E8%A1%8C%E6%A6%82%E8%A7%88"><span class="nav-number">2.</span> <span class="nav-text">✨SpringMVC执行概览</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E8%AF%B4%E6%98%8E%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">组件说明：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DispatcherServlet%EF%BC%9A%E5%89%8D%E7%AB%AF%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="nav-number">2.1.1.</span> <span class="nav-text">DispatcherServlet：前端控制器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HandlerMapping%EF%BC%9A%E5%A4%84%E7%90%86%E5%99%A8%E6%98%A0%E5%B0%84%E5%99%A8"><span class="nav-number">2.1.2.</span> <span class="nav-text">HandlerMapping：处理器映射器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Handler%EF%BC%9A%E5%A4%84%E7%90%86%E5%99%A8"><span class="nav-number">2.1.3.</span> <span class="nav-text">Handler：处理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HandlAdapter-%EF%BC%9A%E5%A4%84%E7%90%86%E5%99%A8%E9%80%82%E9%85%8D%E5%99%A8"><span class="nav-number">2.1.4.</span> <span class="nav-text">HandlAdapter ：处理器适配器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ViewResolver%EF%BC%9A%E8%A7%86%E5%9B%BE%E8%A7%A3%E6%9E%90%E5%99%A8"><span class="nav-number">2.1.5.</span> <span class="nav-text">ViewResolver：视图解析器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View%EF%BC%9A%E8%A7%86%E5%9B%BE"><span class="nav-number">2.1.6.</span> <span class="nav-text">View：视图</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">思路分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java"><span class="nav-number">3.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C"><span class="nav-number">3.2.</span> <span class="nav-text">C++</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -237,7 +236,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://shdsoul.github.io/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/">
+    <link itemprop="mainEntityOfPage" href="https://shdsoul.github.io/2021/07/14/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%9B%9B%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/./images/tx.jpg">
@@ -250,7 +249,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          SpringMVC：流程分析概览
+          每日一题(四):滑动窗口
         </h1>
 
         <div class="post-meta-container">
@@ -261,22 +260,15 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-05-06 14:58:51" itemprop="dateCreated datePublished" datetime="2021-05-06T14:58:51+08:00">2021-05-06</time>
+      <time title="创建时间：2021-07-14 16:49:53" itemprop="dateCreated datePublished" datetime="2021-07-14T16:49:53+08:00">2021-07-14</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-15 15:41:42" itemprop="dateModified" datetime="2021-06-15T15:41:42+08:00">2021-06-15</time>
-      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
         </span>
     </span>
 
@@ -288,18 +280,18 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.7k</span>
+      <span>1.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
-            <div class="post-description">本文用于分析SpringMVC的执行流程，对执行流程有一个了解和认识</div>
+            <div class="post-description">双指针算法之滑动窗口.</div>
         </div>
       </header>
 
@@ -307,69 +299,23 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="🎈SpringMVC简介"><a href="#🎈SpringMVC简介" class="headerlink" title="🎈SpringMVC简介"></a>🎈SpringMVC简介</h1><p>​        <code>SpringMVC</code> 显然是由 <code>Spring</code> 以及 <code>MVC</code> 俩部分组成，先说说 <code>Spring</code> 那当然就是指 <code>Spring Framework</code> 框架了，前面的文章已经介绍过了相关的基础知识，这里就相当于在 <code>Spring</code> 中使用<code>MVC</code> 架构，当然了这里讨论应用于在 <code>Web</code> 开发之中.</p>
-<p>​        接下来简单介绍一下 <code>MVC</code> 架构以及 <code>Web </code> 开发中的三层架构，也可能是我理解浅显，在我看我 <code>MVC</code> 架构与 <code>Web</code> 中经典的三层结构十分相似，目的都是为了代码解耦合、以及高可维护性.</p>
+        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%9B%9B%EF%BC%89/1.png" alt="image-20210714161119231"></p>
+<p>原题链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">无重复字符的最长子串</a> —-leetcode</p>
+<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><p>最常见的莫过于双重循环的暴力解法，但是时间复杂度过高了. </p>
+<p>对于子串问题还有一种比较常用的解法，双指针算法，于是考虑使用双指针来进行分析.</p>
 <ul>
-<li><p><code>MVC(MODEL-VIEW-CONTROLLER)</code> 即 模型-视图-控制</p>
-<ul>
-<li><p><code>MODEL</code> : 属于处理业务逻辑的部分，相当于三层架构中的 <code>service、dao</code> 层，可以对数据库进行直接操作，储存业务核心逻辑.</p>
-</li>
-<li><p><code>VIEW</code> : 属于向用户展示的部分, <code>MODEL</code> 层处理完之后返回的数据交给 <code>CONTROLLER </code> 层，再交由 <code>VIEW</code> 层，从而呈现相应的页面.</p>
-</li>
-<li><p><code>CONTROLLER</code> ：属于连接<code>MODEL</code> 与 <code>VIEW</code> 的部分，相当于<code>Servlet</code> 中的存储的映射关系，起到了<code>Servlet</code>的作用，将<code>MODLE</code> 与</p>
-<p><code>VIEW</code> 解耦合.</p>
-</li>
+<li>定义一个<code> map</code> 数据结构存储<code> (k, v)</code>，其中 <code>key</code> 值为字符，<code>value</code> 值为字符位置</li>
+<li>我们定义不重复子串的开始位置为 <code>start</code>，结束位置为<code> end</code></li>
+<li>随着 <code>end</code> 不断遍历向后，会遇到与 [start, end] 区间内字符相同的情况，此时将字符作为 <code>key</code> 值，获取其 <code>value</code> 值，并更新<code>start</code>，此时<code> [start, end]</code> 区间内不存在重复字符</li>
+<li>无论是否更新<code> star</code>t，都会更新其 <code>map</code> 数据结构和结果 <code>ans</code>。</li>
+<li>时间复杂度：O(n)</li>
 </ul>
-</li>
-</ul>
-<p>用一张图来概括：</p>
-<p>​                                        <img src="https://img-blog.csdnimg.cn/20181030204359635.png" alt="MVC"></p>
-<p>​        而 <code>SpringMVC</code> 简化了 <code>JavaWeb</code> 的开发，将<code>Servlet</code> 的相关配置简化了许多 ，只需要配置一个 <code>请求转发控制器DispatcherServlet</code> 以及 <code>资源视图解析器ResourceViewResolver</code> 即可，有效提高了开发效率.</p>
-<hr>
-<h1 id="✨SpringMVC执行概览"><a href="#✨SpringMVC执行概览" class="headerlink" title="✨SpringMVC执行概览"></a>✨SpringMVC执行概览</h1><img src="/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/1.png" class title="流程图">
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//定义map集合</span></span><br><span class="line">        Map&lt;Character,Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="comment">//获取字符串长度</span></span><br><span class="line">        <span class="keyword">int</span> n = s.length();</span><br><span class="line">        <span class="comment">//定义结果</span></span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 头指针 以及 尾指针</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> start = <span class="number">0</span> , end = <span class="number">0</span> ; end &lt; n ; end++)&#123;</span><br><span class="line">            <span class="comment">//取出 字符串中的位于尾指针处的字符</span></span><br><span class="line">            Character element = s.charAt(end);</span><br><span class="line">            <span class="comment">//如果map中含有这个字符</span></span><br><span class="line">            <span class="keyword">if</span>(map.containsKey(element))&#123;</span><br><span class="line">                <span class="comment">//则 头指针需要移动 使 start - end 之间为无重复的字符串</span></span><br><span class="line">                <span class="comment">//同时必须往右移动，往左必然会多重复元素，因此 start 必须大于等于当前 start</span></span><br><span class="line">                <span class="comment">//因此 start 需要取 重复元素坐标的下一个位置的下标 </span></span><br><span class="line">                start = Math.max(map.get(element)+<span class="number">1</span> , start);</span><br><span class="line">            &#125;</span><br><span class="line">            map.put(element , end);</span><br><span class="line">            <span class="comment">//获取子串长度 </span></span><br><span class="line">            ans = Math.max(end - start + <span class="number">1</span> , ans);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<p>流程分析：</p>
-<ol>
-<li>用户发起请求，通过web容器中通过 <code>DispathcerServlet</code> 的映射路径将请求交给 <code>DispathcerServlet</code> 处理.</li>
-<li><code>DispatcherServlet</code>通过处理器映射器（ <code>HandlerMapping</code> ）获取请求信息对应的处理器执行链.</li>
-<li><code>DispatcherServlet</code> 将执行链交给处理器适配器（ <code>HandlerAdapter</code> ）然后其调用相应的处理器（<code>Handler </code>）执行</li>
-<li>最终返回处理结果到 <code>DispatcherServlet</code></li>
-<li><code>DispatcherServlet</code> 将结果交给视图解析器（<code>ViewResolver</code>）解析视图，随后返回解析后的View对象</li>
-<li><code>DispatcherServlet</code>再将View对象进行视图渲染最后返回给用户呈现出页面</li>
-</ol>
-<blockquote>
-<h2 id="组件说明："><a href="#组件说明：" class="headerlink" title="组件说明："></a>组件说明：</h2><ul>
-<li><h3 id="DispatcherServlet：前端控制器"><a href="#DispatcherServlet：前端控制器" class="headerlink" title="DispatcherServlet：前端控制器"></a><code>DispatcherServlet</code>：前端控制器</h3></li>
-</ul>
-<p>​      <strong>用户请求到达前端控制器，它就相当于<code>mvc</code>模式中的<code>c</code>，<code>dispatcherServlet</code>是整个流程控制的中心，</strong></p>
-<p>​      <strong>由它调用其它组件处理用户的请求，<code>dispatcherServlet</code>的存在降低了组件之间的耦合性。</strong></p>
-<ul>
-<li><h3 id="HandlerMapping：处理器映射器"><a href="#HandlerMapping：处理器映射器" class="headerlink" title="HandlerMapping：处理器映射器"></a><code>HandlerMapping</code>：处理器映射器</h3></li>
-</ul>
-<p>　　　<code>HandlerMapping</code>负责根据用户请求<code>url</code>找到<code>Handler</code>即处理器，<code>springmvc</code>提供了不同的映射器实现不同的映射方式，</p>
-<p>　　  <strong>例如：配置文件方式，实现接口方式，注解方式等。</strong></p>
-<ul>
-<li><h3 id="Handler：处理器"><a href="#Handler：处理器" class="headerlink" title="Handler：处理器"></a><code>Handler</code>：处理器</h3></li>
-</ul>
-<p>　　 <strong><code>Handler</code> 是继 <code>DispatcherServlet </code>前端控制器的后端控制器，在 <code>DispatcherServlet </code>的控制下 <code>Handler</code>对具体的用户请求进行处理。</strong></p>
-<p>​    <strong>由于 <code>Handler </code>涉及到具体的用户业务请求，所以一般情况需要程序员根据业务需求开发Handler。</strong></p>
-<ul>
-<li><h3 id="HandlAdapter-：处理器适配器"><a href="#HandlAdapter-：处理器适配器" class="headerlink" title="HandlAdapter ：处理器适配器"></a><code>HandlAdapter </code>：处理器适配器</h3></li>
-</ul>
-<p>　　<strong>通过<code>HandlerAdapter</code>对处理器进行执行，这是适配器模式的应用，通过扩展适配器可以对更多类型的处理器进行执行。</strong></p>
-<ul>
-<li><h3 id="ViewResolver：视图解析器"><a href="#ViewResolver：视图解析器" class="headerlink" title="ViewResolver：视图解析器"></a><code>ViewResolver</code>：视图解析器</h3></li>
-</ul>
-<p>　　<strong>View Resolver负责将处理结果生成View视图，View Resolver首先根据逻辑视图名解析成物理视图名即具体的页面地址，</strong></p>
-<p>　　<strong>再生成View视图对象，最后对View进行渲染将处理结果通过页面展示给用户。</strong></p>
-<ul>
-<li><h3 id="View：视图"><a href="#View：视图" class="headerlink" title="View：视图"></a><code>View</code>：视图</h3></li>
-</ul>
-<p>　　<strong><code>springmvc</code>框架提供了很多的View视图类型的支持，包括：<code>jstlView、freemarkerView、pdfView</code>等。我们最常用的视图就是<code>jsp</code>。</strong></p>
-<p>　　一般情况下需要通过页面标签或页面模版技术将模型数据通过页面展示给用户，需要由程序员根据业务需求开发具体的页面。</p>
-</blockquote>
+<h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//用于记录 每个字符出现的下标位置的下一个位置 </span></span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">m</span><span class="params">(<span class="number">128</span>, <span class="number">0</span>)</span></span>; <span class="comment">//ASCII码范围：0-127</span></span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> start = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> end = <span class="number">0</span>; end &lt; s.<span class="built_in">size</span>(); end++) &#123;</span><br><span class="line">            <span class="comment">//如果这个字符以及出现过</span></span><br><span class="line">            <span class="keyword">if</span>(m[s[end]]!=<span class="number">0</span>)  </span><br><span class="line">            <span class="comment">//则移动头指针到 使字符串中无重复字符的位置</span></span><br><span class="line">            <span class="comment">//要么是重复字符的下一位 即 m[s[end]]</span></span><br><span class="line">            <span class="comment">//如果在当前位置之前 start 则不动 </span></span><br><span class="line">            start = <span class="built_in">max</span>(start, m[s[end]]);</span><br><span class="line">			<span class="comment">//将出现的字符加入集合</span></span><br><span class="line">            m[s[end]] = end + <span class="number">1</span>;</span><br><span class="line">            <span class="comment">//计算长度</span></span><br><span class="line">            ans = <span class="built_in">max</span>(ans, end - start + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
 
       <div>
       
@@ -389,21 +335,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/SpringMVC/" rel="tag"># SpringMVC</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/" rel="prev" title="SpringBoot（一）:Hello World">
-                  <i class="fa fa-chevron-left"></i> SpringBoot（一）:Hello World
+                <a href="/2021/07/13/SpringSecurity%EF%BC%88%E4%B8%89%EF%BC%89/" rel="prev" title="SpringSecurity(三):自定义登录页面">
+                  <i class="fa fa-chevron-left"></i> SpringSecurity(三):自定义登录页面
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/05/06/SpringBoot%EF%BC%88%E4%BA%8C%EF%BC%89/" rel="next" title="SpringBoot(二):整合Mybatis">
-                  SpringBoot(二):整合Mybatis <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -490,7 +433,7 @@ setInterval("createtime()",250);
 <script>
 NexT.utils.loadComments('#lv-container', () => {
   window.livereOptions = {
-    refer: "2021/05/06/SpringMVC：流程分析概览/"
+    refer: "2021/07/14/每日一题（四）/"
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
