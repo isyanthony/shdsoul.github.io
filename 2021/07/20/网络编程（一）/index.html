@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+<!-- ӣ����Ч -->
+  
+      <script async src="./js/fairyDustCursor.js"></script>
+  
+ 	
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "90c946b0"
+    });
+  daovoice('update');
+  </script>
+
+
+<meta name="hexo-config" content="{&quot;hostname&quot;:&quot;shdsoul.github.io&quot;,&quot;root&quot;:&quot;/&quot;,&quot;images&quot;:&quot;/images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;/search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}">
+<meta name="description" content="本文用于记录网络编程中的基本定义与核心问题以及网络协议的介绍.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络编程(一):服务器通信概念">
+<meta property="og:url" content="https://shdsoul.github.io/2021/07/20/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
+<meta property="og:site_name" content="Luke">
+<meta property="og:description" content="本文用于记录网络编程中的基本定义与核心问题以及网络协议的介绍.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-20T03:51:07.000Z">
+<meta property="article:modified_time" content="2021-07-20T03:51:07.516Z">
+<meta property="article:author" content="Soucat">
+<meta property="article:tag" content="网络编程">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://shdsoul.github.io/2021/07/20/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/">
+
+
+
+<meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;}">
+<meta name="hexo-config-calendar" content="">
+<title>网络编程(一):服务器通信概念 | Luke</title><script data-pjax src="/js/load-config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Luke</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Everything will be better</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">17</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">8</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">34</span></a></li>
+        <li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%A7%B5%E4%BD%95%E4%B8%BA%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">🧵何为网络编程？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%92%A2%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B8%AD%E7%9A%84%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">💢网络编程中的核心问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AF%BB%E5%9D%80"><span class="nav-number">2.1.</span> <span class="nav-text">服务器寻址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.2.</span> <span class="nav-text">网络协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">2.2.1.</span> <span class="nav-text">网络协议的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.2.2.</span> <span class="nav-text">常用的网络协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">TCP协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UDP%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">UDP协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP-IP%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">TCP&#x2F;IP协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FTP%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.2.2.4.</span> <span class="nav-text">FTP协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Telnet%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.2.2.5.</span> <span class="nav-text">Telnet协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.2.2.6.</span> <span class="nav-text">DNS协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.2.2.7.</span> <span class="nav-text">HTTP协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTPS%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.2.2.8.</span> <span class="nav-text">HTTPS协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#websocket%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.2.2.9.</span> <span class="nav-text">websocket协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RPC%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.2.2.10.</span> <span class="nav-text">RPC协议</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Soucat"
+      src="/./images/tx.jpg">
+  <p class="site-author-name" itemprop="name">Soucat</p>
+  <div class="site-description" itemprop="description">醉后不知天在水，满床清梦压星河</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+
+         
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://shdsoul.github.io/2021/07/20/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/./images/tx.jpg">
+      <meta itemprop="name" content="Soucat">
+      <meta itemprop="description" content="醉后不知天在水，满床清梦压星河">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Luke">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          网络编程(一):服务器通信概念
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-07-20 11:51:07" itemprop="dateCreated datePublished" datetime="2021-07-20T11:51:07+08:00">2021-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
+        </span>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">本文用于记录网络编程中的基本定义与核心问题以及网络协议的介绍.</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="🧵何为网络编程？"><a href="#🧵何为网络编程？" class="headerlink" title="🧵何为网络编程？"></a>🧵何为网络编程？</h1><p>网络编程通俗讲，<strong>即通过编码的方式让两台计算机之间进行通信（即进行数据传递和交换）</strong></p>
+<h1 id="💢网络编程中的核心问题"><a href="#💢网络编程中的核心问题" class="headerlink" title="💢网络编程中的核心问题"></a>💢网络编程中的核心问题</h1><p>现有如下场景： 打开浏览器<strong>访问</strong>百度，输入<strong>百度的网址</strong>，按下回车<strong>发出请求</strong>，此时就向<strong>百度的服务器</strong>发出了请求，服务器<strong>接收到请求</strong>之后<strong>响应</strong>给客户度(浏览器)结果即前端页面，此时我们所访问的百度页面就被渲染出来了.</p>
+<hr>
+<p>场景中：</p>
+<ul>
+<li>通过浏览器访问服务器 —-&gt; B/S架构(BS的出现解决了CS的冗杂繁琐，更加高校)</li>
+<li>输入百度网址 —-&gt; 通过网址确定了百度的服务器 —- &gt; 定向发出请求</li>
+<li>服务器接收到请求后 —-&gt; 根据请求所携带的参数/网址进行响应，返回给客户度响应的数据，通过浏览器去展示 </li>
+</ul>
+<h2 id="服务器寻址"><a href="#服务器寻址" class="headerlink" title="服务器寻址"></a>服务器寻址</h2><p>在网络中存在众多的服务器，那我们如何确定去访问我们所需要的那一台服务器去请求服务呢？显然，我们需要通过<strong>网址</strong>，网址的基本组成包括些什么呢？ <strong>网址 = <code>协议://((ip地址:端口号)/域名)/(资源路径)?(参数 key = value)</code></strong> ， 想要确定服务器，显然需要服务器的<code>ip</code> 地址，或者其<code>ip</code>地址所映射的域名，即**通过<code>DNS</code>解析域名从而获得<code>ip+端口号</code>**，又由于同一台服务器上不同的端口号运行着不同的服务，于是我们也需要确定端口号，如果使用了域名，绑定域名时应该同时绑定端口号。此时我们只需要知道我们需要访问的资源路径即可，如果需要传递参数，通过 <strong>key = value</strong> 或者 更为安全的另一种方式 来进行传递.</p>
+<h2 id="网络协议"><a href="#网络协议" class="headerlink" title="网络协议"></a>网络协议</h2><h3 id="网络协议的定义"><a href="#网络协议的定义" class="headerlink" title="网络协议的定义"></a>网络协议的定义</h3><pre><code> ● 网络协议是一种特殊的软件，是计算机网络实现其功能的基本机制
+
+ ● 网络协议的本质是规则，即各种硬件和软件必须遵循的共同规则
+
+ ● 网络协议并不是一套单独的软件，他融合于其他所有软件系统中，协议在网络中无所
+
+    不在
+</code></pre>
+<h3 id="常用的网络协议"><a href="#常用的网络协议" class="headerlink" title="常用的网络协议"></a>常用的网络协议</h3><pre><code>   TCP  UDP     HTTP   HTTPS    FTP  DNS  Telnet    TCP/IP    SSL/TLS   websocket
+</code></pre>
+<h4 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h4><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">TCP协议，（transmission control protocol），传输控制协议。</span><br><span class="line">定义：TCP协议是一种面向连接的、可靠的、传输速度慢、基于字节流的传输层通信协议。</span><br><span class="line"></span><br><span class="line"><span class="code">          在简化的计算机网络OSI模型中完成第四层传输层所指定的功能。 </span></span><br></pre></td></tr></table></figure>
+
+
+<p>提供可靠的端到端的通信，可以保证接收方收到的数据与发送方发送的数据完全一致，能够保证数据不丢失、无差错，同时还有流量控制和拥塞控制的功能，所以TCP协议比较复杂，能够为要求可靠性的应用层协议提供服务，如文件传输、邮件收发、网页浏览、远程登录等等</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">作用：主要用于在主机间建立一个虚拟连接，以实现高可靠性的数据包交换</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">IP协议的作用：可以进行IP数据包的分割和组装</span><br><span class="line"></span><br><span class="line">IP协议的缺点：但是通过IP协议并不能清楚的了解到数据包是否顺利的发送给目标计算机</span><br><span class="line"></span><br><span class="line">TCP的特点：</span><br></pre></td></tr></table></figure>
+
+<p>（1）面向连接的</p>
+<p>（2）提供可靠的数据传输服务</p>
+<p>（3）提供流量控制。TCP能够控制进程发送数据的速率，保证另一端不被大量的数据“淹没”而出现溢出。</p>
+<p>（4）提供拥塞控制。当网络出现拥塞的时候，TCP能够减小向网络注入数据的速率和数量，缓解拥塞。</p>
+<p>（5）提供全双工通信。TCP提供双向的数据传输服务。TCP允许通信双方的应用进程在任何时候发送数据。TCP连接的两端都设有发送缓存和接收缓存，用来临时存放双向通信的数据。</p>
+<p>（6）TCP是面向字节流的。TCP中的“流”是指流入到进程或从进程流出的字节</p>
+<h4 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h4><p>用户数据包协议（User Datagram Protocol）</p>
+<p>UDP协议不能保证数据不丢失、无差错，也不能保证接收方收到数据的顺序和发送方发送数据的顺序一样。UDP协议比较简单，但效率比较高，能为对可靠性要求不高，对实时性要求比较高的应用提供服务，如传输音频和视频。</p>
+<p>定义：UDP协议是OSI(Open System Interconnection，开放式系统互联)模型中的一种</p>
+<p>无连接的、简单不可靠的、传输速度快、面向事务的传输层通信协议。</p>
+<p>UDP协议的特点：</p>
+<p>（1）无连接的。</p>
+<p>（2）UDP是一种尽力而为的服务方式，不提供可靠的数据传输服务（比如数据的丢失、重复和无序）。</p>
+<p>（3）UDP是高效的传输协议。</p>
+<p>（4）UDP没有拥塞控制和流量控制。</p>
+<p>TCP和UDP协议的区别</p>
+<p>A、TCP面向连接（打电话要先拨号建立连接）；</p>
+<pre><code>  UDP是无连接的（发送数据之前不需要建立连接）。
+</code></pre>
+<p>B、TCP提供可靠的服务（通过TCP连接传送的数据，无差错、不丢失、不重复、按序到达）；</p>
+<pre><code>  UDP尽最大努力交付，不保证可靠交付。
+</code></pre>
+<p>C、TCP基于字节流（实际上是TCP把数据看成一连串无结构的字节流）。</p>
+<pre><code>  UDP是基于报文的，UDP没有拥塞控制，因此网络出现拥塞不会使源主机的发送速率降低
+
+ （对实时应用很有用，IP电话，实时视频电话）。
+</code></pre>
+<p>D、TCP保证数据正确性；</p>
+<pre><code>  UDP可能丢包。
+</code></pre>
+<p>E、TCP保证数据顺序；</p>
+<pre><code>  UDP不保证。
+</code></pre>
+<p>F、每一条TCP连接只能是点到点的；</p>
+<pre><code> UDP支持一对一、一对多、多对一、多对多的交互通信
+</code></pre>
+<p>G、TCP的逻辑通信信道是全双工的可靠信道</p>
+<pre><code>  UDP则是不可靠信道
+</code></pre>
+<p>H、TCP的首部开销20字节</p>
+<pre><code>   UDP的首部开销8字节
+</code></pre>
+<p>I、TCP要求系统资源较多，UDP较少</p>
+<h4 id="TCP-IP协议"><a href="#TCP-IP协议" class="headerlink" title="TCP/IP协议"></a>TCP/IP协议</h4><pre><code> 实质： TCP/IP其实就是TCP和IP等协议的组合，即传输控制协议/互联网协议。
+
+应用场景：主要用于在安装了不同硬件和不同操作系统的计算机之间，实现可靠的网络通
+
+                 信。TCP协议可以保证数据包传输的可靠性；IP协议可以保证数据包被传输到
+
+                目标计算机上。
+</code></pre>
+<h4 id="FTP协议"><a href="#FTP协议" class="headerlink" title="FTP协议"></a>FTP协议</h4><pre><code> 文件传输协议（File Transfer Protocol）。
+
+ 用途：主要用于在两台计算机之间实现文件的上传与下载，其中一台计算机作为FTP的客
+
+            户端，另一台作为FTP的服务端。通过FTP协议可以上传、下载几乎所有的文件类
+
+            型，比如txt  exe  doc  pdf   mp3  zip rar等
+</code></pre>
+<h4 id="Telnet协议"><a href="#Telnet协议" class="headerlink" title="Telnet协议"></a>Telnet协议</h4><pre><code>  定义：远程登录协议，是Internet上普遍采用的仿真网络协议，同时Telnet也是从远程
+
+            位置登录常用的程序。
+
+  作用：通过Telnet程序登录远程Telnet计算机。一般采用授权的用户名和密码登录。登录
+
+            之后就如同使用本地计算机一样，使用远程计算机的的硬盘、运行应用程序等。
+</code></pre>
+<h4 id="DNS协议"><a href="#DNS协议" class="headerlink" title="DNS协议"></a>DNS协议</h4><p>DNS（Domain Name System，域名系统），因特网上作为域名和IP地址相互映射的一个分布式数据库，能够使用户更方便的访问互联网，而不用去记住能够被机器直接读取的IP数串。通过主机名，最终得到该主机名对应的IP地址的过程叫做域名解析（或主机名解析）。</p>
+<p>作用：</p>
+<p>● 该协议主要负责将域名转换成网络可以识别的IP地址（<a target="_blank" rel="noopener" href="http://www.cce.com.cn转换成221.122.32.15),域名和ip地址是一一对应的./">www.cce.com.cn转换成221.122.32.15），域名和IP地址是一一对应的。</a></p>
+<p>● 因为访问网站的时候，最终都是转换成IP地址进行访问的</p>
+<p>● 直接设置DNS服务器。可以提高网络的访问速度，保证访问的正确性</p>
+<p>DNS的两种查询方式：递归查询和迭代查询</p>
+<p>a)递归解析<br>当局部DNS服务器自己不能回答客户机的DNS查询时，它就需要向其他DNS服务器进行查询。此时有两种方式，如图所示的是递归方式。局部DNS服务器自己负责向其他DNS服务器进行查询，一般是先向该域名的根域服务器查询，再由根域名服务器一级级向下查询。最后得到的查询结果返回给局部DNS服务器，再由局部DNS服务器返回给客户端。</p>
+<p>b)迭代解析</p>
+<p>当局部DNS服务器自己不能回答客户机的DNS查询时，也可以通过迭代查询的方式进行解析，如图所示。局部DNS服务器不是自己向其他DNS服务器进行查询，而是把能解析该域名的其他DNS服务器的IP地址返回给客户端DNS程序，客户端DNS程序再继续向这些DNS服务器进行查询，直到得到查询结果为止。也就是说，迭代解析只是帮你找到相关的服务器而已，而不会帮你去查。比如说：baidu.com的服务器ip地址在192.168.4.5这里，你自己去查吧，本人比较忙，只能帮你到这里了。</p>
+<h4 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h4><pre><code> 超文本传输协议（ Hyper Text Transfer Protocol ）
+
+定义：● 是用于从万维网（www）服务器传输超文本到本地浏览器的传送协议
+
+          ● 是 基于TCP/IP通信协议来传递数据（HTML、图片、查询结果等）的协议
+
+          ● 是一个属于应用层的、面向对象的协议
+
+          ● 由于其简捷、快速的适用于分布式超媒体信息系统
+
+工作原理：HTTP协议工作在客户端-服务端架构上。
+
+                浏览器作为HTTP客户端通过URL向HTTP服务端（即WEB服务器）发送请求，
+
+                WEB服务器根据接收到的请求后，向客户端发送响应信息。
+
+HTTP请求/响应的步骤：
+
+           A、客户端连接到web服务器：一个HTTP客户端通常是浏览器，与web服务器的
+
+                HTTP端口（默认为80）建立一个TCP套接字连接
+
+           B、发送HTTP请求：通过TCP套接字，客户端向web服务器发送一个文本的请求
+
+                报文，一个请求报文由请求行、请求头部、空行和请求数据组成
+
+           C、服务器接收请求并返回HTTP响应：WEB服务器解析请求，定位请求资源。服
+
+                 务器将资源副本写到TCP套接字，由客户端读取。一个响应由状态行、响应头
+
+                 部、空行、响应数据组成
+
+           D、释放TCP连接：若connection模式为close，则服务器主动关闭TCP连接，客户
+
+                 端被动关闭连接，释放TCP连接；若connection模式为keepalive，则该连接
+
+                 会保持一段时间，在该时间内可以接着接收请求
+
+            E、客户端（浏览器）解析HTML内容：客户端首先解析状态行，查看表明请求是
+
+                 否成功的状态代码  ；然后解析每一个响应头，向应头告知以下为若干字节的
+
+                  HTML文档和文档的字符集。客户端读取响应数据HTML，根据HTML的语法
+
+                  对其进行格式化，并在浏览器窗口中显示
+
+ 特点：● 无连接：其含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收
+
+               到客户的应答后，断开连接，可以节省传输时间
+
+           ● 无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。
+
+                           缺少状态意味着如果后续处理需要前面的信息，则必须重传。这可能导致
+
+                           每次连接传送的数据量增大。但是在服务器不需要先前信息时，他的应答
+
+                           就较快
+
+            ● 简单快速：客户向服务器发送请求时，只需传送请求方法和路径。
+
+                               请求方法常用POST  GET  HEAD，每种方法规定了客户与服务器联系的
+
+                               类型不同。
+
+                               HTTP协议简单，似的HTTP服务器的程序规模小，因而通信速度快
+
+             ● 灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type
+
+                          标记
+
+             ● 支持B/S   C/S模式
+
+HTTP请求方法：HTTP1.0定义三种方法，即POST   GET   HEAD
+
+                          HTTP1.1新增5种方法，OPTIONS   PUT  DELETE  TRACE  CONNECT
+
+             ● GET：请求指定页面信息，并返回实体主体
+
+             ● POST：向指定资源提交数据进行处理请求（例如提交表单、上传文件）
+
+             ● HEAD：类似GET请求，只不过返回的响应中没有具体的内容，用于获取报头
+
+             ● PUT：从客户端向服务器传送的数据取代指定的文档的内容
+
+             ●  DELETE：请求服务器删除指定的页面
+
+             ●  CONNECT：HTTP/1.1协议中预留给能够将连接改为管道式的代理服务器
+
+             ●  OPTIONS：允许客户端查看服务器的性能
+
+             ● TRACE：回显服务器收到的请求，主要用于测试或诊断
+
+POST和GET的区别：
+
+             ● GET提交的数据会显示在地址栏中（即数据放在URL之后，以?分割URL和传输的
+
+                数据，参数之间以&amp;相连）；
+
+               POST提交的数据放在HTTP包的body中，因此地址栏不会显示提交的数据
+
+             ● GET提交的数据大小有限制（因为浏览器对URL的长度有限制）；
+
+                POST提交的数据没有限制
+
+             ● GET方式提交数据会带来安全问题，比如登录页面，通过GET方式提交数据时，
+
+                用户名和密码会出现在地址栏上，如果页面可以被缓存或者其他人可以访问这台
+
+                机器，就可以从历史记录获得该用户的用户名和密码。
+
+                 POST不存在安全问题
+
+            ● GET方式需要使用Request.QueryString来取得变量的值
+
+                POST通过Request.Form来取得变量的值
+</code></pre>
+<p>8、SSL/TLS协议</p>
+<pre><code> ● SSL（Secure Sockets Layer），安全套接层。上世纪90年代由网景公司设计。原先互
+
+     联网使用的HTTP协议是明文的，存在很多缺点（传输内容会被偷窥（嗅探）和篡改）。
+
+     SSL就是为了解决这些问题
+
+  ● 到了1999年，SSL因为广泛应用，已经成为互联网上的事实标准。IETF就在那一年把
+
+      SSL标准化，标准化名称改为TLS（Transport  Layer  Security），传输层安全协议
+
+   ● SSL和TLS是同一个东西的不同阶段
+</code></pre>
+<h4 id="HTTPS协议"><a href="#HTTPS协议" class="headerlink" title="HTTPS协议"></a>HTTPS协议</h4><pre><code> 定义：HTTPS协议是HTTP协议和SSL/TLS协议的组合
+</code></pre>
+<p>   为什么要设计HTTPS成这样：</p>
+<pre><code>      ● 兼容性：基于TCP传输；单独使用新的协议将HTTP，把HTTP协议包裹起来
+
+      ● 可扩展性
+
+      ● 保密性（防泄密）
+
+      ●  完整性（防篡改）
+
+      ● 真实性（防假冒）
+
+      ● 性能
+</code></pre>
+<p>   加密和解密的定义：</p>
+<pre><code>     “加密”的过程，就是把“明文”变成“密文”的过程。“解密”的过程就是将“密文”
+
+      变成“明文”的过程。在这两个过程中，都需哟啊“密钥”。
+</code></pre>
+<p>   对称加密：“加密”和“解密”使用“相同密钥”</p>
+<p>   非对称加密：加密”和“解密”使用“不同密钥”</p>
+<p>   对称加密和非对称加密的优缺点：</p>
+<pre><code>     ● ”非对称加密“的功能比”对称加密“的功能要多
+
+     ● ”非对称加密“涉及复杂的数学问题，所以其性能相对”对称加密“要差
+</code></pre>
+<h4 id="websocket协议"><a href="#websocket协议" class="headerlink" title="websocket协议"></a>websocket协议</h4><p>1）WebSocket 是Web应用程序的传输协议，是一个Html5协议，它提供了双向的，按序到达的数据流</p>
+<p>2）WebSocket的连接是持久的，他通过在客户端和服务器之间保持双工连接，服务器的更新可以被及时推送给客户端，而不需要客户端以一定时间间隔去轮询 </p>
+<p>3）WebSocket 连接允许客户端和服务器之间进行全双工通信，以便任一方都可以通过建立的连接将数据推送到另一端。</p>
+<p>4）WebSocket 只需要建立一次连接，就可以一直保持连接状态，这相比于轮询方式的不停建立连接显然效率要大大提高</p>
+<h4 id="RPC协议"><a href="#RPC协议" class="headerlink" title="RPC协议"></a>RPC协议</h4><p>定义：RPC( Remote Procedure Call)远程过程调用 )协议</p>
+<p>与HTTP协议的区别:</p>
+<p>远程过程调用直观说法就是A通过网络调用B的过程方法</p>
+<p>首先了解OSI网络七层模型</p>
+<p>第一层：应用层。定义了用于在网络中进行通信和传输数据的接口；<br>第二层：表示层。定义不同的系统中数据的传输格式，编码和解码规范等；<br>第三层：会话层。管理用户的会话，控制用户间逻辑连接的建立和中断；<br>第四层：传输层。管理着网络中的端到端的数据传输；<br>第五层：网络层。定义网络设备间如何传输数据；<br>第六层：链路层。将上面的网络层的数据包封装成数据帧，便于物理层传输；<br>第七层：物理层。这一层主要就是传输这些二进制数据<br>五层协议结构里面是没有表示层和会话层的。应该说它们和应用层合并。</p>
+<p>1）最本质的区别，就是RPC主要是基于TCP/IP协议的，而HTTP主要是基于HTTP协议的，HTTP协议是在传输层协议TCP之上的应用层，效率上，RPC当然是要更胜一筹</p>
+<p>2）一般来说，RPC服务主要是针对大型企业的，而HTTP服务主要是针对小企业的，因为RPC效率更高，而HTTP服务开发迭代会更快</p>
+<p>RPC服务</p>
+<p>从三个角度来介绍RPC服务：RPC架构，同步异步调用、流行的RPC框架</p>
+<p>1）RPC架构</p>
+<p>包含了四个核心的组件，分别是Client ,Server,Client Stub以及Server Stub，这个Stub大家可以理解为存根。分别说说这几个组件：</p>
+<p>客户端（Client），服务的调用方。<br>服务端（Server），真正的服务提供者。<br>客户端存根，存放服务端的地址消息，再将客户端的请求参数打包成网络消息，然后通过网络远程发送给服务方。<br>服务端存根，接收客户端发送过来的消息，将消息解包，并调用本地的方法<br>2）流行的RPC框架</p>
+<p>（1）gRPC是Google最近公布的开源软件，基于最新的HTTP2.0协议，并支持常见的众多编程语言</p>
+<p>（2）Thrift是Facebook的一个开源项目，主要是一个跨语言的服务开发框架</p>
+<p>（3）Dubbo是阿里集团开源的一个极为出名的RPC框架，在很多互联网公司和企业应用中广泛使用</p>
+
+      <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+      </div>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" rel="tag"># 网络编程</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/07/16/SpringSecurity%EF%BC%88%E5%9B%9B%EF%BC%89/" rel="prev" title="SpringSecurity(四):结合Vue实现异步登录">
+                  <i class="fa fa-chevron-left"></i> SpringSecurity(四):结合Vue实现异步登录
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81MzU2My8zMDAzNg=="></div><script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Soucat</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">158k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:23</span>
+  </span>
+</div>
+ <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("04/8/2021 18:00:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+<script>
+NexT.utils.loadComments('#lv-container', () => {
+  window.livereOptions = {
+    refer: "2021/07/20/网络编程（一）/"
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>
