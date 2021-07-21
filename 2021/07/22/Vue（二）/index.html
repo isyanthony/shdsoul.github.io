@@ -36,27 +36,27 @@
 
 
 <meta name="hexo-config" content="{&quot;hostname&quot;:&quot;shdsoul.github.io&quot;,&quot;root&quot;:&quot;/&quot;,&quot;images&quot;:&quot;/images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;/search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}">
-<meta name="description" content="本文用于记录前后端分离开发模式下常见的跨域问题解决方案">
+<meta name="description" content="本文用于记录我在进行博客搭建过程中新接触到的小玩意(后续Vue文章可能也会如此).">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringBoot(六):解决前后端分离跨域">
-<meta property="og:url" content="https://shdsoul.github.io/2021/06/18/SpringBoot%EF%BC%88%E5%85%AD%EF%BC%89/index.html">
+<meta property="og:title" content="Vue(二):整合mavon-editor">
+<meta property="og:url" content="https://shdsoul.github.io/2021/07/22/Vue%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
 <meta property="og:site_name" content="Luke">
-<meta property="og:description" content="本文用于记录前后端分离开发模式下常见的跨域问题解决方案">
+<meta property="og:description" content="本文用于记录我在进行博客搭建过程中新接触到的小玩意(后续Vue文章可能也会如此).">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-06-18T09:45:56.000Z">
-<meta property="article:modified_time" content="2021-06-18T09:48:05.885Z">
+<meta property="article:published_time" content="2021-07-21T16:19:25.000Z">
+<meta property="article:modified_time" content="2021-07-21T16:19:25.956Z">
 <meta property="article:author" content="Soucat">
-<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://shdsoul.github.io/2021/06/18/SpringBoot%EF%BC%88%E5%85%AD%EF%BC%89/">
+<link rel="canonical" href="https://shdsoul.github.io/2021/07/22/Vue%EF%BC%88%E4%BA%8C%EF%BC%89/">
 
 
 
 <meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;}">
 <meta name="hexo-config-calendar" content="">
-<title>SpringBoot(六):解决前后端分离跨域 | Luke</title><script data-pjax src="/js/load-config.js"></script>
+<title>Vue(二):整合mavon-editor | Luke</title><script data-pjax src="/js/load-config.js"></script>
   
 
 
@@ -164,7 +164,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%9A%80%E4%BB%80%E4%B9%88%E6%98%AF%E8%B7%A8%E5%9F%9F%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">🚀什么是跨域？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%9A%91%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">2.</span> <span class="nav-text">🚑解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE"><span class="nav-number">2.1.</span> <span class="nav-text">全局配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%B9%E6%A1%88%E4%B8%80"><span class="nav-number">2.1.1.</span> <span class="nav-text">配置方案一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%B9%E6%A1%88%E4%BA%8C"><span class="nav-number">2.1.2.</span> <span class="nav-text">配置方案二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CrossOrigin"><span class="nav-number">2.2.</span> <span class="nav-text">@CrossOrigin</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%9A%80%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85-mavon-editor"><span class="nav-number">1.</span> <span class="nav-text">🚀下载安装 mavon-editor</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%9B%B0%E4%BD%BF%E7%94%A8-mavon-editor"><span class="nav-number">2.</span> <span class="nav-text">🛰使用 mavon-editor</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E9%9C%80%E8%A6%81%E7%9A%84%E7%BB%84%E4%BB%B6%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">在需要的组件中使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%AD%E5%AE%9E%E6%97%B6%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0"><span class="nav-number">2.2.</span> <span class="nav-text">实现编辑器中实时图片上传</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -234,7 +234,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://shdsoul.github.io/2021/06/18/SpringBoot%EF%BC%88%E5%85%AD%EF%BC%89/">
+    <link itemprop="mainEntityOfPage" href="https://shdsoul.github.io/2021/07/22/Vue%EF%BC%88%E4%BA%8C%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/./images/tx.jpg">
@@ -247,7 +247,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          SpringBoot(六):解决前后端分离跨域
+          Vue(二):整合mavon-editor
         </h1>
 
         <div class="post-meta-container">
@@ -257,9 +257,8 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-06-18 17:45:56 / 修改时间：17:48:05" itemprop="dateCreated datePublished" datetime="2021-06-18T17:45:56+08:00">2021-06-18</time>
+      <time title="创建时间：2021-07-22 00:19:25" itemprop="dateCreated datePublished" datetime="2021-07-22T00:19:25+08:00">2021-07-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -267,7 +266,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
         </span>
     </span>
 
@@ -279,7 +278,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.4k</span>
+      <span>1.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -290,7 +289,7 @@
     </span>
 </div>
 
-            <div class="post-description">本文用于记录前后端分离开发模式下常见的跨域问题解决方案</div>
+            <div class="post-description">本文用于记录我在进行博客搭建过程中新接触到的小玩意(后续Vue文章可能也会如此).</div>
         </div>
       </header>
 
@@ -298,35 +297,21 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="🚀什么是跨域？"><a href="#🚀什么是跨域？" class="headerlink" title="🚀什么是跨域？"></a>🚀什么是跨域？</h1><ul>
-<li><strong>url的一般格式</strong>：</li>
-</ul>
-<p><font color="skyblue">协议 + 域名（子域名 + 主域名） + 端口号 + 资源地址</font></p>
-<ul>
-<li><strong>示例</strong>：</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://www.dustyblog.cn:8080/say/Hello">https://www.dustyblog.cn:8080/say/Hello</a> 是由</p>
-<p>https + www + dustyblog.cn + 8080 + say/Hello组成。</p>
-<blockquote>
-<p>只要<font color="red">协议，子域名，主域名，端口号这四项组成部分中有一项不同</font>就可以认为是不同的域，不同的域之间互相访问资源，就被称之为跨域。</p>
+        <blockquote>
+<p>前言：不得不说我还是太懒了，前端部分的文章一直没有写，不知道为什么没有什么兴致写，现在趁着有时间还是写写吧，Vue最近也算是用的有点感觉了，组件化思想有一说一，对于个人开发者而言，开发小型项目还是用后端模板写前端比较方便hhh.</p>
 </blockquote>
-<p>前后端分离项目中，前端项目后端项目分别占用不同的端口号(这里只是针对个人开发而言，实际业务中不一定)从而导致了跨域问题</p>
-<h1 id="🚑解决方案"><a href="#🚑解决方案" class="headerlink" title="🚑解决方案"></a>🚑解决方案</h1><p><strong>注意</strong>：解决方案既可以在前端解决也可以在后端解决，这里只讨论后端的解决方案.</p>
-<h2 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h2><blockquote>
-<p>解决跨域问题有多种全局配置的方案，接下来一一列举</p>
-</blockquote>
-<h3 id="配置方案一"><a href="#配置方案一" class="headerlink" title="配置方案一"></a>配置方案一</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.cors.CorsConfiguration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.cors.UrlBasedCorsConfigurationSource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.filter.CorsFilter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CorsConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CorsConfiguration <span class="title">corsConfiguration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        CorsConfiguration corsConfiguration = <span class="keyword">new</span> CorsConfiguration();</span><br><span class="line">        <span class="comment">//实际请求中允许携带的首部字段</span></span><br><span class="line">        corsConfiguration.addAllowedHeader(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="comment">//允许那些域跨域访问</span></span><br><span class="line">        corsConfiguration.addAllowedOrigin(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="comment">//允许那些请求方法</span></span><br><span class="line">        corsConfiguration.addAllowedMethod(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> corsConfiguration;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CorsFilter <span class="title">corsFilter</span><span class="params">(CorsConfiguration corsConfiguration)</span> </span>&#123;</span><br><span class="line">        UrlBasedCorsConfigurationSource source = <span class="keyword">new</span> UrlBasedCorsConfigurationSource();</span><br><span class="line">        source.registerCorsConfiguration(<span class="string">&quot;/**&quot;</span>, corsConfiguration); <span class="comment">// 4</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> CorsFilter(source);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="🚀下载安装-mavon-editor"><a href="#🚀下载安装-mavon-editor" class="headerlink" title="🚀下载安装 mavon-editor"></a>🚀下载安装 mavon-editor</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install mavon-editor --save</span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="配置方案二"><a href="#配置方案二" class="headerlink" title="配置方案二"></a>配置方案二</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.CorsRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebAllowConfig</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//添加访问什么路径时需要配置跨域</span></span><br><span class="line">        <span class="comment">//此处配置所有路径</span></span><br><span class="line">        registry.addMapping(<span class="string">&quot;/**&quot;</span>) <span class="comment">//允许谁跨域,vue开启服务默认跑在8080</span></span><br><span class="line">                .allowedOrigins(<span class="string">&quot;http://localhost:8080&quot;</span>, <span class="string">&quot;null&quot;</span>)  <span class="comment">//允许谁跨域,vue开启服务默认跑在8080</span></span><br><span class="line">                .allowedMethods(<span class="string">&quot;POST&quot;</span>, <span class="string">&quot;GET&quot;</span>, <span class="string">&quot;PUT&quot;</span>, <span class="string">&quot;OPTIONS&quot;</span>, <span class="string">&quot;DELETE&quot;</span>) <span class="comment">//设置需要进行配置的http请求方法</span></span><br><span class="line">                .maxAge(<span class="number">3600</span>) <span class="comment">//设置最大相应时间</span></span><br><span class="line">                .allowCredentials(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="🛰使用-mavon-editor"><a href="#🛰使用-mavon-editor" class="headerlink" title="🛰使用 mavon-editor"></a>🛰使用 mavon-editor</h1><h2 id="在需要的组件中使用"><a href="#在需要的组件中使用" class="headerlink" title="在需要的组件中使用"></a>在需要的组件中使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;mavon-editor v-model&#x3D;&quot;content&quot; </span><br><span class="line">                  :codeStyle&#x3D;&quot;codeStyle&quot;</span><br><span class="line">                  &#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; mavonEditor &#125; from &#39;mavon-editor&#39;</span><br><span class="line">import &#39;mavon-editor&#x2F;dist&#x2F;css&#x2F;index.css&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;MavonEditor&#39;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      content: &#39;&#39;,</span><br><span class="line">      codeStyle: &#39;主题&#39;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    mavonEditor</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
 
+<p>注意：<code>content</code> 保存的为md语法，<code>codeStyle</code>属性可以更换代码块的主题，具体有哪些主题可以参考一下  <a target="_blank" rel="noopener" href="https://github.com/hinesboy/mavonEditor/blob/HEAD/src/lib/core/hljs/lang.hljs.css.js"><font color="red">可选主题表</font></a>  , 每一种主题的样式可以参考<a target="_blank" rel="noopener" href="https://highlightjs.org/static/demo/"> <code>highlight.js</code>demo文档</a>  ， 更多相关的设置可以参考文档 : <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/mavon-editor">mavon-editor参考文档</a> </p>
+<h2 id="实现编辑器中实时图片上传"><a href="#实现编辑器中实时图片上传" class="headerlink" title="实现编辑器中实时图片上传"></a>实现编辑器中实时图片上传</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;mavon-editor ref&#x3D;md @imgAdd&#x3D;&quot;imgAdd&quot; @imgDel&#x3D;&quot;$imgDel&quot;&gt;&lt;&#x2F;mavon-editor&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">exports default &#123;</span><br><span class="line">    methods: &#123;</span><br><span class="line">        &#x2F;&#x2F; 绑定@imgAdd event</span><br><span class="line">        imgAdd(pos, $file)&#123;</span><br><span class="line">		   let _this &#x3D; this</span><br><span class="line">            &#x2F;&#x2F; 第一步.将图片上传到服务器.</span><br><span class="line">           var formdata &#x3D; new FormData();</span><br><span class="line">           formdata.append(&#39;image&#39;, $file);</span><br><span class="line">           axios(&#123;</span><br><span class="line">               url: &#39;图片上传api路径&#39;,</span><br><span class="line">               method: &#39;post&#39;,</span><br><span class="line">               data: formdata,</span><br><span class="line">               headers: &#123; &#39;Content-Type&#39;: &#39;multipart&#x2F;form-data&#39; &#125;,</span><br><span class="line">           &#125;).then((url) &#x3D;&gt; &#123;</span><br><span class="line">               _this.$refs.md.$img2Url(pos, url);</span><br><span class="line">           &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-<h2 id="CrossOrigin"><a href="#CrossOrigin" class="headerlink" title="@CrossOrigin"></a>@CrossOrigin</h2><p><code>@CrossOrigin</code> 用于<code>controller</code>类上，使用相对较为简单.</p>
-<p>但是有坑：<code>CROS</code>复杂请求时会首先发送一个<code>OPTIONS</code>请求做嗅探，来测试服务器是否支持本次请求，请求成功后才会发送真实的请求；而<code>OPTIONS</code>请求不会携带任何数据，导致这个请求不符合我们拦截器的校验规则被拦截了，直接返回了状态码，响应头中也没携带解决跨域需要的头部信息，进而出现了跨域问题.</p>
-<p>只需要重写<code>handler</code>中<code>preHandlr</code>并且加上下方代码即可</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="string">&quot;OPTIONS&quot;</span>.equals(request.getMethod().toUpperCase())) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Method:OPTIONS&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述的写法比较固定，按着如上方式写即可.</p>
+<p>注意替换的方式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将返回的url替换到文本原位置![...](0) -&gt; ![...](url)  替换方式为: $vm.$img2Url(pos , url)</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * $vm 指为mavonEditor实例，可以通过如下两种方式获取</span></span><br><span class="line"><span class="comment"> * 1. 通过引入对象获取: `import &#123;mavonEditor&#125; from ...` 等方式引入后，`$vm`为`mavonEditor`</span></span><br><span class="line"><span class="comment"> * 2. 通过$refs获取: html声明ref : `&lt;mavon-editor ref=md &gt;&lt;/mavon-editor&gt;，`$vm`为`this.$refs.md`</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
 
 
       <div>
@@ -347,21 +332,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/SpringBoot/" rel="tag"># SpringBoot</a>
+              <a href="/tags/Vue/" rel="tag"># Vue</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/06/15/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%89%EF%BC%89/" rel="prev" title="每日一题(三):双指针算法">
-                  <i class="fa fa-chevron-left"></i> 每日一题(三):双指针算法
+                <a href="/2021/07/20/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%EF%BC%88%E4%BA%8C%EF%BC%89/" rel="prev" title="网络编程(二):服务器开发以及线程池">
+                  <i class="fa fa-chevron-left"></i> 网络编程(二):服务器开发以及线程池
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/06/23/SpringBoot%EF%BC%88%E4%B8%83%EF%BC%89/" rel="next" title="SpringBoot(七):自定义条件注解">
-                  SpringBoot(七):自定义条件注解 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -448,7 +430,7 @@ setInterval("createtime()",250);
 <script>
 NexT.utils.loadComments('#lv-container', () => {
   window.livereOptions = {
-    refer: "2021/06/18/SpringBoot（六）/"
+    refer: "2021/07/22/Vue（二）/"
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
