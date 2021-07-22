@@ -17,10 +17,10 @@
   --btn-default-hover-bg: #222;
   --btn-default-hover-color: #fff;
   --btn-default-hover-border-color: #222;
-  --highlight-background: #000;
-  --highlight-foreground: #f8f8f8;
-  --highlight-gutter-background: #181818;
-  --highlight-gutter-foreground: #dfdfdf;
+  --highlight-background: #f0f0f0;
+  --highlight-foreground: #444;
+  --highlight-gutter-background: #dedede;
+  --highlight-gutter-foreground: #555;
 }
 html {
   line-height: 1.15; /* 1 */
@@ -360,70 +360,96 @@ td {
   transform: rotate(-45deg);
 }
 /*
-  IR_Black style (c) Vasily Mikhailitchenko <vaskas@programica.ru>
+
+Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
+
 */
 
 .hljs {
   display: block;
   overflow-x: auto;
   padding: 0.5em;
-  background: #000;
-  color: #f8f8f8;
+  background: #F0F0F0;
 }
 
-.hljs-comment,
-.hljs-quote,
-.hljs-meta {
-  color: #7c7c7c;
+
+/* Base color: saturation 0; */
+
+.hljs,
+.hljs-subst {
+  color: #444;
+}
+
+.hljs-comment {
+  color: #888888;
 }
 
 .hljs-keyword,
-.hljs-selector-tag,
-.hljs-tag,
-.hljs-name {
-  color: #96cbfe;
-}
-
 .hljs-attribute,
-.hljs-selector-id {
-  color: #ffffb6;
+.hljs-selector-tag,
+.hljs-meta-keyword,
+.hljs-doctag,
+.hljs-name {
+  font-weight: bold;
 }
 
+
+/* User color: hue: 0 */
+
+.hljs-type,
 .hljs-string,
-.hljs-selector-attr,
-.hljs-selector-pseudo,
-.hljs-addition {
-  color: #a8ff60;
-}
-
-.hljs-subst {
-  color: #daefa3;
-}
-
-.hljs-regexp,
-.hljs-link {
-  color: #e9c062;
+.hljs-number,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+  color: #880000;
 }
 
 .hljs-title,
-.hljs-section,
-.hljs-type,
-.hljs-doctag {
-  color: #ffffb6;
+.hljs-section {
+  color: #880000;
+  font-weight: bold;
 }
 
+.hljs-regexp,
 .hljs-symbol,
-.hljs-bullet,
 .hljs-variable,
 .hljs-template-variable,
-.hljs-literal {
-  color: #c6c5fe;
+.hljs-link,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #BC6060;
 }
 
-.hljs-number,
-.hljs-deletion {
-  color:#ff73fd;
+
+/* Language color: hue: 90; */
+
+.hljs-literal {
+  color: #78A960;
 }
+
+.hljs-built_in,
+.hljs-bullet,
+.hljs-code,
+.hljs-addition {
+  color: #397300;
+}
+
+
+/* Meta color: hue: 200 */
+
+.hljs-meta {
+  color: #1f7199;
+}
+
+.hljs-meta-string {
+  color: #4d99bf;
+}
+
+
+/* Misc effects */
 
 .hljs-emphasis {
   font-style: italic;

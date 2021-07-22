@@ -227,6 +227,108 @@
       </tags>
   </entry>
   <entry>
+    <title>Markdown入门</title>
+    <url>/2021/04/09/Markdown%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<h2 id="1-代码块"><a href="#1-代码块" class="headerlink" title="1.代码块:"></a>1.代码块:</h2><p>​    使用三个 “ ``` ” 即可生成代码块,并且可以选择语言类型</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">( args [] string)</span></span>&#123;</span><br><span class="line">        System.println(<span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h2 id="2-标题"><a href="#2-标题" class="headerlink" title="2.标题"></a>2.标题</h2><p>​    使用 “ # ” 来表示，“ # ”越多字体越小 ， 最多六级标题，注意：# 后面必须有一个空格</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题 </span><br></pre></td></tr></table></figure>
+
+<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h1 id="3-字体"><a href="#3-字体" class="headerlink" title="3.字体"></a>3.字体</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//加粗</span></span><br><span class="line">	**加粗**</span><br><span class="line"><span class="comment">//代码高亮显示</span></span><br><span class="line">    ==高亮==</span><br><span class="line"><span class="comment">//删除线</span></span><br><span class="line">    ~删除线~</span><br><span class="line"><span class="comment">//斜体</span></span><br><span class="line">    *斜体*</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>（高亮好像有点问题哈）</p>
+<p><strong>加粗</strong></p>
+<p><del>删除线</del></p>
+<p><em>斜体</em></p>
+<h1 id="4-引用"><a href="#4-引用" class="headerlink" title="4.引用"></a>4.引用</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//引用语法</span></span><br><span class="line">&gt;作者:XXX</span><br><span class="line">&gt;&gt;作者:XXX</span><br><span class="line">&gt;&gt;&gt;作者:XXX</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>作者:XXX</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>作者:XXX</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>作者:XXX</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h1 id="5-分割线"><a href="#5-分割线" class="headerlink" title="5.分割线"></a>5.分割线</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//分割线</span></span><br><span class="line">	---</span><br><span class="line"><span class="comment">//分割线2</span></span><br><span class="line">   	***</span><br></pre></td></tr></table></figure>
+
+<hr>
+<hr>
+<h1 id="6-图片插入"><a href="#6-图片插入" class="headerlink" title="6.图片插入"></a>6.图片插入</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//在线图片和本地图片</span></span><br><span class="line">![奥特曼](https:<span class="comment">//ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/42166d224f4a20a46b610b709b529822720ed00d.jpg)</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/42166d224f4a20a46b610b709b529822720ed00d.jpg" alt="奥特曼" title="奥特曼"></p>
+<img src="/2021/04/09/Markdown%E5%85%A5%E9%97%A8/ddm.jpg" class title="叮当猫">
+
+
+
+
+
+<h1 id="7-超链接"><a href="#7-超链接" class="headerlink" title="7.超链接"></a>7.超链接</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//超链接语法</span></span><br><span class="line">[内容](链接)</span><br></pre></td></tr></table></figure>
+
+<p><a href="www.baidu.com">百度</a></p>
+<h1 id="8-列表"><a href="#8-列表" class="headerlink" title="8.列表"></a>8.列表</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//无序列表</span></span><br><span class="line">- 目录<span class="number">1</span></span><br><span class="line">- 目录<span class="number">2</span></span><br><span class="line">- 目录<span class="number">3</span></span><br><span class="line">- 目录<span class="number">4</span></span><br><span class="line"><span class="comment">//有序列表</span></span><br><span class="line"><span class="number">1</span>+. +名称</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<ul>
+<li>目录1</li>
+<li>目录2</li>
+<li>目录3</li>
+<li>目录4</li>
+</ul>
+<ol>
+<li>首页</li>
+<li>拉文克劳</li>
+<li>挖金矿为了救</li>
+</ol>
+<h1 id="9-表格"><a href="#9-表格" class="headerlink" title="9.表格"></a>9.表格</h1><p>​    一般情况下直接用Typora快速生成，十分方便</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MySQL(一)</title>
     <url>/2021/04/11/MySQL%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🎊MySQL的安装"><a href="#🎊MySQL的安装" class="headerlink" title="🎊MySQL的安装"></a>🎊MySQL的安装</h1><p>​    ①：去官网下载社区版上面的一个；<br>​    （建议复制下载地址然后在迅雷当中下载比较快）<br>​    ②：在非C盘建一个 <code>MySQL</code> 文件夹装入下载文件并且解压；<br>​    ③：将bin目录配入环境变量；<br>​    ④：编写配置文件：(先建文本文件，编写好以后，将文件更改为 <code>my.ini</code> 文件并改以 <code>ANSCI</code> 编译保存)；<br>​        如下：（注意）设置 <code>mysql</code> 的安装目录和数据库的数据存放目录根据个人下载位置进更改<br>​            </p>
@@ -498,108 +600,6 @@
       </categories>
       <tags>
         <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Markdown入门</title>
-    <url>/2021/04/09/Markdown%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[<h2 id="1-代码块"><a href="#1-代码块" class="headerlink" title="1.代码块:"></a>1.代码块:</h2><p>​    使用三个 “ ``` ” 即可生成代码块,并且可以选择语言类型</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">( args [] string)</span></span>&#123;</span><br><span class="line">        System.println(<span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<h2 id="2-标题"><a href="#2-标题" class="headerlink" title="2.标题"></a>2.标题</h2><p>​    使用 “ # ” 来表示，“ # ”越多字体越小 ， 最多六级标题，注意：# 后面必须有一个空格</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题 </span><br></pre></td></tr></table></figure>
-
-<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h1 id="3-字体"><a href="#3-字体" class="headerlink" title="3.字体"></a>3.字体</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//加粗</span></span><br><span class="line">	**加粗**</span><br><span class="line"><span class="comment">//代码高亮显示</span></span><br><span class="line">    ==高亮==</span><br><span class="line"><span class="comment">//删除线</span></span><br><span class="line">    ~删除线~</span><br><span class="line"><span class="comment">//斜体</span></span><br><span class="line">    *斜体*</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>（高亮好像有点问题哈）</p>
-<p><strong>加粗</strong></p>
-<p><del>删除线</del></p>
-<p><em>斜体</em></p>
-<h1 id="4-引用"><a href="#4-引用" class="headerlink" title="4.引用"></a>4.引用</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//引用语法</span></span><br><span class="line">&gt;作者:XXX</span><br><span class="line">&gt;&gt;作者:XXX</span><br><span class="line">&gt;&gt;&gt;作者:XXX</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>作者:XXX</p>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>作者:XXX</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>作者:XXX</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<h1 id="5-分割线"><a href="#5-分割线" class="headerlink" title="5.分割线"></a>5.分割线</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//分割线</span></span><br><span class="line">	---</span><br><span class="line"><span class="comment">//分割线2</span></span><br><span class="line">   	***</span><br></pre></td></tr></table></figure>
-
-<hr>
-<hr>
-<h1 id="6-图片插入"><a href="#6-图片插入" class="headerlink" title="6.图片插入"></a>6.图片插入</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//在线图片和本地图片</span></span><br><span class="line">![奥特曼](https:<span class="comment">//ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/42166d224f4a20a46b610b709b529822720ed00d.jpg)</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/42166d224f4a20a46b610b709b529822720ed00d.jpg" alt="奥特曼" title="奥特曼"></p>
-<img src="/2021/04/09/Markdown%E5%85%A5%E9%97%A8/ddm.jpg" class title="叮当猫">
-
-
-
-
-
-<h1 id="7-超链接"><a href="#7-超链接" class="headerlink" title="7.超链接"></a>7.超链接</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//超链接语法</span></span><br><span class="line">[内容](链接)</span><br></pre></td></tr></table></figure>
-
-<p><a href="www.baidu.com">百度</a></p>
-<h1 id="8-列表"><a href="#8-列表" class="headerlink" title="8.列表"></a>8.列表</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//无序列表</span></span><br><span class="line">- 目录<span class="number">1</span></span><br><span class="line">- 目录<span class="number">2</span></span><br><span class="line">- 目录<span class="number">3</span></span><br><span class="line">- 目录<span class="number">4</span></span><br><span class="line"><span class="comment">//有序列表</span></span><br><span class="line"><span class="number">1</span>+. +名称</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<ul>
-<li>目录1</li>
-<li>目录2</li>
-<li>目录3</li>
-<li>目录4</li>
-</ul>
-<ol>
-<li>首页</li>
-<li>拉文克劳</li>
-<li>挖金矿为了救</li>
-</ol>
-<h1 id="9-表格"><a href="#9-表格" class="headerlink" title="9.表格"></a>9.表格</h1><p>​    一般情况下直接用Typora快速生成，十分方便</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>Markdown</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -879,45 +879,6 @@
       </categories>
       <tags>
         <tag>Mybatis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Shiro(一):介绍与基本概念</title>
-    <url>/2021/06/09/Shiro%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="🚧权限管理"><a href="#🚧权限管理" class="headerlink" title="🚧权限管理"></a>🚧权限管理</h2><h3 id="什么是权限管理"><a href="#什么是权限管理" class="headerlink" title="什么是权限管理"></a>什么是权限管理</h3><p>基本上涉及到用户参与的系统都要进行权限管理，权限管理属于系统安全的范畴，权限管理实现<code>对用户访问系统的控制</code>，按照安全规则或者<a href="http://baike.baidu.com/view/160028.htm">安全策略</a>控制用户可以访问而且只能访问自己被授权的资源。</p>
-<p>权限管理包括用户<code>身份认证</code>和<code>授权</code>两部分，简称<code>认证授权</code>。对于需要访问控制的资源用户首先经过身份认证，认证通过后用户具有该资源的访问权限方可访问。</p>
-<h3 id="什么是身份认证"><a href="#什么是身份认证" class="headerlink" title="什么是身份认证"></a>什么是身份认证</h3><p><code>身份认证</code>，就是判断一个用户是否为合法用户的处理过程。最常用的简单身份认证方式是系统通过核对用户输入的用户名和口令，看其是否与系统中存储的该用户的用户名和口令一致，来判断用户身份是否正确。对于采用<a href="http://baike.baidu.com/view/5628.htm">指纹</a>等系统，则出示指纹；对于硬件Key等刷卡系统，则需要刷卡。</p>
-<h3 id="什么是授权"><a href="#什么是授权" class="headerlink" title="什么是授权"></a>什么是授权</h3><p><code>授权，即访问控制</code>，控制谁能访问哪些资源。主体进行身份认证后需要分配权限方可访问系统的资源，对于某些资源没有权限是无法访问的</p>
-<hr>
-<h2 id="🏁什么是shiro"><a href="#🏁什么是shiro" class="headerlink" title="🏁什么是shiro"></a>🏁什么是shiro</h2><blockquote>
-<p><strong>Apache Shiro™</strong> is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.  </p>
-<p>Shiro 是一个功能强大且易于使用的Java安全框架，它执行身份验证、授权、加密和会话管理。使用Shiro易于理解的API，您可以快速轻松地保护任何应用程序—从最小的移动应用程序到最大的web和企业应用程序。</p>
-</blockquote>
-<p><code>Shiro是apache旗下一个开源框架，它将软件系统的安全认证相关的功能抽取出来，实现用户身份认证，权限授权、加密、会话管理等功能，组成了一个通用的安全认证框架。</code></p>
-<hr>
-<h2 id="🌎shiro的核心架构"><a href="#🌎shiro的核心架构" class="headerlink" title="🌎shiro的核心架构"></a>🌎shiro的核心架构</h2><img src="/2021/06/09/Shiro%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class title="架构图">
-
-
-
-<h3 id="Subject"><a href="#Subject" class="headerlink" title="Subject"></a>Subject</h3><p><code>Subject即主体</code>，外部应用与subject进行交互，subject记录了当前操作用户，将用户的概念理解为当前操作的主体，可能是一个通过浏览器请求的用户，也可能是一个运行的程序。    Subject在shiro中是一个接口，接口中定义了很多认证授相关的方法，外部程序通过subject进行认证授，而subject是通过SecurityManager安全管理器进行认证授权</p>
-<h3 id="SecurityManager"><a href="#SecurityManager" class="headerlink" title="SecurityManager"></a>SecurityManager</h3><p><code>SecurityManager即安全管理器</code>，对全部的subject进行安全管理，它是shiro的核心，负责对所有的subject进行安全管理。通过SecurityManager可以完成subject的认证、授权等，实质上SecurityManager是通过Authenticator进行认证，通过Authorizer进行授权，通过SessionManager进行会话管理等。</p>
-<p><code>SecurityManager是一个接口，继承了Authenticator, Authorizer, SessionManager这三个接口。</code></p>
-<h3 id="Authenticator"><a href="#Authenticator" class="headerlink" title="Authenticator"></a>Authenticator</h3><p><code>Authenticator即认证器</code>，对用户身份进行认证，Authenticator是一个接口，shiro提供ModularRealmAuthenticator实现类，通过ModularRealmAuthenticator基本上可以满足大多数需求，也可以自定义认证器。</p>
-<h3 id="Authorizer"><a href="#Authorizer" class="headerlink" title="Authorizer"></a>Authorizer</h3><p><code>Authorizer即授权器</code>，用户通过认证器认证通过，在访问功能时需要通过授权器判断用户是否有此功能的操作权限。</p>
-<h3 id="Realm"><a href="#Realm" class="headerlink" title="Realm"></a>Realm</h3><p><code>Realm即领域</code>，相当于datasource数据源，securityManager进行安全认证需要通过Realm获取用户权限数据，比如：如果用户身份数据在数据库那么realm就需要从数据库获取用户身份信息。</p>
-<ul>
-<li>​    注意：不要把realm理解成只是从数据源取数据，在realm中还有认证授权校验的相关的代码。</li>
-</ul>
-<h3 id="SessionManager"><a href="#SessionManager" class="headerlink" title="SessionManager"></a>SessionManager</h3><p><code>sessionManager即会话管理</code>，shiro框架定义了一套会话管理，它不依赖web容器的session，所以shiro可以使用在非web应用上，也可以将分布式应用的会话集中在一点管理，此特性可使它实现单点登录。</p>
-<h3 id="SessionDAO"><a href="#SessionDAO" class="headerlink" title="SessionDAO"></a>SessionDAO</h3><p><code>SessionDAO即会话dao</code>，是对session会话操作的一套接口，比如要将session存储到数据库，可以通过jdbc将会话存储到数据库。</p>
-<h3 id="CacheManager"><a href="#CacheManager" class="headerlink" title="CacheManager"></a>CacheManager</h3><p><code>CacheManager即缓存管理</code>，将用户权限数据存储在缓存，这样可以提高性能。</p>
-<h3 id="Cryptography"><a href="#Cryptography" class="headerlink" title="Cryptography"></a>Cryptography</h3><p>​    <code>Cryptography即密码管理</code>，shiro提供了一套加密/解密的组件，方便开发。比如提供常用的散列、加/解密等功能。</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Shiro</tag>
       </tags>
   </entry>
   <entry>
@@ -1274,6 +1235,45 @@
       </tags>
   </entry>
   <entry>
+    <title>Shiro(一):介绍与基本概念</title>
+    <url>/2021/06/09/Shiro%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="🚧权限管理"><a href="#🚧权限管理" class="headerlink" title="🚧权限管理"></a>🚧权限管理</h2><h3 id="什么是权限管理"><a href="#什么是权限管理" class="headerlink" title="什么是权限管理"></a>什么是权限管理</h3><p>基本上涉及到用户参与的系统都要进行权限管理，权限管理属于系统安全的范畴，权限管理实现<code>对用户访问系统的控制</code>，按照安全规则或者<a href="http://baike.baidu.com/view/160028.htm">安全策略</a>控制用户可以访问而且只能访问自己被授权的资源。</p>
+<p>权限管理包括用户<code>身份认证</code>和<code>授权</code>两部分，简称<code>认证授权</code>。对于需要访问控制的资源用户首先经过身份认证，认证通过后用户具有该资源的访问权限方可访问。</p>
+<h3 id="什么是身份认证"><a href="#什么是身份认证" class="headerlink" title="什么是身份认证"></a>什么是身份认证</h3><p><code>身份认证</code>，就是判断一个用户是否为合法用户的处理过程。最常用的简单身份认证方式是系统通过核对用户输入的用户名和口令，看其是否与系统中存储的该用户的用户名和口令一致，来判断用户身份是否正确。对于采用<a href="http://baike.baidu.com/view/5628.htm">指纹</a>等系统，则出示指纹；对于硬件Key等刷卡系统，则需要刷卡。</p>
+<h3 id="什么是授权"><a href="#什么是授权" class="headerlink" title="什么是授权"></a>什么是授权</h3><p><code>授权，即访问控制</code>，控制谁能访问哪些资源。主体进行身份认证后需要分配权限方可访问系统的资源，对于某些资源没有权限是无法访问的</p>
+<hr>
+<h2 id="🏁什么是shiro"><a href="#🏁什么是shiro" class="headerlink" title="🏁什么是shiro"></a>🏁什么是shiro</h2><blockquote>
+<p><strong>Apache Shiro™</strong> is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.  </p>
+<p>Shiro 是一个功能强大且易于使用的Java安全框架，它执行身份验证、授权、加密和会话管理。使用Shiro易于理解的API，您可以快速轻松地保护任何应用程序—从最小的移动应用程序到最大的web和企业应用程序。</p>
+</blockquote>
+<p><code>Shiro是apache旗下一个开源框架，它将软件系统的安全认证相关的功能抽取出来，实现用户身份认证，权限授权、加密、会话管理等功能，组成了一个通用的安全认证框架。</code></p>
+<hr>
+<h2 id="🌎shiro的核心架构"><a href="#🌎shiro的核心架构" class="headerlink" title="🌎shiro的核心架构"></a>🌎shiro的核心架构</h2><img src="/2021/06/09/Shiro%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class title="架构图">
+
+
+
+<h3 id="Subject"><a href="#Subject" class="headerlink" title="Subject"></a>Subject</h3><p><code>Subject即主体</code>，外部应用与subject进行交互，subject记录了当前操作用户，将用户的概念理解为当前操作的主体，可能是一个通过浏览器请求的用户，也可能是一个运行的程序。    Subject在shiro中是一个接口，接口中定义了很多认证授相关的方法，外部程序通过subject进行认证授，而subject是通过SecurityManager安全管理器进行认证授权</p>
+<h3 id="SecurityManager"><a href="#SecurityManager" class="headerlink" title="SecurityManager"></a>SecurityManager</h3><p><code>SecurityManager即安全管理器</code>，对全部的subject进行安全管理，它是shiro的核心，负责对所有的subject进行安全管理。通过SecurityManager可以完成subject的认证、授权等，实质上SecurityManager是通过Authenticator进行认证，通过Authorizer进行授权，通过SessionManager进行会话管理等。</p>
+<p><code>SecurityManager是一个接口，继承了Authenticator, Authorizer, SessionManager这三个接口。</code></p>
+<h3 id="Authenticator"><a href="#Authenticator" class="headerlink" title="Authenticator"></a>Authenticator</h3><p><code>Authenticator即认证器</code>，对用户身份进行认证，Authenticator是一个接口，shiro提供ModularRealmAuthenticator实现类，通过ModularRealmAuthenticator基本上可以满足大多数需求，也可以自定义认证器。</p>
+<h3 id="Authorizer"><a href="#Authorizer" class="headerlink" title="Authorizer"></a>Authorizer</h3><p><code>Authorizer即授权器</code>，用户通过认证器认证通过，在访问功能时需要通过授权器判断用户是否有此功能的操作权限。</p>
+<h3 id="Realm"><a href="#Realm" class="headerlink" title="Realm"></a>Realm</h3><p><code>Realm即领域</code>，相当于datasource数据源，securityManager进行安全认证需要通过Realm获取用户权限数据，比如：如果用户身份数据在数据库那么realm就需要从数据库获取用户身份信息。</p>
+<ul>
+<li>​    注意：不要把realm理解成只是从数据源取数据，在realm中还有认证授权校验的相关的代码。</li>
+</ul>
+<h3 id="SessionManager"><a href="#SessionManager" class="headerlink" title="SessionManager"></a>SessionManager</h3><p><code>sessionManager即会话管理</code>，shiro框架定义了一套会话管理，它不依赖web容器的session，所以shiro可以使用在非web应用上，也可以将分布式应用的会话集中在一点管理，此特性可使它实现单点登录。</p>
+<h3 id="SessionDAO"><a href="#SessionDAO" class="headerlink" title="SessionDAO"></a>SessionDAO</h3><p><code>SessionDAO即会话dao</code>，是对session会话操作的一套接口，比如要将session存储到数据库，可以通过jdbc将会话存储到数据库。</p>
+<h3 id="CacheManager"><a href="#CacheManager" class="headerlink" title="CacheManager"></a>CacheManager</h3><p><code>CacheManager即缓存管理</code>，将用户权限数据存储在缓存，这样可以提高性能。</p>
+<h3 id="Cryptography"><a href="#Cryptography" class="headerlink" title="Cryptography"></a>Cryptography</h3><p>​    <code>Cryptography即密码管理</code>，shiro提供了一套加密/解密的组件，方便开发。比如提供常用的散列、加/解密等功能。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Shiro</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring5(一)</title>
     <url>/2021/04/22/Spring5%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<blockquote>
@@ -1377,77 +1377,6 @@
       </categories>
       <tags>
         <tag>Spring5</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot（一）:Hello World</title>
-    <url>/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🎉SpringBoot为快速开发为生"><a href="#🎉SpringBoot为快速开发为生" class="headerlink" title="🎉SpringBoot为快速开发为生"></a>🎉SpringBoot为快速开发为生</h1><blockquote>
-<p>前言：在学完 Spring + SpringMVC + Mybatis 之后进行了 SSM整合项目的搭建，搭建项目最花费时间的其实是在各种的配置文件上，比如mybatis-config.xml 和 Spring中的applicationContext.xml 以及 SpringMVC中 Web.xml 都有固定的文件头等等内容，每次写都还要去别处复制粘贴，难搞。光是建个文件之后的复制粘贴就已经让我头大了，最难搞的还是Spring中文件配置文件中一些小东西，比如：SqlsessionFactory 以及 dao 层自动接口扫描器，完全可以说是固定写法，SpringMVC的配置中需要配置视图解析器，以及事物处理器，web.xml中需要配置请求转发器和资源过滤，配置过程几乎完全面向复制粘贴，繁琐且冗杂，也非常容易出错，我整合的SSM的项目至今没有跑起来，Debug了一个多星期无果，从Gitee上扒下来别人的项目跑，能跑，我的就是跑不起来，那几天我真是做梦都在想配置文件哪里出错了QAQ</p>
-</blockquote>
-<p>接下，进入正题：</p>
-<p>​        SpringBoot的出现就是为了解决以上问题，把配置简化到几乎没有，就连Tomcat都不需要我们自己去配置了，不得不说，SpringBoot永远滴神.接下来我将演示快速创建一个SpringBoot项目到启动的全过程.</p>
-<p><strong>在此之前，介绍一下SpringBoot的相关特点：</strong></p>
-<p>   1.<strong>创建独立的Spring应用程序</strong></p>
-<ol start="2">
-<li><p><strong>嵌入的Tomcat，无需部署WAR文件</strong></p>
-</li>
-<li><p><strong>简化Maven配置</strong></p>
-</li>
-<li><p><strong>自动配置Spring</strong></p>
-</li>
-<li><p><strong>提供生产就绪型功能，如指标，健康检查和外部配置</strong></p>
-</li>
-<li><p>**绝对没有代码生成并且对XML也没有配置要求 **</p>
-</li>
-</ol>
-<hr>
-<p>接下来体验一下咯：</p>
-<ul>
-<li>通过IDEA创建项目</li>
-</ul>
-<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class title="creat">
-
-
-
-<p>点击**<code>Next</code>**，下一步</p>
-<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/2.png" class title="create">
-
-
-
-<p>点击 <strong><code>Next</code></strong> ，下一步</p>
-<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/3.png" class title="creat">
-
-
-
-
-
-<p>点击 <strong><code>Next</code></strong> ，下一步，后面就是填写项目名称，这里就略过了，快进到创建后</p>
-<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/4.png" class title="create">
-
-
-
-<ul>
-<li>接下来编写 <code>Controller</code> 层，注意，要在DemoApplication.java的同目录下创建包下的java文件或者java文件才能被扫描到</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo.controller;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">//表示不会跳转JSP、HTML 而是直接将返回的内容写入 Http响应包中的响应体中,直接将内容呈现在页面中</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="comment">//等价于</span></span><br><span class="line"><span class="comment">//@Controller</span></span><br><span class="line"><span class="comment">//@ResponseBody</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloSpringBoot</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//用于建立请求URL和处理请求方法之间的对应关系，将该方法映射到这个url路径上</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">Hello</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello SpringBoot !&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>接下来就可以直接启动项目了，SpringBoot不会自动打开浏览器，需要我们手动输入URL.</p>
-<p>浏览器中输入 <code>localhost:8080/hello</code></p>
-</li>
-</ul>
-<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/5.png" class title="create">
-
-
-
-<p>会发现，从来到尾我们只需要在创建项目的时候需要进行配置，创建好后只需要编写业务逻辑即可运行.</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
       </tags>
   </entry>
   <entry>
@@ -1640,6 +1569,77 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringBoot（一）:Hello World</title>
+    <url>/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🎉SpringBoot为快速开发为生"><a href="#🎉SpringBoot为快速开发为生" class="headerlink" title="🎉SpringBoot为快速开发为生"></a>🎉SpringBoot为快速开发为生</h1><blockquote>
+<p>前言：在学完 Spring + SpringMVC + Mybatis 之后进行了 SSM整合项目的搭建，搭建项目最花费时间的其实是在各种的配置文件上，比如mybatis-config.xml 和 Spring中的applicationContext.xml 以及 SpringMVC中 Web.xml 都有固定的文件头等等内容，每次写都还要去别处复制粘贴，难搞。光是建个文件之后的复制粘贴就已经让我头大了，最难搞的还是Spring中文件配置文件中一些小东西，比如：SqlsessionFactory 以及 dao 层自动接口扫描器，完全可以说是固定写法，SpringMVC的配置中需要配置视图解析器，以及事物处理器，web.xml中需要配置请求转发器和资源过滤，配置过程几乎完全面向复制粘贴，繁琐且冗杂，也非常容易出错，我整合的SSM的项目至今没有跑起来，Debug了一个多星期无果，从Gitee上扒下来别人的项目跑，能跑，我的就是跑不起来，那几天我真是做梦都在想配置文件哪里出错了QAQ</p>
+</blockquote>
+<p>接下，进入正题：</p>
+<p>​        SpringBoot的出现就是为了解决以上问题，把配置简化到几乎没有，就连Tomcat都不需要我们自己去配置了，不得不说，SpringBoot永远滴神.接下来我将演示快速创建一个SpringBoot项目到启动的全过程.</p>
+<p><strong>在此之前，介绍一下SpringBoot的相关特点：</strong></p>
+<p>   1.<strong>创建独立的Spring应用程序</strong></p>
+<ol start="2">
+<li><p><strong>嵌入的Tomcat，无需部署WAR文件</strong></p>
+</li>
+<li><p><strong>简化Maven配置</strong></p>
+</li>
+<li><p><strong>自动配置Spring</strong></p>
+</li>
+<li><p><strong>提供生产就绪型功能，如指标，健康检查和外部配置</strong></p>
+</li>
+<li><p>**绝对没有代码生成并且对XML也没有配置要求 **</p>
+</li>
+</ol>
+<hr>
+<p>接下来体验一下咯：</p>
+<ul>
+<li>通过IDEA创建项目</li>
+</ul>
+<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class title="creat">
+
+
+
+<p>点击**<code>Next</code>**，下一步</p>
+<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/2.png" class title="create">
+
+
+
+<p>点击 <strong><code>Next</code></strong> ，下一步</p>
+<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/3.png" class title="creat">
+
+
+
+
+
+<p>点击 <strong><code>Next</code></strong> ，下一步，后面就是填写项目名称，这里就略过了，快进到创建后</p>
+<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/4.png" class title="create">
+
+
+
+<ul>
+<li>接下来编写 <code>Controller</code> 层，注意，要在DemoApplication.java的同目录下创建包下的java文件或者java文件才能被扫描到</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo.controller;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">//表示不会跳转JSP、HTML 而是直接将返回的内容写入 Http响应包中的响应体中,直接将内容呈现在页面中</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="comment">//等价于</span></span><br><span class="line"><span class="comment">//@Controller</span></span><br><span class="line"><span class="comment">//@ResponseBody</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloSpringBoot</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//用于建立请求URL和处理请求方法之间的对应关系，将该方法映射到这个url路径上</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">Hello</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello SpringBoot !&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>接下来就可以直接启动项目了，SpringBoot不会自动打开浏览器，需要我们手动输入URL.</p>
+<p>浏览器中输入 <code>localhost:8080/hello</code></p>
+</li>
+</ul>
+<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/5.png" class title="create">
+
+
+
+<p>会发现，从来到尾我们只需要在创建项目的时候需要进行配置，创建好后只需要编写业务逻辑即可运行.</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot(二):整合Mybatis</title>
     <url>/2021/05/06/SpringBoot%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🎉SpringBoot-Mybatis整合"><a href="#🎉SpringBoot-Mybatis整合" class="headerlink" title="🎉SpringBoot-Mybatis整合"></a>🎉SpringBoot-Mybatis整合</h1><blockquote>
@@ -1731,6 +1731,53 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringBoot(五):实现邮箱验证</title>
+    <url>/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/</url>
+    <content><![CDATA[<blockquote>
+<p>前言：当下的业务背景中，存在许多需要保证用户数据安全的场景，在这些场景下，我们可以利用邮箱验证/手机短信验证的方式对用户身份进行审核，这大大提高了用户数据的安全性.在注册场景下，也可以利用这样的手段来阻止恶意注册.</p>
+</blockquote>
+<h1 id="🎃准备工作"><a href="#🎃准备工作" class="headerlink" title="🎃准备工作"></a>🎃准备工作</h1><p>再使用代码进行发送邮箱之前需要进行一些准备工作，具体如下：</p>
+<h2 id="开启邮箱的功能服务"><a href="#开启邮箱的功能服务" class="headerlink" title="开启邮箱的功能服务"></a>开启邮箱的功能服务</h2><p>这里以QQ邮箱为例，我们需要开启<code>POP3/SMTP</code>服务、以及<code>IMAP/SMTP</code>服务.</p>
+<img src="/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/1.png" class title="图片">
+
+<img src="/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/2.png" class title="图片">
+
+<p>开启过后，会告诉我们<strong>授权码</strong>，发送邮件时，我们需要通过这个授权码得到权限，从而发送邮件，保证邮箱的使用不被滥用侵犯，这个授权码要留着，等待后续使用.</p>
+<h2 id="导入依赖"><a href="#导入依赖" class="headerlink" title="导入依赖"></a>导入依赖</h2><p>由于需要存储验证码，并且验证码存在时效性，于是这里使用了<code>Redis</code>来实现这个功能，于是也需要导入<code>Redis</code>的依赖.</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--邮箱--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-mail<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--redis--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="comment">#  配置redis</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">database:</span> <span class="number">0</span> <span class="comment">#选择第一个数据库</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">xxxxxx</span> <span class="comment">#redis 服务器 ip 如果在本地就填 localhost</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">6379</span> <span class="comment">#redis服务端口号默认 6379</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">xxxxxx</span> <span class="comment">#redis登录密码</span></span><br><span class="line"><span class="comment"># 配置邮箱</span></span><br><span class="line">  <span class="attr">mail:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">smtp.qq.com</span>  <span class="comment">#使用哪一个类型的邮箱的标识</span></span><br><span class="line">    <span class="attr">username:</span> <span class="number">3164297994</span><span class="string">@qq.com</span> <span class="comment">#发送者的邮箱</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">xxxxxxxxxxxx</span> <span class="comment">#POP3服务的授权码</span></span><br><span class="line">    <span class="attr">default-encoding:</span> <span class="string">utf-8</span> <span class="comment">#文本解析格式</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="🚘代码实现"><a href="#🚘代码实现" class="headerlink" title="🚘代码实现"></a>🚘代码实现</h1><ul>
+<li>发送邮箱验证码的服务类编写</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//读取配置文件中的发件人</span></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;spring.mail.username&#125;&quot;)</span></span><br><span class="line">   	<span class="keyword">private</span> String from;</span><br><span class="line">    <span class="comment">//自动注入Java邮件发送对象</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JavaMailSender sender;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发送邮件</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> to 收信人邮箱</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> title 信件标题</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> code 验证码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendEmail</span><span class="params">(String to , String title , String code)</span></span>&#123;</span><br><span class="line">		SimpleMailMessage message = <span class="keyword">new</span> SimpleMailMessage();</span><br><span class="line">        message.setFrom(from); <span class="comment">//发件人邮箱</span></span><br><span class="line">        message.setTo(to); <span class="comment">//收件人邮箱</span></span><br><span class="line">        message.setSubject(title); <span class="comment">//邮件标题</span></span><br><span class="line">        message.setText(code);  <span class="comment">//邮件内容</span></span><br><span class="line">        sender.send(message);<span class="comment">//发送邮件</span></span><br><span class="line">        System.out.println(<span class="string">&quot;邮件发送成功&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>邮件发送的接口编写</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StringRedisTemplate stringRedisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> EmailService emailService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/email&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">emailVertCode</span><span class="params">(<span class="meta">@RequestBody</span> JSONObject requestbody)</span></span>&#123;</span><br><span class="line">        JSONObject response = <span class="keyword">new</span> JSONObject(<span class="keyword">true</span>);</span><br><span class="line">        String username = requestbody.getString(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        String email = requestbody.getString(<span class="string">&quot;email&quot;</span>);</span><br><span class="line">        <span class="comment">//自定义的生成 6 位验证码的工具类</span></span><br><span class="line">        String code = VerificationCode.getCode();</span><br><span class="line">        emailService.sendSimple(email,<span class="string">&quot;验证码测试&quot;</span>,code);</span><br><span class="line">        <span class="comment">//将验证码存入redis</span></span><br><span class="line">        stringRedisTemplate.opsForHash().put( username , username ,code);</span><br><span class="line">        <span class="comment">//设置验证码的过期时间为 5 分钟</span></span><br><span class="line">        stringRedisTemplate.expire(username , <span class="number">5</span> ,TimeUnit.MINUTES);</span><br><span class="line">        response.put(<span class="string">&quot;code&quot;</span>,<span class="number">200</span>);</span><br><span class="line">        response.put(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;发送邮件成功&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> response.toJSONString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>附上自己写的验证码生成工具</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VerificationCode</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> counts = <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">int</span> resCode = <span class="number">0</span>;</span><br><span class="line">        Random random = <span class="keyword">new</span> Random(System.currentTimeMillis());</span><br><span class="line">        <span class="keyword">while</span> (counts-- != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> i = random.nextInt(<span class="number">10</span>);</span><br><span class="line">            <span class="keyword">while</span> (i == <span class="number">0</span> &amp;&amp; counts == <span class="number">5</span>) &#123;</span><br><span class="line">                i = random.nextInt(<span class="number">10</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">0</span>) resCode *= <span class="number">10</span>;</span><br><span class="line">            <span class="keyword">else</span> resCode += (<span class="keyword">int</span>) (i * Math.pow(<span class="number">10</span>, <span class="number">5</span> - counts));</span><br><span class="line">        &#125;</span><br><span class="line">            <span class="keyword">return</span> String.valueOf(resCode);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot(八):自定义starter</title>
     <url>/2021/06/24/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🚀SpringBoot-starter机制"><a href="#🚀SpringBoot-starter机制" class="headerlink" title="🚀SpringBoot starter机制"></a>🚀SpringBoot starter机制</h1><p><code>SpringBoot</code>中提供了大量开箱即用的<code>starter</code>，<code>starter</code>中配置了一定业务场景中所需要的依赖以及各种服务，让开发者摆脱了大量配置和依赖文件，让工程的整体结构更加优美而不臃肿，其具体实现依托于<code>SpringBoot</code>中自动配置原理，自动进行包扫描，既可以自定义配置，也可以使用默认配置.</p>
@@ -1782,43 +1829,37 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot(五):实现邮箱验证</title>
-    <url>/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/</url>
-    <content><![CDATA[<blockquote>
-<p>前言：当下的业务背景中，存在许多需要保证用户数据安全的场景，在这些场景下，我们可以利用邮箱验证/手机短信验证的方式对用户身份进行审核，这大大提高了用户数据的安全性.在注册场景下，也可以利用这样的手段来阻止恶意注册.</p>
+    <title>SpringBoot(六):解决前后端分离跨域</title>
+    <url>/2021/06/18/SpringBoot%EF%BC%88%E5%85%AD%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🚀什么是跨域？"><a href="#🚀什么是跨域？" class="headerlink" title="🚀什么是跨域？"></a>🚀什么是跨域？</h1><ul>
+<li><strong>url的一般格式</strong>：</li>
+</ul>
+<p><font color="skyblue">协议 + 域名（子域名 + 主域名） + 端口号 + 资源地址</font></p>
+<ul>
+<li><strong>示例</strong>：</li>
+</ul>
+<p><a href="https://www.dustyblog.cn:8080/say/Hello">https://www.dustyblog.cn:8080/say/Hello</a> 是由</p>
+<p>https + www + dustyblog.cn + 8080 + say/Hello组成。</p>
+<blockquote>
+<p>只要<font color="red">协议，子域名，主域名，端口号这四项组成部分中有一项不同</font>就可以认为是不同的域，不同的域之间互相访问资源，就被称之为跨域。</p>
 </blockquote>
-<h1 id="🎃准备工作"><a href="#🎃准备工作" class="headerlink" title="🎃准备工作"></a>🎃准备工作</h1><p>再使用代码进行发送邮箱之前需要进行一些准备工作，具体如下：</p>
-<h2 id="开启邮箱的功能服务"><a href="#开启邮箱的功能服务" class="headerlink" title="开启邮箱的功能服务"></a>开启邮箱的功能服务</h2><p>这里以QQ邮箱为例，我们需要开启<code>POP3/SMTP</code>服务、以及<code>IMAP/SMTP</code>服务.</p>
-<img src="/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/1.png" class title="图片">
-
-<img src="/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/2.png" class title="图片">
-
-<p>开启过后，会告诉我们<strong>授权码</strong>，发送邮件时，我们需要通过这个授权码得到权限，从而发送邮件，保证邮箱的使用不被滥用侵犯，这个授权码要留着，等待后续使用.</p>
-<h2 id="导入依赖"><a href="#导入依赖" class="headerlink" title="导入依赖"></a>导入依赖</h2><p>由于需要存储验证码，并且验证码存在时效性，于是这里使用了<code>Redis</code>来实现这个功能，于是也需要导入<code>Redis</code>的依赖.</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--邮箱--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-mail<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--redis--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="comment">#  配置redis</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">database:</span> <span class="number">0</span> <span class="comment">#选择第一个数据库</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">xxxxxx</span> <span class="comment">#redis 服务器 ip 如果在本地就填 localhost</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">6379</span> <span class="comment">#redis服务端口号默认 6379</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">xxxxxx</span> <span class="comment">#redis登录密码</span></span><br><span class="line"><span class="comment"># 配置邮箱</span></span><br><span class="line">  <span class="attr">mail:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">smtp.qq.com</span>  <span class="comment">#使用哪一个类型的邮箱的标识</span></span><br><span class="line">    <span class="attr">username:</span> <span class="number">3164297994</span><span class="string">@qq.com</span> <span class="comment">#发送者的邮箱</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">xxxxxxxxxxxx</span> <span class="comment">#POP3服务的授权码</span></span><br><span class="line">    <span class="attr">default-encoding:</span> <span class="string">utf-8</span> <span class="comment">#文本解析格式</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>前后端分离项目中，前端项目后端项目分别占用不同的端口号(这里只是针对个人开发而言，实际业务中不一定)从而导致了跨域问题</p>
+<h1 id="🚑解决方案"><a href="#🚑解决方案" class="headerlink" title="🚑解决方案"></a>🚑解决方案</h1><p><strong>注意</strong>：解决方案既可以在前端解决也可以在后端解决，这里只讨论后端的解决方案.</p>
+<h2 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h2><blockquote>
+<p>解决跨域问题有多种全局配置的方案，接下来一一列举</p>
+</blockquote>
+<h3 id="配置方案一"><a href="#配置方案一" class="headerlink" title="配置方案一"></a>配置方案一</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.cors.CorsConfiguration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.cors.UrlBasedCorsConfigurationSource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.filter.CorsFilter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CorsConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CorsConfiguration <span class="title">corsConfiguration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        CorsConfiguration corsConfiguration = <span class="keyword">new</span> CorsConfiguration();</span><br><span class="line">        <span class="comment">//实际请求中允许携带的首部字段</span></span><br><span class="line">        corsConfiguration.addAllowedHeader(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="comment">//允许那些域跨域访问</span></span><br><span class="line">        corsConfiguration.addAllowedOrigin(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="comment">//允许那些请求方法</span></span><br><span class="line">        corsConfiguration.addAllowedMethod(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> corsConfiguration;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CorsFilter <span class="title">corsFilter</span><span class="params">(CorsConfiguration corsConfiguration)</span> </span>&#123;</span><br><span class="line">        UrlBasedCorsConfigurationSource source = <span class="keyword">new</span> UrlBasedCorsConfigurationSource();</span><br><span class="line">        source.registerCorsConfiguration(<span class="string">&quot;/**&quot;</span>, corsConfiguration); <span class="comment">// 4</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> CorsFilter(source);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-
-
-<h1 id="🚘代码实现"><a href="#🚘代码实现" class="headerlink" title="🚘代码实现"></a>🚘代码实现</h1><ul>
-<li>发送邮箱验证码的服务类编写</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//读取配置文件中的发件人</span></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;spring.mail.username&#125;&quot;)</span></span><br><span class="line">   	<span class="keyword">private</span> String from;</span><br><span class="line">    <span class="comment">//自动注入Java邮件发送对象</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JavaMailSender sender;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发送邮件</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> to 收信人邮箱</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> title 信件标题</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> code 验证码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendEmail</span><span class="params">(String to , String title , String code)</span></span>&#123;</span><br><span class="line">		SimpleMailMessage message = <span class="keyword">new</span> SimpleMailMessage();</span><br><span class="line">        message.setFrom(from); <span class="comment">//发件人邮箱</span></span><br><span class="line">        message.setTo(to); <span class="comment">//收件人邮箱</span></span><br><span class="line">        message.setSubject(title); <span class="comment">//邮件标题</span></span><br><span class="line">        message.setText(code);  <span class="comment">//邮件内容</span></span><br><span class="line">        sender.send(message);<span class="comment">//发送邮件</span></span><br><span class="line">        System.out.println(<span class="string">&quot;邮件发送成功&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="配置方案二"><a href="#配置方案二" class="headerlink" title="配置方案二"></a>配置方案二</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.CorsRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebAllowConfig</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//添加访问什么路径时需要配置跨域</span></span><br><span class="line">        <span class="comment">//此处配置所有路径</span></span><br><span class="line">        registry.addMapping(<span class="string">&quot;/**&quot;</span>) <span class="comment">//允许谁跨域,vue开启服务默认跑在8080</span></span><br><span class="line">                .allowedOrigins(<span class="string">&quot;http://localhost:8080&quot;</span>, <span class="string">&quot;null&quot;</span>)  <span class="comment">//允许谁跨域,vue开启服务默认跑在8080</span></span><br><span class="line">                .allowedMethods(<span class="string">&quot;POST&quot;</span>, <span class="string">&quot;GET&quot;</span>, <span class="string">&quot;PUT&quot;</span>, <span class="string">&quot;OPTIONS&quot;</span>, <span class="string">&quot;DELETE&quot;</span>) <span class="comment">//设置需要进行配置的http请求方法</span></span><br><span class="line">                .maxAge(<span class="number">3600</span>) <span class="comment">//设置最大相应时间</span></span><br><span class="line">                .allowCredentials(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 
-<ul>
-<li>邮件发送的接口编写</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StringRedisTemplate stringRedisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> EmailService emailService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/email&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">emailVertCode</span><span class="params">(<span class="meta">@RequestBody</span> JSONObject requestbody)</span></span>&#123;</span><br><span class="line">        JSONObject response = <span class="keyword">new</span> JSONObject(<span class="keyword">true</span>);</span><br><span class="line">        String username = requestbody.getString(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        String email = requestbody.getString(<span class="string">&quot;email&quot;</span>);</span><br><span class="line">        <span class="comment">//自定义的生成 6 位验证码的工具类</span></span><br><span class="line">        String code = VerificationCode.getCode();</span><br><span class="line">        emailService.sendSimple(email,<span class="string">&quot;验证码测试&quot;</span>,code);</span><br><span class="line">        <span class="comment">//将验证码存入redis</span></span><br><span class="line">        stringRedisTemplate.opsForHash().put( username , username ,code);</span><br><span class="line">        <span class="comment">//设置验证码的过期时间为 5 分钟</span></span><br><span class="line">        stringRedisTemplate.expire(username , <span class="number">5</span> ,TimeUnit.MINUTES);</span><br><span class="line">        response.put(<span class="string">&quot;code&quot;</span>,<span class="number">200</span>);</span><br><span class="line">        response.put(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;发送邮件成功&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> response.toJSONString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>附上自己写的验证码生成工具</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VerificationCode</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> counts = <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">int</span> resCode = <span class="number">0</span>;</span><br><span class="line">        Random random = <span class="keyword">new</span> Random(System.currentTimeMillis());</span><br><span class="line">        <span class="keyword">while</span> (counts-- != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> i = random.nextInt(<span class="number">10</span>);</span><br><span class="line">            <span class="keyword">while</span> (i == <span class="number">0</span> &amp;&amp; counts == <span class="number">5</span>) &#123;</span><br><span class="line">                i = random.nextInt(<span class="number">10</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">0</span>) resCode *= <span class="number">10</span>;</span><br><span class="line">            <span class="keyword">else</span> resCode += (<span class="keyword">int</span>) (i * Math.pow(<span class="number">10</span>, <span class="number">5</span> - counts));</span><br><span class="line">        &#125;</span><br><span class="line">            <span class="keyword">return</span> String.valueOf(resCode);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="CrossOrigin"><a href="#CrossOrigin" class="headerlink" title="@CrossOrigin"></a>@CrossOrigin</h2><p><code>@CrossOrigin</code> 用于<code>controller</code>类上，使用相对较为简单.</p>
+<p>但是有坑：<code>CROS</code>复杂请求时会首先发送一个<code>OPTIONS</code>请求做嗅探，来测试服务器是否支持本次请求，请求成功后才会发送真实的请求；而<code>OPTIONS</code>请求不会携带任何数据，导致这个请求不符合我们拦截器的校验规则被拦截了，直接返回了状态码，响应头中也没携带解决跨域需要的头部信息，进而出现了跨域问题.</p>
+<p>只需要重写<code>handler</code>中<code>preHandlr</code>并且加上下方代码即可</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="string">&quot;OPTIONS&quot;</span>.equals(request.getMethod().toUpperCase())) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Method:OPTIONS&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -1864,47 +1905,6 @@
 <li><code>@PathVarible</code>：用于获取<code>RESTful</code>风格的<code>get</code>请求参数</li>
 <li><code>@RequestParam</code>：用于获取<code>post/get</code>请求方式的请求体中的数据，如果变量名不一致，可以手动配置</li>
 </ul>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot(六):解决前后端分离跨域</title>
-    <url>/2021/06/18/SpringBoot%EF%BC%88%E5%85%AD%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🚀什么是跨域？"><a href="#🚀什么是跨域？" class="headerlink" title="🚀什么是跨域？"></a>🚀什么是跨域？</h1><ul>
-<li><strong>url的一般格式</strong>：</li>
-</ul>
-<p><font color="skyblue">协议 + 域名（子域名 + 主域名） + 端口号 + 资源地址</font></p>
-<ul>
-<li><strong>示例</strong>：</li>
-</ul>
-<p><a href="https://www.dustyblog.cn:8080/say/Hello">https://www.dustyblog.cn:8080/say/Hello</a> 是由</p>
-<p>https + www + dustyblog.cn + 8080 + say/Hello组成。</p>
-<blockquote>
-<p>只要<font color="red">协议，子域名，主域名，端口号这四项组成部分中有一项不同</font>就可以认为是不同的域，不同的域之间互相访问资源，就被称之为跨域。</p>
-</blockquote>
-<p>前后端分离项目中，前端项目后端项目分别占用不同的端口号(这里只是针对个人开发而言，实际业务中不一定)从而导致了跨域问题</p>
-<h1 id="🚑解决方案"><a href="#🚑解决方案" class="headerlink" title="🚑解决方案"></a>🚑解决方案</h1><p><strong>注意</strong>：解决方案既可以在前端解决也可以在后端解决，这里只讨论后端的解决方案.</p>
-<h2 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h2><blockquote>
-<p>解决跨域问题有多种全局配置的方案，接下来一一列举</p>
-</blockquote>
-<h3 id="配置方案一"><a href="#配置方案一" class="headerlink" title="配置方案一"></a>配置方案一</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.cors.CorsConfiguration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.cors.UrlBasedCorsConfigurationSource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.filter.CorsFilter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CorsConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CorsConfiguration <span class="title">corsConfiguration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        CorsConfiguration corsConfiguration = <span class="keyword">new</span> CorsConfiguration();</span><br><span class="line">        <span class="comment">//实际请求中允许携带的首部字段</span></span><br><span class="line">        corsConfiguration.addAllowedHeader(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="comment">//允许那些域跨域访问</span></span><br><span class="line">        corsConfiguration.addAllowedOrigin(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="comment">//允许那些请求方法</span></span><br><span class="line">        corsConfiguration.addAllowedMethod(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> corsConfiguration;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CorsFilter <span class="title">corsFilter</span><span class="params">(CorsConfiguration corsConfiguration)</span> </span>&#123;</span><br><span class="line">        UrlBasedCorsConfigurationSource source = <span class="keyword">new</span> UrlBasedCorsConfigurationSource();</span><br><span class="line">        source.registerCorsConfiguration(<span class="string">&quot;/**&quot;</span>, corsConfiguration); <span class="comment">// 4</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> CorsFilter(source);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="配置方案二"><a href="#配置方案二" class="headerlink" title="配置方案二"></a>配置方案二</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.CorsRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebAllowConfig</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//添加访问什么路径时需要配置跨域</span></span><br><span class="line">        <span class="comment">//此处配置所有路径</span></span><br><span class="line">        registry.addMapping(<span class="string">&quot;/**&quot;</span>) <span class="comment">//允许谁跨域,vue开启服务默认跑在8080</span></span><br><span class="line">                .allowedOrigins(<span class="string">&quot;http://localhost:8080&quot;</span>, <span class="string">&quot;null&quot;</span>)  <span class="comment">//允许谁跨域,vue开启服务默认跑在8080</span></span><br><span class="line">                .allowedMethods(<span class="string">&quot;POST&quot;</span>, <span class="string">&quot;GET&quot;</span>, <span class="string">&quot;PUT&quot;</span>, <span class="string">&quot;OPTIONS&quot;</span>, <span class="string">&quot;DELETE&quot;</span>) <span class="comment">//设置需要进行配置的http请求方法</span></span><br><span class="line">                .maxAge(<span class="number">3600</span>) <span class="comment">//设置最大相应时间</span></span><br><span class="line">                .allowCredentials(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="CrossOrigin"><a href="#CrossOrigin" class="headerlink" title="@CrossOrigin"></a>@CrossOrigin</h2><p><code>@CrossOrigin</code> 用于<code>controller</code>类上，使用相对较为简单.</p>
-<p>但是有坑：<code>CROS</code>复杂请求时会首先发送一个<code>OPTIONS</code>请求做嗅探，来测试服务器是否支持本次请求，请求成功后才会发送真实的请求；而<code>OPTIONS</code>请求不会携带任何数据，导致这个请求不符合我们拦截器的校验规则被拦截了，直接返回了状态码，响应头中也没携带解决跨域需要的头部信息，进而出现了跨域问题.</p>
-<p>只需要重写<code>handler</code>中<code>preHandlr</code>并且加上下方代码即可</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="string">&quot;OPTIONS&quot;</span>.equals(request.getMethod().toUpperCase())) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Method:OPTIONS&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 ]]></content>
       <categories>
         <category>Java</category>
@@ -2160,6 +2160,27 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringSecurity(四):结合Vue实现异步登录</title>
+    <url>/2021/07/16/SpringSecurity%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🏁问题分析"><a href="#🏁问题分析" class="headerlink" title="🏁问题分析"></a>🏁问题分析</h1><p>&emsp;&emsp;使用异步<code>axios</code>请求的方式进行登录与直接使用 <code>postman</code> 发送 <code>post</code> 请求进行测试 ，提交数据的方式似乎不太一样，<code>postman</code>能跑通，而使用<code>axios</code> ，后台<code>loadUserByusername</code>获取不到用户名，这就很奇怪，奈何看不太懂源码，主要是各种设计模式没学过以及底层的封装层数太多了，看的使人心累，于是开始逛论坛以及开源网站看别人的代码，后来才发现，<code>axios</code>提交的参数是存放在请求体当中的，而<code>SpringSecurity</code>中的处理逻辑使用了 <code>request.getParameter</code> 进行参数获取，有过原始表单或者 <code>servlet</code> 开发经验的人都知道 ， 此方法只能获取到类似于 <code>get</code>请求 以及 以原始表单格式提交的<code>post</code> 数据 ， 然而尝试过后发现 ，利用<code>axios</code>请求，将请求头设置一下，即<code>Content-Type: application/x-www-form-urlencoded``;charset=utf-8</code> ， 安全框架仍然解析不到<code>username</code>，此时心态已经崩了，然而就在此时，翻到一篇博客，记述到可以将传统原生的表单提交格式更改为 <code>get</code> 提交数据的数据格式，当然了只是更改了数据格式，并没有更改请求方式哈.</p>
+<h1 id="😎解决方案"><a href="#😎解决方案" class="headerlink" title="😎解决方案"></a>😎解决方案</h1><p>利用<code>qs</code> 包 中的 <code>stringify</code> 方法格式化数据.</p>
+<p>具体：</p>
+<ul>
+<li>先安装该包 <code>npm install qs --save</code></li>
+<li>修改前端提交数据的格式</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> http.request(&#123;</span><br><span class="line">    method: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    url: <span class="string">&#x27;login&#x27;</span>,</span><br><span class="line">    data: qs.stringify(data)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试过后可以请求成功，狂喜~</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringSecurity</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringSecurity(二):整合mybatis</title>
     <url>/2021/07/12/SpringSecurity%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
     <content><![CDATA[<h1 id="构建数据库表"><a href="#构建数据库表" class="headerlink" title="构建数据库表"></a>构建数据库表</h1><ul>
@@ -2223,54 +2244,6 @@
       </categories>
       <tags>
         <tag>SpringSecurity</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringSecurity(四):结合Vue实现异步登录</title>
-    <url>/2021/07/16/SpringSecurity%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🏁问题分析"><a href="#🏁问题分析" class="headerlink" title="🏁问题分析"></a>🏁问题分析</h1><p>&emsp;&emsp;使用异步<code>axios</code>请求的方式进行登录与直接使用 <code>postman</code> 发送 <code>post</code> 请求进行测试 ，提交数据的方式似乎不太一样，<code>postman</code>能跑通，而使用<code>axios</code> ，后台<code>loadUserByusername</code>获取不到用户名，这就很奇怪，奈何看不太懂源码，主要是各种设计模式没学过以及底层的封装层数太多了，看的使人心累，于是开始逛论坛以及开源网站看别人的代码，后来才发现，<code>axios</code>提交的参数是存放在请求体当中的，而<code>SpringSecurity</code>中的处理逻辑使用了 <code>request.getParameter</code> 进行参数获取，有过原始表单或者 <code>servlet</code> 开发经验的人都知道 ， 此方法只能获取到类似于 <code>get</code>请求 以及 以原始表单格式提交的<code>post</code> 数据 ， 然而尝试过后发现 ，利用<code>axios</code>请求，将请求头设置一下，即<code>Content-Type: application/x-www-form-urlencoded``;charset=utf-8</code> ， 安全框架仍然解析不到<code>username</code>，此时心态已经崩了，然而就在此时，翻到一篇博客，记述到可以将传统原生的表单提交格式更改为 <code>get</code> 提交数据的数据格式，当然了只是更改了数据格式，并没有更改请求方式哈.</p>
-<h1 id="😎解决方案"><a href="#😎解决方案" class="headerlink" title="😎解决方案"></a>😎解决方案</h1><p>利用<code>qs</code> 包 中的 <code>stringify</code> 方法格式化数据.</p>
-<p>具体：</p>
-<ul>
-<li>先安装该包 <code>npm install qs --save</code></li>
-<li>修改前端提交数据的格式</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> http.request(&#123;</span><br><span class="line">    method: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    url: <span class="string">&#x27;login&#x27;</span>,</span><br><span class="line">    data: qs.stringify(data)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>测试过后可以请求成功，狂喜~</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringSecurity</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue(二):整合mavon-editor</title>
-    <url>/2021/07/22/Vue%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<blockquote>
-<p>前言：不得不说我还是太懒了，前端部分的文章一直没有写，不知道为什么没有什么兴致写，现在趁着有时间还是写写吧，Vue最近也算是用的有点感觉了，组件化思想有一说一，对于个人开发者而言，开发小型项目还是用后端模板写前端比较方便hhh.</p>
-</blockquote>
-<h1 id="🚀下载安装-mavon-editor"><a href="#🚀下载安装-mavon-editor" class="headerlink" title="🚀下载安装 mavon-editor"></a>🚀下载安装 mavon-editor</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install mavon-editor --save</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="🛰使用-mavon-editor"><a href="#🛰使用-mavon-editor" class="headerlink" title="🛰使用 mavon-editor"></a>🛰使用 mavon-editor</h1><h2 id="在需要的组件中使用"><a href="#在需要的组件中使用" class="headerlink" title="在需要的组件中使用"></a>在需要的组件中使用</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;mavon-editor v-model&#x3D;&quot;content&quot; </span><br><span class="line">                  :codeStyle&#x3D;&quot;codeStyle&quot;</span><br><span class="line">                  &#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; mavonEditor &#125; from &#39;mavon-editor&#39;</span><br><span class="line">import &#39;mavon-editor&#x2F;dist&#x2F;css&#x2F;index.css&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;MavonEditor&#39;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      content: &#39;&#39;,</span><br><span class="line">      codeStyle: &#39;主题&#39;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    mavonEditor</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>注意：<code>content</code> 保存的为md语法，<code>codeStyle</code>属性可以更换代码块的主题，具体有哪些主题可以参考一下  <a href="https://github.com/hinesboy/mavonEditor/blob/HEAD/src/lib/core/hljs/lang.hljs.css.js"><font color="red">可选主题表</font></a>  , 每一种主题的样式可以参考<a href="https://highlightjs.org/static/demo/"> <code>highlight.js</code>demo文档</a>  ， 更多相关的设置可以参考文档 : <a href="https://www.npmjs.com/package/mavon-editor">mavon-editor参考文档</a> </p>
-<h2 id="实现编辑器中实时图片上传"><a href="#实现编辑器中实时图片上传" class="headerlink" title="实现编辑器中实时图片上传"></a>实现编辑器中实时图片上传</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;mavon-editor ref&#x3D;md @imgAdd&#x3D;&quot;imgAdd&quot; @imgDel&#x3D;&quot;$imgDel&quot;&gt;&lt;&#x2F;mavon-editor&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    exports default &#123;</span><br><span class="line">    methods: &#123;</span><br><span class="line">        &#x2F;&#x2F; 绑定@imgAdd event</span><br><span class="line">        imgAdd(pos, $file)&#123;</span><br><span class="line">		   let _this &#x3D; this</span><br><span class="line">            &#x2F;&#x2F; 第一步.将图片上传到服务器.</span><br><span class="line">           var formdata &#x3D; new FormData();</span><br><span class="line">           formdata.append(&#39;image&#39;, $file);</span><br><span class="line">           axios(&#123;</span><br><span class="line">               url: &#39;图片上传api路径&#39;,</span><br><span class="line">               method: &#39;post&#39;,</span><br><span class="line">               data: formdata,</span><br><span class="line">               headers: &#123; &#39;Content-Type&#39;: &#39;multipart&#x2F;form-data&#39; &#125;,</span><br><span class="line">           &#125;).then((url) &#x3D;&gt; &#123;</span><br><span class="line">               _this.$refs.md.$img2Url(pos, url);</span><br><span class="line">           &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>上述的写法比较固定，按着如上方式写即可.</p>
-<p>注意替换的方式：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//将返回的url替换到文本原位置![...](0) -&gt; ![...](url)  替换方式为: $vm.$img2Url(pos , url)</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * $vm 指为mavonEditor实例，可以通过如下两种方式获取</span></span><br><span class="line"><span class="comment"> * 1. 通过引入对象获取: `import &#123;mavonEditor&#125; from ...` 等方式引入后，`$vm`为`mavonEditor`</span></span><br><span class="line"><span class="comment"> * 2. 通过$refs获取: html声明ref : `&lt;mavon-editor ref=md &gt;&lt;/mavon-editor&gt;，`$vm`为`this.$refs.md`</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Vue</category>
-      </categories>
-      <tags>
-        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
@@ -2341,6 +2314,142 @@
       </categories>
       <tags>
         <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue(二):整合mavon-editor</title>
+    <url>/2021/07/22/Vue%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<blockquote>
+<p>前言：不得不说我还是太懒了，前端部分的文章一直没有写，不知道为什么没有什么兴致写，现在趁着有时间还是写写吧，Vue最近也算是用的有点感觉了，组件化思想有一说一，对于个人开发者而言，开发小型项目还是用后端模板写前端比较方便hhh.</p>
+</blockquote>
+<h1 id="🚀下载安装-mavon-editor"><a href="#🚀下载安装-mavon-editor" class="headerlink" title="🚀下载安装 mavon-editor"></a>🚀下载安装 mavon-editor</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install mavon-editor --save</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="🛰使用-mavon-editor"><a href="#🛰使用-mavon-editor" class="headerlink" title="🛰使用 mavon-editor"></a>🛰使用 mavon-editor</h1><h2 id="在需要的组件中使用"><a href="#在需要的组件中使用" class="headerlink" title="在需要的组件中使用"></a>在需要的组件中使用</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;mavon-editor v-model&#x3D;&quot;content&quot; </span><br><span class="line">                  :codeStyle&#x3D;&quot;codeStyle&quot;</span><br><span class="line">                  &#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; mavonEditor &#125; from &#39;mavon-editor&#39;</span><br><span class="line">import &#39;mavon-editor&#x2F;dist&#x2F;css&#x2F;index.css&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;MavonEditor&#39;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      content: &#39;&#39;,</span><br><span class="line">      codeStyle: &#39;主题&#39;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    mavonEditor</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>注意：<code>content</code> 保存的为md语法，<code>codeStyle</code>属性可以更换代码块的主题，具体有哪些主题可以参考一下  <a href="https://github.com/hinesboy/mavonEditor/blob/HEAD/src/lib/core/hljs/lang.hljs.css.js"><font color="red">可选主题表</font></a>  , 每一种主题的样式可以参考<a href="https://highlightjs.org/static/demo/"> <code>highlight.js</code>demo文档</a>  ， 更多相关的设置可以参考文档 : <a href="https://www.npmjs.com/package/mavon-editor">mavon-editor参考文档</a> </p>
+<h2 id="实现编辑器中实时图片上传"><a href="#实现编辑器中实时图片上传" class="headerlink" title="实现编辑器中实时图片上传"></a>实现编辑器中实时图片上传</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;mavon-editor ref&#x3D;md @imgAdd&#x3D;&quot;imgAdd&quot; @imgDel&#x3D;&quot;$imgDel&quot;&gt;&lt;&#x2F;mavon-editor&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    exports default &#123;</span><br><span class="line">    methods: &#123;</span><br><span class="line">        &#x2F;&#x2F; 绑定@imgAdd event</span><br><span class="line">        imgAdd(pos, $file)&#123;</span><br><span class="line">		   let _this &#x3D; this</span><br><span class="line">            &#x2F;&#x2F; 第一步.将图片上传到服务器.</span><br><span class="line">           var formdata &#x3D; new FormData();</span><br><span class="line">           formdata.append(&#39;image&#39;, $file);</span><br><span class="line">           axios(&#123;</span><br><span class="line">               url: &#39;图片上传api路径&#39;,</span><br><span class="line">               method: &#39;post&#39;,</span><br><span class="line">               data: formdata,</span><br><span class="line">               headers: &#123; &#39;Content-Type&#39;: &#39;multipart&#x2F;form-data&#39; &#125;,</span><br><span class="line">           &#125;).then((url) &#x3D;&gt; &#123;</span><br><span class="line">               _this.$refs.md.$img2Url(pos, url);</span><br><span class="line">           &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上述的写法比较固定，按着如上方式写即可.</p>
+<p>注意替换的方式：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//将返回的url替换到文本原位置![...](0) -&gt; ![...](url)  替换方式为: $vm.$img2Url(pos , url)</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * $vm 指为mavonEditor实例，可以通过如下两种方式获取</span></span><br><span class="line"><span class="comment"> * 1. 通过引入对象获取: `import &#123;mavonEditor&#125; from ...` 等方式引入后，`$vm`为`mavonEditor`</span></span><br><span class="line"><span class="comment"> * 2. 通过$refs获取: html声明ref : `&lt;mavon-editor ref=md &gt;&lt;/mavon-editor&gt;，`$vm`为`this.$refs.md`</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代码版本管理工具Git</title>
+    <url>/2021/04/09/%E4%BB%A3%E7%A0%81%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Git/</url>
+    <content><![CDATA[<h1 id="🍔前言"><a href="#🍔前言" class="headerlink" title="🍔前言"></a>🍔前言</h1><p>&emsp;&emsp;在学习的 <code>Vue-Cli</code> 过程中涉及到<code>Git</code>的配置，由此才开始，虽然以前了解过 <code>Git</code> 但是并不知道 <code>Git</code> 具体能帮助我干什么，现在想来当时还是太年轻了哈，总的来说还是挺好用的。😁确信，也正是由此让我搭建了自己的博客····</p>
+<h1 id="🎉Git的相关介绍"><a href="#🎉Git的相关介绍" class="headerlink" title="🎉Git的相关介绍"></a>🎉Git的相关介绍</h1><p><strong>了解 <code>Git</code> 之前先来了解一下什么是版本控制？</strong></p>
+<blockquote>
+<p>&emsp;&emsp;版本控制（Revision control）是一种在开发的过程中用于管理我们对文件、目录或工程等内容的修改历史，方便查看更改历史记录，备份以便恢复以前的版本的软件工程技术。     </p>
+</blockquote>
+<ul>
+<li>实现跨区域多人协同开发</li>
+<li>追踪和记载一个或者多个文件的历史记录</li>
+<li>组织和保护你的源代码和文档</li>
+<li>统计工作量</li>
+<li>并行开发、提高开发效率</li>
+<li>跟踪记录整个软件的开发过程</li>
+<li>减轻开发人员的负担，节省时间，同时降低人为错误</li>
+</ul>
+<p>&emsp;&emsp;简单说就是用于管理多人协同开发项目的技术。</p>
+<p>&emsp;&emsp;没有进行版本控制或者版本控制本身缺乏正确的流程管理，在软件开发过程中将会引入很多问题，如软件代码的一致性、软件内容的冗余、软件过程的事物性、软件开发过程中的并发性、软件源代码的安全性，以及软件的整合等问题。</p>
+<p>&emsp;&emsp;无论是工作还是学习，或者是自己做笔记，都经历过这样一个阶段！我们就迫切需要一个版本控制工具！</p>
+<p>版本控制器有如下这些：</p>
+<ul>
+<li><strong>Git</strong></li>
+<li><strong>SVN</strong>（Subversion）</li>
+<li><strong>CVS</strong>（Concurrent Versions System）</li>
+<li><strong>VSS</strong>（Micorosoft Visual SourceSafe）</li>
+<li><strong>TFS</strong>（Team Foundation Server）</li>
+<li>Visual Studio Online</li>
+</ul>
+<p>版本控制产品非常的多（Perforce、Rational ClearCase、RCS（GNU Revision Control System）、Serena Dimention、SVK、BitKeeper、Monotone、Bazaar、Mercurial、SourceGear Vault），现在影响力最大且使用最广泛的是Git与SVN.</p>
+<p><strong>1、集中版本控制  SVN</strong></p>
+<p>&emsp;&emsp;所有的版本数据都保存在服务器上，协同开发者从服务器上同步更新或上传自己的修改，所有的版本数据都存在服务器上，用户的本地只有自己以前所同步的版本，如果不连网的话，用户就看不到历史版本，也无法切换版本验证问题，或在不同分支工作。而且，所有数据都保存在单一的服务器上，有很大的风险这个服务器会损坏，这样就会丢失所有的数据，当然可以定期备份。代表产品：SVN、CVS、VSS</p>
+<p><strong>2、分布式版本控制  Git</strong></p>
+<p>&emsp;&emsp;每个人都拥有全部的代码！安全隐患！</p>
+<p>&emsp;&emsp;所有版本信息仓库全部同步到本地的每个用户，这样就可以在本地查看所有版本历史，可以离线在本地提交，只需在连网时push到相应的服务器或其他用户那里。由于每个用户那里保存的都是所有的版本数据，只要有一个用户的设备没有问题就可以恢复所有的数据，但这增加了本地存储空间的占用，不会因为服务器损坏或者网络问题，造成不能工作的情况！</p>
+<p><strong>3.Git与SVN的主要区别</strong></p>
+<p>&emsp;&emsp;SVN是集中式版本控制系统，版本库是集中放在中央服务器的，而工作的时候，用的都是自己的电脑，所以首先要从中央服务器得到最新的版本，然后工作，完成工作后，需要把自己做完的活推送到中央服务器。集中式版本控制系统是必须联网才能工作，对网络带宽要求较高。</p>
+<p>&emsp;&emsp;Git是分布式版本控制系统，没有中央服务器，每个人的电脑就是一个完整的版本库，工作的时候不需要联网了，因为版本都在自己电脑上。协同的方法是这样的：比如说自己在电脑上改了文件A，其他人也在电脑上改了文件A，这时，你们两之间只需把各自的修改推送给对方，就可以互相看到对方的修改了。Git可以直接看到更新了哪些代码和文件！</p>
+<p><strong>Git是目前世界上最先进的分布式版本控制系统。</strong></p>
+<h1 id="🎈Git的安装"><a href="#🎈Git的安装" class="headerlink" title="🎈Git的安装"></a>🎈Git的安装</h1><p>&emsp;&emsp;通常情况下载 <a href="https://git-scm.com/"><code>Git</code></a> (点击跳转)在官网下载，由于属于国外网站，虽然文件小，但是下载速度极其慢，于是推荐使用 <a href="http://npm.taobao.org/mirrors/git-for-windows/"><code>淘宝镜像</code></a> (点击跳转)下载，是不是会疑惑什么是 <code>淘宝镜像</code> ？通俗的来讲，就是淘宝把国外网站的东西下好了放在国内的网站中，这样可以让我们高速下载，类似的还有 <code>阿里镜像</code> 也十分常用.</p>
+<p>&emsp;&emsp;回到正题，下载好之后，有一说一除了更改安装路径外，其余的都点next即可~~  安装的时候会帮助你配置好<code>环境变量</code>，其实 <code>Git</code> 的运行陪不配置都行，配置了之后只是让你在计算机的任意位置，鼠标右键进行选择可以使用 <code>Git Bash / Git GUI</code> .</p>
+<p>&emsp;&emsp;在进行进一步配置之前，建议先注册一个 <a href="https://gitee.com/"><code>Gitee/GitHub</code></a>  (点击跳转)的账号(此处以 <code>Gitee</code> 为例，没错就是因为 <code>Gitee</code> 是国内的访问比较快)，建议用英文名且全部小写不含空格的那种，用大写过后配置代码托管大概率会出问题，谁踩坑谁知道.</p>
+<p>&emsp;&emsp;接下来给出一些 <code>Git</code> 的常见命令(在 <code>Git Bash</code> 中使用)：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">#查看系统config</span><br><span class="line">git config --system --list</span><br><span class="line">　　</span><br><span class="line">#查看当前用户（global）配置</span><br><span class="line">git config --global  --list</span><br><span class="line"></span><br><span class="line">#设置用户昵称要与Gitee的用户名一致</span><br><span class="line">git config --global user.name &quot;username&quot; </span><br><span class="line"></span><br><span class="line">#设置用户邮箱,如果Gitee绑定了，也用一样的就行</span><br><span class="line">git config --global user.email &quot;youremail&quot;   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 进入 C:\Users\Administrator\.ssh 目录 如果没有自己就建一个</span><br><span class="line"># 生成公钥,过后会在.ssh中生成一个 id_rsa 以及 id_rsa.pub  分别为私人秘钥和公开秘钥 ，公开秘钥可以解密为私钥</span><br><span class="line">#我们过后配置托管仓库会用到 公钥</span><br><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;至此安装和相关配置已经完成，接下来会介绍Linux的常用命令</p>
+<h1 id="✨常用Linux命令"><a href="#✨常用Linux命令" class="headerlink" title="✨常用Linux命令"></a>✨常用Linux命令</h1><p>常用命令如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">1）、cd : 改变目录。</span><br><span class="line"></span><br><span class="line">2）、cd . . 回退到上一个目录，直接cd进入默认目录</span><br><span class="line"></span><br><span class="line">3）、pwd : 显示当前所在的目录路径。</span><br><span class="line"></span><br><span class="line">4）、ls(ll):  都是列出当前目录中的所有文件，只不过ll(两个ll)列出的内容更为详细。</span><br><span class="line"></span><br><span class="line">5）、touch : 新建一个文件 如 touch index.js 就会在当前目录下新建一个index.js文件。</span><br><span class="line"></span><br><span class="line">6）、rm:  删除一个文件, rm index.js 就会把index.js文件删除。</span><br><span class="line"></span><br><span class="line">7）、mkdir:  新建一个目录,就是新建一个文件夹。</span><br><span class="line"></span><br><span class="line">8）、rm -r :  删除一个文件夹, rm -r src 删除src目录</span><br><span class="line"></span><br><span class="line">rm -rf / 切勿在Linux中尝试！删除电脑中全部文件！</span><br><span class="line"></span><br><span class="line">9）、mv 移动文件, mv index.html src index.html 是我们要移动的文件, src 是目标文件夹,当然, 这样写,必须保证文件和目标文件夹在同一目录下。</span><br><span class="line"></span><br><span class="line">10）、reset 重新初始化终端/清屏。</span><br><span class="line"></span><br><span class="line">11）、clear 清屏。</span><br><span class="line"></span><br><span class="line">12）、history 查看命令历史。</span><br><span class="line"></span><br><span class="line">13）、help 帮助。</span><br><span class="line"></span><br><span class="line">14）、exit 退出。</span><br><span class="line"></span><br><span class="line">15）、#表示注释</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="🎄Git的工作流程"><a href="#🎄Git的工作流程" class="headerlink" title="🎄Git的工作流程"></a>🎄Git的工作流程</h1><p>下面将给出Git的工作流程图：</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2015/02/git-process.png" alt="工作流程"></p>
+<p>接下来理解下 Git 工作区、暂存区和版本库概念：</p>
+<ul>
+<li><strong>工作区：</strong>就是你在电脑里能看到的目录。</li>
+<li><strong>暂存区：</strong>英文叫 stage 或 index。一般存放在 <strong>.git</strong> 目录下的 index 文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。</li>
+<li><strong>版本库：</strong>工作区有一个隐藏目录 <strong>.git</strong>，这个不算工作区，而是 Git 的版本库。</li>
+</ul>
+<p>下面这个图展示了工作区、版本库中的暂存区和版本库之间的关系：</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2015/02/1352126739_7909.jpg" alt="img"></p>
+<ul>
+<li>图中左侧为工作区，右侧为版本库。在版本库中标记为 “index” 的区域是暂存区（stage/index），标记为 “master” 的是 master 分支所代表的目录树。</li>
+<li>图中我们可以看出此时 “HEAD” 实际是指向 master 分支的一个”游标”。所以图示的命令中出现 HEAD 的地方可以用 master 来替换。</li>
+<li>图中的 objects 标识的区域为 Git 的对象库，实际位于 “.git/objects” 目录下，里面包含了创建的各种对象及内容。</li>
+<li>当对工作区修改（或新增）的文件执行 <strong>git add</strong> 命令时，暂存区的目录树被更新，同时工作区修改（或新增）的文件内容被写入到对象库中的一个新的对象中，而该对象的ID被记录在暂存区的文件索引中。</li>
+<li>当执行提交操作（git commit）时，暂存区的目录树写到版本库（对象库）中，master 分支会做相应的更新。即 master 指向的目录树就是提交时暂存区的目录树。</li>
+</ul>
+<p><strong>主要流程</strong>：</p>
+<p>&emsp;&emsp;1<code>.git</code> 同文件工作区在 <code>Git Bash</code> 中  通过 <code>git add (.git目录下文件名/. )</code> 向暂存区中添加文件</p>
+<p>&emsp;&emsp;2. 再通过 <code>git commit -m &quot;备注信息(必须写)&quot;</code>将暂存区中的文件提交到版本库中</p>
+<p>&emsp;&emsp;3. 如果有配置远程的仓库，则需要最后通过 <code>git push -u origin 分支名</code> 进行远程和本地的代码同步</p>
+<h1 id="📮搭建远程仓库"><a href="#📮搭建远程仓库" class="headerlink" title="📮搭建远程仓库"></a>📮搭建远程仓库</h1><p>&emsp;&emsp;现在终于要用到那个秘钥了：</p>
+<blockquote>
+<p>生成公钥,过后会在.ssh中生成一个 id_rsa 以及 id_rsa.pub  分别为私人秘钥和公开秘钥 ，公开秘钥可以解密为私钥</p>
+</blockquote>
+<p>&emsp;&emsp;<strong>1. 首先在Gitee上创建自己仓库，选择语言以及初始化条件，推荐选择README，具体可以自行研究</strong></p>
+<p>&emsp;&emsp;<strong>2. 复制<code>id_rsa.pub</code> 中的内容，然后在Gitee中：设置 —&gt; SSH公钥 —&gt; 添加公钥 —&gt;粘贴 (标题自填) —&gt; 保存</strong></p>
+<p>总的来说远程仓库已经搭建完毕，现在就需要进行下一步，将本地仓库与远程仓库进行连接.</p>
+<p><strong>初始化本地仓库</strong></p>
+<p>&emsp;&emsp;初始化的方式分为2种，一种为本地在 <code>Git Bash</code> 中使用 <code>git init</code> 进行初始化；</p>
+<p>&emsp;&emsp;第二种方式为在 <code>Git Bash</code> 中对远程仓库进行克隆 ，命令为 <code>git clone URL(克隆/下载中的https链接)</code></p>
+<p><strong>本地仓库与远程仓库建立连接</strong></p>
+<p>&emsp;&emsp;进行如下命令前别忘记了对本地工作区目录进行 <code>add</code> 以及 <code>commit</code></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">$ git remote add origin SSH链接  //为远程Git更名为origin，SSH链接在Gitee中的仓库里选择 克隆/下载 复制SSH链接即可</span><br><span class="line"></span><br><span class="line">$ git pull --rebase origin master//如果远程仓库初始化了readme文件，需要拉下来同步代码</span><br><span class="line"></span><br><span class="line">$ git push -u origin master //推送此次修改,后面再次提交就可以直接git push </span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>注意：如若在新的本地仓库中提交新文件，需要将远程仓库的代码  <code>git pull --rebase origin master</code>  拉下来然后再进行 <code>push</code> 即可 ， 不然会报错，至于原因，假设本地仓库只有一个文件，远程仓库有很多文件，如果直接提交，总不能拿一个文件直接覆盖掉远程仓库的所有文件吧，会造成文件缺失，这个机制还是非常人性化的哈.</strong></p>
+<h1 id="⚽IDE中集成Git"><a href="#⚽IDE中集成Git" class="headerlink" title="⚽IDE中集成Git"></a>⚽IDE中集成Git</h1><p>&emsp;&emsp;我只在 <code>Jetbrains</code> 家中的 <code>IDE</code> 进行了测试，所以就用其中的 <code>idea</code> 来举例说明， 只需要将你初始化本地仓库创建的 <code>.git</code> 文件复制到该工程下，如下图所示，即可</p>
+<img src="/2021/04/09/%E4%BB%A3%E7%A0%81%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Git/1.png" class title="示例1">
+
+
+
+<p>&emsp;&emsp;或者直接在该路径下，在 <code>Git Bash</code> 中输入命令 <code>git init</code> 进行初始化，也可以产生 <code>.git</code> 文件 ， 过后就可以在  <code>idea</code> 中的终端输入命令进行操作，就跟在 <code>Git Bash</code> 中的操作一样</p>
+<img src="/2021/04/09/%E4%BB%A3%E7%A0%81%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Git/2.png" class title="示例2">
+
+
+
+<p>如上图，这是IDE中终端的打开方式~~</p>
+<h1 id="待后续更新-Git中的分支操作-以及更多细节部分······"><a href="#待后续更新-Git中的分支操作-以及更多细节部分······" class="headerlink" title="待后续更新 Git中的分支操作 以及更多细节部分······"></a>待后续更新 Git中的分支操作 以及更多细节部分······</h1>]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -2459,145 +2568,6 @@
       </tags>
   </entry>
   <entry>
-    <title>每日一题(三):双指针算法</title>
-    <url>/2021/06/15/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%89%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🚠双指针算法"><a href="#🚠双指针算法" class="headerlink" title="🚠双指针算法"></a>🚠双指针算法</h1><p>范式：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; n; i ++ )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span> (j &lt; i &amp;&amp; <span class="built_in">check</span>(i, j)) j ++ ;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 具体问题的逻辑</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><img src="/2021/06/15/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%89%EF%BC%89/1.png" class title="题目">
-
-<p>原题链接：<a href="https://www.acwing.com/problem/content/801/">最长连续不重复子序列</a></p>
-<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>利用双指针，形成数的连续区间，指针<code>j</code>位于区间头部，<code>i</code>位于区间尾部，当指针<code>i</code> 不断向后遍历的时候，如果区间中存在相同的数，则指针<code>j</code>向前移动直到区间内没有重复的数字，指针<code>j</code> 最远移动到和指针<code>i</code>重合的位置，那么不重复的连续区间长度即指针<code>i</code>与指针<code>j</code>之间的距离.</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">100010</span>;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="comment">//q数组用于记录原来的数组</span></span><br><span class="line"><span class="comment">//s数组用于记录指针区间内q数组中每个数的出现次数</span></span><br><span class="line"><span class="keyword">int</span> q[N], s[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++ ) cin &gt;&gt; q[i];</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; n; i ++ )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//s数组存储的是q数组中每个数的出现次数</span></span><br><span class="line">        s[q[i]] ++ ;</span><br><span class="line">        <span class="comment">//当指针i在向右进行扫描的时候出现了重复的数字则s数组中对应的值必然大于 1</span></span><br><span class="line">        <span class="comment">//如果出现 区间 出现重复的数字，先将指针j处指向的数组数字出现次数 -1 (s数组记录的是两个指针之间的数字的出现的次数)</span></span><br><span class="line">        <span class="comment">//再将指针 j 向后移动(出现重复数字必然是指针j处和指针i处的值)</span></span><br><span class="line">        <span class="keyword">while</span> (j &lt; i &amp;&amp; s[q[i]] &gt; <span class="number">1</span>) s[q[j]]-- , j++ ;</span><br><span class="line">        <span class="comment">//获取区间长度</span></span><br><span class="line">        res = <span class="built_in">max</span>(res, i - j + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; res &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> N = <span class="number">100010</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[N], perSum = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">static</span> BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        n = Integer.parseInt(reader.readLine());</span><br><span class="line">        String[] arrStrs = reader.readLine().split(<span class="string">&quot;\\s+&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            arr[i] = Integer.parseInt(arrStrs[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            perSum[arr[i]]++;</span><br><span class="line">            <span class="keyword">while</span>(perSum[arr[i]] &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                perSum[arr[j]]--;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            count = Math.max(count, i - j + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(count);</span><br><span class="line">        reader.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>代码版本管理工具Git</title>
-    <url>/2021/04/09/%E4%BB%A3%E7%A0%81%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Git/</url>
-    <content><![CDATA[<h1 id="🍔前言"><a href="#🍔前言" class="headerlink" title="🍔前言"></a>🍔前言</h1><p>&emsp;&emsp;在学习的 <code>Vue-Cli</code> 过程中涉及到<code>Git</code>的配置，由此才开始，虽然以前了解过 <code>Git</code> 但是并不知道 <code>Git</code> 具体能帮助我干什么，现在想来当时还是太年轻了哈，总的来说还是挺好用的。😁确信，也正是由此让我搭建了自己的博客····</p>
-<h1 id="🎉Git的相关介绍"><a href="#🎉Git的相关介绍" class="headerlink" title="🎉Git的相关介绍"></a>🎉Git的相关介绍</h1><p><strong>了解 <code>Git</code> 之前先来了解一下什么是版本控制？</strong></p>
-<blockquote>
-<p>&emsp;&emsp;版本控制（Revision control）是一种在开发的过程中用于管理我们对文件、目录或工程等内容的修改历史，方便查看更改历史记录，备份以便恢复以前的版本的软件工程技术。     </p>
-</blockquote>
-<ul>
-<li>实现跨区域多人协同开发</li>
-<li>追踪和记载一个或者多个文件的历史记录</li>
-<li>组织和保护你的源代码和文档</li>
-<li>统计工作量</li>
-<li>并行开发、提高开发效率</li>
-<li>跟踪记录整个软件的开发过程</li>
-<li>减轻开发人员的负担，节省时间，同时降低人为错误</li>
-</ul>
-<p>&emsp;&emsp;简单说就是用于管理多人协同开发项目的技术。</p>
-<p>&emsp;&emsp;没有进行版本控制或者版本控制本身缺乏正确的流程管理，在软件开发过程中将会引入很多问题，如软件代码的一致性、软件内容的冗余、软件过程的事物性、软件开发过程中的并发性、软件源代码的安全性，以及软件的整合等问题。</p>
-<p>&emsp;&emsp;无论是工作还是学习，或者是自己做笔记，都经历过这样一个阶段！我们就迫切需要一个版本控制工具！</p>
-<p>版本控制器有如下这些：</p>
-<ul>
-<li><strong>Git</strong></li>
-<li><strong>SVN</strong>（Subversion）</li>
-<li><strong>CVS</strong>（Concurrent Versions System）</li>
-<li><strong>VSS</strong>（Micorosoft Visual SourceSafe）</li>
-<li><strong>TFS</strong>（Team Foundation Server）</li>
-<li>Visual Studio Online</li>
-</ul>
-<p>版本控制产品非常的多（Perforce、Rational ClearCase、RCS（GNU Revision Control System）、Serena Dimention、SVK、BitKeeper、Monotone、Bazaar、Mercurial、SourceGear Vault），现在影响力最大且使用最广泛的是Git与SVN.</p>
-<p><strong>1、集中版本控制  SVN</strong></p>
-<p>&emsp;&emsp;所有的版本数据都保存在服务器上，协同开发者从服务器上同步更新或上传自己的修改，所有的版本数据都存在服务器上，用户的本地只有自己以前所同步的版本，如果不连网的话，用户就看不到历史版本，也无法切换版本验证问题，或在不同分支工作。而且，所有数据都保存在单一的服务器上，有很大的风险这个服务器会损坏，这样就会丢失所有的数据，当然可以定期备份。代表产品：SVN、CVS、VSS</p>
-<p><strong>2、分布式版本控制  Git</strong></p>
-<p>&emsp;&emsp;每个人都拥有全部的代码！安全隐患！</p>
-<p>&emsp;&emsp;所有版本信息仓库全部同步到本地的每个用户，这样就可以在本地查看所有版本历史，可以离线在本地提交，只需在连网时push到相应的服务器或其他用户那里。由于每个用户那里保存的都是所有的版本数据，只要有一个用户的设备没有问题就可以恢复所有的数据，但这增加了本地存储空间的占用，不会因为服务器损坏或者网络问题，造成不能工作的情况！</p>
-<p><strong>3.Git与SVN的主要区别</strong></p>
-<p>&emsp;&emsp;SVN是集中式版本控制系统，版本库是集中放在中央服务器的，而工作的时候，用的都是自己的电脑，所以首先要从中央服务器得到最新的版本，然后工作，完成工作后，需要把自己做完的活推送到中央服务器。集中式版本控制系统是必须联网才能工作，对网络带宽要求较高。</p>
-<p>&emsp;&emsp;Git是分布式版本控制系统，没有中央服务器，每个人的电脑就是一个完整的版本库，工作的时候不需要联网了，因为版本都在自己电脑上。协同的方法是这样的：比如说自己在电脑上改了文件A，其他人也在电脑上改了文件A，这时，你们两之间只需把各自的修改推送给对方，就可以互相看到对方的修改了。Git可以直接看到更新了哪些代码和文件！</p>
-<p><strong>Git是目前世界上最先进的分布式版本控制系统。</strong></p>
-<h1 id="🎈Git的安装"><a href="#🎈Git的安装" class="headerlink" title="🎈Git的安装"></a>🎈Git的安装</h1><p>&emsp;&emsp;通常情况下载 <a href="https://git-scm.com/"><code>Git</code></a> (点击跳转)在官网下载，由于属于国外网站，虽然文件小，但是下载速度极其慢，于是推荐使用 <a href="http://npm.taobao.org/mirrors/git-for-windows/"><code>淘宝镜像</code></a> (点击跳转)下载，是不是会疑惑什么是 <code>淘宝镜像</code> ？通俗的来讲，就是淘宝把国外网站的东西下好了放在国内的网站中，这样可以让我们高速下载，类似的还有 <code>阿里镜像</code> 也十分常用.</p>
-<p>&emsp;&emsp;回到正题，下载好之后，有一说一除了更改安装路径外，其余的都点next即可~~  安装的时候会帮助你配置好<code>环境变量</code>，其实 <code>Git</code> 的运行陪不配置都行，配置了之后只是让你在计算机的任意位置，鼠标右键进行选择可以使用 <code>Git Bash / Git GUI</code> .</p>
-<p>&emsp;&emsp;在进行进一步配置之前，建议先注册一个 <a href="https://gitee.com/"><code>Gitee/GitHub</code></a>  (点击跳转)的账号(此处以 <code>Gitee</code> 为例，没错就是因为 <code>Gitee</code> 是国内的访问比较快)，建议用英文名且全部小写不含空格的那种，用大写过后配置代码托管大概率会出问题，谁踩坑谁知道.</p>
-<p>&emsp;&emsp;接下来给出一些 <code>Git</code> 的常见命令(在 <code>Git Bash</code> 中使用)：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">#查看系统config</span><br><span class="line">git config --system --list</span><br><span class="line">　　</span><br><span class="line">#查看当前用户（global）配置</span><br><span class="line">git config --global  --list</span><br><span class="line"></span><br><span class="line">#设置用户昵称要与Gitee的用户名一致</span><br><span class="line">git config --global user.name &quot;username&quot; </span><br><span class="line"></span><br><span class="line">#设置用户邮箱,如果Gitee绑定了，也用一样的就行</span><br><span class="line">git config --global user.email &quot;youremail&quot;   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 进入 C:\Users\Administrator\.ssh 目录 如果没有自己就建一个</span><br><span class="line"># 生成公钥,过后会在.ssh中生成一个 id_rsa 以及 id_rsa.pub  分别为私人秘钥和公开秘钥 ，公开秘钥可以解密为私钥</span><br><span class="line">#我们过后配置托管仓库会用到 公钥</span><br><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
-
-<p>&emsp;&emsp;至此安装和相关配置已经完成，接下来会介绍Linux的常用命令</p>
-<h1 id="✨常用Linux命令"><a href="#✨常用Linux命令" class="headerlink" title="✨常用Linux命令"></a>✨常用Linux命令</h1><p>常用命令如下：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">1）、cd : 改变目录。</span><br><span class="line"></span><br><span class="line">2）、cd . . 回退到上一个目录，直接cd进入默认目录</span><br><span class="line"></span><br><span class="line">3）、pwd : 显示当前所在的目录路径。</span><br><span class="line"></span><br><span class="line">4）、ls(ll):  都是列出当前目录中的所有文件，只不过ll(两个ll)列出的内容更为详细。</span><br><span class="line"></span><br><span class="line">5）、touch : 新建一个文件 如 touch index.js 就会在当前目录下新建一个index.js文件。</span><br><span class="line"></span><br><span class="line">6）、rm:  删除一个文件, rm index.js 就会把index.js文件删除。</span><br><span class="line"></span><br><span class="line">7）、mkdir:  新建一个目录,就是新建一个文件夹。</span><br><span class="line"></span><br><span class="line">8）、rm -r :  删除一个文件夹, rm -r src 删除src目录</span><br><span class="line"></span><br><span class="line">rm -rf / 切勿在Linux中尝试！删除电脑中全部文件！</span><br><span class="line"></span><br><span class="line">9）、mv 移动文件, mv index.html src index.html 是我们要移动的文件, src 是目标文件夹,当然, 这样写,必须保证文件和目标文件夹在同一目录下。</span><br><span class="line"></span><br><span class="line">10）、reset 重新初始化终端/清屏。</span><br><span class="line"></span><br><span class="line">11）、clear 清屏。</span><br><span class="line"></span><br><span class="line">12）、history 查看命令历史。</span><br><span class="line"></span><br><span class="line">13）、help 帮助。</span><br><span class="line"></span><br><span class="line">14）、exit 退出。</span><br><span class="line"></span><br><span class="line">15）、#表示注释</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h1 id="🎄Git的工作流程"><a href="#🎄Git的工作流程" class="headerlink" title="🎄Git的工作流程"></a>🎄Git的工作流程</h1><p>下面将给出Git的工作流程图：</p>
-<p><img src="https://www.runoob.com/wp-content/uploads/2015/02/git-process.png" alt="工作流程"></p>
-<p>接下来理解下 Git 工作区、暂存区和版本库概念：</p>
-<ul>
-<li><strong>工作区：</strong>就是你在电脑里能看到的目录。</li>
-<li><strong>暂存区：</strong>英文叫 stage 或 index。一般存放在 <strong>.git</strong> 目录下的 index 文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。</li>
-<li><strong>版本库：</strong>工作区有一个隐藏目录 <strong>.git</strong>，这个不算工作区，而是 Git 的版本库。</li>
-</ul>
-<p>下面这个图展示了工作区、版本库中的暂存区和版本库之间的关系：</p>
-<p><img src="https://www.runoob.com/wp-content/uploads/2015/02/1352126739_7909.jpg" alt="img"></p>
-<ul>
-<li>图中左侧为工作区，右侧为版本库。在版本库中标记为 “index” 的区域是暂存区（stage/index），标记为 “master” 的是 master 分支所代表的目录树。</li>
-<li>图中我们可以看出此时 “HEAD” 实际是指向 master 分支的一个”游标”。所以图示的命令中出现 HEAD 的地方可以用 master 来替换。</li>
-<li>图中的 objects 标识的区域为 Git 的对象库，实际位于 “.git/objects” 目录下，里面包含了创建的各种对象及内容。</li>
-<li>当对工作区修改（或新增）的文件执行 <strong>git add</strong> 命令时，暂存区的目录树被更新，同时工作区修改（或新增）的文件内容被写入到对象库中的一个新的对象中，而该对象的ID被记录在暂存区的文件索引中。</li>
-<li>当执行提交操作（git commit）时，暂存区的目录树写到版本库（对象库）中，master 分支会做相应的更新。即 master 指向的目录树就是提交时暂存区的目录树。</li>
-</ul>
-<p><strong>主要流程</strong>：</p>
-<p>&emsp;&emsp;1<code>.git</code> 同文件工作区在 <code>Git Bash</code> 中  通过 <code>git add (.git目录下文件名/. )</code> 向暂存区中添加文件</p>
-<p>&emsp;&emsp;2. 再通过 <code>git commit -m &quot;备注信息(必须写)&quot;</code>将暂存区中的文件提交到版本库中</p>
-<p>&emsp;&emsp;3. 如果有配置远程的仓库，则需要最后通过 <code>git push -u origin 分支名</code> 进行远程和本地的代码同步</p>
-<h1 id="📮搭建远程仓库"><a href="#📮搭建远程仓库" class="headerlink" title="📮搭建远程仓库"></a>📮搭建远程仓库</h1><p>&emsp;&emsp;现在终于要用到那个秘钥了：</p>
-<blockquote>
-<p>生成公钥,过后会在.ssh中生成一个 id_rsa 以及 id_rsa.pub  分别为私人秘钥和公开秘钥 ，公开秘钥可以解密为私钥</p>
-</blockquote>
-<p>&emsp;&emsp;<strong>1. 首先在Gitee上创建自己仓库，选择语言以及初始化条件，推荐选择README，具体可以自行研究</strong></p>
-<p>&emsp;&emsp;<strong>2. 复制<code>id_rsa.pub</code> 中的内容，然后在Gitee中：设置 —&gt; SSH公钥 —&gt; 添加公钥 —&gt;粘贴 (标题自填) —&gt; 保存</strong></p>
-<p>总的来说远程仓库已经搭建完毕，现在就需要进行下一步，将本地仓库与远程仓库进行连接.</p>
-<p><strong>初始化本地仓库</strong></p>
-<p>&emsp;&emsp;初始化的方式分为2种，一种为本地在 <code>Git Bash</code> 中使用 <code>git init</code> 进行初始化；</p>
-<p>&emsp;&emsp;第二种方式为在 <code>Git Bash</code> 中对远程仓库进行克隆 ，命令为 <code>git clone URL(克隆/下载中的https链接)</code></p>
-<p><strong>本地仓库与远程仓库建立连接</strong></p>
-<p>&emsp;&emsp;进行如下命令前别忘记了对本地工作区目录进行 <code>add</code> 以及 <code>commit</code></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">$ git remote add origin SSH链接  //为远程Git更名为origin，SSH链接在Gitee中的仓库里选择 克隆/下载 复制SSH链接即可</span><br><span class="line"></span><br><span class="line">$ git pull --rebase origin master//如果远程仓库初始化了readme文件，需要拉下来同步代码</span><br><span class="line"></span><br><span class="line">$ git push -u origin master //推送此次修改,后面再次提交就可以直接git push </span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><strong>注意：如若在新的本地仓库中提交新文件，需要将远程仓库的代码  <code>git pull --rebase origin master</code>  拉下来然后再进行 <code>push</code> 即可 ， 不然会报错，至于原因，假设本地仓库只有一个文件，远程仓库有很多文件，如果直接提交，总不能拿一个文件直接覆盖掉远程仓库的所有文件吧，会造成文件缺失，这个机制还是非常人性化的哈.</strong></p>
-<h1 id="⚽IDE中集成Git"><a href="#⚽IDE中集成Git" class="headerlink" title="⚽IDE中集成Git"></a>⚽IDE中集成Git</h1><p>&emsp;&emsp;我只在 <code>Jetbrains</code> 家中的 <code>IDE</code> 进行了测试，所以就用其中的 <code>idea</code> 来举例说明， 只需要将你初始化本地仓库创建的 <code>.git</code> 文件复制到该工程下，如下图所示，即可</p>
-<img src="/2021/04/09/%E4%BB%A3%E7%A0%81%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Git/1.png" class title="示例1">
-
-
-
-<p>&emsp;&emsp;或者直接在该路径下，在 <code>Git Bash</code> 中输入命令 <code>git init</code> 进行初始化，也可以产生 <code>.git</code> 文件 ， 过后就可以在  <code>idea</code> 中的终端输入命令进行操作，就跟在 <code>Git Bash</code> 中的操作一样</p>
-<img src="/2021/04/09/%E4%BB%A3%E7%A0%81%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7Git/2.png" class title="示例2">
-
-
-
-<p>如上图，这是IDE中终端的打开方式~~</p>
-<h1 id="待后续更新-Git中的分支操作-以及更多细节部分······"><a href="#待后续更新-Git中的分支操作-以及更多细节部分······" class="headerlink" title="待后续更新 Git中的分支操作 以及更多细节部分······"></a>待后续更新 Git中的分支操作 以及更多细节部分······</h1>]]></content>
-      <categories>
-        <category>Git</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>每日一题(一):快速排序</title>
     <url>/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🚡快速排序"><a href="#🚡快速排序" class="headerlink" title="🚡快速排序"></a>🚡快速排序</h1><blockquote>
@@ -2655,21 +2625,26 @@
       </tags>
   </entry>
   <entry>
-    <title>每日一题(二):双指针算法</title>
-    <url>/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🎃双指针算法"><a href="#🎃双指针算法" class="headerlink" title="🎃双指针算法"></a>🎃双指针算法</h1><p>何为双指针？其实在算法中是一种技巧性的东西，这个指针也并非如同<code>C语言</code> 那种指针，只是一种标识，用于表示状态，很凑巧，在上一篇每日一题中的快速排序就使用了双指针算法,十分经典，并且属于对撞指针（通俗的讲就是相向扫描），当然了，既然有相向扫描，也肯定有同向扫描，比较常用于字符串比对，分治之中.</p>
-<p>突然有个不错的想法，每日一题连续更新同一类型的题目，这样有便于全面掌握一种算法.</p>
-<p>这里附上上一篇文章的链接以供复习.</p>
-<p><a href="https://soul-pe.gitee.io/shdsoul/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">每日一题(一):快速排序</a></p>
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><img src="/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/1.png" class title="题目">
-
-<p>题目来源：Acwing：<a href="https://www.acwing.com/problem/content/description/773/">原题链接</a></p>
-<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>我们只需要，遍历每一个字符，然后将字符与后方的字符逐一比较，相同则继续向后比较并记录连续次数，不同则停止比较，继续向后方遍历即可.</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串</span></span><br><span class="line">    string str;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串数量</span></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="comment">//当 n 为 0 的时候停止输入</span></span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        cin &gt;&gt; str;</span><br><span class="line">        <span class="comment">//定义最大长度为 -1</span></span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">-1</span>;</span><br><span class="line">        <span class="comment">//记录最多重复的字符</span></span><br><span class="line">        string maxs;</span><br><span class="line">        <span class="comment">//指针i :遍历输入的字符</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; str.<span class="built_in">size</span>() ; i++)&#123;</span><br><span class="line">            <span class="comment">//指针j :用于字符串比较</span></span><br><span class="line">            <span class="keyword">int</span> j = i; <span class="comment">//由于要求连续,所以默认开始扫描的地方为 指针i 的位置,只需要遍历后面，不需要管前面</span></span><br><span class="line">            <span class="keyword">int</span> nums = <span class="number">0</span>;<span class="comment">//用于记录连续次数</span></span><br><span class="line">            <span class="comment">//当指针j指向的值与指针i指向的值相同的时候,并且j指针没有越界的时候</span></span><br><span class="line">            <span class="keyword">while</span>(str[j] == str[i] &amp;&amp; j &lt; str.<span class="built_in">size</span>())</span><br><span class="line">                <span class="comment">//指针j向后移动,连续次数自增1</span></span><br><span class="line">                j++ , nums++;</span><br><span class="line">            <span class="comment">//如果连续次数大于最大值则进行记录,并且记录当前字符    </span></span><br><span class="line">            <span class="keyword">if</span>(nums &gt; max)</span><br><span class="line">                max = nums,maxs = str[i];</span><br><span class="line">            <span class="comment">//当指针j停止移动时,[i,j)区间中必然全是相同的字符,此时 i只需要从j的位置开始继续遍历即可</span></span><br><span class="line">            i = j <span class="number">-1</span>;<span class="comment">//这里减1,是为了抵消掉循环中的 i++</span></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; nums &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; max;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>每日一题(三):双指针算法</title>
+    <url>/2021/06/15/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%89%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🚠双指针算法"><a href="#🚠双指针算法" class="headerlink" title="🚠双指针算法"></a>🚠双指针算法</h1><p>范式：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; n; i ++ )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span> (j &lt; i &amp;&amp; <span class="built_in">check</span>(i, j)) j ++ ;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 具体问题的逻辑</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">int</span> n = Integer.parseInt(reader.readLine());</span><br><span class="line">        <span class="keyword">while</span>(n-- != <span class="number">0</span>)&#123;</span><br><span class="line">            String s = reader.readLine();</span><br><span class="line">            <span class="keyword">char</span> c = <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">            <span class="keyword">int</span> max = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; s.length() ; i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> j = i;</span><br><span class="line">                <span class="keyword">int</span> nums = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span>(j &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(j))&#123; </span><br><span class="line">                    j++;</span><br><span class="line">                    nums++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(nums &gt; max)&#123;</span><br><span class="line">                    max = nums ;</span><br><span class="line">                    c = s.charAt(i);</span><br><span class="line">                &#125;</span><br><span class="line">                i = j - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(c + <span class="string">&quot; &quot;</span> + max);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><img src="/2021/06/15/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%89%EF%BC%89/1.png" class title="题目">
+
+<p>原题链接：<a href="https://www.acwing.com/problem/content/801/">最长连续不重复子序列</a></p>
+<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>利用双指针，形成数的连续区间，指针<code>j</code>位于区间头部，<code>i</code>位于区间尾部，当指针<code>i</code> 不断向后遍历的时候，如果区间中存在相同的数，则指针<code>j</code>向前移动直到区间内没有重复的数字，指针<code>j</code> 最远移动到和指针<code>i</code>重合的位置，那么不重复的连续区间长度即指针<code>i</code>与指针<code>j</code>之间的距离.</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">100010</span>;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="comment">//q数组用于记录原来的数组</span></span><br><span class="line"><span class="comment">//s数组用于记录指针区间内q数组中每个数的出现次数</span></span><br><span class="line"><span class="keyword">int</span> q[N], s[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++ ) cin &gt;&gt; q[i];</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; n; i ++ )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//s数组存储的是q数组中每个数的出现次数</span></span><br><span class="line">        s[q[i]] ++ ;</span><br><span class="line">        <span class="comment">//当指针i在向右进行扫描的时候出现了重复的数字则s数组中对应的值必然大于 1</span></span><br><span class="line">        <span class="comment">//如果出现 区间 出现重复的数字，先将指针j处指向的数组数字出现次数 -1 (s数组记录的是两个指针之间的数字的出现的次数)</span></span><br><span class="line">        <span class="comment">//再将指针 j 向后移动(出现重复数字必然是指针j处和指针i处的值)</span></span><br><span class="line">        <span class="keyword">while</span> (j &lt; i &amp;&amp; s[q[i]] &gt; <span class="number">1</span>) s[q[j]]-- , j++ ;</span><br><span class="line">        <span class="comment">//获取区间长度</span></span><br><span class="line">        res = <span class="built_in">max</span>(res, i - j + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; res &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> N = <span class="number">100010</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[N], perSum = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">static</span> BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        n = Integer.parseInt(reader.readLine());</span><br><span class="line">        String[] arrStrs = reader.readLine().split(<span class="string">&quot;\\s+&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            arr[i] = Integer.parseInt(arrStrs[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            perSum[arr[i]]++;</span><br><span class="line">            <span class="keyword">while</span>(perSum[arr[i]] &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                perSum[arr[j]]--;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            count = Math.max(count, i - j + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(count);</span><br><span class="line">        reader.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
 
 ]]></content>
       <categories>
@@ -2705,6 +2680,48 @@
       </categories>
       <tags>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>每日一题(二):双指针算法</title>
+    <url>/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🎃双指针算法"><a href="#🎃双指针算法" class="headerlink" title="🎃双指针算法"></a>🎃双指针算法</h1><p>何为双指针？其实在算法中是一种技巧性的东西，这个指针也并非如同<code>C语言</code> 那种指针，只是一种标识，用于表示状态，很凑巧，在上一篇每日一题中的快速排序就使用了双指针算法,十分经典，并且属于对撞指针（通俗的讲就是相向扫描），当然了，既然有相向扫描，也肯定有同向扫描，比较常用于字符串比对，分治之中.</p>
+<p>突然有个不错的想法，每日一题连续更新同一类型的题目，这样有便于全面掌握一种算法.</p>
+<p>这里附上上一篇文章的链接以供复习.</p>
+<p><a href="https://soul-pe.gitee.io/shdsoul/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">每日一题(一):快速排序</a></p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><img src="/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/1.png" class title="题目">
+
+<p>题目来源：Acwing：<a href="https://www.acwing.com/problem/content/description/773/">原题链接</a></p>
+<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>我们只需要，遍历每一个字符，然后将字符与后方的字符逐一比较，相同则继续向后比较并记录连续次数，不同则停止比较，继续向后方遍历即可.</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串</span></span><br><span class="line">    string str;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串数量</span></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="comment">//当 n 为 0 的时候停止输入</span></span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        cin &gt;&gt; str;</span><br><span class="line">        <span class="comment">//定义最大长度为 -1</span></span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">-1</span>;</span><br><span class="line">        <span class="comment">//记录最多重复的字符</span></span><br><span class="line">        string maxs;</span><br><span class="line">        <span class="comment">//指针i :遍历输入的字符</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; str.<span class="built_in">size</span>() ; i++)&#123;</span><br><span class="line">            <span class="comment">//指针j :用于字符串比较</span></span><br><span class="line">            <span class="keyword">int</span> j = i; <span class="comment">//由于要求连续,所以默认开始扫描的地方为 指针i 的位置,只需要遍历后面，不需要管前面</span></span><br><span class="line">            <span class="keyword">int</span> nums = <span class="number">0</span>;<span class="comment">//用于记录连续次数</span></span><br><span class="line">            <span class="comment">//当指针j指向的值与指针i指向的值相同的时候,并且j指针没有越界的时候</span></span><br><span class="line">            <span class="keyword">while</span>(str[j] == str[i] &amp;&amp; j &lt; str.<span class="built_in">size</span>())</span><br><span class="line">                <span class="comment">//指针j向后移动,连续次数自增1</span></span><br><span class="line">                j++ , nums++;</span><br><span class="line">            <span class="comment">//如果连续次数大于最大值则进行记录,并且记录当前字符    </span></span><br><span class="line">            <span class="keyword">if</span>(nums &gt; max)</span><br><span class="line">                max = nums,maxs = str[i];</span><br><span class="line">            <span class="comment">//当指针j停止移动时,[i,j)区间中必然全是相同的字符,此时 i只需要从j的位置开始继续遍历即可</span></span><br><span class="line">            i = j <span class="number">-1</span>;<span class="comment">//这里减1,是为了抵消掉循环中的 i++</span></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; nums &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; max;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">int</span> n = Integer.parseInt(reader.readLine());</span><br><span class="line">        <span class="keyword">while</span>(n-- != <span class="number">0</span>)&#123;</span><br><span class="line">            String s = reader.readLine();</span><br><span class="line">            <span class="keyword">char</span> c = <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">            <span class="keyword">int</span> max = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; s.length() ; i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> j = i;</span><br><span class="line">                <span class="keyword">int</span> nums = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span>(j &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(j))&#123; </span><br><span class="line">                    j++;</span><br><span class="line">                    nums++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(nums &gt; max)&#123;</span><br><span class="line">                    max = nums ;</span><br><span class="line">                    c = s.charAt(i);</span><br><span class="line">                &#125;</span><br><span class="line">                i = j - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(c + <span class="string">&quot; &quot;</span> + max);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>近期杂谈</title>
+    <url>/2021/04/18/%E8%BF%91%E6%9C%9F%E6%9D%82%E8%B0%88/</url>
+    <content><![CDATA[<h1 id="🕶开学了？"><a href="#🕶开学了？" class="headerlink" title="🕶开学了？"></a>🕶开学了？</h1><p>&emsp;&emsp;其实在4月初的时候我依旧保持着放假的状态，上课不是很认真，在寝室也是学技术效率比较慢，整个人也就是处于悠哉悠哉的那种状态，感觉目标有点不明确，不知道到底自己想干嘛，期间最引发我思考的莫过于那一份关于考研和就业选择的问卷，在我上大学没多久的时候，觉得我肯定是会考研的，目的是为了提升自己的学历，顺便也可以锻炼自己，然而到了现在我却感觉不是很确定了，内心可能更向往技术开发的方向，实在不想加入考研大军，就算有保研这条路子，也不是很想做研究的那种方向.自知能力有限，觉得自己还是不合适的.不过呢，关于这个以后或许会有新的思考，以后再说吧hhhh.</p>
+<p>&emsp;&emsp;开学至4月初期，对自己的表现怎么说呢，比较懒散，很浮躁，也很对不起我家小朋友，老是惹她不开心，自己犯的错误比较多，唉.道阻且长，同志仍然需要努力啊.</p>
+<h1 id="🎃参加了数学竞赛？"><a href="#🎃参加了数学竞赛？" class="headerlink" title="🎃参加了数学竞赛？"></a>🎃参加了数学竞赛？</h1><p>&emsp;&emsp;怎么说呢，源于从小对于数学的兴趣吧，数学的巧妙逻辑实在是让我沉迷，高数中，各大数学家巧妙的定理证明也着实很吸引我，大一上还是有好好学高等数学的.下学期其实也有好好学，只是中途有点划水哈….这也算是我大一下生活中一件趣事，与其说是参加比赛，不如说是去感受的.</p>
+<h1 id="🥼-提前步入社畜生活？"><a href="#🥼-提前步入社畜生活？" class="headerlink" title="🥼 提前步入社畜生活？"></a>🥼 提前步入社畜生活？</h1><p>&emsp;&emsp;hhhh，其实有点标题党的味道了，哪里是社畜，还是个学徒哈.说来也十分偶然，我近期也只是想找个做项目的团队，一起做项目，共同学习进步，然后翻阅QQ群，发现了网安协会的项目部，再一番咨询后，投了简历，然后参加了笔试以及面试，然后成功进入了这个部门，去的时候很惊奇这个部门居然有办公室，我还会有工位，后来第一天去的时候才了解到部门旗下有一所公司，我相当于进入了一个公司，成为了里面的职员，哦对了，我选择了开发岗中的后端开发，恰好也是他们部门现在缺人的岗位，怎么说呢也挺有压力的.据说等以后学成接手的时候，有绩效了，我就会有工资了hhh，还挺激动的. 话又说回来，在这个团队中，自己也挺想快点学习可以参加到项目中，自己最近也变得开始好好搞学习，不是很懒散了，有点大一上学期的感觉了hhh，也多亏了我家小朋友，给予我理解和帮助，十分体贴我，温柔又可爱，有了我家小朋友，感觉能把我从紧张的环境中解脱出来，让我轻松不少，真好啊.</p>
+<p>&emsp;&emsp;对于现阶段目标，就是学习经典的 <code>SSM</code> 技术框架，说多也不多，说少也不少，慢慢来咯，后期才能运用自如，而且团队中缺少，<code>Java</code> 后端开发的老师傅，现在自己只能一步一个脚印，脚踏实地的进行学习.未来的路还是挺长的，我对现在自己的状态很满意，希望自己能多保持保持，也希望多陪陪我家小朋友hhh，也希望我家小朋友能理解我哦.</p>
+<h1 id="✨结束END"><a href="#✨结束END" class="headerlink" title="✨结束END"></a>✨结束END</h1><p>放上一句自己特别喜欢的一句诗：“醉后不知天在水，满船清梦压星河.”   莫名喜欢这句诗的意境，让我对未来生活有着无限畅想hhhh</p>
+]]></content>
+      <categories>
+        <category>生活杂谈</category>
+      </categories>
+      <tags>
+        <tag>生活杂谈</tag>
       </tags>
   </entry>
   <entry>
@@ -2781,23 +2798,6 @@
       <tags>
         <tag>线程池</tag>
         <tag>网络编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>近期杂谈</title>
-    <url>/2021/04/18/%E8%BF%91%E6%9C%9F%E6%9D%82%E8%B0%88/</url>
-    <content><![CDATA[<h1 id="🕶开学了？"><a href="#🕶开学了？" class="headerlink" title="🕶开学了？"></a>🕶开学了？</h1><p>&emsp;&emsp;其实在4月初的时候我依旧保持着放假的状态，上课不是很认真，在寝室也是学技术效率比较慢，整个人也就是处于悠哉悠哉的那种状态，感觉目标有点不明确，不知道到底自己想干嘛，期间最引发我思考的莫过于那一份关于考研和就业选择的问卷，在我上大学没多久的时候，觉得我肯定是会考研的，目的是为了提升自己的学历，顺便也可以锻炼自己，然而到了现在我却感觉不是很确定了，内心可能更向往技术开发的方向，实在不想加入考研大军，就算有保研这条路子，也不是很想做研究的那种方向.自知能力有限，觉得自己还是不合适的.不过呢，关于这个以后或许会有新的思考，以后再说吧hhhh.</p>
-<p>&emsp;&emsp;开学至4月初期，对自己的表现怎么说呢，比较懒散，很浮躁，也很对不起我家小朋友，老是惹她不开心，自己犯的错误比较多，唉.道阻且长，同志仍然需要努力啊.</p>
-<h1 id="🎃参加了数学竞赛？"><a href="#🎃参加了数学竞赛？" class="headerlink" title="🎃参加了数学竞赛？"></a>🎃参加了数学竞赛？</h1><p>&emsp;&emsp;怎么说呢，源于从小对于数学的兴趣吧，数学的巧妙逻辑实在是让我沉迷，高数中，各大数学家巧妙的定理证明也着实很吸引我，大一上还是有好好学高等数学的.下学期其实也有好好学，只是中途有点划水哈….这也算是我大一下生活中一件趣事，与其说是参加比赛，不如说是去感受的.</p>
-<h1 id="🥼-提前步入社畜生活？"><a href="#🥼-提前步入社畜生活？" class="headerlink" title="🥼 提前步入社畜生活？"></a>🥼 提前步入社畜生活？</h1><p>&emsp;&emsp;hhhh，其实有点标题党的味道了，哪里是社畜，还是个学徒哈.说来也十分偶然，我近期也只是想找个做项目的团队，一起做项目，共同学习进步，然后翻阅QQ群，发现了网安协会的项目部，再一番咨询后，投了简历，然后参加了笔试以及面试，然后成功进入了这个部门，去的时候很惊奇这个部门居然有办公室，我还会有工位，后来第一天去的时候才了解到部门旗下有一所公司，我相当于进入了一个公司，成为了里面的职员，哦对了，我选择了开发岗中的后端开发，恰好也是他们部门现在缺人的岗位，怎么说呢也挺有压力的.据说等以后学成接手的时候，有绩效了，我就会有工资了hhh，还挺激动的. 话又说回来，在这个团队中，自己也挺想快点学习可以参加到项目中，自己最近也变得开始好好搞学习，不是很懒散了，有点大一上学期的感觉了hhh，也多亏了我家小朋友，给予我理解和帮助，十分体贴我，温柔又可爱，有了我家小朋友，感觉能把我从紧张的环境中解脱出来，让我轻松不少，真好啊.</p>
-<p>&emsp;&emsp;对于现阶段目标，就是学习经典的 <code>SSM</code> 技术框架，说多也不多，说少也不少，慢慢来咯，后期才能运用自如，而且团队中缺少，<code>Java</code> 后端开发的老师傅，现在自己只能一步一个脚印，脚踏实地的进行学习.未来的路还是挺长的，我对现在自己的状态很满意，希望自己能多保持保持，也希望多陪陪我家小朋友hhh，也希望我家小朋友能理解我哦.</p>
-<h1 id="✨结束END"><a href="#✨结束END" class="headerlink" title="✨结束END"></a>✨结束END</h1><p>放上一句自己特别喜欢的一句诗：“醉后不知天在水，满船清梦压星河.”   莫名喜欢这句诗的意境，让我对未来生活有着无限畅想hhhh</p>
-]]></content>
-      <categories>
-        <category>生活杂谈</category>
-      </categories>
-      <tags>
-        <tag>生活杂谈</tag>
       </tags>
   </entry>
   <entry>
