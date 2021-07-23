@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Linux中配置Redis</title>
+    <url>/2021/05/27/Linux%E4%B8%AD%E9%85%8D%E7%BD%AERedis/</url>
+    <content><![CDATA[<h1 id="🎇Linux系统下安装Redis"><a href="#🎇Linux系统下安装Redis" class="headerlink" title="🎇Linux系统下安装Redis"></a>🎇Linux系统下安装Redis</h1><p>这里先给出所用到的版本：</p>
+<blockquote>
+<p>VMware 15.x+</p>
+<p>CentOS 7 </p>
+<p>Redis 4.0.10</p>
+</blockquote>
+<p>​        还要使用 <code>xshell</code> 以及 <code>xftp</code> 这两个工具，一个是用来远程连接服务器进行命令行操作服务器，一个是连接远程服务器进行文件传输以及对服务器中的文件进行一系列操作.</p>
+<ul>
+<li>利用<code>xftp</code> 将下载好的 <code>redis.tar</code> 上传到虚拟机中，通常情况下，是上传到根目录下的<code>opt</code>目录之中</li>
+<li>利用 <code>xshell</code> 或者 <code>VMware</code> 终端将压缩包进行解压安装，解压缩之前需要把终端路径切换到<code>tar</code>包所在路径</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 对tar包进行解压</span></span><br><span class="line"><span class="bullet">-</span> tar -zxvf redis-4.0.10.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装<code>gcc</code>编译<code>redis</code> 源码 (<code>Redis</code>是<code>C</code>语言所编写的，所以需要<code>c</code>语言的编译器 <code>gcc</code>进行编译)</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 5.安装gcc  </span></span><br><span class="line"><span class="bullet">-</span> yum install -y gcc</span><br><span class="line"></span><br><span class="line"><span class="section"># 6.进入解压缩目录执行如下命令</span></span><br><span class="line"><span class="bullet">-</span> make MALLOC=libc</span><br><span class="line"></span><br><span class="line"><span class="section"># 7.编译完成后执行如下命令</span></span><br><span class="line"><span class="bullet">-</span> make install PREFIX=/usr/redis</span><br><span class="line"></span><br><span class="line"><span class="section"># 8.进入/usr/redis目录启动redis服务 </span></span><br><span class="line"><span class="bullet">-</span> ./redis-server</span><br></pre></td></tr></table></figure>
+
+<img src="/2021/05/27/Linux%E4%B8%AD%E9%85%8D%E7%BD%AERedis/1.png" class title="配置成功提示">
+
+<ul>
+<li>复制一个会话，进行客户端连接</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 9.Redis服务端口默认是 6379</span></span><br><span class="line"></span><br><span class="line"><span class="section"># 10.进入bin目录执行客户端连接操作</span></span><br><span class="line"><span class="bullet">-</span> ./redis-cli –p 6379</span><br></pre></td></tr></table></figure>
+
+<p>出现如下提示即连接成功 !</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[root@localhost bin]# ./redis-cli -p 6379</span><br><span class="line">127.0.0.1:6379&gt; </span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="🎉配置Redis服务远程连接"><a href="#🎉配置Redis服务远程连接" class="headerlink" title="🎉配置Redis服务远程连接"></a>🎉配置Redis服务远程连接</h1><p>​        通常情况下，需要在自己的电脑上看<code>Redis</code>中的数据，使用<code>xshell</code>用命令来查询效率十分低下，于是我们可以利用<code>Redis</code>可视化工具在本地连接后，本地查看数据库中的内容.</p>
+<ul>
+<li><p>可以在本地先安装 <code>RedisDeskManager</code></p>
+</li>
+<li><p>Linux中安装防火墙服务</p>
+</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 安装iptables-services</span></span><br><span class="line"><span class="bullet">-</span> yum install iptables-services</span><br><span class="line"></span><br><span class="line"><span class="section"># 启动服务</span></span><br><span class="line"><span class="bullet">-</span> systemctl enable iptables</span><br><span class="line"><span class="bullet">-</span> systemctl start iptables</span><br><span class="line"></span><br><span class="line"><span class="section"># 查看防火墙状态</span></span><br><span class="line"><span class="bullet">-</span> service iptables status</span><br><span class="line"></span><br><span class="line"><span class="section"># 关闭防火墙</span></span><br><span class="line"><span class="bullet">-</span> service iptables stop</span><br><span class="line"></span><br><span class="line"><span class="section"># 打开防火墙</span></span><br><span class="line"><span class="bullet">-</span> service iptables start </span><br><span class="line"></span><br><span class="line"><span class="section"># 重启防火墙</span></span><br><span class="line"><span class="bullet">-</span> service iptables restart </span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>编辑<code>Linux</code>防火墙 </p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 增加防火墙规则</span></span><br><span class="line"><span class="bullet">-</span> vi /etc/sysconfig/iptables</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>加入防火墙规则：<code>-A INPUT -m state –state NEW -m tcp -p tcp –dport 6379 -j ACCEPT</code></p>
+</li>
+<li><p>将压缩包解压目录之中的<code>redis.conf</code> 移动到 <code>usr/redis</code> 下（主要是为了方便操作）</p>
+<ul>
+<li>注意：一定要用管理员身份进行编辑，不然文件为只读文件无法更改</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 更改白名单</span></span><br><span class="line">bind 127.0.0.1 </span><br><span class="line"><span class="section"># 改为 （注释掉）</span></span><br><span class="line">= &gt; # bind 127.0.0.1 </span><br><span class="line"></span><br><span class="line"><span class="section"># 将yes改为no</span></span><br><span class="line">protected-mode yes</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Dubbo(一):核心概念与基础配置</title>
     <url>/2021/07/22/Dubbo%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<p>注：内容大部分都参考于 <a href="https://dubbo.apache.org/zh/docs/">Dubbo官方中文文档</a></p>
@@ -158,72 +224,6 @@
       <tags>
         <tag>分布式</tag>
         <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux中配置Redis</title>
-    <url>/2021/05/27/Linux%E4%B8%AD%E9%85%8D%E7%BD%AERedis/</url>
-    <content><![CDATA[<h1 id="🎇Linux系统下安装Redis"><a href="#🎇Linux系统下安装Redis" class="headerlink" title="🎇Linux系统下安装Redis"></a>🎇Linux系统下安装Redis</h1><p>这里先给出所用到的版本：</p>
-<blockquote>
-<p>VMware 15.x+</p>
-<p>CentOS 7 </p>
-<p>Redis 4.0.10</p>
-</blockquote>
-<p>​        还要使用 <code>xshell</code> 以及 <code>xftp</code> 这两个工具，一个是用来远程连接服务器进行命令行操作服务器，一个是连接远程服务器进行文件传输以及对服务器中的文件进行一系列操作.</p>
-<ul>
-<li>利用<code>xftp</code> 将下载好的 <code>redis.tar</code> 上传到虚拟机中，通常情况下，是上传到根目录下的<code>opt</code>目录之中</li>
-<li>利用 <code>xshell</code> 或者 <code>VMware</code> 终端将压缩包进行解压安装，解压缩之前需要把终端路径切换到<code>tar</code>包所在路径</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 对tar包进行解压</span></span><br><span class="line"><span class="bullet">-</span> tar -zxvf redis-4.0.10.tar.gz</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>安装<code>gcc</code>编译<code>redis</code> 源码 (<code>Redis</code>是<code>C</code>语言所编写的，所以需要<code>c</code>语言的编译器 <code>gcc</code>进行编译)</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 5.安装gcc  </span></span><br><span class="line"><span class="bullet">-</span> yum install -y gcc</span><br><span class="line"></span><br><span class="line"><span class="section"># 6.进入解压缩目录执行如下命令</span></span><br><span class="line"><span class="bullet">-</span> make MALLOC=libc</span><br><span class="line"></span><br><span class="line"><span class="section"># 7.编译完成后执行如下命令</span></span><br><span class="line"><span class="bullet">-</span> make install PREFIX=/usr/redis</span><br><span class="line"></span><br><span class="line"><span class="section"># 8.进入/usr/redis目录启动redis服务 </span></span><br><span class="line"><span class="bullet">-</span> ./redis-server</span><br></pre></td></tr></table></figure>
-
-<img src="/2021/05/27/Linux%E4%B8%AD%E9%85%8D%E7%BD%AERedis/1.png" class title="配置成功提示">
-
-<ul>
-<li>复制一个会话，进行客户端连接</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 9.Redis服务端口默认是 6379</span></span><br><span class="line"></span><br><span class="line"><span class="section"># 10.进入bin目录执行客户端连接操作</span></span><br><span class="line"><span class="bullet">-</span> ./redis-cli –p 6379</span><br></pre></td></tr></table></figure>
-
-<p>出现如下提示即连接成功 !</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[root@localhost bin]# ./redis-cli -p 6379</span><br><span class="line">127.0.0.1:6379&gt; </span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="🎉配置Redis服务远程连接"><a href="#🎉配置Redis服务远程连接" class="headerlink" title="🎉配置Redis服务远程连接"></a>🎉配置Redis服务远程连接</h1><p>​        通常情况下，需要在自己的电脑上看<code>Redis</code>中的数据，使用<code>xshell</code>用命令来查询效率十分低下，于是我们可以利用<code>Redis</code>可视化工具在本地连接后，本地查看数据库中的内容.</p>
-<ul>
-<li><p>可以在本地先安装 <code>RedisDeskManager</code></p>
-</li>
-<li><p>Linux中安装防火墙服务</p>
-</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 安装iptables-services</span></span><br><span class="line"><span class="bullet">-</span> yum install iptables-services</span><br><span class="line"></span><br><span class="line"><span class="section"># 启动服务</span></span><br><span class="line"><span class="bullet">-</span> systemctl enable iptables</span><br><span class="line"><span class="bullet">-</span> systemctl start iptables</span><br><span class="line"></span><br><span class="line"><span class="section"># 查看防火墙状态</span></span><br><span class="line"><span class="bullet">-</span> service iptables status</span><br><span class="line"></span><br><span class="line"><span class="section"># 关闭防火墙</span></span><br><span class="line"><span class="bullet">-</span> service iptables stop</span><br><span class="line"></span><br><span class="line"><span class="section"># 打开防火墙</span></span><br><span class="line"><span class="bullet">-</span> service iptables start </span><br><span class="line"></span><br><span class="line"><span class="section"># 重启防火墙</span></span><br><span class="line"><span class="bullet">-</span> service iptables restart </span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li><p>编辑<code>Linux</code>防火墙 </p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 增加防火墙规则</span></span><br><span class="line"><span class="bullet">-</span> vi /etc/sysconfig/iptables</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>加入防火墙规则：<code>-A INPUT -m state –state NEW -m tcp -p tcp –dport 6379 -j ACCEPT</code></p>
-</li>
-<li><p>将压缩包解压目录之中的<code>redis.conf</code> 移动到 <code>usr/redis</code> 下（主要是为了方便操作）</p>
-<ul>
-<li>注意：一定要用管理员身份进行编辑，不然文件为只读文件无法更改</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 更改白名单</span></span><br><span class="line">bind 127.0.0.1 </span><br><span class="line"><span class="section"># 改为 （注释掉）</span></span><br><span class="line">= &gt; # bind 127.0.0.1 </span><br><span class="line"></span><br><span class="line"><span class="section"># 将yes改为no</span></span><br><span class="line">protected-mode yes</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>Redis</tag>
       </tags>
   </entry>
   <entry>
@@ -1380,6 +1380,143 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringBoot（一）:Hello World</title>
+    <url>/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🎉SpringBoot为快速开发为生"><a href="#🎉SpringBoot为快速开发为生" class="headerlink" title="🎉SpringBoot为快速开发为生"></a>🎉SpringBoot为快速开发为生</h1><blockquote>
+<p>前言：在学完 Spring + SpringMVC + Mybatis 之后进行了 SSM整合项目的搭建，搭建项目最花费时间的其实是在各种的配置文件上，比如mybatis-config.xml 和 Spring中的applicationContext.xml 以及 SpringMVC中 Web.xml 都有固定的文件头等等内容，每次写都还要去别处复制粘贴，难搞。光是建个文件之后的复制粘贴就已经让我头大了，最难搞的还是Spring中文件配置文件中一些小东西，比如：SqlsessionFactory 以及 dao 层自动接口扫描器，完全可以说是固定写法，SpringMVC的配置中需要配置视图解析器，以及事物处理器，web.xml中需要配置请求转发器和资源过滤，配置过程几乎完全面向复制粘贴，繁琐且冗杂，也非常容易出错，我整合的SSM的项目至今没有跑起来，Debug了一个多星期无果，从Gitee上扒下来别人的项目跑，能跑，我的就是跑不起来，那几天我真是做梦都在想配置文件哪里出错了QAQ</p>
+</blockquote>
+<p>接下，进入正题：</p>
+<p>​        SpringBoot的出现就是为了解决以上问题，把配置简化到几乎没有，就连Tomcat都不需要我们自己去配置了，不得不说，SpringBoot永远滴神.接下来我将演示快速创建一个SpringBoot项目到启动的全过程.</p>
+<p><strong>在此之前，介绍一下SpringBoot的相关特点：</strong></p>
+<p>   1.<strong>创建独立的Spring应用程序</strong></p>
+<ol start="2">
+<li><p><strong>嵌入的Tomcat，无需部署WAR文件</strong></p>
+</li>
+<li><p><strong>简化Maven配置</strong></p>
+</li>
+<li><p><strong>自动配置Spring</strong></p>
+</li>
+<li><p><strong>提供生产就绪型功能，如指标，健康检查和外部配置</strong></p>
+</li>
+<li><p>**绝对没有代码生成并且对XML也没有配置要求 **</p>
+</li>
+</ol>
+<hr>
+<p>接下来体验一下咯：</p>
+<ul>
+<li>通过IDEA创建项目</li>
+</ul>
+<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class title="creat">
+
+
+
+<p>点击**<code>Next</code>**，下一步</p>
+<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/2.png" class title="create">
+
+
+
+<p>点击 <strong><code>Next</code></strong> ，下一步</p>
+<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/3.png" class title="creat">
+
+
+
+
+
+<p>点击 <strong><code>Next</code></strong> ，下一步，后面就是填写项目名称，这里就略过了，快进到创建后</p>
+<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/4.png" class title="create">
+
+
+
+<ul>
+<li>接下来编写 <code>Controller</code> 层，注意，要在DemoApplication.java的同目录下创建包下的java文件或者java文件才能被扫描到</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo.controller;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">//表示不会跳转JSP、HTML 而是直接将返回的内容写入 Http响应包中的响应体中,直接将内容呈现在页面中</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="comment">//等价于</span></span><br><span class="line"><span class="comment">//@Controller</span></span><br><span class="line"><span class="comment">//@ResponseBody</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloSpringBoot</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//用于建立请求URL和处理请求方法之间的对应关系，将该方法映射到这个url路径上</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">Hello</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello SpringBoot !&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>接下来就可以直接启动项目了，SpringBoot不会自动打开浏览器，需要我们手动输入URL.</p>
+<p>浏览器中输入 <code>localhost:8080/hello</code></p>
+</li>
+</ul>
+<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/5.png" class title="create">
+
+
+
+<p>会发现，从来到尾我们只需要在创建项目的时候需要进行配置，创建好后只需要编写业务逻辑即可运行.</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot(三):数据库连接池</title>
+    <url>/2021/05/08/SpringBoot%EF%BC%88%E4%B8%89%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🎡数据库连接池相关概念"><a href="#🎡数据库连接池相关概念" class="headerlink" title="🎡数据库连接池相关概念"></a>🎡数据库连接池相关概念</h1><ul>
+<li><p><strong>什么是数据库连接池？</strong></p>
+<p>​        数据库连接池可以用于管理对数据库的连接，用于存放和管理这些连接，当使用完这些连接之后会将连接还回池中而不是直接关闭掉，可以等待下次进行连接可以直接使用。</p>
+</li>
+<li><p><strong>为什么需要数据库连接池?</strong></p>
+<p>​        在实际业务中，会存在对数据库的操作，如果每次操作都要进行一次数据库连接，那么消耗的内存和资源十分巨大，再加上高并发量，那么会导致性能下降，造成无法估计的损失.有了数据库连接池之后，可以动态的分配已经有的连接，可以动态控制连接数量，合理的分配连接，大大提高了使用率和运行效率.</p>
+</li>
+<li><p><strong>数据库连接池的底层原理？</strong></p>
+<p>​        数据库连接池可以用 <code>Java</code> 中的集合对象来实现 ， 比如 <code>LinkedList</code> ，初始化数据库连接数为10个，依次加入 <code>LinkedList</code>  当需要执行 <code>SQL</code> 语句的时候，请求从集合中获得连接，先要判断目前是否有闲置的连接，如果有则返回给请求对象，本质就是将连接从集合中移除，使用完毕后重新加入集合等待请求也就是所谓的闲置状态，如果请求时恰好没有闲置的连接，则进入等待，超过等待时间后，抛出异常等待下一次请求.</p>
+</li>
+</ul>
+<h1 id="🥽常见数据库连接池"><a href="#🥽常见数据库连接池" class="headerlink" title="🥽常见数据库连接池"></a>🥽常见数据库连接池</h1><p>常用的数据库连接池有如下四种：</p>
+<table>
+<thead>
+<tr>
+<th align="center">DBCP</th>
+<th align="center">Tomcat内部集成</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>C3P0</strong></td>
+<td align="center"><strong>性能较差架构复杂</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>Druid</strong></td>
+<td align="center"><strong>SQL监控黑名单拦截性能卓越</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>HikariCP</strong></td>
+<td align="center"><strong>性能最强稳定性较好screw内置使用</strong></td>
+</tr>
+</tbody></table>
+<p>​        <code>SpringBoot</code>默认将<code>HikariCP</code>作为默认的数据库连接池.<code>Java</code> 常用于构建大型的 <code>Web</code> 项目，在存在高并发的情况下，必然要挑选一个性能极强的数据库连接池而<code>HikariCP</code>当之无愧为性能之王.</p>
+<h1 id="✨SpringBoot中HikariCP配置"><a href="#✨SpringBoot中HikariCP配置" class="headerlink" title="✨SpringBoot中HikariCP配置"></a>✨SpringBoot中HikariCP配置</h1><p>1.<code>autoCommit</code><br>        自动提交从池中返回的连接，默认为<code>true</code>。</p>
+<p>2.<code>connectionTimeout</code><br>        等待来自池的连接的最大毫秒数，默认为30000，如果小于250毫秒，则被重置回30秒。</p>
+<p>3.<code>idleTimeout</code><br>        连接允许在池中闲置的最长时间，默认为600000，即10分钟。如果<code>idleTimeout</code>+1秒&gt;<code>maxLifetime</code> 且 <code>maxLifetime</code>&gt;0，则会被重置为0（代表永远不会退出）；如果<code>idleTimeout</code>!=0且小于10秒，则会被重置为10秒。只有当<code>minimumIdle</code>小于<code>maximumPoolSize</code>时，这个参数才生效，当空闲连接数超过<code>minimumIdle</code>，而且空闲时间超过<code>idleTimeout</code>，则会被移除。</p>
+<p>4.<code>maxLifetime</code><br>        池中连接最长生命周期。默认为1800000，如果不等于0且小于30秒则会被重置回30分钟。</p>
+<p>5.<code>minimumIdle</code><br>        控制连接池空闲连接的最小数量，当连接池空闲连接少于<code>minimumIdle</code>，而且总共连接数不大于<code>maximumPoolSize</code>时，<code>HikariCP</code>会尽力补充新的连接。为了性能考虑，不建议设置此值，而是让<code>HikariCP</code>把连接池当做固定大小的处理，默认<code>minimumIdle</code>与<code>maximumPoolSize</code>一样。当<code>minIdle</code>&lt;0或者<code>minIdle</code>&gt;<code>maxPoolSize</code>,则被重置为<code>maxPoolSize</code>，该值默认为10。</p>
+<p>6.<code>maximumPoolSize</code><br>        池中最大连接数，包括闲置和使用中的连接。默认为10。如果<code>maxPoolSize</code>小于1，则会被重置。当<code>minIdle</code>&lt;=0被重置为<code>DEFAULT_POOL_SIZE</code>则为10;如果<code>minIdle</code>&gt;0则重置为<code>minIdle</code>的值。</p>
+<p>7.<code>poolName</code><br>连接池的用户定义名称，主要出现在日志记录和JMX管理控制台中以识别池和池配置。默认为<code>HikariPool-1</code>。</p>
+<p>8.<code>readOnly</code><br>从池中获取的连接是否默认处于只读模式。默认为<code>false</code>。</p>
+<p>9.<code>connection-test-query</code><br>如果您的驱动程序支持<code>JDBC4</code>，我们强烈建议您不要设置此属性。这是针对不支持<code>JDBC4</code>的“传统”驱动程序<code>Connection.isValid() API</code>。这是在连接从池中获得连接以确认与数据库的连接仍然存在之前将要执行的查询。再一次，尝试运行没有此属性的池，如果您的驱动程序不符合<code>JDBC4</code>的要求，<code>HikariCP</code>将记录一个错误以告知您。 默认值：无</p>
+<h1 id="🎊SpringBoot中Druid配置"><a href="#🎊SpringBoot中Druid配置" class="headerlink" title="🎊SpringBoot中Druid配置"></a>🎊SpringBoot中Druid配置</h1><p>1.纯配置文件配置：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="comment"># 数据源配置</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">    <span class="comment"># 连接池配置</span></span><br><span class="line">    <span class="attr">druid:</span></span><br><span class="line">      <span class="comment"># 初始化大小，最小，最大</span></span><br><span class="line">      <span class="attr">initial-size:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">min-idle:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">max-active:</span> <span class="number">20</span></span><br><span class="line">      <span class="comment"># 配置获取连接等待超时的时间</span></span><br><span class="line">      <span class="attr">max-wait:</span> <span class="number">60000</span></span><br><span class="line">      <span class="comment"># 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位毫秒</span></span><br><span class="line">      <span class="attr">time-between-eviction-runs-millis:</span> <span class="number">60000</span></span><br><span class="line">      <span class="comment"># 配置一个连接在池中最小生存时间</span></span><br><span class="line">      <span class="attr">min-evictable-idle-time-millis:</span> <span class="number">300000</span></span><br><span class="line">      <span class="attr">validation-query:</span> <span class="string">SELECT</span> <span class="number">1</span> <span class="string">FROM</span> <span class="string">sys_user</span></span><br><span class="line">      <span class="attr">test-while-idle:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">test-on-borrow:</span> <span class="literal">false</span></span><br><span class="line">      <span class="attr">test-on-return:</span> <span class="literal">false</span></span><br><span class="line">      <span class="comment"># 打开 PSCache，并且指定每个连接上 PSCache 的大小</span></span><br><span class="line">      <span class="attr">pool-prepared-statements:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">max-pool-prepared-statement-per-connection-size:</span> <span class="number">20</span></span><br><span class="line">      <span class="comment"># 配置监控统计拦截的 Filter，去掉后监控界面 SQL 无法统计，wall 用于防火墙</span></span><br><span class="line">      <span class="attr">filters:</span> <span class="string">stat,wall,log4j</span></span><br><span class="line">      <span class="comment"># 通过 connection-properties 属性打开 mergeSql 功能；慢 SQL 记录</span></span><br><span class="line">      <span class="attr">connection-properties:</span> <span class="string">druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000</span></span><br><span class="line">      <span class="comment"># 配置 DruidStatFilter</span></span><br><span class="line">      <span class="attr">web-stat-filter:</span></span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">url-pattern:</span> <span class="string">/*</span></span><br><span class="line">        <span class="attr">exclusions:</span> <span class="string">.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*</span></span><br><span class="line">      <span class="comment"># 配置 DruidStatViewServlet</span></span><br><span class="line">      <span class="attr">stat-view-servlet:</span></span><br><span class="line">        <span class="attr">url-pattern:</span> <span class="string">/druid/*</span></span><br><span class="line">        <span class="comment"># IP 白名单，没有配置或者为空，则允许所有访问</span></span><br><span class="line">        <span class="attr">allow:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">        <span class="comment"># IP 黑名单，若白名单也存在，则优先使用</span></span><br><span class="line">        <span class="attr">deny:</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.253</span></span><br><span class="line">        <span class="comment"># 禁用 HTML 中 Reset All 按钮</span></span><br><span class="line">        <span class="attr">reset-enable:</span> <span class="literal">false</span></span><br><span class="line">        <span class="comment"># 登录用户名/密码</span></span><br><span class="line">        <span class="attr">login-username:</span> <span class="string">root</span></span><br><span class="line">        <span class="attr">login-password:</span> <span class="number">123</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.配置类版本：</p>
+<p>​    配置文件：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">datasource:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">        <span class="comment"># 数据源的其他配置</span></span><br><span class="line">        <span class="attr">initialSize:</span> <span class="number">5</span></span><br><span class="line">        <span class="attr">minIdle:</span> <span class="number">5</span></span><br><span class="line">        <span class="attr">maxActive:</span> <span class="number">20</span></span><br><span class="line">        <span class="attr">maxWait:</span> <span class="number">60000</span></span><br><span class="line">        <span class="attr">timeBetweenEvictionRunsMillis:</span> <span class="number">60000</span></span><br><span class="line">        <span class="attr">minEvictableIdleTimeMillis:</span> <span class="number">300000</span></span><br><span class="line">        <span class="attr">validationQuery:</span> <span class="string">SELECT</span> <span class="number">1</span> <span class="string">FROM</span> <span class="string">DUAL</span></span><br><span class="line">        <span class="attr">testWhileIdle:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">testOnBorrow:</span> <span class="literal">false</span></span><br><span class="line">        <span class="attr">testOnReturn:</span> <span class="literal">false</span></span><br><span class="line">        <span class="attr">poolPreparedStatements:</span> <span class="literal">true</span></span><br><span class="line">        <span class="comment"># 配置监控统计拦截的 filters，去掉后监控界面 sql 无法统计，&#x27;wall&#x27;用于防火墙</span></span><br><span class="line">        <span class="attr">filters:</span> <span class="string">stat,wall,log4j</span></span><br><span class="line">        <span class="attr">maxPoolPreparedStatementPerConnectionSize:</span> <span class="number">20</span></span><br><span class="line">        <span class="attr">useGlobalDataSourceStat:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">connectionProperties:</span> <span class="string">druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500</span></span><br></pre></td></tr></table></figure>
+
+<p>​    配置类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.servlet.Filter;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.Servlet;</span><br><span class="line"><span class="keyword">import</span> javax.sql.DataSource;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.web.servlet.FilterRegistrationBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.web.servlet.ServletRegistrationBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.pool.DruidDataSource;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.support.http.StatViewServlet;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.support.http.WebStatFilter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DruidConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="comment">// 将所有前缀为spring.datasource下的配置项都加载DataSource中</span></span><br><span class="line">    <span class="meta">@ConfigurationProperties(prefix = &quot;spring.datasource&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">druidDataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DruidDataSource();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServletRegistrationBean&lt;Servlet&gt; <span class="title">druidServlet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 进行 druid 监控的配置处理</span></span><br><span class="line">        ServletRegistrationBean&lt;Servlet&gt; srb = <span class="keyword">new</span> ServletRegistrationBean&lt;&gt;(<span class="keyword">new</span> StatViewServlet(), <span class="string">&quot;/druid/**&quot;</span>);</span><br><span class="line">        <span class="comment">// 白名单</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;allow&quot;</span>, <span class="string">&quot;127.0.0.1&quot;</span>);</span><br><span class="line">        <span class="comment">// 黑名单</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;deny&quot;</span>, <span class="string">&quot;192.168.31.253&quot;</span>);</span><br><span class="line">        <span class="comment">// 用户名</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;loginUsername&quot;</span>, <span class="string">&quot;root&quot;</span>);</span><br><span class="line">        <span class="comment">// 密码</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;loginPassword&quot;</span>, <span class="string">&quot;root&quot;</span>);</span><br><span class="line">        <span class="comment">// 是否可以重置数据源</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;resetEnable&quot;</span>, <span class="string">&quot;false&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> srb;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> FilterRegistrationBean&lt;Filter&gt; <span class="title">filterRegistrationBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        FilterRegistrationBean&lt;Filter&gt; frb = <span class="keyword">new</span> FilterRegistrationBean&lt;&gt;();</span><br><span class="line">        frb.setFilter(<span class="keyword">new</span> WebStatFilter());</span><br><span class="line">        <span class="comment">// 所有请求进行监控处理</span></span><br><span class="line">        frb.addUrlPatterns(<span class="string">&quot;/*&quot;</span>);</span><br><span class="line">        <span class="comment">// 排除名单</span></span><br><span class="line">        frb.addInitParameter(<span class="string">&quot;exclusions&quot;</span>, <span class="string">&quot;*.js,*.gif,*.jpg,*.css,/druid/*&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> frb;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动<code>SpringBoot</code>后可在 <code> http://localhost:8080/druid/login.html</code> 中查看监控信息.</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot(七):自定义条件注解</title>
     <url>/2021/06/23/SpringBoot%EF%BC%88%E4%B8%83%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🚗动态注入实现原理"><a href="#🚗动态注入实现原理" class="headerlink" title="🚗动态注入实现原理"></a>🚗动态注入实现原理</h1><p><code>SpringBoot</code>中的一大特色为自动配置(包括动态配置)，其底层实现原理依托于<code>springFramework</code>中的<code>condition</code>接口类，在<code>SpringBoot</code>的源码中，随处可见类似于<code>@ConditionalOnBean</code>这样类似的注解，其依赖的条件类为<code>OnBeanCondition</code>.</p>
@@ -1503,63 +1640,44 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot(三):数据库连接池</title>
-    <url>/2021/05/08/SpringBoot%EF%BC%88%E4%B8%89%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🎡数据库连接池相关概念"><a href="#🎡数据库连接池相关概念" class="headerlink" title="🎡数据库连接池相关概念"></a>🎡数据库连接池相关概念</h1><ul>
-<li><p><strong>什么是数据库连接池？</strong></p>
-<p>​        数据库连接池可以用于管理对数据库的连接，用于存放和管理这些连接，当使用完这些连接之后会将连接还回池中而不是直接关闭掉，可以等待下次进行连接可以直接使用。</p>
-</li>
-<li><p><strong>为什么需要数据库连接池?</strong></p>
-<p>​        在实际业务中，会存在对数据库的操作，如果每次操作都要进行一次数据库连接，那么消耗的内存和资源十分巨大，再加上高并发量，那么会导致性能下降，造成无法估计的损失.有了数据库连接池之后，可以动态的分配已经有的连接，可以动态控制连接数量，合理的分配连接，大大提高了使用率和运行效率.</p>
-</li>
-<li><p><strong>数据库连接池的底层原理？</strong></p>
-<p>​        数据库连接池可以用 <code>Java</code> 中的集合对象来实现 ， 比如 <code>LinkedList</code> ，初始化数据库连接数为10个，依次加入 <code>LinkedList</code>  当需要执行 <code>SQL</code> 语句的时候，请求从集合中获得连接，先要判断目前是否有闲置的连接，如果有则返回给请求对象，本质就是将连接从集合中移除，使用完毕后重新加入集合等待请求也就是所谓的闲置状态，如果请求时恰好没有闲置的连接，则进入等待，超过等待时间后，抛出异常等待下一次请求.</p>
-</li>
+    <title>SpringBoot(五):实现邮箱验证</title>
+    <url>/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/</url>
+    <content><![CDATA[<blockquote>
+<p>前言：当下的业务背景中，存在许多需要保证用户数据安全的场景，在这些场景下，我们可以利用邮箱验证/手机短信验证的方式对用户身份进行审核，这大大提高了用户数据的安全性.在注册场景下，也可以利用这样的手段来阻止恶意注册.</p>
+</blockquote>
+<h1 id="🎃准备工作"><a href="#🎃准备工作" class="headerlink" title="🎃准备工作"></a>🎃准备工作</h1><p>再使用代码进行发送邮箱之前需要进行一些准备工作，具体如下：</p>
+<h2 id="开启邮箱的功能服务"><a href="#开启邮箱的功能服务" class="headerlink" title="开启邮箱的功能服务"></a>开启邮箱的功能服务</h2><p>这里以QQ邮箱为例，我们需要开启<code>POP3/SMTP</code>服务、以及<code>IMAP/SMTP</code>服务.</p>
+<img src="/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/1.png" class title="图片">
+
+<img src="/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/2.png" class title="图片">
+
+<p>开启过后，会告诉我们<strong>授权码</strong>，发送邮件时，我们需要通过这个授权码得到权限，从而发送邮件，保证邮箱的使用不被滥用侵犯，这个授权码要留着，等待后续使用.</p>
+<h2 id="导入依赖"><a href="#导入依赖" class="headerlink" title="导入依赖"></a>导入依赖</h2><p>由于需要存储验证码，并且验证码存在时效性，于是这里使用了<code>Redis</code>来实现这个功能，于是也需要导入<code>Redis</code>的依赖.</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--邮箱--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-mail<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--redis--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="comment">#  配置redis</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">database:</span> <span class="number">0</span> <span class="comment">#选择第一个数据库</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">xxxxxx</span> <span class="comment">#redis 服务器 ip 如果在本地就填 localhost</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">6379</span> <span class="comment">#redis服务端口号默认 6379</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">xxxxxx</span> <span class="comment">#redis登录密码</span></span><br><span class="line"><span class="comment"># 配置邮箱</span></span><br><span class="line">  <span class="attr">mail:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">smtp.qq.com</span>  <span class="comment">#使用哪一个类型的邮箱的标识</span></span><br><span class="line">    <span class="attr">username:</span> <span class="number">3164297994</span><span class="string">@qq.com</span> <span class="comment">#发送者的邮箱</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">xxxxxxxxxxxx</span> <span class="comment">#POP3服务的授权码</span></span><br><span class="line">    <span class="attr">default-encoding:</span> <span class="string">utf-8</span> <span class="comment">#文本解析格式</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="🚘代码实现"><a href="#🚘代码实现" class="headerlink" title="🚘代码实现"></a>🚘代码实现</h1><ul>
+<li>发送邮箱验证码的服务类编写</li>
 </ul>
-<h1 id="🥽常见数据库连接池"><a href="#🥽常见数据库连接池" class="headerlink" title="🥽常见数据库连接池"></a>🥽常见数据库连接池</h1><p>常用的数据库连接池有如下四种：</p>
-<table>
-<thead>
-<tr>
-<th align="center">DBCP</th>
-<th align="center">Tomcat内部集成</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><strong>C3P0</strong></td>
-<td align="center"><strong>性能较差架构复杂</strong></td>
-</tr>
-<tr>
-<td align="center"><strong>Druid</strong></td>
-<td align="center"><strong>SQL监控黑名单拦截性能卓越</strong></td>
-</tr>
-<tr>
-<td align="center"><strong>HikariCP</strong></td>
-<td align="center"><strong>性能最强稳定性较好screw内置使用</strong></td>
-</tr>
-</tbody></table>
-<p>​        <code>SpringBoot</code>默认将<code>HikariCP</code>作为默认的数据库连接池.<code>Java</code> 常用于构建大型的 <code>Web</code> 项目，在存在高并发的情况下，必然要挑选一个性能极强的数据库连接池而<code>HikariCP</code>当之无愧为性能之王.</p>
-<h1 id="✨SpringBoot中HikariCP配置"><a href="#✨SpringBoot中HikariCP配置" class="headerlink" title="✨SpringBoot中HikariCP配置"></a>✨SpringBoot中HikariCP配置</h1><p>1.<code>autoCommit</code><br>        自动提交从池中返回的连接，默认为<code>true</code>。</p>
-<p>2.<code>connectionTimeout</code><br>        等待来自池的连接的最大毫秒数，默认为30000，如果小于250毫秒，则被重置回30秒。</p>
-<p>3.<code>idleTimeout</code><br>        连接允许在池中闲置的最长时间，默认为600000，即10分钟。如果<code>idleTimeout</code>+1秒&gt;<code>maxLifetime</code> 且 <code>maxLifetime</code>&gt;0，则会被重置为0（代表永远不会退出）；如果<code>idleTimeout</code>!=0且小于10秒，则会被重置为10秒。只有当<code>minimumIdle</code>小于<code>maximumPoolSize</code>时，这个参数才生效，当空闲连接数超过<code>minimumIdle</code>，而且空闲时间超过<code>idleTimeout</code>，则会被移除。</p>
-<p>4.<code>maxLifetime</code><br>        池中连接最长生命周期。默认为1800000，如果不等于0且小于30秒则会被重置回30分钟。</p>
-<p>5.<code>minimumIdle</code><br>        控制连接池空闲连接的最小数量，当连接池空闲连接少于<code>minimumIdle</code>，而且总共连接数不大于<code>maximumPoolSize</code>时，<code>HikariCP</code>会尽力补充新的连接。为了性能考虑，不建议设置此值，而是让<code>HikariCP</code>把连接池当做固定大小的处理，默认<code>minimumIdle</code>与<code>maximumPoolSize</code>一样。当<code>minIdle</code>&lt;0或者<code>minIdle</code>&gt;<code>maxPoolSize</code>,则被重置为<code>maxPoolSize</code>，该值默认为10。</p>
-<p>6.<code>maximumPoolSize</code><br>        池中最大连接数，包括闲置和使用中的连接。默认为10。如果<code>maxPoolSize</code>小于1，则会被重置。当<code>minIdle</code>&lt;=0被重置为<code>DEFAULT_POOL_SIZE</code>则为10;如果<code>minIdle</code>&gt;0则重置为<code>minIdle</code>的值。</p>
-<p>7.<code>poolName</code><br>连接池的用户定义名称，主要出现在日志记录和JMX管理控制台中以识别池和池配置。默认为<code>HikariPool-1</code>。</p>
-<p>8.<code>readOnly</code><br>从池中获取的连接是否默认处于只读模式。默认为<code>false</code>。</p>
-<p>9.<code>connection-test-query</code><br>如果您的驱动程序支持<code>JDBC4</code>，我们强烈建议您不要设置此属性。这是针对不支持<code>JDBC4</code>的“传统”驱动程序<code>Connection.isValid() API</code>。这是在连接从池中获得连接以确认与数据库的连接仍然存在之前将要执行的查询。再一次，尝试运行没有此属性的池，如果您的驱动程序不符合<code>JDBC4</code>的要求，<code>HikariCP</code>将记录一个错误以告知您。 默认值：无</p>
-<h1 id="🎊SpringBoot中Druid配置"><a href="#🎊SpringBoot中Druid配置" class="headerlink" title="🎊SpringBoot中Druid配置"></a>🎊SpringBoot中Druid配置</h1><p>1.纯配置文件配置：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="comment"># 数据源配置</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">    <span class="comment"># 连接池配置</span></span><br><span class="line">    <span class="attr">druid:</span></span><br><span class="line">      <span class="comment"># 初始化大小，最小，最大</span></span><br><span class="line">      <span class="attr">initial-size:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">min-idle:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">max-active:</span> <span class="number">20</span></span><br><span class="line">      <span class="comment"># 配置获取连接等待超时的时间</span></span><br><span class="line">      <span class="attr">max-wait:</span> <span class="number">60000</span></span><br><span class="line">      <span class="comment"># 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位毫秒</span></span><br><span class="line">      <span class="attr">time-between-eviction-runs-millis:</span> <span class="number">60000</span></span><br><span class="line">      <span class="comment"># 配置一个连接在池中最小生存时间</span></span><br><span class="line">      <span class="attr">min-evictable-idle-time-millis:</span> <span class="number">300000</span></span><br><span class="line">      <span class="attr">validation-query:</span> <span class="string">SELECT</span> <span class="number">1</span> <span class="string">FROM</span> <span class="string">sys_user</span></span><br><span class="line">      <span class="attr">test-while-idle:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">test-on-borrow:</span> <span class="literal">false</span></span><br><span class="line">      <span class="attr">test-on-return:</span> <span class="literal">false</span></span><br><span class="line">      <span class="comment"># 打开 PSCache，并且指定每个连接上 PSCache 的大小</span></span><br><span class="line">      <span class="attr">pool-prepared-statements:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">max-pool-prepared-statement-per-connection-size:</span> <span class="number">20</span></span><br><span class="line">      <span class="comment"># 配置监控统计拦截的 Filter，去掉后监控界面 SQL 无法统计，wall 用于防火墙</span></span><br><span class="line">      <span class="attr">filters:</span> <span class="string">stat,wall,log4j</span></span><br><span class="line">      <span class="comment"># 通过 connection-properties 属性打开 mergeSql 功能；慢 SQL 记录</span></span><br><span class="line">      <span class="attr">connection-properties:</span> <span class="string">druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000</span></span><br><span class="line">      <span class="comment"># 配置 DruidStatFilter</span></span><br><span class="line">      <span class="attr">web-stat-filter:</span></span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">url-pattern:</span> <span class="string">/*</span></span><br><span class="line">        <span class="attr">exclusions:</span> <span class="string">.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*</span></span><br><span class="line">      <span class="comment"># 配置 DruidStatViewServlet</span></span><br><span class="line">      <span class="attr">stat-view-servlet:</span></span><br><span class="line">        <span class="attr">url-pattern:</span> <span class="string">/druid/*</span></span><br><span class="line">        <span class="comment"># IP 白名单，没有配置或者为空，则允许所有访问</span></span><br><span class="line">        <span class="attr">allow:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">        <span class="comment"># IP 黑名单，若白名单也存在，则优先使用</span></span><br><span class="line">        <span class="attr">deny:</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.253</span></span><br><span class="line">        <span class="comment"># 禁用 HTML 中 Reset All 按钮</span></span><br><span class="line">        <span class="attr">reset-enable:</span> <span class="literal">false</span></span><br><span class="line">        <span class="comment"># 登录用户名/密码</span></span><br><span class="line">        <span class="attr">login-username:</span> <span class="string">root</span></span><br><span class="line">        <span class="attr">login-password:</span> <span class="number">123</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//读取配置文件中的发件人</span></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;spring.mail.username&#125;&quot;)</span></span><br><span class="line">   	<span class="keyword">private</span> String from;</span><br><span class="line">    <span class="comment">//自动注入Java邮件发送对象</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JavaMailSender sender;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发送邮件</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> to 收信人邮箱</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> title 信件标题</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> code 验证码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendEmail</span><span class="params">(String to , String title , String code)</span></span>&#123;</span><br><span class="line">		SimpleMailMessage message = <span class="keyword">new</span> SimpleMailMessage();</span><br><span class="line">        message.setFrom(from); <span class="comment">//发件人邮箱</span></span><br><span class="line">        message.setTo(to); <span class="comment">//收件人邮箱</span></span><br><span class="line">        message.setSubject(title); <span class="comment">//邮件标题</span></span><br><span class="line">        message.setText(code);  <span class="comment">//邮件内容</span></span><br><span class="line">        sender.send(message);<span class="comment">//发送邮件</span></span><br><span class="line">        System.out.println(<span class="string">&quot;邮件发送成功&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<p>2.配置类版本：</p>
-<p>​    配置文件：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">datasource:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">        <span class="comment"># 数据源的其他配置</span></span><br><span class="line">        <span class="attr">initialSize:</span> <span class="number">5</span></span><br><span class="line">        <span class="attr">minIdle:</span> <span class="number">5</span></span><br><span class="line">        <span class="attr">maxActive:</span> <span class="number">20</span></span><br><span class="line">        <span class="attr">maxWait:</span> <span class="number">60000</span></span><br><span class="line">        <span class="attr">timeBetweenEvictionRunsMillis:</span> <span class="number">60000</span></span><br><span class="line">        <span class="attr">minEvictableIdleTimeMillis:</span> <span class="number">300000</span></span><br><span class="line">        <span class="attr">validationQuery:</span> <span class="string">SELECT</span> <span class="number">1</span> <span class="string">FROM</span> <span class="string">DUAL</span></span><br><span class="line">        <span class="attr">testWhileIdle:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">testOnBorrow:</span> <span class="literal">false</span></span><br><span class="line">        <span class="attr">testOnReturn:</span> <span class="literal">false</span></span><br><span class="line">        <span class="attr">poolPreparedStatements:</span> <span class="literal">true</span></span><br><span class="line">        <span class="comment"># 配置监控统计拦截的 filters，去掉后监控界面 sql 无法统计，&#x27;wall&#x27;用于防火墙</span></span><br><span class="line">        <span class="attr">filters:</span> <span class="string">stat,wall,log4j</span></span><br><span class="line">        <span class="attr">maxPoolPreparedStatementPerConnectionSize:</span> <span class="number">20</span></span><br><span class="line">        <span class="attr">useGlobalDataSourceStat:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">connectionProperties:</span> <span class="string">druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>邮件发送的接口编写</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StringRedisTemplate stringRedisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> EmailService emailService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/email&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">emailVertCode</span><span class="params">(<span class="meta">@RequestBody</span> JSONObject requestbody)</span></span>&#123;</span><br><span class="line">        JSONObject response = <span class="keyword">new</span> JSONObject(<span class="keyword">true</span>);</span><br><span class="line">        String username = requestbody.getString(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        String email = requestbody.getString(<span class="string">&quot;email&quot;</span>);</span><br><span class="line">        <span class="comment">//自定义的生成 6 位验证码的工具类</span></span><br><span class="line">        String code = VerificationCode.getCode();</span><br><span class="line">        emailService.sendSimple(email,<span class="string">&quot;验证码测试&quot;</span>,code);</span><br><span class="line">        <span class="comment">//将验证码存入redis</span></span><br><span class="line">        stringRedisTemplate.opsForHash().put( username , username ,code);</span><br><span class="line">        <span class="comment">//设置验证码的过期时间为 5 分钟</span></span><br><span class="line">        stringRedisTemplate.expire(username , <span class="number">5</span> ,TimeUnit.MINUTES);</span><br><span class="line">        response.put(<span class="string">&quot;code&quot;</span>,<span class="number">200</span>);</span><br><span class="line">        response.put(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;发送邮件成功&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> response.toJSONString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>​    配置类：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.servlet.Filter;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.Servlet;</span><br><span class="line"><span class="keyword">import</span> javax.sql.DataSource;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.web.servlet.FilterRegistrationBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.web.servlet.ServletRegistrationBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.pool.DruidDataSource;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.support.http.StatViewServlet;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.support.http.WebStatFilter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DruidConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="comment">// 将所有前缀为spring.datasource下的配置项都加载DataSource中</span></span><br><span class="line">    <span class="meta">@ConfigurationProperties(prefix = &quot;spring.datasource&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">druidDataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DruidDataSource();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServletRegistrationBean&lt;Servlet&gt; <span class="title">druidServlet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 进行 druid 监控的配置处理</span></span><br><span class="line">        ServletRegistrationBean&lt;Servlet&gt; srb = <span class="keyword">new</span> ServletRegistrationBean&lt;&gt;(<span class="keyword">new</span> StatViewServlet(), <span class="string">&quot;/druid/**&quot;</span>);</span><br><span class="line">        <span class="comment">// 白名单</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;allow&quot;</span>, <span class="string">&quot;127.0.0.1&quot;</span>);</span><br><span class="line">        <span class="comment">// 黑名单</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;deny&quot;</span>, <span class="string">&quot;192.168.31.253&quot;</span>);</span><br><span class="line">        <span class="comment">// 用户名</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;loginUsername&quot;</span>, <span class="string">&quot;root&quot;</span>);</span><br><span class="line">        <span class="comment">// 密码</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;loginPassword&quot;</span>, <span class="string">&quot;root&quot;</span>);</span><br><span class="line">        <span class="comment">// 是否可以重置数据源</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;resetEnable&quot;</span>, <span class="string">&quot;false&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> srb;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> FilterRegistrationBean&lt;Filter&gt; <span class="title">filterRegistrationBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        FilterRegistrationBean&lt;Filter&gt; frb = <span class="keyword">new</span> FilterRegistrationBean&lt;&gt;();</span><br><span class="line">        frb.setFilter(<span class="keyword">new</span> WebStatFilter());</span><br><span class="line">        <span class="comment">// 所有请求进行监控处理</span></span><br><span class="line">        frb.addUrlPatterns(<span class="string">&quot;/*&quot;</span>);</span><br><span class="line">        <span class="comment">// 排除名单</span></span><br><span class="line">        frb.addInitParameter(<span class="string">&quot;exclusions&quot;</span>, <span class="string">&quot;*.js,*.gif,*.jpg,*.css,/druid/*&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> frb;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>附上自己写的验证码生成工具</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VerificationCode</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> counts = <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">int</span> resCode = <span class="number">0</span>;</span><br><span class="line">        Random random = <span class="keyword">new</span> Random(System.currentTimeMillis());</span><br><span class="line">        <span class="keyword">while</span> (counts-- != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> i = random.nextInt(<span class="number">10</span>);</span><br><span class="line">            <span class="keyword">while</span> (i == <span class="number">0</span> &amp;&amp; counts == <span class="number">5</span>) &#123;</span><br><span class="line">                i = random.nextInt(<span class="number">10</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">0</span>) resCode *= <span class="number">10</span>;</span><br><span class="line">            <span class="keyword">else</span> resCode += (<span class="keyword">int</span>) (i * Math.pow(<span class="number">10</span>, <span class="number">5</span> - counts));</span><br><span class="line">        &#125;</span><br><span class="line">            <span class="keyword">return</span> String.valueOf(resCode);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>启动<code>SpringBoot</code>后可在 <code> http://localhost:8080/druid/login.html</code> 中查看监控信息.</p>
 ]]></content>
       <categories>
         <category>Java</category>
@@ -1569,68 +1687,48 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot（一）:Hello World</title>
-    <url>/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🎉SpringBoot为快速开发为生"><a href="#🎉SpringBoot为快速开发为生" class="headerlink" title="🎉SpringBoot为快速开发为生"></a>🎉SpringBoot为快速开发为生</h1><blockquote>
-<p>前言：在学完 Spring + SpringMVC + Mybatis 之后进行了 SSM整合项目的搭建，搭建项目最花费时间的其实是在各种的配置文件上，比如mybatis-config.xml 和 Spring中的applicationContext.xml 以及 SpringMVC中 Web.xml 都有固定的文件头等等内容，每次写都还要去别处复制粘贴，难搞。光是建个文件之后的复制粘贴就已经让我头大了，最难搞的还是Spring中文件配置文件中一些小东西，比如：SqlsessionFactory 以及 dao 层自动接口扫描器，完全可以说是固定写法，SpringMVC的配置中需要配置视图解析器，以及事物处理器，web.xml中需要配置请求转发器和资源过滤，配置过程几乎完全面向复制粘贴，繁琐且冗杂，也非常容易出错，我整合的SSM的项目至今没有跑起来，Debug了一个多星期无果，从Gitee上扒下来别人的项目跑，能跑，我的就是跑不起来，那几天我真是做梦都在想配置文件哪里出错了QAQ</p>
-</blockquote>
-<p>接下，进入正题：</p>
-<p>​        SpringBoot的出现就是为了解决以上问题，把配置简化到几乎没有，就连Tomcat都不需要我们自己去配置了，不得不说，SpringBoot永远滴神.接下来我将演示快速创建一个SpringBoot项目到启动的全过程.</p>
-<p><strong>在此之前，介绍一下SpringBoot的相关特点：</strong></p>
-<p>   1.<strong>创建独立的Spring应用程序</strong></p>
-<ol start="2">
-<li><p><strong>嵌入的Tomcat，无需部署WAR文件</strong></p>
+    <title>SpringBoot(八):自定义starter</title>
+    <url>/2021/06/24/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🚀SpringBoot-starter机制"><a href="#🚀SpringBoot-starter机制" class="headerlink" title="🚀SpringBoot starter机制"></a>🚀SpringBoot starter机制</h1><p><code>SpringBoot</code>中提供了大量开箱即用的<code>starter</code>，<code>starter</code>中配置了一定业务场景中所需要的依赖以及各种服务，让开发者摆脱了大量配置和依赖文件，让工程的整体结构更加优美而不臃肿，其具体实现依托于<code>SpringBoot</code>中自动配置原理，自动进行包扫描，既可以自定义配置，也可以使用默认配置.</p>
+<h1 id="🏛自定义starter的命名规则"><a href="#🏛自定义starter的命名规则" class="headerlink" title="🏛自定义starter的命名规则"></a>🏛自定义starter的命名规则</h1><p><code>SpringBoot</code>提供的<code>starter</code>以<code>spring-boot-starter-xxx</code>的方式命名的。官方建议自定义的<code>starter</code>使用<code>xxx-spring-boot-starter</code>命名规则。以区分<code>SpringBoot</code>生态提供的<code>starter</code></p>
+<h1 id="🎡自定义starter"><a href="#🎡自定义starter" class="headerlink" title="🎡自定义starter"></a>🎡自定义starter</h1><ul>
+<li><p>创建一个<code>SpringBoot</code>项目</p>
+<p>目录结构如下，删除<code>SpringBoot</code>启动类以及配置文件，可以选择性删掉<code>test</code>目录，再删除<code>pom.xml</code>中<code>plugins</code>，不然打包会报错.</p>
+<p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/2.png" alt="img"></p>
 </li>
-<li><p><strong>简化Maven配置</strong></p>
+<li><p>引入相关依赖</p>
 </li>
-<li><p><strong>自动配置Spring</strong></p>
-</li>
-<li><p><strong>提供生产就绪型功能，如指标，健康检查和外部配置</strong></p>
-</li>
-<li><p>**绝对没有代码生成并且对XML也没有配置要求 **</p>
-</li>
-</ol>
-<hr>
-<p>接下来体验一下咯：</p>
-<ul>
-<li>通过IDEA创建项目</li>
 </ul>
-<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class title="creat">
-
-
-
-<p>点击**<code>Next</code>**，下一步</p>
-<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/2.png" class title="create">
-
-
-
-<p>点击 <strong><code>Next</code></strong> ，下一步</p>
-<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/3.png" class title="creat">
-
-
-
-
-
-<p>点击 <strong><code>Next</code></strong> ，下一步，后面就是填写项目名称，这里就略过了，快进到创建后</p>
-<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/4.png" class title="create">
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--拓展配置文件的格式--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-configuration-processor<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      </span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      </span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment">&lt;!--必需--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-autoconfigure<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 
 
 <ul>
-<li>接下来编写 <code>Controller</code> 层，注意，要在DemoApplication.java的同目录下创建包下的java文件或者java文件才能被扫描到</li>
+<li>编写数据映射实体类</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo.controller;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">//表示不会跳转JSP、HTML 而是直接将返回的内容写入 Http响应包中的响应体中,直接将内容呈现在页面中</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="comment">//等价于</span></span><br><span class="line"><span class="comment">//@Controller</span></span><br><span class="line"><span class="comment">//@ResponseBody</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloSpringBoot</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//用于建立请求URL和处理请求方法之间的对应关系，将该方法映射到这个url路径上</span></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">Hello</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello SpringBoot !&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//可以把.properties中获取.yaml中符号以下前缀的数据映射到本类中</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(prefix = &quot;com.anthony.starter&quot;)</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Accessors(chain = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyProperties</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String msg = <span class="string">&quot;默认值&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> String username = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> String password = <span class="string">&quot;123456&quot;</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 
 <ul>
-<li><p>接下来就可以直接启动项目了，SpringBoot不会自动打开浏览器，需要我们手动输入URL.</p>
-<p>浏览器中输入 <code>localhost:8080/hello</code></p>
-</li>
+<li>编写service类: 用于对外提供服务</li>
 </ul>
-<img src="/2021/05/05/SpringBoot%EF%BC%88%E4%B8%80%EF%BC%89/5.png" class title="create">
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Accessors(chain = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String msg;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<p>会发现，从来到尾我们只需要在创建项目的时候需要进行配置，创建好后只需要编写业务逻辑即可运行.</p>
+<ul>
+<li>配置类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//向IOC容器中注册该类</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">//允许该类进行数据映射</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties(MyProperties.class)</span></span><br><span class="line"><span class="comment">//当类路径下存在该类时再往IOC容器中进行注册</span></span><br><span class="line"><span class="meta">@ConditionalOnClass(MyService.class)</span></span><br><span class="line"><span class="comment">//当配置文件中存在这些配置时，可以注入，如果未匹配到也可以注入，所以这一条写不写都行</span></span><br><span class="line"><span class="meta">@ConditionalOnProperty(prefix = &quot;com.anthony.starter&quot; , value = &quot;enabled&quot; , matchIfMissing = true )</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAutoConfiguration</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MyProperties myProperties;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MyService <span class="title">myService</span><span class="params">()</span></span>&#123;</span><br><span class="line">        MyService myService = <span class="keyword">new</span> MyService()</span><br><span class="line">                .setMsg(myProperties.getMsg())</span><br><span class="line">                .setPassword(myProperties.getPassword())</span><br><span class="line">                .setUsername(myProperties.getUsername());</span><br><span class="line">        <span class="keyword">return</span> myService;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>打包发布安装到本地仓库</li>
+</ul>
+<p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/1.png" alt="img"></p>
+<ul>
+<li>引用时只需要像普通依赖一样引入就可以了，也可以直接复制当前项目中的项目坐标</li>
+</ul>
 ]]></content>
       <categories>
         <category>Java</category>
@@ -1731,104 +1829,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot(五):实现邮箱验证</title>
-    <url>/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/</url>
-    <content><![CDATA[<blockquote>
-<p>前言：当下的业务背景中，存在许多需要保证用户数据安全的场景，在这些场景下，我们可以利用邮箱验证/手机短信验证的方式对用户身份进行审核，这大大提高了用户数据的安全性.在注册场景下，也可以利用这样的手段来阻止恶意注册.</p>
-</blockquote>
-<h1 id="🎃准备工作"><a href="#🎃准备工作" class="headerlink" title="🎃准备工作"></a>🎃准备工作</h1><p>再使用代码进行发送邮箱之前需要进行一些准备工作，具体如下：</p>
-<h2 id="开启邮箱的功能服务"><a href="#开启邮箱的功能服务" class="headerlink" title="开启邮箱的功能服务"></a>开启邮箱的功能服务</h2><p>这里以QQ邮箱为例，我们需要开启<code>POP3/SMTP</code>服务、以及<code>IMAP/SMTP</code>服务.</p>
-<img src="/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/1.png" class title="图片">
-
-<img src="/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/2.png" class title="图片">
-
-<p>开启过后，会告诉我们<strong>授权码</strong>，发送邮件时，我们需要通过这个授权码得到权限，从而发送邮件，保证邮箱的使用不被滥用侵犯，这个授权码要留着，等待后续使用.</p>
-<h2 id="导入依赖"><a href="#导入依赖" class="headerlink" title="导入依赖"></a>导入依赖</h2><p>由于需要存储验证码，并且验证码存在时效性，于是这里使用了<code>Redis</code>来实现这个功能，于是也需要导入<code>Redis</code>的依赖.</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--邮箱--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-mail<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--redis--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="comment">#  配置redis</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">database:</span> <span class="number">0</span> <span class="comment">#选择第一个数据库</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">xxxxxx</span> <span class="comment">#redis 服务器 ip 如果在本地就填 localhost</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">6379</span> <span class="comment">#redis服务端口号默认 6379</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">xxxxxx</span> <span class="comment">#redis登录密码</span></span><br><span class="line"><span class="comment"># 配置邮箱</span></span><br><span class="line">  <span class="attr">mail:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">smtp.qq.com</span>  <span class="comment">#使用哪一个类型的邮箱的标识</span></span><br><span class="line">    <span class="attr">username:</span> <span class="number">3164297994</span><span class="string">@qq.com</span> <span class="comment">#发送者的邮箱</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">xxxxxxxxxxxx</span> <span class="comment">#POP3服务的授权码</span></span><br><span class="line">    <span class="attr">default-encoding:</span> <span class="string">utf-8</span> <span class="comment">#文本解析格式</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h1 id="🚘代码实现"><a href="#🚘代码实现" class="headerlink" title="🚘代码实现"></a>🚘代码实现</h1><ul>
-<li>发送邮箱验证码的服务类编写</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//读取配置文件中的发件人</span></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;spring.mail.username&#125;&quot;)</span></span><br><span class="line">   	<span class="keyword">private</span> String from;</span><br><span class="line">    <span class="comment">//自动注入Java邮件发送对象</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JavaMailSender sender;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发送邮件</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> to 收信人邮箱</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> title 信件标题</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> code 验证码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendEmail</span><span class="params">(String to , String title , String code)</span></span>&#123;</span><br><span class="line">		SimpleMailMessage message = <span class="keyword">new</span> SimpleMailMessage();</span><br><span class="line">        message.setFrom(from); <span class="comment">//发件人邮箱</span></span><br><span class="line">        message.setTo(to); <span class="comment">//收件人邮箱</span></span><br><span class="line">        message.setSubject(title); <span class="comment">//邮件标题</span></span><br><span class="line">        message.setText(code);  <span class="comment">//邮件内容</span></span><br><span class="line">        sender.send(message);<span class="comment">//发送邮件</span></span><br><span class="line">        System.out.println(<span class="string">&quot;邮件发送成功&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li>邮件发送的接口编写</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StringRedisTemplate stringRedisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> EmailService emailService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/email&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">emailVertCode</span><span class="params">(<span class="meta">@RequestBody</span> JSONObject requestbody)</span></span>&#123;</span><br><span class="line">        JSONObject response = <span class="keyword">new</span> JSONObject(<span class="keyword">true</span>);</span><br><span class="line">        String username = requestbody.getString(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        String email = requestbody.getString(<span class="string">&quot;email&quot;</span>);</span><br><span class="line">        <span class="comment">//自定义的生成 6 位验证码的工具类</span></span><br><span class="line">        String code = VerificationCode.getCode();</span><br><span class="line">        emailService.sendSimple(email,<span class="string">&quot;验证码测试&quot;</span>,code);</span><br><span class="line">        <span class="comment">//将验证码存入redis</span></span><br><span class="line">        stringRedisTemplate.opsForHash().put( username , username ,code);</span><br><span class="line">        <span class="comment">//设置验证码的过期时间为 5 分钟</span></span><br><span class="line">        stringRedisTemplate.expire(username , <span class="number">5</span> ,TimeUnit.MINUTES);</span><br><span class="line">        response.put(<span class="string">&quot;code&quot;</span>,<span class="number">200</span>);</span><br><span class="line">        response.put(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;发送邮件成功&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> response.toJSONString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>附上自己写的验证码生成工具</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VerificationCode</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> counts = <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">int</span> resCode = <span class="number">0</span>;</span><br><span class="line">        Random random = <span class="keyword">new</span> Random(System.currentTimeMillis());</span><br><span class="line">        <span class="keyword">while</span> (counts-- != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> i = random.nextInt(<span class="number">10</span>);</span><br><span class="line">            <span class="keyword">while</span> (i == <span class="number">0</span> &amp;&amp; counts == <span class="number">5</span>) &#123;</span><br><span class="line">                i = random.nextInt(<span class="number">10</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">0</span>) resCode *= <span class="number">10</span>;</span><br><span class="line">            <span class="keyword">else</span> resCode += (<span class="keyword">int</span>) (i * Math.pow(<span class="number">10</span>, <span class="number">5</span> - counts));</span><br><span class="line">        &#125;</span><br><span class="line">            <span class="keyword">return</span> String.valueOf(resCode);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot(八):自定义starter</title>
-    <url>/2021/06/24/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🚀SpringBoot-starter机制"><a href="#🚀SpringBoot-starter机制" class="headerlink" title="🚀SpringBoot starter机制"></a>🚀SpringBoot starter机制</h1><p><code>SpringBoot</code>中提供了大量开箱即用的<code>starter</code>，<code>starter</code>中配置了一定业务场景中所需要的依赖以及各种服务，让开发者摆脱了大量配置和依赖文件，让工程的整体结构更加优美而不臃肿，其具体实现依托于<code>SpringBoot</code>中自动配置原理，自动进行包扫描，既可以自定义配置，也可以使用默认配置.</p>
-<h1 id="🏛自定义starter的命名规则"><a href="#🏛自定义starter的命名规则" class="headerlink" title="🏛自定义starter的命名规则"></a>🏛自定义starter的命名规则</h1><p><code>SpringBoot</code>提供的<code>starter</code>以<code>spring-boot-starter-xxx</code>的方式命名的。官方建议自定义的<code>starter</code>使用<code>xxx-spring-boot-starter</code>命名规则。以区分<code>SpringBoot</code>生态提供的<code>starter</code></p>
-<h1 id="🎡自定义starter"><a href="#🎡自定义starter" class="headerlink" title="🎡自定义starter"></a>🎡自定义starter</h1><ul>
-<li><p>创建一个<code>SpringBoot</code>项目</p>
-<p>目录结构如下，删除<code>SpringBoot</code>启动类以及配置文件，可以选择性删掉<code>test</code>目录，再删除<code>pom.xml</code>中<code>plugins</code>，不然打包会报错.</p>
-<p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/2.png" alt="img"></p>
-</li>
-<li><p>引入相关依赖</p>
-</li>
-</ul>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--拓展配置文件的格式--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-configuration-processor<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      </span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      </span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment">&lt;!--必需--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-autoconfigure<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li>编写数据映射实体类</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//可以把.properties中获取.yaml中符号以下前缀的数据映射到本类中</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(prefix = &quot;com.anthony.starter&quot;)</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Accessors(chain = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyProperties</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String msg = <span class="string">&quot;默认值&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> String username = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> String password = <span class="string">&quot;123456&quot;</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li>编写service类: 用于对外提供服务</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Accessors(chain = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String msg;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li>配置类</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//向IOC容器中注册该类</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">//允许该类进行数据映射</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties(MyProperties.class)</span></span><br><span class="line"><span class="comment">//当类路径下存在该类时再往IOC容器中进行注册</span></span><br><span class="line"><span class="meta">@ConditionalOnClass(MyService.class)</span></span><br><span class="line"><span class="comment">//当配置文件中存在这些配置时，可以注入，如果未匹配到也可以注入，所以这一条写不写都行</span></span><br><span class="line"><span class="meta">@ConditionalOnProperty(prefix = &quot;com.anthony.starter&quot; , value = &quot;enabled&quot; , matchIfMissing = true )</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAutoConfiguration</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MyProperties myProperties;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MyService <span class="title">myService</span><span class="params">()</span></span>&#123;</span><br><span class="line">        MyService myService = <span class="keyword">new</span> MyService()</span><br><span class="line">                .setMsg(myProperties.getMsg())</span><br><span class="line">                .setPassword(myProperties.getPassword())</span><br><span class="line">                .setUsername(myProperties.getUsername());</span><br><span class="line">        <span class="keyword">return</span> myService;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>打包发布安装到本地仓库</li>
-</ul>
-<p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/1.png" alt="img"></p>
-<ul>
-<li>引用时只需要像普通依赖一样引入就可以了，也可以直接复制当前项目中的项目坐标</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringBoot(六):解决前后端分离跨域</title>
     <url>/2021/06/18/SpringBoot%EF%BC%88%E5%85%AD%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🚀什么是跨域？"><a href="#🚀什么是跨域？" class="headerlink" title="🚀什么是跨域？"></a>🚀什么是跨域？</h1><ul>
@@ -1861,50 +1861,6 @@
 <p>只需要重写<code>handler</code>中<code>preHandlr</code>并且加上下方代码即可</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="string">&quot;OPTIONS&quot;</span>.equals(request.getMethod().toUpperCase())) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Method:OPTIONS&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot(四):注解开发</title>
-    <url>/2021/06/15/SpringBoot%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
-    <content><![CDATA[<blockquote>
-<p>可以说注解是SpringBoot的精髓，有着非常非常多的注解，这篇博客将持续更新我平时所用到的注解~~</p>
-<p>当然了，这篇博客主要是为了作为一份备忘录，具体的底层解析，会另外写博客进行分析~</p>
-</blockquote>
-<h1 id="🎁类注解"><a href="#🎁类注解" class="headerlink" title="🎁类注解"></a>🎁类注解</h1><ul>
-<li><code>@Component</code> ：当不明确类属于哪一层架构时，用于注册<code>Spring</code>组件.</li>
-<li><code>@Repository</code> ：对应持久层即<code>Dao</code>层，主要用于数据库相关操作.</li>
-<li><code>@Service</code> ：对应服务层，主要涉及一些复杂的逻辑，需要用到 <code>Dao </code>层.</li>
-<li><code>@Controller</code> ：对应MVC 控制层，用户接受用户请求并调用 <code>Service </code>层返回数据给前端页面.</li>
-<li><code>@RestController</code>：相较于<code>@Controller</code> 而言，限制了控制器中的方法返回值只能为<code>return</code>中内容本身</li>
-<li><code>@SpringBootAplication</code>：用于标注SpringBoot启动类，也是启动自动配置扫描的注解</li>
-<li><code>@SpringBootTest</code>：用于进行单元测试</li>
-<li><code>@Configuration</code>：用于声明某个类为配置类，多用于<code>Spring</code>应用中，相当于在全局配置文件中进行相关配置</li>
-<li><code>@SpringBootConfiguration</code>：更多的用于<code>SpringBoot</code>应用中，效果同<code>@Configuration</code></li>
-<li><code>@ComponentScan</code>：使<code>SpringBoot</code>应用自动扫描<code>@SpringBootApplication</code>所在类的同级包以及它的子包中的配置</li>
-<li><code>@EnableAutoConfiguration</code>：使<code>SpringBoot</code>根据当前应用项目的依赖进行相关的配置</li>
-<li><code>@ConfigurationProperties(prefix = &quot;xxxx&quot;)</code>：用于读取配置文件中的数据</li>
-<li><code>@PropertySource</code>：可以指定需要加载的配置文件，可以一个也可以多个(多个使用{}括起来即可)，读取数据需要使用<code>@Value</code></li>
-</ul>
-<h1 id="🎫方法注解"><a href="#🎫方法注解" class="headerlink" title="🎫方法注解"></a>🎫方法注解</h1><ul>
-<li><code>@RequestMapping</code>：请求映射路径</li>
-<li><code>@GetMapping</code>：<code>get</code>请求映射路径，只接受<code>get</code>请求</li>
-<li><code>@PostMapping</code>: <code>post</code>请求映射路径，只接受<code>post</code>请求</li>
-<li><code>@ResponseBody</code>: 当使用<code>@controller</code>的时候，在方法上加次注解等价于使用<code>@RestController</code></li>
-<li><code>@Test</code>：标注测试方法，让方法可以独立运行</li>
-</ul>
-<h1 id="🎨属性注解"><a href="#🎨属性注解" class="headerlink" title="🎨属性注解"></a>🎨属性注解</h1><ul>
-<li><code>@Value</code> : 用于读取配置文件中值</li>
-<li><code>@Autowired</code>：用于自动注入<code>Spring IOC</code> 容器中的对象</li>
-<li><code>@RequestBody</code>：只能用于获取<code>Post</code>请求中的请求体</li>
-<li><code>@PathVarible</code>：用于获取<code>RESTful</code>风格的<code>get</code>请求参数</li>
-<li><code>@RequestParam</code>：用于获取<code>post/get</code>请求方式的请求体中的数据，如果变量名不一致，可以手动配置</li>
-</ul>
 ]]></content>
       <categories>
         <category>Java</category>
@@ -1985,6 +1941,50 @@
       </categories>
       <tags>
         <tag>SpringMVC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot(四):注解开发</title>
+    <url>/2021/06/15/SpringBoot%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
+    <content><![CDATA[<blockquote>
+<p>可以说注解是SpringBoot的精髓，有着非常非常多的注解，这篇博客将持续更新我平时所用到的注解~~</p>
+<p>当然了，这篇博客主要是为了作为一份备忘录，具体的底层解析，会另外写博客进行分析~</p>
+</blockquote>
+<h1 id="🎁类注解"><a href="#🎁类注解" class="headerlink" title="🎁类注解"></a>🎁类注解</h1><ul>
+<li><code>@Component</code> ：当不明确类属于哪一层架构时，用于注册<code>Spring</code>组件.</li>
+<li><code>@Repository</code> ：对应持久层即<code>Dao</code>层，主要用于数据库相关操作.</li>
+<li><code>@Service</code> ：对应服务层，主要涉及一些复杂的逻辑，需要用到 <code>Dao </code>层.</li>
+<li><code>@Controller</code> ：对应MVC 控制层，用户接受用户请求并调用 <code>Service </code>层返回数据给前端页面.</li>
+<li><code>@RestController</code>：相较于<code>@Controller</code> 而言，限制了控制器中的方法返回值只能为<code>return</code>中内容本身</li>
+<li><code>@SpringBootAplication</code>：用于标注SpringBoot启动类，也是启动自动配置扫描的注解</li>
+<li><code>@SpringBootTest</code>：用于进行单元测试</li>
+<li><code>@Configuration</code>：用于声明某个类为配置类，多用于<code>Spring</code>应用中，相当于在全局配置文件中进行相关配置</li>
+<li><code>@SpringBootConfiguration</code>：更多的用于<code>SpringBoot</code>应用中，效果同<code>@Configuration</code></li>
+<li><code>@ComponentScan</code>：使<code>SpringBoot</code>应用自动扫描<code>@SpringBootApplication</code>所在类的同级包以及它的子包中的配置</li>
+<li><code>@EnableAutoConfiguration</code>：使<code>SpringBoot</code>根据当前应用项目的依赖进行相关的配置</li>
+<li><code>@ConfigurationProperties(prefix = &quot;xxxx&quot;)</code>：用于读取配置文件中的数据</li>
+<li><code>@PropertySource</code>：可以指定需要加载的配置文件，可以一个也可以多个(多个使用{}括起来即可)，读取数据需要使用<code>@Value</code></li>
+</ul>
+<h1 id="🎫方法注解"><a href="#🎫方法注解" class="headerlink" title="🎫方法注解"></a>🎫方法注解</h1><ul>
+<li><code>@RequestMapping</code>：请求映射路径</li>
+<li><code>@GetMapping</code>：<code>get</code>请求映射路径，只接受<code>get</code>请求</li>
+<li><code>@PostMapping</code>: <code>post</code>请求映射路径，只接受<code>post</code>请求</li>
+<li><code>@ResponseBody</code>: 当使用<code>@controller</code>的时候，在方法上加次注解等价于使用<code>@RestController</code></li>
+<li><code>@Test</code>：标注测试方法，让方法可以独立运行</li>
+</ul>
+<h1 id="🎨属性注解"><a href="#🎨属性注解" class="headerlink" title="🎨属性注解"></a>🎨属性注解</h1><ul>
+<li><code>@Value</code> : 用于读取配置文件中值</li>
+<li><code>@Autowired</code>：用于自动注入<code>Spring IOC</code> 容器中的对象</li>
+<li><code>@RequestBody</code>：只能用于获取<code>Post</code>请求中的请求体</li>
+<li><code>@PathVarible</code>：用于获取<code>RESTful</code>风格的<code>get</code>请求参数</li>
+<li><code>@RequestParam</code>：用于获取<code>post/get</code>请求方式的请求体中的数据，如果变量名不一致，可以手动配置</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
       </tags>
   </entry>
   <entry>
@@ -2160,27 +2160,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringSecurity(四):结合Vue实现异步登录</title>
-    <url>/2021/07/16/SpringSecurity%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🏁问题分析"><a href="#🏁问题分析" class="headerlink" title="🏁问题分析"></a>🏁问题分析</h1><p>&emsp;&emsp;使用异步<code>axios</code>请求的方式进行登录与直接使用 <code>postman</code> 发送 <code>post</code> 请求进行测试 ，提交数据的方式似乎不太一样，<code>postman</code>能跑通，而使用<code>axios</code> ，后台<code>loadUserByusername</code>获取不到用户名，这就很奇怪，奈何看不太懂源码，主要是各种设计模式没学过以及底层的封装层数太多了，看的使人心累，于是开始逛论坛以及开源网站看别人的代码，后来才发现，<code>axios</code>提交的参数是存放在请求体当中的，而<code>SpringSecurity</code>中的处理逻辑使用了 <code>request.getParameter</code> 进行参数获取，有过原始表单或者 <code>servlet</code> 开发经验的人都知道 ， 此方法只能获取到类似于 <code>get</code>请求 以及 以原始表单格式提交的<code>post</code> 数据 ， 然而尝试过后发现 ，利用<code>axios</code>请求，将请求头设置一下，即<code>Content-Type: application/x-www-form-urlencoded``;charset=utf-8</code> ， 安全框架仍然解析不到<code>username</code>，此时心态已经崩了，然而就在此时，翻到一篇博客，记述到可以将传统原生的表单提交格式更改为 <code>get</code> 提交数据的数据格式，当然了只是更改了数据格式，并没有更改请求方式哈.</p>
-<h1 id="😎解决方案"><a href="#😎解决方案" class="headerlink" title="😎解决方案"></a>😎解决方案</h1><p>利用<code>qs</code> 包 中的 <code>stringify</code> 方法格式化数据.</p>
-<p>具体：</p>
-<ul>
-<li>先安装该包 <code>npm install qs --save</code></li>
-<li>修改前端提交数据的格式</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> http.request(&#123;</span><br><span class="line">    method: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    url: <span class="string">&#x27;login&#x27;</span>,</span><br><span class="line">    data: qs.stringify(data)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>测试过后可以请求成功，狂喜~</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringSecurity</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringSecurity(二):整合mybatis</title>
     <url>/2021/07/12/SpringSecurity%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
     <content><![CDATA[<h1 id="构建数据库表"><a href="#构建数据库表" class="headerlink" title="构建数据库表"></a>构建数据库表</h1><ul>
@@ -2238,6 +2217,27 @@
 
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(value = &quot;/access/user&quot;, produces = &quot;text/html;charset=utf-8&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hiUser</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello User!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(value = &quot;/access/admin&quot;,produces = &quot;text/html;charset=utf-8&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hiAdmin</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello admin!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringSecurity</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringSecurity(四):结合Vue实现异步登录</title>
+    <url>/2021/07/16/SpringSecurity%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🏁问题分析"><a href="#🏁问题分析" class="headerlink" title="🏁问题分析"></a>🏁问题分析</h1><p>&emsp;&emsp;使用异步<code>axios</code>请求的方式进行登录与直接使用 <code>postman</code> 发送 <code>post</code> 请求进行测试 ，提交数据的方式似乎不太一样，<code>postman</code>能跑通，而使用<code>axios</code> ，后台<code>loadUserByusername</code>获取不到用户名，这就很奇怪，奈何看不太懂源码，主要是各种设计模式没学过以及底层的封装层数太多了，看的使人心累，于是开始逛论坛以及开源网站看别人的代码，后来才发现，<code>axios</code>提交的参数是存放在请求体当中的，而<code>SpringSecurity</code>中的处理逻辑使用了 <code>request.getParameter</code> 进行参数获取，有过原始表单或者 <code>servlet</code> 开发经验的人都知道 ， 此方法只能获取到类似于 <code>get</code>请求 以及 以原始表单格式提交的<code>post</code> 数据 ， 然而尝试过后发现 ，利用<code>axios</code>请求，将请求头设置一下，即<code>Content-Type: application/x-www-form-urlencoded``;charset=utf-8</code> ， 安全框架仍然解析不到<code>username</code>，此时心态已经崩了，然而就在此时，翻到一篇博客，记述到可以将传统原生的表单提交格式更改为 <code>get</code> 提交数据的数据格式，当然了只是更改了数据格式，并没有更改请求方式哈.</p>
+<h1 id="😎解决方案"><a href="#😎解决方案" class="headerlink" title="😎解决方案"></a>😎解决方案</h1><p>利用<code>qs</code> 包 中的 <code>stringify</code> 方法格式化数据.</p>
+<p>具体：</p>
+<ul>
+<li>先安装该包 <code>npm install qs --save</code></li>
+<li>修改前端提交数据的格式</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> http.request(&#123;</span><br><span class="line">    method: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    url: <span class="string">&#x27;login&#x27;</span>,</span><br><span class="line">    data: qs.stringify(data)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试过后可以请求成功，狂喜~</p>
 ]]></content>
       <categories>
         <category>Java</category>
@@ -2568,6 +2568,36 @@
       </tags>
   </entry>
   <entry>
+    <title>每日一题(三):双指针算法</title>
+    <url>/2021/06/15/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%89%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🚠双指针算法"><a href="#🚠双指针算法" class="headerlink" title="🚠双指针算法"></a>🚠双指针算法</h1><p>范式：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; n; i ++ )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span> (j &lt; i &amp;&amp; <span class="built_in">check</span>(i, j)) j ++ ;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 具体问题的逻辑</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><img src="/2021/06/15/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%89%EF%BC%89/1.png" class title="题目">
+
+<p>原题链接：<a href="https://www.acwing.com/problem/content/801/">最长连续不重复子序列</a></p>
+<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>利用双指针，形成数的连续区间，指针<code>j</code>位于区间头部，<code>i</code>位于区间尾部，当指针<code>i</code> 不断向后遍历的时候，如果区间中存在相同的数，则指针<code>j</code>向前移动直到区间内没有重复的数字，指针<code>j</code> 最远移动到和指针<code>i</code>重合的位置，那么不重复的连续区间长度即指针<code>i</code>与指针<code>j</code>之间的距离.</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">100010</span>;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="comment">//q数组用于记录原来的数组</span></span><br><span class="line"><span class="comment">//s数组用于记录指针区间内q数组中每个数的出现次数</span></span><br><span class="line"><span class="keyword">int</span> q[N], s[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++ ) cin &gt;&gt; q[i];</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; n; i ++ )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//s数组存储的是q数组中每个数的出现次数</span></span><br><span class="line">        s[q[i]] ++ ;</span><br><span class="line">        <span class="comment">//当指针i在向右进行扫描的时候出现了重复的数字则s数组中对应的值必然大于 1</span></span><br><span class="line">        <span class="comment">//如果出现 区间 出现重复的数字，先将指针j处指向的数组数字出现次数 -1 (s数组记录的是两个指针之间的数字的出现的次数)</span></span><br><span class="line">        <span class="comment">//再将指针 j 向后移动(出现重复数字必然是指针j处和指针i处的值)</span></span><br><span class="line">        <span class="keyword">while</span> (j &lt; i &amp;&amp; s[q[i]] &gt; <span class="number">1</span>) s[q[j]]-- , j++ ;</span><br><span class="line">        <span class="comment">//获取区间长度</span></span><br><span class="line">        res = <span class="built_in">max</span>(res, i - j + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; res &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> N = <span class="number">100010</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[N], perSum = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">static</span> BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        n = Integer.parseInt(reader.readLine());</span><br><span class="line">        String[] arrStrs = reader.readLine().split(<span class="string">&quot;\\s+&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            arr[i] = Integer.parseInt(arrStrs[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            perSum[arr[i]]++;</span><br><span class="line">            <span class="keyword">while</span>(perSum[arr[i]] &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                perSum[arr[j]]--;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            count = Math.max(count, i - j + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(count);</span><br><span class="line">        reader.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>每日一题(一):快速排序</title>
     <url>/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🚡快速排序"><a href="#🚡快速排序" class="headerlink" title="🚡快速排序"></a>🚡快速排序</h1><blockquote>
@@ -2625,26 +2655,21 @@
       </tags>
   </entry>
   <entry>
-    <title>每日一题(三):双指针算法</title>
-    <url>/2021/06/15/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%89%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🚠双指针算法"><a href="#🚠双指针算法" class="headerlink" title="🚠双指针算法"></a>🚠双指针算法</h1><p>范式：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; n; i ++ )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span> (j &lt; i &amp;&amp; <span class="built_in">check</span>(i, j)) j ++ ;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 具体问题的逻辑</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>每日一题(二):双指针算法</title>
+    <url>/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🎃双指针算法"><a href="#🎃双指针算法" class="headerlink" title="🎃双指针算法"></a>🎃双指针算法</h1><p>何为双指针？其实在算法中是一种技巧性的东西，这个指针也并非如同<code>C语言</code> 那种指针，只是一种标识，用于表示状态，很凑巧，在上一篇每日一题中的快速排序就使用了双指针算法,十分经典，并且属于对撞指针（通俗的讲就是相向扫描），当然了，既然有相向扫描，也肯定有同向扫描，比较常用于字符串比对，分治之中.</p>
+<p>突然有个不错的想法，每日一题连续更新同一类型的题目，这样有便于全面掌握一种算法.</p>
+<p>这里附上上一篇文章的链接以供复习.</p>
+<p><a href="https://soul-pe.gitee.io/shdsoul/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">每日一题(一):快速排序</a></p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><img src="/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/1.png" class title="题目">
+
+<p>题目来源：Acwing：<a href="https://www.acwing.com/problem/content/description/773/">原题链接</a></p>
+<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>我们只需要，遍历每一个字符，然后将字符与后方的字符逐一比较，相同则继续向后比较并记录连续次数，不同则停止比较，继续向后方遍历即可.</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串</span></span><br><span class="line">    string str;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串数量</span></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="comment">//当 n 为 0 的时候停止输入</span></span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        cin &gt;&gt; str;</span><br><span class="line">        <span class="comment">//定义最大长度为 -1</span></span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">-1</span>;</span><br><span class="line">        <span class="comment">//记录最多重复的字符</span></span><br><span class="line">        string maxs;</span><br><span class="line">        <span class="comment">//指针i :遍历输入的字符</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; str.<span class="built_in">size</span>() ; i++)&#123;</span><br><span class="line">            <span class="comment">//指针j :用于字符串比较</span></span><br><span class="line">            <span class="keyword">int</span> j = i; <span class="comment">//由于要求连续,所以默认开始扫描的地方为 指针i 的位置,只需要遍历后面，不需要管前面</span></span><br><span class="line">            <span class="keyword">int</span> nums = <span class="number">0</span>;<span class="comment">//用于记录连续次数</span></span><br><span class="line">            <span class="comment">//当指针j指向的值与指针i指向的值相同的时候,并且j指针没有越界的时候</span></span><br><span class="line">            <span class="keyword">while</span>(str[j] == str[i] &amp;&amp; j &lt; str.<span class="built_in">size</span>())</span><br><span class="line">                <span class="comment">//指针j向后移动,连续次数自增1</span></span><br><span class="line">                j++ , nums++;</span><br><span class="line">            <span class="comment">//如果连续次数大于最大值则进行记录,并且记录当前字符    </span></span><br><span class="line">            <span class="keyword">if</span>(nums &gt; max)</span><br><span class="line">                max = nums,maxs = str[i];</span><br><span class="line">            <span class="comment">//当指针j停止移动时,[i,j)区间中必然全是相同的字符,此时 i只需要从j的位置开始继续遍历即可</span></span><br><span class="line">            i = j <span class="number">-1</span>;<span class="comment">//这里减1,是为了抵消掉循环中的 i++</span></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; nums &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; max;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><img src="/2021/06/15/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%89%EF%BC%89/1.png" class title="题目">
-
-<p>原题链接：<a href="https://www.acwing.com/problem/content/801/">最长连续不重复子序列</a></p>
-<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>利用双指针，形成数的连续区间，指针<code>j</code>位于区间头部，<code>i</code>位于区间尾部，当指针<code>i</code> 不断向后遍历的时候，如果区间中存在相同的数，则指针<code>j</code>向前移动直到区间内没有重复的数字，指针<code>j</code> 最远移动到和指针<code>i</code>重合的位置，那么不重复的连续区间长度即指针<code>i</code>与指针<code>j</code>之间的距离.</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">100010</span>;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="comment">//q数组用于记录原来的数组</span></span><br><span class="line"><span class="comment">//s数组用于记录指针区间内q数组中每个数的出现次数</span></span><br><span class="line"><span class="keyword">int</span> q[N], s[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++ ) cin &gt;&gt; q[i];</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; n; i ++ )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//s数组存储的是q数组中每个数的出现次数</span></span><br><span class="line">        s[q[i]] ++ ;</span><br><span class="line">        <span class="comment">//当指针i在向右进行扫描的时候出现了重复的数字则s数组中对应的值必然大于 1</span></span><br><span class="line">        <span class="comment">//如果出现 区间 出现重复的数字，先将指针j处指向的数组数字出现次数 -1 (s数组记录的是两个指针之间的数字的出现的次数)</span></span><br><span class="line">        <span class="comment">//再将指针 j 向后移动(出现重复数字必然是指针j处和指针i处的值)</span></span><br><span class="line">        <span class="keyword">while</span> (j &lt; i &amp;&amp; s[q[i]] &gt; <span class="number">1</span>) s[q[j]]-- , j++ ;</span><br><span class="line">        <span class="comment">//获取区间长度</span></span><br><span class="line">        res = <span class="built_in">max</span>(res, i - j + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; res &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> N = <span class="number">100010</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[N], perSum = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">static</span> BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        n = Integer.parseInt(reader.readLine());</span><br><span class="line">        String[] arrStrs = reader.readLine().split(<span class="string">&quot;\\s+&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            arr[i] = Integer.parseInt(arrStrs[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            perSum[arr[i]]++;</span><br><span class="line">            <span class="keyword">while</span>(perSum[arr[i]] &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                perSum[arr[j]]--;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            count = Math.max(count, i - j + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(count);</span><br><span class="line">        reader.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">int</span> n = Integer.parseInt(reader.readLine());</span><br><span class="line">        <span class="keyword">while</span>(n-- != <span class="number">0</span>)&#123;</span><br><span class="line">            String s = reader.readLine();</span><br><span class="line">            <span class="keyword">char</span> c = <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">            <span class="keyword">int</span> max = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; s.length() ; i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> j = i;</span><br><span class="line">                <span class="keyword">int</span> nums = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span>(j &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(j))&#123; </span><br><span class="line">                    j++;</span><br><span class="line">                    nums++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(nums &gt; max)&#123;</span><br><span class="line">                    max = nums ;</span><br><span class="line">                    c = s.charAt(i);</span><br><span class="line">                &#125;</span><br><span class="line">                i = j - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(c + <span class="string">&quot; &quot;</span> + max);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -2680,48 +2705,6 @@
       </categories>
       <tags>
         <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>每日一题(二):双指针算法</title>
-    <url>/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🎃双指针算法"><a href="#🎃双指针算法" class="headerlink" title="🎃双指针算法"></a>🎃双指针算法</h1><p>何为双指针？其实在算法中是一种技巧性的东西，这个指针也并非如同<code>C语言</code> 那种指针，只是一种标识，用于表示状态，很凑巧，在上一篇每日一题中的快速排序就使用了双指针算法,十分经典，并且属于对撞指针（通俗的讲就是相向扫描），当然了，既然有相向扫描，也肯定有同向扫描，比较常用于字符串比对，分治之中.</p>
-<p>突然有个不错的想法，每日一题连续更新同一类型的题目，这样有便于全面掌握一种算法.</p>
-<p>这里附上上一篇文章的链接以供复习.</p>
-<p><a href="https://soul-pe.gitee.io/shdsoul/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">每日一题(一):快速排序</a></p>
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><img src="/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/1.png" class title="题目">
-
-<p>题目来源：Acwing：<a href="https://www.acwing.com/problem/content/description/773/">原题链接</a></p>
-<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>我们只需要，遍历每一个字符，然后将字符与后方的字符逐一比较，相同则继续向后比较并记录连续次数，不同则停止比较，继续向后方遍历即可.</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串</span></span><br><span class="line">    string str;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串数量</span></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="comment">//当 n 为 0 的时候停止输入</span></span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        cin &gt;&gt; str;</span><br><span class="line">        <span class="comment">//定义最大长度为 -1</span></span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">-1</span>;</span><br><span class="line">        <span class="comment">//记录最多重复的字符</span></span><br><span class="line">        string maxs;</span><br><span class="line">        <span class="comment">//指针i :遍历输入的字符</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; str.<span class="built_in">size</span>() ; i++)&#123;</span><br><span class="line">            <span class="comment">//指针j :用于字符串比较</span></span><br><span class="line">            <span class="keyword">int</span> j = i; <span class="comment">//由于要求连续,所以默认开始扫描的地方为 指针i 的位置,只需要遍历后面，不需要管前面</span></span><br><span class="line">            <span class="keyword">int</span> nums = <span class="number">0</span>;<span class="comment">//用于记录连续次数</span></span><br><span class="line">            <span class="comment">//当指针j指向的值与指针i指向的值相同的时候,并且j指针没有越界的时候</span></span><br><span class="line">            <span class="keyword">while</span>(str[j] == str[i] &amp;&amp; j &lt; str.<span class="built_in">size</span>())</span><br><span class="line">                <span class="comment">//指针j向后移动,连续次数自增1</span></span><br><span class="line">                j++ , nums++;</span><br><span class="line">            <span class="comment">//如果连续次数大于最大值则进行记录,并且记录当前字符    </span></span><br><span class="line">            <span class="keyword">if</span>(nums &gt; max)</span><br><span class="line">                max = nums,maxs = str[i];</span><br><span class="line">            <span class="comment">//当指针j停止移动时,[i,j)区间中必然全是相同的字符,此时 i只需要从j的位置开始继续遍历即可</span></span><br><span class="line">            i = j <span class="number">-1</span>;<span class="comment">//这里减1,是为了抵消掉循环中的 i++</span></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; nums &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; max;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">int</span> n = Integer.parseInt(reader.readLine());</span><br><span class="line">        <span class="keyword">while</span>(n-- != <span class="number">0</span>)&#123;</span><br><span class="line">            String s = reader.readLine();</span><br><span class="line">            <span class="keyword">char</span> c = <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">            <span class="keyword">int</span> max = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; s.length() ; i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> j = i;</span><br><span class="line">                <span class="keyword">int</span> nums = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span>(j &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(j))&#123; </span><br><span class="line">                    j++;</span><br><span class="line">                    nums++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(nums &gt; max)&#123;</span><br><span class="line">                    max = nums ;</span><br><span class="line">                    c = s.charAt(i);</span><br><span class="line">                &#125;</span><br><span class="line">                i = j - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(c + <span class="string">&quot; &quot;</span> + max);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>近期杂谈</title>
-    <url>/2021/04/18/%E8%BF%91%E6%9C%9F%E6%9D%82%E8%B0%88/</url>
-    <content><![CDATA[<h1 id="🕶开学了？"><a href="#🕶开学了？" class="headerlink" title="🕶开学了？"></a>🕶开学了？</h1><p>&emsp;&emsp;其实在4月初的时候我依旧保持着放假的状态，上课不是很认真，在寝室也是学技术效率比较慢，整个人也就是处于悠哉悠哉的那种状态，感觉目标有点不明确，不知道到底自己想干嘛，期间最引发我思考的莫过于那一份关于考研和就业选择的问卷，在我上大学没多久的时候，觉得我肯定是会考研的，目的是为了提升自己的学历，顺便也可以锻炼自己，然而到了现在我却感觉不是很确定了，内心可能更向往技术开发的方向，实在不想加入考研大军，就算有保研这条路子，也不是很想做研究的那种方向.自知能力有限，觉得自己还是不合适的.不过呢，关于这个以后或许会有新的思考，以后再说吧hhhh.</p>
-<p>&emsp;&emsp;开学至4月初期，对自己的表现怎么说呢，比较懒散，很浮躁，也很对不起我家小朋友，老是惹她不开心，自己犯的错误比较多，唉.道阻且长，同志仍然需要努力啊.</p>
-<h1 id="🎃参加了数学竞赛？"><a href="#🎃参加了数学竞赛？" class="headerlink" title="🎃参加了数学竞赛？"></a>🎃参加了数学竞赛？</h1><p>&emsp;&emsp;怎么说呢，源于从小对于数学的兴趣吧，数学的巧妙逻辑实在是让我沉迷，高数中，各大数学家巧妙的定理证明也着实很吸引我，大一上还是有好好学高等数学的.下学期其实也有好好学，只是中途有点划水哈….这也算是我大一下生活中一件趣事，与其说是参加比赛，不如说是去感受的.</p>
-<h1 id="🥼-提前步入社畜生活？"><a href="#🥼-提前步入社畜生活？" class="headerlink" title="🥼 提前步入社畜生活？"></a>🥼 提前步入社畜生活？</h1><p>&emsp;&emsp;hhhh，其实有点标题党的味道了，哪里是社畜，还是个学徒哈.说来也十分偶然，我近期也只是想找个做项目的团队，一起做项目，共同学习进步，然后翻阅QQ群，发现了网安协会的项目部，再一番咨询后，投了简历，然后参加了笔试以及面试，然后成功进入了这个部门，去的时候很惊奇这个部门居然有办公室，我还会有工位，后来第一天去的时候才了解到部门旗下有一所公司，我相当于进入了一个公司，成为了里面的职员，哦对了，我选择了开发岗中的后端开发，恰好也是他们部门现在缺人的岗位，怎么说呢也挺有压力的.据说等以后学成接手的时候，有绩效了，我就会有工资了hhh，还挺激动的. 话又说回来，在这个团队中，自己也挺想快点学习可以参加到项目中，自己最近也变得开始好好搞学习，不是很懒散了，有点大一上学期的感觉了hhh，也多亏了我家小朋友，给予我理解和帮助，十分体贴我，温柔又可爱，有了我家小朋友，感觉能把我从紧张的环境中解脱出来，让我轻松不少，真好啊.</p>
-<p>&emsp;&emsp;对于现阶段目标，就是学习经典的 <code>SSM</code> 技术框架，说多也不多，说少也不少，慢慢来咯，后期才能运用自如，而且团队中缺少，<code>Java</code> 后端开发的老师傅，现在自己只能一步一个脚印，脚踏实地的进行学习.未来的路还是挺长的，我对现在自己的状态很满意，希望自己能多保持保持，也希望多陪陪我家小朋友hhh，也希望我家小朋友能理解我哦.</p>
-<h1 id="✨结束END"><a href="#✨结束END" class="headerlink" title="✨结束END"></a>✨结束END</h1><p>放上一句自己特别喜欢的一句诗：“醉后不知天在水，满船清梦压星河.”   莫名喜欢这句诗的意境，让我对未来生活有着无限畅想hhhh</p>
-]]></content>
-      <categories>
-        <category>生活杂谈</category>
-      </categories>
-      <tags>
-        <tag>生活杂谈</tag>
       </tags>
   </entry>
   <entry>
@@ -2798,6 +2781,23 @@
       <tags>
         <tag>线程池</tag>
         <tag>网络编程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>近期杂谈</title>
+    <url>/2021/04/18/%E8%BF%91%E6%9C%9F%E6%9D%82%E8%B0%88/</url>
+    <content><![CDATA[<h1 id="🕶开学了？"><a href="#🕶开学了？" class="headerlink" title="🕶开学了？"></a>🕶开学了？</h1><p>&emsp;&emsp;其实在4月初的时候我依旧保持着放假的状态，上课不是很认真，在寝室也是学技术效率比较慢，整个人也就是处于悠哉悠哉的那种状态，感觉目标有点不明确，不知道到底自己想干嘛，期间最引发我思考的莫过于那一份关于考研和就业选择的问卷，在我上大学没多久的时候，觉得我肯定是会考研的，目的是为了提升自己的学历，顺便也可以锻炼自己，然而到了现在我却感觉不是很确定了，内心可能更向往技术开发的方向，实在不想加入考研大军，就算有保研这条路子，也不是很想做研究的那种方向.自知能力有限，觉得自己还是不合适的.不过呢，关于这个以后或许会有新的思考，以后再说吧hhhh.</p>
+<p>&emsp;&emsp;开学至4月初期，对自己的表现怎么说呢，比较懒散，很浮躁，也很对不起我家小朋友，老是惹她不开心，自己犯的错误比较多，唉.道阻且长，同志仍然需要努力啊.</p>
+<h1 id="🎃参加了数学竞赛？"><a href="#🎃参加了数学竞赛？" class="headerlink" title="🎃参加了数学竞赛？"></a>🎃参加了数学竞赛？</h1><p>&emsp;&emsp;怎么说呢，源于从小对于数学的兴趣吧，数学的巧妙逻辑实在是让我沉迷，高数中，各大数学家巧妙的定理证明也着实很吸引我，大一上还是有好好学高等数学的.下学期其实也有好好学，只是中途有点划水哈….这也算是我大一下生活中一件趣事，与其说是参加比赛，不如说是去感受的.</p>
+<h1 id="🥼-提前步入社畜生活？"><a href="#🥼-提前步入社畜生活？" class="headerlink" title="🥼 提前步入社畜生活？"></a>🥼 提前步入社畜生活？</h1><p>&emsp;&emsp;hhhh，其实有点标题党的味道了，哪里是社畜，还是个学徒哈.说来也十分偶然，我近期也只是想找个做项目的团队，一起做项目，共同学习进步，然后翻阅QQ群，发现了网安协会的项目部，再一番咨询后，投了简历，然后参加了笔试以及面试，然后成功进入了这个部门，去的时候很惊奇这个部门居然有办公室，我还会有工位，后来第一天去的时候才了解到部门旗下有一所公司，我相当于进入了一个公司，成为了里面的职员，哦对了，我选择了开发岗中的后端开发，恰好也是他们部门现在缺人的岗位，怎么说呢也挺有压力的.据说等以后学成接手的时候，有绩效了，我就会有工资了hhh，还挺激动的. 话又说回来，在这个团队中，自己也挺想快点学习可以参加到项目中，自己最近也变得开始好好搞学习，不是很懒散了，有点大一上学期的感觉了hhh，也多亏了我家小朋友，给予我理解和帮助，十分体贴我，温柔又可爱，有了我家小朋友，感觉能把我从紧张的环境中解脱出来，让我轻松不少，真好啊.</p>
+<p>&emsp;&emsp;对于现阶段目标，就是学习经典的 <code>SSM</code> 技术框架，说多也不多，说少也不少，慢慢来咯，后期才能运用自如，而且团队中缺少，<code>Java</code> 后端开发的老师傅，现在自己只能一步一个脚印，脚踏实地的进行学习.未来的路还是挺长的，我对现在自己的状态很满意，希望自己能多保持保持，也希望多陪陪我家小朋友hhh，也希望我家小朋友能理解我哦.</p>
+<h1 id="✨结束END"><a href="#✨结束END" class="headerlink" title="✨结束END"></a>✨结束END</h1><p>放上一句自己特别喜欢的一句诗：“醉后不知天在水，满船清梦压星河.”   莫名喜欢这句诗的意境，让我对未来生活有着无限畅想hhhh</p>
+]]></content>
+      <categories>
+        <category>生活杂谈</category>
+      </categories>
+      <tags>
+        <tag>生活杂谈</tag>
       </tags>
   </entry>
   <entry>
@@ -3846,6 +3846,130 @@
       </categories>
       <tags>
         <tag>Spring5</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>每日一题(五):动态规划(转载)</title>
+    <url>/2021/07/23/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%94%EF%BC%89/</url>
+    <content><![CDATA[<blockquote>
+<p>前言：本文转载了labuladong大佬的一篇文章，非常通俗易懂的讲解了动态规划的思想与代码实现，于是转载到了本博客</p>
+<p>原文章地址：<a href="https://leetcode-cn.com/problems/fibonacci-number/solution/dong-tai-gui-hua-tao-lu-xiang-jie-by-labuladong/">原文地址</a> (ps:我是在leetcode上刷题看题解看到的)</p>
+</blockquote>
+<hr>
+<h1 id="动态规划概述"><a href="#动态规划概述" class="headerlink" title="动态规划概述"></a>动态规划概述</h1><p>这篇文章是我们号半年前一篇 200 多赞赏的成名之作「动态规划详解」的进阶版。由于账号迁移的原因，旧文无法被搜索到，所以我润色了本文，并添加了更多干货内容，希望本文成为解决动态规划的一部「指导方针」。</p>
+<p>动态规划问题（Dynamic Programming）应该是很多读者头疼的，不过这类问题也是最具有技巧性，最有意思的。本书使用了整整一个章节专门来写这个算法，动态规划的重要性也可见一斑。</p>
+<p>刷题刷多了就会发现，算法技巧就那几个套路，我们后续的动态规划系列章节，都在使用本文的解题框架思维，如果你心里有数，就会轻松很多。所以本文放在第一章，来扒一扒动态规划的裤子，形成一套解决这类问题的思维框架，希望能够成为解决动态规划问题的一部指导方针。本文就来讲解该算法的基本套路框架，下面上干货。</p>
+<p>首先，动态规划问题的一般形式就是求最值。动态规划其实是运筹学的一种最优化方法，只不过在计算机问题上应用比较多，比如说让你求最长递增子序列呀，最小编辑距离呀等等。</p>
+<p>既然是要求最值，核心问题是什么呢？求解动态规划的核心问题是穷举。因为要求最值，肯定要把所有可行的答案穷举出来，然后在其中找最值呗。</p>
+<p>动态规划这么简单，就是穷举就完事了？我看到的动态规划问题都很难啊！</p>
+<p>首先，动态规划的穷举有点特别，因为这类问题存在「重叠子问题」，如果暴力穷举的话效率会极其低下，所以需要「备忘录」或者「DP table」来优化穷举过程，避免不必要的计算。</p>
+<p>而且，动态规划问题一定会具备「最优子结构」，才能通过子问题的最值得到原问题的最值。</p>
+<p>另外，虽然动态规划的核心思想就是穷举求最值，但是问题可以千变万化，穷举所有可行解其实并不是一件容易的事，只有列出<strong>正确的「状态转移方程」</strong>才能正确地穷举。</p>
+<p>以上提到的重叠子问题、最优子结构、状态转移方程就是动态规划三要素。具体什么意思等会会举例详解，但是在实际的算法问题中，写出状态转移方程是最困难的，这也就是为什么很多朋友觉得动态规划问题困难的原因，我来提供我研究出来的一个思维框架，辅助你思考状态转移方程：</p>
+<p>明确 base case -&gt; 明确「状态」-&gt; 明确「选择」 -&gt; 定义 dp 数组/函数的含义。</p>
+<p>按上面的套路走，最后的结果就可以套这个框架：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"># 初始化 base <span class="keyword">case</span></span><br><span class="line">dp[<span class="number">0</span>][<span class="number">0</span>][...] = base</span><br><span class="line"># 进行状态转移</span><br><span class="line"><span class="keyword">for</span> 状态<span class="number">1</span> in 状态<span class="number">1</span>的所有取值：</span><br><span class="line">    <span class="keyword">for</span> 状态<span class="number">2</span> in 状态<span class="number">2</span>的所有取值：</span><br><span class="line">        <span class="keyword">for</span> ...</span><br><span class="line">            dp[状态<span class="number">1</span>][状态<span class="number">2</span>][...] = 求最值(选择<span class="number">1</span>，选择<span class="number">2.</span>..)</span><br></pre></td></tr></table></figure>
+
+
+<p>下面通过斐波那契数列问题和凑零钱问题来详解动态规划的基本原理。前者主要是让你明白什么是重叠子问题（斐波那契数列没有求最值，所以严格来说不是动态规划问题），后者主要举集中于如何列出状态转移方程。</p>
+<h1 id="斐波那契数列"><a href="#斐波那契数列" class="headerlink" title="斐波那契数列"></a>斐波那契数列</h1><p>请读者不要嫌弃这个例子简单，只有简单的例子才能让你把精力充分集中在算法背后的通用思想和技巧上，而不会被那些隐晦的细节问题搞的莫名其妙。想要困难的例子，历史文章里有的是。</p>
+<h2 id="暴力递归"><a href="#暴力递归" class="headerlink" title="暴力递归"></a>暴力递归</h2><p>斐波那契数列的数学形式就是递归的，写成代码就是这样：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (N == <span class="number">1</span> || N == <span class="number">2</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">fib</span>(N - <span class="number">1</span>) + <span class="built_in">fib</span>(N - <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个不用多说了，学校老师讲递归的时候似乎都是拿这个举例。我们也知道这样写代码虽然简洁易懂，但是十分低效，低效在哪里？假设 n = 20，请画出递归树：</p>
+<p><img src="https://pic.leetcode-cn.com/1600679988-ScJzrj-file_1600679988762" alt="img"></p>
+<p>PS：但凡遇到需要递归的问题，最好都画出递归树，这对你分析算法的复杂度，寻找算法低效的原因都有巨大帮助。</p>
+<p>这个递归树怎么理解？就是说想要计算原问题 f(20)，我就得先计算出子问题 f(19) 和 f(18)，然后要计算 f(19)，我就要先算出子问题 f(18) 和 f(17)，以此类推。最后遇到 f(1) 或者 f(2) 的时候，结果已知，就能直接返回结果，递归树不再向下生长了。</p>
+<p>递归算法的时间复杂度怎么计算？就是用子问题个数乘以解决一个子问题需要的时间。</p>
+<p>首先计算子问题个数，即递归树中节点的总数。显然二叉树节点总数为指数级别，所以子问题个数为 O(2^n)。</p>
+<p>然后计算解决一个子问题的时间，在本算法中，没有循环，只有 f(n - 1) + f(n - 2) 一个加法操作，时间为 O(1)。</p>
+<p>所以，这个算法的时间复杂度为二者相乘，即 O(2^n)，指数级别，爆炸。</p>
+<p>观察递归树，很明显发现了算法低效的原因：存在大量重复计算，比如 f(18) 被计算了两次，而且你可以看到，以 f(18) 为根的这个递归树体量巨大，多算一遍，会耗费巨大的时间。更何况，还不止 f(18) 这一个节点被重复计算，所以这个算法及其低效。</p>
+<p>这就是动态规划问题的第一个性质：重叠子问题。下面，我们想办法解决这个问题。</p>
+<h2 id="带备忘录的递归解法"><a href="#带备忘录的递归解法" class="headerlink" title="带备忘录的递归解法"></a>带备忘录的递归解法</h2><p>明确了问题，其实就已经把问题解决了一半。即然耗时的原因是重复计算，那么我们可以造一个「备忘录」，每次算出某个子问题的答案后别急着返回，先记到「备忘录」里再返回；每次遇到一个子问题先去「备忘录」里查一查，如果发现之前已经解决过这个问题了，直接把答案拿出来用，不要再耗时去计算了。</p>
+<p>一般使用一个数组充当这个「备忘录」，当然你也可以使用哈希表（字典），思想都是一样的。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (N &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 备忘录全初始化为 0</span></span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">memo</span><span class="params">(N + <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="comment">// 进行带备忘录的递归</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">helper</span>(memo, N);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">helper</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; memo, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// base case </span></span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span> || n == <span class="number">2</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 已经计算过</span></span><br><span class="line">    <span class="keyword">if</span> (memo[n] != <span class="number">0</span>) <span class="keyword">return</span> memo[n];</span><br><span class="line">    memo[n] = <span class="built_in">helper</span>(memo, n - <span class="number">1</span>) + <span class="built_in">helper</span>(memo, n - <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">return</span> memo[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在，画出递归树，你就知道「备忘录」到底做了什么。</p>
+<p><img src="https://pic.leetcode-cn.com/1600679989-dMEQCS-file_1600679989062" alt="img"></p>
+<p>实际上，带「备忘录」的递归算法，把一棵存在巨量冗余的递归树通过「剪枝」，改造成了一幅不存在冗余的递归图，极大减少了子问题（即递归图中节点）的个数。</p>
+<p><img src="https://pic.leetcode-cn.com/1600679989-exCmXp-file_1600679989061" alt="img"></p>
+<p><strong>递归算法的时间复杂度怎么计算？就是用子问题个数乘以解决一个子问题需要的时间。</strong></p>
+<p>子问题个数，即图中节点的总数，由于本算法不存在冗余计算，子问题就是 f(1), f(2), f(3) … f(20)，数量和输入规模 n = 20 成正比，所以子问题个数为 O(n)。</p>
+<p>解决一个子问题的时间，同上，没有什么循环，时间为 O(1)。</p>
+<p>所以，本算法的时间复杂度是 O(n)。比起暴力算法，是降维打击。</p>
+<p>至此，带备忘录的递归解法的效率已经和迭代的动态规划解法一样了。实际上，这种解法和迭代的动态规划已经差不多了，只不过这种方法叫做「自顶向下」，动态规划叫做「自底向上」。</p>
+<p>啥叫「自顶向下」？注意我们刚才画的递归树（或者说图），是从上向下延伸，都是从一个规模较大的原问题比如说 f(20)，向下逐渐分解规模，直到 f(1) 和 f(2) 这两个 base case，然后逐层返回答案，这就叫「自顶向下」。</p>
+<p>啥叫「自底向上」？反过来，我们直接从最底下，最简单，问题规模最小的 f(1) 和 f(2) 开始往上推，直到推到我们想要的答案 f(20)，这就是动态规划的思路，这也是为什么动态规划一般都脱离了递归，而是由循环迭代完成计算。</p>
+<h2 id="dp-数组的迭代解法"><a href="#dp-数组的迭代解法" class="headerlink" title="dp 数组的迭代解法"></a>dp 数组的迭代解法</h2><p>有了上一步「备忘录」的启发，我们可以把这个「备忘录」独立出来成为一张表，就叫做 DP table 吧，在这张表上完成「自底向上」的推算岂不美哉！</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(N + <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="comment">// base case</span></span><br><span class="line">    dp[<span class="number">1</span>] = dp[<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;= N; i++)</span><br><span class="line">        dp[i] = dp[i - <span class="number">1</span>] + dp[i - <span class="number">2</span>];</span><br><span class="line">    <span class="keyword">return</span> dp[N];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic.leetcode-cn.com/1600679988-ufqRKk-file_1600679988859" alt="img"></p>
+<p>画个图就很好理解了，而且你发现这个 DP table 特别像之前那个「剪枝」后的结果，只是反过来算而已。实际上，带备忘录的递归解法中的「备忘录」，最终完成后就是这个 DP table，所以说这两种解法其实是差不多的，大部分情况下，效率也基本相同。</p>
+<p>这里，引出「状态转移方程」这个名词，实际上就是描述问题结构的数学形式：</p>
+<p><img src="https://pic.leetcode-cn.com/1600679988-RdvzcF-file_1600679988430" alt="img"></p>
+<p>为啥叫「状态转移方程」？其实就是为了听起来高端。你把 f(n) 想做一个状态<code> n</code>，这个状态 n 是由状态<code> n - 1</code> 和状态<code>n - 2</code>相加转移而来，这就叫状态转移，仅此而已。</p>
+<p>你会发现，上面的几种解法中的所有操作，例如<code> return f(n - 1) + f(n - 2)，dp[i] = dp[i - 1] + dp[i - 2]</code>，以及对备忘录或 DP table 的初始化操作，都是围绕这个方程式的不同表现形式。可见列出「状态转移方程」的重要性，它是解决问题的核心。而且很容易发现，其实状态转移方程直接代表着暴力解法。</p>
+<p>千万不要看不起暴力解，动态规划问题最困难的就是写出这个暴力解，即状态转移方程。只要写出暴力解，优化方法无非是用备忘录或者 DP table，再无奥妙可言。</p>
+<p>这个例子的最后，讲一个细节优化。细心的读者会发现，根据斐波那契数列的状态转移方程，当前状态只和之前的两个状态有关，其实并不需要那么长的一个 DP table 来存储所有的状态，只要想办法存储之前的两个状态就行了。所以，可以进一步优化，把空间复杂度降为 <code>O(1)</code>：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">2</span> || n == <span class="number">1</span>) </span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> prev = <span class="number">1</span>, curr = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> sum = prev + curr;</span><br><span class="line">        prev = curr;</span><br><span class="line">        curr = sum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> curr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个技巧就是所谓的「状态压缩」，如果我们发现每次状态转移只需要 DP table 中的一部分，那么可以尝试用状态压缩来缩小 DP table 的大小，只记录必要的数据，上述例子就相当于把DP table 的大小从 n 缩小到 2。后续的动态规划章节中我们还会看到这样的例子，一般来说是把一个二维的 DP table 压缩成一维，即把空间复杂度从<code>O(n^2)</code>压缩到 <code>O(n)</code>。</p>
+<p>有人会问，动态规划的另一个重要特性「最优子结构」，怎么没有涉及？下面会涉及。斐波那契数列的例子严格来说不算动态规划，因为没有涉及求最值，以上旨在说明重叠子问题的消除方法，演示得到最优解法逐步求精的过程。下面，看第二个例子，凑零钱问题。</p>
+<h1 id="凑零钱问题"><a href="#凑零钱问题" class="headerlink" title="凑零钱问题"></a>凑零钱问题</h1><p>先看下题目：给你 k 种面值的硬币，面值分别为 c1, c2 … ck，每种硬币的数量无限，再给一个总金额 amount，问你最少需要几枚硬币凑出这个金额，如果不可能凑出，算法返回 -1 。算法的函数签名如下：</p>
+<p>// coins 中是可选硬币面值，amount 是目标金额<br><code>int coinChange(int[] coins, int amount);</code><br>比如说 k = 3，面值分别为 1，2，5，总金额 amount = 11。那么最少需要 3 枚硬币凑出，即 11 = 5 + 5 + 1。</p>
+<p>你认为计算机应该如何解决这个问题？显然，就是把所有肯能的凑硬币方法都穷举出来，然后找找看最少需要多少枚硬币。</p>
+<h2 id="暴力递归-1"><a href="#暴力递归-1" class="headerlink" title="暴力递归"></a>暴力递归</h2><p>首先，这个问题是动态规划问题，因为它具有「最优子结构」的。要符合「最优子结构」，子问题间必须互相独立。啥叫相互独立？你肯定不想看数学证明，我用一个直观的例子来讲解。</p>
+<p>比如说，假设你考试，每门科目的成绩都是互相独立的。你的原问题是考出最高的总成绩，那么你的子问题就是要把语文考到最高，数学考到最高…… 为了每门课考到最高，你要把每门课相应的选择题分数拿到最高，填空题分数拿到最高…… 当然，最终就是你每门课都是满分，这就是最高的总成绩。</p>
+<p>得到了正确的结果：最高的总成绩就是总分。因为这个过程符合最优子结构，“每门科目考到最高”这些子问题是互相独立，互不干扰的。</p>
+<p>但是，如果加一个条件：你的语文成绩和数学成绩会互相制约，数学分数高，语文分数就会降低，反之亦然。这样的话，显然你能考到的最高总成绩就达不到总分了，按刚才那个思路就会得到错误的结果。因为子问题并不独立，语文数学成绩无法同时最优，所以最优子结构被破坏。</p>
+<p>回到凑零钱问题，为什么说它符合最优子结构呢？比如你想求 amount = 11 时的最少硬币数（原问题），如果你知道凑出 amount = 10 的最少硬币数（子问题），你只需要把子问题的答案加一（再选一枚面值为 1 的硬币）就是原问题的答案。因为硬币的数量是没有限制的，所以子问题之间没有相互制，是互相独立的。</p>
+<p>PS：关于最优子结构的问题，后文动态规划答疑篇 还会再举例探讨。</p>
+<p>那么，既然知道了这是个动态规划问题，就要思考如何列出正确的状态转移方程？</p>
+<p>1、确定 base case，这个很简单，显然目标金额 amount 为 0 时算法返回 0，因为不需要任何硬币就已经凑出目标金额了。</p>
+<p>2、确定「状态」，也就是原问题和子问题中会变化的变量。由于硬币数量无限，硬币的面额也是题目给定的，只有目标金额会不断地向 base case 靠近，所以唯一的「状态」就是目标金额 amount。</p>
+<p>3、确定「选择」，也就是导致「状态」产生变化的行为。目标金额为什么变化呢，因为你在选择硬币，你每选择一枚硬币，就相当于减少了目标金额。所以说所有硬币的面值，就是你的「选择」。</p>
+<p>4、明确 dp 函数/数组的定义。我们这里讲的是自顶向下的解法，所以会有一个递归的 dp 函数，一般来说函数的参数就是状态转移中会变化的量，也就是上面说到的「状态」；函数的返回值就是题目要求我们计算的量。就本题来说，状态只有一个，即「目标金额」，题目要求我们计算凑出目标金额所需的最少硬币数量。所以我们可以这样定义 dp 函数：</p>
+<p>dp(n) 的定义：输入一个目标金额 n，返回凑出目标金额 n 的最少硬币数量。</p>
+<p>搞清楚上面这几个关键点，解法的伪码就可以写出来了：</p>
+<p><strong>伪代码框架：</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">def <span class="title">coinChange</span><span class="params">(coins: List[<span class="keyword">int</span>], amount: <span class="keyword">int</span>)</span>:</span></span><br><span class="line"><span class="function">    # 定义：要凑出金额 n，至少要 dp(n) 个硬币</span></span><br><span class="line"><span class="function">    def dp(n):</span></span><br><span class="line"><span class="function">        # 做选择，选择需要硬币最少的那个结果</span></span><br><span class="line"><span class="function">        for coin in coins:</span></span><br><span class="line"><span class="function">            res =</span> <span class="built_in">min</span>(res, <span class="number">1</span> + <span class="built_in">dp</span>(n - coin))</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">    # 题目要求的最终结果是 <span class="built_in">dp</span>(amount)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">dp</span>(amount)</span><br></pre></td></tr></table></figure>
+<p>根据伪码，我们加上 base case 即可得到最终的答案。显然目标金额为 0 时，所需硬币数量为 0；当目标金额小于 0 时，无解，返回 -1：</p>
+<p>def coinChange(coins: List[int], amount: int):</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">def <span class="title">dp</span><span class="params">(n)</span>:</span></span><br><span class="line"><span class="function">    # base case</span></span><br><span class="line"><span class="function">    if n =</span>= <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> n &lt; <span class="number">0</span>: <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">    # 求最小值，所以初始化为正无穷</span><br><span class="line">    res = float(&#x27;INF&#x27;)</span><br><span class="line">    <span class="keyword">for</span> coin in coins:</span><br><span class="line">        subproblem = <span class="built_in">dp</span>(n - coin)</span><br><span class="line">        # 子问题无解，跳过</span><br><span class="line">        <span class="keyword">if</span> subproblem == <span class="number">-1</span>: <span class="keyword">continue</span></span><br><span class="line">        res = <span class="built_in">min</span>(res, <span class="number">1</span> + subproblem)</span><br><span class="line"></span><br><span class="line">    return res if res != float(&#x27;INF&#x27;) else -1</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="built_in">dp</span>(amount)</span><br></pre></td></tr></table></figure>
+<p>至此，状态转移方程其实已经完成了，以上算法已经是暴力解法了，以上代码的数学形式就是状态转移方程：</p>
+<p><img src="https://pic.leetcode-cn.com/1600679988-sxGpAe-file_1600679988414" alt="img"></p>
+<p>至此，这个问题其实就解决了，只不过需要消除一下重叠子问题，比如 amount = 11, coins = {1,2,5} 时画出递归树看看：</p>
+<p><img src="https://pic.leetcode-cn.com/1600679989-ceNCMp-file_1600679989332" alt="img"></p>
+<p>递归算法的时间复杂度分析：子问题总数 x 每个子问题的时间。</p>
+<p>子问题总数为递归树节点个数，这个比较难看出来，是 O(n^k)，总之是指数级别的。每个子问题中含有一个 for 循环，复杂度为 O(k)。所以总时间复杂度为 O(k * n^k)，指数级别。</p>
+<h2 id="带备忘录的递归"><a href="#带备忘录的递归" class="headerlink" title="带备忘录的递归"></a>带备忘录的递归</h2><p>类似之前斐波那契数列的例子，只需要稍加修改，就可以通过备忘录消除子问题：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">def <span class="title">coinChange</span><span class="params">(coins: List[<span class="keyword">int</span>], amount: <span class="keyword">int</span>)</span>:</span></span><br><span class="line"><span class="function">    # 备忘录</span></span><br><span class="line"><span class="function">    memo =</span> <span class="built_in">dict</span>()</span><br><span class="line">    <span class="function">def <span class="title">dp</span><span class="params">(n)</span>:</span></span><br><span class="line"><span class="function">        # 查备忘录，避免重复计算</span></span><br><span class="line"><span class="function">        if n in memo: return memo[n]</span></span><br><span class="line"><span class="function">        # base case</span></span><br><span class="line"><span class="function">        if n =</span>= <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> n &lt; <span class="number">0</span>: <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        res = float(&#x27;INF&#x27;)</span><br><span class="line">        <span class="keyword">for</span> coin in coins:</span><br><span class="line">            subproblem = <span class="built_in">dp</span>(n - coin)</span><br><span class="line">            <span class="keyword">if</span> subproblem == <span class="number">-1</span>: <span class="keyword">continue</span></span><br><span class="line">            res = <span class="built_in">min</span>(res, <span class="number">1</span> + subproblem)</span><br></pre></td></tr></table></figure>
+
+<p>​        </p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">    # 记入备忘录</span><br><span class="line">    memo[n] = res if res != float(&#x27;INF&#x27;) else -1</span><br><span class="line">    <span class="keyword">return</span> memo[n]</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="built_in">dp</span>(amount)</span><br></pre></td></tr></table></figure>
+<p>不画图了，很显然「备忘录」大大减小了子问题数目，完全消除了子问题的冗余，所以子问题总数不会超过金额数 n，即子问题数目为 O(n)。处理一个子问题的时间不变，仍是 O(k)，所以总的时间复杂度是 O(kn)。</p>
+<h2 id="dp-数组的迭代解法-1"><a href="#dp-数组的迭代解法-1" class="headerlink" title="dp 数组的迭代解法"></a>dp 数组的迭代解法</h2><p>当然，我们也可以自底向上使用 dp table 来消除重叠子问题，关于「状态」「选择」和 base case 与之前没有区别，dp 数组的定义和刚才 dp 函数类似，也是把「状态」，也就是目标金额作为变量。不过 dp 函数体现在函数参数，而 dp 数组体现在数组索引：</p>
+<p>dp 数组的定义：当目标金额为 i 时，至少需要 dp[i] 枚硬币凑出。</p>
+<p>根据我们文章开头给出的动态规划代码框架可以写出如下解法：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">coinChange</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; coins, <span class="keyword">int</span> amount)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 数组大小为 amount + 1，初始值也为 amount + 1</span></span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(amount + <span class="number">1</span>, amount + <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="comment">// base case</span></span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 外层 for 循环在遍历所有状态的所有取值</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; dp.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        <span class="comment">// 内层 for 循环在求所有选择的最小值</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> coin : coins) &#123;</span><br><span class="line">            <span class="comment">// 子问题无解，跳过</span></span><br><span class="line">            <span class="keyword">if</span> (i - coin &lt; <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">            dp[i] = <span class="built_in">min</span>(dp[i], <span class="number">1</span> + dp[i - coin]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (dp[amount] == amount + <span class="number">1</span>) ? <span class="number">-1</span> : dp[amount];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic.leetcode-cn.com/1600679988-baxNLM-file_1600679988916" alt="img"></p>
+<p>PS：为啥 dp 数组初始化为 amount + 1 呢，因为凑成 amount 金额的硬币数最多只可能等于 amount（全用 1 元面值的硬币），所以初始化为 amount + 1 就相当于初始化为正无穷，便于后续取最小值。</p>
+<h1 id="最后总结"><a href="#最后总结" class="headerlink" title="最后总结"></a>最后总结</h1><p>第一个斐波那契数列的问题，解释了如何通过「备忘录」或者「dp table」的方法来优化递归树，并且明确了这两种方法本质上是一样的，只是自顶向下和自底向上的不同而已。</p>
+<p>第二个凑零钱的问题，展示了如何流程化确定「状态转移方程」，只要通过状态转移方程写出暴力递归解，剩下的也就是优化递归树，消除重叠子问题而已。</p>
+<p>如果你不太了解动态规划，还能看到这里，真得给你鼓掌，相信你已经掌握了这个算法的设计技巧。</p>
+<p><strong>计算机解决问题其实没有任何奇技淫巧，它唯一的解决办法就是穷举</strong>，穷举所有可能性。算法设计无非就是先思考“如何穷举”，然后再追求“如何聪明地穷举”。</p>
+<p>列出动态转移方程，就是在解决“如何穷举”的问题。之所以说它难，一是因为很多穷举需要递归实现，二是因为有的问题本身的解空间复杂，不那么容易穷举完整。</p>
+<p>备忘录、DP table 就是在追求“如何聪明地穷举”。用空间换时间的思路，是降低时间复杂度的不二法门，除此之外，试问，还能玩出啥花活？</p>
+<p>之后我们会有一章专门讲解动态规划问题，如果有任何问题都可以随时回来重读本文，希望读者在阅读每个题目和解法时，多往「状态」和「选择」上靠，才能对这套框架产生自己的理解，运用自如。</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>动态规划</tag>
       </tags>
   </entry>
   <entry>
