@@ -1,123 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Dubbo(二):集群搭建</title>
-    <url>/2021/07/24/Dubbo%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="😮负载均衡"><a href="#😮负载均衡" class="headerlink" title="😮负载均衡"></a>😮负载均衡</h1><p><strong>各种负载均衡策略</strong></p>
-<h2 id="随机"><a href="#随机" class="headerlink" title="随机"></a>随机</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:reference</span> <span class="attr">id</span>=<span class="string">&quot;userService&quot;</span> <span class="attr">interface</span>=<span class="string">&quot;com.anthony.service.UserService&quot;</span> <span class="attr">loadbalance</span>=<span class="string">&quot;random&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="轮询"><a href="#轮询" class="headerlink" title="轮询"></a>轮询</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:reference</span> <span class="attr">id</span>=<span class="string">&quot;userService&quot;</span> <span class="attr">interface</span>=<span class="string">&quot;com.anthony.service.UserService&quot;</span> <span class="attr">loadbalance</span>=<span class="string">&quot;roundrobin&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="最少活跃数"><a href="#最少活跃数" class="headerlink" title="最少活跃数"></a>最少活跃数</h2><ul>
-<li>最少活跃调用数，相同活跃数的随机，活跃数指调用前后计数差。</li>
-<li>使慢的提供者收到更少请求，因为越慢的提供者的调用前后计数差会越大。</li>
-</ul>
-<h2 id="一致性哈希"><a href="#一致性哈希" class="headerlink" title="一致性哈希"></a>一致性哈希</h2><h3 id="一致性Hash算法背景"><a href="#一致性Hash算法背景" class="headerlink" title="一致性Hash算法背景"></a>一致性Hash算法背景</h3><p>　　一致性哈希算法在1997年由麻省理工学院的Karger等人在解决分布式Cache中提出的，设计目标是为了解决因特网中的热点(Hot spot)问题，初衷和CARP十分类似。一致性哈希修正了CARP使用的简单哈希算法带来的问题，使得DHT可以在P2P环境中真正得到应用。</p>
-<p>　　但现在一致性hash算法在分布式系统中也得到了广泛应用，研究过<code>memcached</code>缓存数据库的人都知道，<code>memcached</code>服务器端本身不提供分布式cache的一致性，而是由客户端来提供，具体在计算一致性hash时采用如下步骤：</p>
-<ol>
-<li>首先求出<code>memcached</code>服务器（节点）的哈希值，并将其配置到<code>0～2^32</code>的圆（continuum）上。</li>
-<li>然后采用同样的方法求出存储数据的键的哈希值，并映射到相同的圆上。</li>
-<li>然后从数据映射到的位置开始顺时针查找，将数据保存到找到的第一个服务器上。如果超过2^32仍然找不到服务器，就会保存到第一台<code>memcached</code>服务器上。</li>
-</ol>
-<img src="/2021/07/24/Dubbo%EF%BC%88%E4%BA%8C%EF%BC%89/1.png" class>
-
-<p>　　从上图的状态中添加一台memcached服务器。余数分布式算法由于保存键的服务器会发生巨大变化而影响缓存的命中率，但Consistent Hashing中，只有在园（continuum）上增加服务器的地点逆时针方向的第一台服务器上的键会受到影响，如下图所示：</p>
-<img src="/2021/07/24/Dubbo%EF%BC%88%E4%BA%8C%EF%BC%89/2.png" class>
-
-
-
-<h3 id="一致性Hash性质"><a href="#一致性Hash性质" class="headerlink" title="一致性Hash性质"></a>一致性Hash性质</h3><p>　　考虑到分布式系统每个节点都有可能失效，并且新的节点很可能动态的增加进来，如何保证当系统的节点数目发生变化时仍然能够对外提供良好的服务，这是值得考虑的，尤其实在设计分布式缓存系统时，如果某台服务器失效，对于整个系统来说如果不采用合适的算法来保证一致性，那么缓存于系统中的所有数据都可能会失效（即由于系统节点数目变少，客户端在请求某一对象时需要重新计算其hash值（通常与系统中的节点数目有关），由于hash值已经改变，所以很可能找不到保存该对象的服务器节点），因此一致性hash就显得至关重要，良好的分布式cahce系统中的一致性hash算法应该满足以下几个方面：</p>
+    <title>Docker(一):虚拟化容器技术</title>
+    <url>/2021/07/24/Docker%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<blockquote>
+<p>前言：曾经尝试过使用Vmware来学习Linux，尝试当做服务器，之后便开始搭环境，一套整下来，确实麻烦，而且还吃自己电脑的资源，电脑不出所料的发生了一些微小的变化hhhh，直到后来我的Vmware出了点小问题，怎么调都调不好，调好了又得重新配环境，心态崩了，遂放弃，转头就在腾讯云买了一台服务器玩.当然了，也部署过一些服务，emmm，版本问题我始终调不好，要下载一堆东西，后来才发现了docker这个好东西</p>
+</blockquote>
 <ul>
-<li><strong>平衡性(Balance)</strong></li>
+<li>官方文档地址:<a href="https://www.docker.com/get-started">https://www.docker.com/get-started</a></li>
+<li>中文参考手册:<a href="https://docker_practice.gitee.io/zh-cn/">https://docker_practice.gitee.io/zh-cn/</a></li>
 </ul>
-<p>平衡性是指哈希的结果能够尽可能分布到所有的缓冲中去，这样可以使得所有的缓冲空间都得到利用。很多哈希算法都能够满足这一条件。</p>
-<ul>
-<li><strong>单调性(Monotonicity)</strong></li>
+<hr>
+<h1 id="😏什么是Dcoker"><a href="#😏什么是Dcoker" class="headerlink" title="😏什么是Dcoker"></a>😏什么是Dcoker</h1><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 1.官方介绍</span></span><br><span class="line"><span class="bullet">-</span> We have a complete container solution for you - no matter who you are and where you are on your containerization journey.</span><br><span class="line"><span class="bullet">-</span> 翻译: 我们为你提供了一个完整的容器解决方案,不管你是谁,不管你在哪,你都可以开始容器的的旅程。</span><br><span class="line"><span class="bullet">-</span> 官方定义: docker是一个容器技术。</span><br></pre></td></tr></table></figure>
+
+<h2 id="😮Docker的起源"><a href="#😮Docker的起源" class="headerlink" title="😮Docker的起源"></a>😮Docker的起源</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">Docker 最初是 dotCloud 公司创始人 Solomon Hykes 在法国期间发起的一个公司内部项目，它是基于 dotCloud 公司多年云服务技术的一次革新，并于 2013 年 3 月以 Apache 2.0 授权协议开源，主要项目代码在 GitHub 上进行维护。Docker 项目后来还加入了 Linux 基金会，并成立推动 开放容器联盟（OCI）。</span><br><span class="line"></span><br><span class="line">Docker 自开源后受到广泛的关注和讨论，至今其 GitHub 项目 已经超过 5 万 7 千个星标和一万多个 fork。甚至由于 Docker 项目的火爆，在 2013 年底，dotCloud 公司决定改名为 Docker。Docker 最初是在 Ubuntu 12.04 上开发实现的；Red Hat 则从 RHEL 6.5 开始对 Docker 进行支持；Google 也在其 PaaS 产品中广泛应用 Docker。</span><br><span class="line"></span><br><span class="line">Docker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及 OverlayFS 类的 Union FS 等技术，对进程进行封装隔离，属于操作系统层面的虚拟化技术。由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。</span><br></pre></td></tr></table></figure>
+
+<h2 id="😲为什么是Docker"><a href="#😲为什么是Docker" class="headerlink" title="😲为什么是Docker"></a>😲为什么是Docker</h2><ul>
+<li><p><code>在开发的时候，在本机测试环境可以跑，生产环境跑不起来</code></p>
+<p>这里我们拿java Web应用程序举例，我们一个java Web应用程序涉及很多东西，比如jdk、tomcat、mysql等软件环境。当这些其中某一项版本不一致的时候，可能就会导致应用程序跑不起来这种情况。Docker则将程序以及使用软件环境直接打包在一起，无论在那个机器上保证了环境一致。</p>
+<p><strong>优势1:  一致的运行环境,更轻松的迁移</strong></p>
+</li>
+<li><p><code>服务器自己的程序挂了，结果发现是别人程序出了问题把内存吃完了，自己程序因为内存不够就挂了</code></p>
+<p>这种也是一种比较常见的情况，如果你的程序重要性不是特别高的话，公司基本上不可能让你的程序独享一台服务器的，这时候你的服务器就会跟公司其他人的程序共享一台服务器，所以不可避免地就会受到其他程序的干扰，导致自己的程序出现问题。Docker就很好解决了环境隔离的问题，别人程序不会影响到自己的程序。</p>
+<p><strong>优势2：对进程进行封装隔离,容器与容器之间互不影响,更高效的利用系统资源</strong></p>
+</li>
+<li><p><code>公司要弄一个活动，可能会有大量的流量进来，公司需要再多部署几十台服务器</code></p>
+<p>在没有Docker的情况下，要在几天内部署几十台服务器，这对运维来说是一件非常折磨人的事，而且每台服务器的环境还不一定一样，就会出现各种问题，最后部署地头皮发麻。用Docker的话，我只需要将程序打包到镜像，你要多少台服务，我就给力跑多少容器，极大地提高了部署效率。</p>
+<p><strong>优势3: 通过镜像复制N多个环境一致容器</strong></p>
+</li>
 </ul>
-<p>单调性是指如果已经有一些内容通过哈希分派到了相应的缓冲中，又有新的缓冲区加入到系统中，那么哈希的结果应能够保证原有已分配的内容可以被映射到新的缓冲区中去，而不会被映射到旧的缓冲集合中的其他缓冲区。简单的哈希算法往往不能满足单调性的要求，如最简单的线性哈希：x = (ax + b) mod (P)，在上式中，P表示全部缓冲的大小。不难看出，当缓冲大小发生变化时(从P1到P2)，原来所有的哈希结果均会发生变化，从而不满足单调性的要求。哈希结果的变化意味着当缓冲空间发生变化时，所有的映射关系需要在系统内全部更新。而在P2P系统内，缓冲的变化等价于Peer加入或退出系统，这一情况在P2P系统中会频繁发生，因此会带来极大计算和传输负荷。单调性就是要求哈希算法能够应对这种情况。</p>
-<ul>
-<li><strong>分散性(Spread)</strong></li>
+<hr>
+<h1 id="😉Docker和虚拟机区别"><a href="#😉Docker和虚拟机区别" class="headerlink" title="😉Docker和虚拟机区别"></a>😉Docker和虚拟机区别</h1><blockquote>
+<p>关于Docker与虚拟机的区别，我在网上找到的一张图，非常直观形象地展示出来，话不多说，直接上图。</p>
+</blockquote>
+<img src="/2021/07/24/Docker%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class>
+
+<p><code>比较上面两张图，我们发现虚拟机是携带操作系统，本身很小的应用程序却因为携带了操作系统而变得非常大，很笨重</code>。Docker是不携带操作系统的，所以Docker的应用就非常的轻巧。另外在调用宿主机的CPU、磁盘等等这些资源的时候，拿内存举例，虚拟机是利用Hypervisor去虚拟化内存，整个调用过程是虚拟内存-&gt;虚拟物理内存-&gt;真正物理内存，但是Docker是利用Docker Engine去调用宿主的的资源，这时候过程是虚拟内存-&gt;真正物理内存。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>传统虚拟机</th>
+<th>Docker容器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>磁盘占用</td>
+<td>几个GB到几十个GB左右</td>
+<td>几十MB到几百MB左右</td>
+</tr>
+<tr>
+<td>CPU内存占用</td>
+<td>虚拟操作系统非常占用CPU和内存</td>
+<td>Docker引擎占用极低</td>
+</tr>
+<tr>
+<td>启动速度</td>
+<td>（从开机到运行项目）几分钟</td>
+<td>（从开启容器到运行项目）几秒</td>
+</tr>
+<tr>
+<td>安装管理</td>
+<td>需要专门的运维技术</td>
+<td>安装、管理方便</td>
+</tr>
+<tr>
+<td>应用部署</td>
+<td>每次部署都费时费力</td>
+<td>从第二次部署开始轻松简捷</td>
+</tr>
+<tr>
+<td>耦合性</td>
+<td>多个应用服务安装到一起，容易互相影响</td>
+<td>每个应用服务一个容器，达成隔离</td>
+</tr>
+<tr>
+<td>系统依赖</td>
+<td>无</td>
+<td>需求相同或相似的内核，目前推荐是Linux</td>
+</tr>
+</tbody></table>
+<h1 id="😁Docker安装-Linux"><a href="#😁Docker安装-Linux" class="headerlink" title="😁Docker安装(Linux)"></a>😁Docker安装(Linux)</h1><ul>
+<li><p>在测试或开发环境中 Docker 官方为了简化安装流程，提供了一套便捷的安装脚本，CentOS 系统上可以使用这套脚本安装，另外可以通过 <code>--mirror</code> 选项使用国内源进行安装：执行这个命令后，脚本就会自动的将一切准备工作做好，并且把 Docker 的稳定(stable)版本安装在系统中。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ curl -fsSL get.docker.com -o get-docker.sh</span><br><span class="line">$ sudo sh get-docker.sh --mirror Aliyun</span><br></pre></td></tr></table></figure></li>
+<li><p>启动docker</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">$ sudo systemctl start docker</span><br></pre></td></tr></table></figure></li>
+<li><p>创建docker用户组</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo groupadd docker</span><br></pre></td></tr></table></figure></li>
+<li><p>将当前用户加入docker组</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo usermod -aG docker <span class="variable">$USER</span></span><br><span class="line"><span class="comment">#重启docker</span></span><br><span class="line">$ systemctl restart docker</span><br></pre></td></tr></table></figure></li>
+<li><p>测试docker安装是否正确</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run hello-world</span><br></pre></td></tr></table></figure></li>
+<li><p>出现如下内容，即成功</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># docker run hello-world</span></span><br><span class="line"></span><br><span class="line">Hello from Docker!</span><br><span class="line">This message shows that your installation appears to be working correctly.</span><br><span class="line"></span><br><span class="line">To generate this message, Docker took the following steps:</span><br><span class="line"> 1. The Docker client contacted the Docker daemon.</span><br><span class="line"> 2. The Docker daemon pulled the <span class="string">&quot;hello-world&quot;</span> image from the Docker Hub.</span><br><span class="line">    (amd64)</span><br><span class="line"> 3. The Docker daemon created a new container from that image <span class="built_in">which</span> runs the</span><br><span class="line">    executable that produces the output you are currently reading.</span><br><span class="line"> 4. The Docker daemon streamed that output to the Docker client, <span class="built_in">which</span> sent it</span><br><span class="line">    to your terminal.</span><br><span class="line"></span><br><span class="line">To try something more ambitious, you can run an Ubuntu container with:</span><br><span class="line"> $ docker run -it ubuntu bash</span><br><span class="line"></span><br><span class="line">Share images, automate workflows, and more with a free Docker ID:</span><br><span class="line"> https://hub.docker.com/</span><br><span class="line"></span><br><span class="line">For more examples and ideas, visit:</span><br><span class="line"> https://docs.docker.com/get-started/</span><br></pre></td></tr></table></figure></li>
 </ul>
-<p>在分布式环境中，终端有可能看不到所有的缓冲，而是只能看到其中的一部分。当终端希望通过哈希过程将内容映射到缓冲上时，由于不同终端所见的缓冲范围有可能不同，从而导致哈希的结果不一致，最终的结果是相同的内容被不同的终端映射到不同的缓冲区中。这种情况显然是应该避免的，因为它导致相同内容被存储到不同缓冲中去，降低了系统存储的效率。分散性的定义就是上述情况发生的严重程度。好的哈希算法应能够尽量避免不一致的情况发生，也就是尽量降低分散性。</p>
-<ul>
-<li><strong>负载(Load)</strong></li>
-</ul>
-<p>负载问题实际上是从另一个角度看待分散性问题。既然不同的终端可能将相同的内容映射到不同的缓冲区中，那么对于一个特定的缓冲区而言，也可能被不同的用户映射为不同的内容。与分散性一样，这种情况也是应当避免的，因此好的哈希算法应能够尽量降低缓冲的负荷。</p>
-<ul>
-<li><strong>平滑性(Smoothness)</strong></li>
-</ul>
-<p>平滑性是指缓存服务器的数目平滑改变和缓存对象的平滑改变是一致的。</p>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>　　一致性哈希算法（Consistent Hashing）最早在论文《<a href="http://dl.acm.org/citation.cfm?id=258660">Consistent Hashing and Random Trees: Distributed Caching Protocols for Relieving Hot Spots on the World Wide Web</a>》中被提出。简单来说，一致性哈希将整个哈希值空间组织成一个虚拟的圆环，如假设某哈希函数H的值空间为0-2^32-1（即哈希值是一个32位无符号整形），整个哈希空间环如下：</p>
-<img src="/2021/07/24/Dubbo%EF%BC%88%E4%BA%8C%EF%BC%89/3.png" class>
-
-<p>　　整个空间按顺时针方向组织。0和232-1在零点中方向重合。</p>
-<p>　　下一步将各个服务器使用Hash进行一个哈希，具体可以选择服务器的ip或主机名作为关键字进行哈希，这样每台机器就能确定其在哈希环上的位置，这里假设将上文中四台服务器使用ip地址哈希后在环空间的位置如下：</p>
-<img src="/2021/07/24/Dubbo%EF%BC%88%E4%BA%8C%EF%BC%89/4.png" class> 
-
-<p>接下来使用如下算法定位数据访问到相应服务器：将数据key使用相同的函数Hash计算出哈希值，并确定此数据在环上的位置，从此位置沿环顺时针“行走”，第一台遇到的服务器就是其应该定位到的服务器。</p>
-<p>　　例如我们有Object A、Object B、Object C、Object D四个数据对象，经过哈希计算后，在环空间上的位置如下：</p>
-<img src="/2021/07/24/Dubbo%EF%BC%88%E4%BA%8C%EF%BC%89/5.png" class>
-
-<p>根据一致性哈希算法，数据A会被定为到Node A上，B被定为到Node B上，C被定为到Node C上，D被定为到Node D上。</p>
-<p>下面分析一致性哈希算法的容错性和可扩展性。现假设Node C不幸宕机，可以看到此时对象A、B、D不会受到影响，只有C对象被重定位到Node D。一般的，在一致性哈希算法中，如果一台服务器不可用，则受影响的数据仅仅是此服务器到其环空间中前一台服务器（即沿着逆时针方向行走遇到的第一台服务器）之间数据，其它不会受到影响。</p>
-<p>下面考虑另外一种情况，如果在系统中增加一台服务器Node X，如下图所示：</p>
-<img src="/2021/07/24/Dubbo%EF%BC%88%E4%BA%8C%EF%BC%89/6.png" class>
-
-<p>此时对象Object A、B、D不受影响，只有对象C需要重定位到新的Node X 。一般的，在一致性哈希算法中，如果增加一台服务器，则受影响的数据仅仅是新服务器到其环空间中前一台服务器（即沿着逆时针方向行走遇到的第一台服务器）之间数据，其它数据也不会受到影响。</p>
-<p>综上所述，一致性哈希算法对于节点的增减都只需重定位环空间中的一小部分数据，具有较好的容错性和可扩展性。</p>
-<p>另外，一致性哈希算法在服务节点太少时，容易因为节点分部不均匀而造成数据倾斜问题。例如系统中只有两台服务器，其环分布如下，</p>
-<img src="/2021/07/24/Dubbo%EF%BC%88%E4%BA%8C%EF%BC%89/7.png" class>
-
-<p>此时必然造成大量数据集中到Node A上，而只有极少量会定位到Node B上。为了解决这种数据倾斜问题，一致性哈希算法引入了虚拟节点机制，即对每一个服务节点计算多个哈希，每个计算结果位置都放置一个此服务节点，称为虚拟节点。具体做法可以在服务器ip或主机名的后面增加编号来实现。例如上面的情况，可以为每台服务器计算三个虚拟节点，于是可以分别计算 “Node A#1”、“Node A#2”、“Node A#3”、“Node B#1”、“Node B#2”、“Node B#3”的哈希值，于是形成六个虚拟节点：</p>
-<img src="/2021/07/24/Dubbo%EF%BC%88%E4%BA%8C%EF%BC%89/8.png" class>
-
-<p>同时数据定位算法不变，只是多了一步虚拟节点到实际节点的映射，例如定位到“Node A#1”、“Node A#2”、“Node A#3”三个虚拟节点的数据均定位到Node A上。这样就解决了服务节点少时数据倾斜的问题。在实际应用中，通常将虚拟节点数设置为32甚至更大，因此即使很少的服务节点也能做到相对均匀的数据分布。</p>
-<h1 id="🎉集群容错"><a href="#🎉集群容错" class="headerlink" title="🎉集群容错"></a>🎉集群容错</h1><p>集群调用失败时，Dubbo 提供的容错方案</p>
-<p>在集群调用失败时，Dubbo 提供了多种容错方案，缺省为 failover 重试。</p>
-<p><img src="https://dubbo.apache.org/imgs/user/cluster.jpg" alt="cluster"></p>
-<p>各节点关系：</p>
-<ul>
-<li>这里的 <code>Invoker</code> 是 <code>Provider</code> 的一个可调用 <code>Service</code> 的抽象，<code>Invoker</code> 封装了 <code>Provider</code> 地址及 <code>Service</code> 接口信息</li>
-<li><code>Directory</code> 代表多个 <code>Invoker</code>，可以把它看成 <code>List&lt;Invoker&gt;</code> ，但与 <code>List</code> 不同的是，它的值可能是动态变化的，比如注册中心推送变更</li>
-<li><code>Cluster</code> 将 <code>Directory</code> 中的多个 <code>Invoker</code> 伪装成一个 <code>Invoker</code>，对上层透明，伪装过程包含了容错逻辑，调用失败后，重试另一个</li>
-<li><code>Router</code> 负责从多个 <code>Invoker</code> 中按路由规则选出子集，比如读写分离，应用隔离等</li>
-<li><code>LoadBalance</code> 负责从多个 <code>Invoker</code> 中选出具体的一个用于本次调用，选的过程包含了负载均衡算法，调用失败后，需要重选</li>
-</ul>
-<h2 id="集群容错模式"><a href="#集群容错模式" class="headerlink" title="集群容错模式"></a>集群容错模式</h2><p>可以自行扩展集群容错策略，参见：<a href="https://dubbo.apache.org/zh/docs/dev/impls/cluster">集群扩展</a></p>
-<h3 id="Failover-Cluster"><a href="#Failover-Cluster" class="headerlink" title="Failover Cluster"></a>Failover Cluster</h3><p>失败自动切换，当出现失败，重试其它服务器。通常用于读操作，但重试会带来更长延迟。可通过 <code>retries=&quot;2&quot;</code> 来设置重试次数(不含第一次)。</p>
-<p>重试次数配置如下：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:service</span> <span class="attr">retries</span>=<span class="string">&quot;2&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>或</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:reference</span> <span class="attr">retries</span>=<span class="string">&quot;2&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>或</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:reference</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dubbo:method</span> <span class="attr">name</span>=<span class="string">&quot;findFoo&quot;</span> <span class="attr">retries</span>=<span class="string">&quot;2&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dubbo:reference</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Failfast-Cluster"><a href="#Failfast-Cluster" class="headerlink" title="Failfast Cluster"></a>Failfast Cluster</h3><p>快速失败，只发起一次调用，失败立即报错。通常用于非幂等性的写操作，比如新增记录。</p>
-<h3 id="Failsafe-Cluster"><a href="#Failsafe-Cluster" class="headerlink" title="Failsafe Cluster"></a>Failsafe Cluster</h3><p>失败安全，出现异常时，直接忽略。通常用于写入审计日志等操作。</p>
-<h3 id="Failback-Cluster"><a href="#Failback-Cluster" class="headerlink" title="Failback Cluster"></a>Failback Cluster</h3><p>失败自动恢复，后台记录失败请求，定时重发。通常用于消息通知操作。</p>
-<h3 id="Forking-Cluster"><a href="#Forking-Cluster" class="headerlink" title="Forking Cluster"></a>Forking Cluster</h3><p>并行调用多个服务器，只要一个成功即返回。通常用于实时性要求较高的读操作，但需要浪费更多服务资源。可通过 <code>forks=&quot;2&quot;</code> 来设置最大并行数。</p>
-<h3 id="Broadcast-Cluster"><a href="#Broadcast-Cluster" class="headerlink" title="Broadcast Cluster"></a>Broadcast Cluster</h3><p>广播调用所有提供者，逐个调用，任意一台报错则报错。通常用于通知所有提供者更新缓存或日志等本地资源信息。</p>
-<p>现在广播调用中，可以通过 <code>broadcast.fail.percent </code>配置节点调用失败的比例，当达到这个比例后，<code>BroadcastClusterInvoker</code> 将不再调用其他节点，直接抛出异常。 <code>broadcast.fail.percent</code> 取值在 0～100 范围内。默认情况下当全部调用失败后，才会抛出异常。 <code>broadcast.fail.percent</code> 只是控制的当失败后是否继续调用其他节点，并不改变结果(任意一台报错则报错)。broadcast.fail.percent 参数 在 dubbo2.7.10 及以上版本生效。</p>
-<p><code>Broadcast Cluster</code> 配置 <code>broadcast.fail.percent</code>。</p>
-<p><code>broadcast.fail.percent=20</code> 代表了当 20% 的节点调用失败就抛出异常，不再调用其他节点。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@reference(cluster = &quot;broadcast&quot;, parameters = &#123;&quot;broadcast.fail.percent&quot;, &quot;20&quot;&#125;)</span></span><br></pre></td></tr></table></figure>
-
-<p><code>2.1.0</code> 开始支持</p>
-<h2 id="集群模式配置"><a href="#集群模式配置" class="headerlink" title="集群模式配置"></a>集群模式配置</h2><p>按照以下示例在服务提供方和消费方配置集群模式</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:service</span> <span class="attr">cluster</span>=<span class="string">&quot;failsafe&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>或</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:reference</span> <span class="attr">cluster</span>=<span class="string">&quot;failsafe&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
 ]]></content>
       <categories>
-        <category>分布式</category>
+        <category>虚拟化容器</category>
       </categories>
       <tags>
-        <tag>分布式</tag>
-        <tag>Java</tag>
+        <tag>虚拟化容器</tag>
       </tags>
   </entry>
   <entry>
@@ -271,6 +253,126 @@
 <p><img src="https://dubbo.apache.org/imgs/user/dubbo-config-override.jpg" alt="dubbo-config-override"></p>
 <p>（建议由服务提供方设置超时，因为一个方法需要执行多长时间，服务提供方更清楚，如果一个消费方同时引用多个服务，就不需要关心每个服务的超时设置）。</p>
 <p>理论上 ReferenceConfig 中除了<code>interface</code>这一项，其他所有配置项都可以缺省不配置，框架会自动使用ConsumerConfig，ServiceConfig, ProviderConfig等提供的缺省配置。</p>
+]]></content>
+      <categories>
+        <category>分布式</category>
+      </categories>
+      <tags>
+        <tag>分布式</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Dubbo(二):集群搭建</title>
+    <url>/2021/07/24/Dubbo%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="😮负载均衡"><a href="#😮负载均衡" class="headerlink" title="😮负载均衡"></a>😮负载均衡</h1><p><strong>各种负载均衡策略</strong></p>
+<h2 id="随机"><a href="#随机" class="headerlink" title="随机"></a>随机</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:reference</span> <span class="attr">id</span>=<span class="string">&quot;userService&quot;</span> <span class="attr">interface</span>=<span class="string">&quot;com.anthony.service.UserService&quot;</span> <span class="attr">loadbalance</span>=<span class="string">&quot;random&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="轮询"><a href="#轮询" class="headerlink" title="轮询"></a>轮询</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:reference</span> <span class="attr">id</span>=<span class="string">&quot;userService&quot;</span> <span class="attr">interface</span>=<span class="string">&quot;com.anthony.service.UserService&quot;</span> <span class="attr">loadbalance</span>=<span class="string">&quot;roundrobin&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="最少活跃数"><a href="#最少活跃数" class="headerlink" title="最少活跃数"></a>最少活跃数</h2><ul>
+<li>最少活跃调用数，相同活跃数的随机，活跃数指调用前后计数差。</li>
+<li>使慢的提供者收到更少请求，因为越慢的提供者的调用前后计数差会越大。</li>
+</ul>
+<h2 id="一致性哈希"><a href="#一致性哈希" class="headerlink" title="一致性哈希"></a>一致性哈希</h2><h3 id="一致性Hash算法背景"><a href="#一致性Hash算法背景" class="headerlink" title="一致性Hash算法背景"></a>一致性Hash算法背景</h3><p>　　一致性哈希算法在1997年由麻省理工学院的Karger等人在解决分布式Cache中提出的，设计目标是为了解决因特网中的热点(Hot spot)问题，初衷和CARP十分类似。一致性哈希修正了CARP使用的简单哈希算法带来的问题，使得DHT可以在P2P环境中真正得到应用。</p>
+<p>　　但现在一致性hash算法在分布式系统中也得到了广泛应用，研究过<code>memcached</code>缓存数据库的人都知道，<code>memcached</code>服务器端本身不提供分布式cache的一致性，而是由客户端来提供，具体在计算一致性hash时采用如下步骤：</p>
+<ol>
+<li>首先求出<code>memcached</code>服务器（节点）的哈希值，并将其配置到<code>0～2^32</code>的圆（continuum）上。</li>
+<li>然后采用同样的方法求出存储数据的键的哈希值，并映射到相同的圆上。</li>
+<li>然后从数据映射到的位置开始顺时针查找，将数据保存到找到的第一个服务器上。如果超过2^32仍然找不到服务器，就会保存到第一台<code>memcached</code>服务器上。</li>
+</ol>
+<img src="/2021/07/24/Dubbo%EF%BC%88%E4%BA%8C%EF%BC%89/1.png" class>
+
+<p>　　从上图的状态中添加一台memcached服务器。余数分布式算法由于保存键的服务器会发生巨大变化而影响缓存的命中率，但Consistent Hashing中，只有在园（continuum）上增加服务器的地点逆时针方向的第一台服务器上的键会受到影响，如下图所示：</p>
+<img src="/2021/07/24/Dubbo%EF%BC%88%E4%BA%8C%EF%BC%89/2.png" class>
+
+
+
+<h3 id="一致性Hash性质"><a href="#一致性Hash性质" class="headerlink" title="一致性Hash性质"></a>一致性Hash性质</h3><p>　　考虑到分布式系统每个节点都有可能失效，并且新的节点很可能动态的增加进来，如何保证当系统的节点数目发生变化时仍然能够对外提供良好的服务，这是值得考虑的，尤其实在设计分布式缓存系统时，如果某台服务器失效，对于整个系统来说如果不采用合适的算法来保证一致性，那么缓存于系统中的所有数据都可能会失效（即由于系统节点数目变少，客户端在请求某一对象时需要重新计算其hash值（通常与系统中的节点数目有关），由于hash值已经改变，所以很可能找不到保存该对象的服务器节点），因此一致性hash就显得至关重要，良好的分布式cahce系统中的一致性hash算法应该满足以下几个方面：</p>
+<ul>
+<li><strong>平衡性(Balance)</strong></li>
+</ul>
+<p>平衡性是指哈希的结果能够尽可能分布到所有的缓冲中去，这样可以使得所有的缓冲空间都得到利用。很多哈希算法都能够满足这一条件。</p>
+<ul>
+<li><strong>单调性(Monotonicity)</strong></li>
+</ul>
+<p>单调性是指如果已经有一些内容通过哈希分派到了相应的缓冲中，又有新的缓冲区加入到系统中，那么哈希的结果应能够保证原有已分配的内容可以被映射到新的缓冲区中去，而不会被映射到旧的缓冲集合中的其他缓冲区。简单的哈希算法往往不能满足单调性的要求，如最简单的线性哈希：x = (ax + b) mod (P)，在上式中，P表示全部缓冲的大小。不难看出，当缓冲大小发生变化时(从P1到P2)，原来所有的哈希结果均会发生变化，从而不满足单调性的要求。哈希结果的变化意味着当缓冲空间发生变化时，所有的映射关系需要在系统内全部更新。而在P2P系统内，缓冲的变化等价于Peer加入或退出系统，这一情况在P2P系统中会频繁发生，因此会带来极大计算和传输负荷。单调性就是要求哈希算法能够应对这种情况。</p>
+<ul>
+<li><strong>分散性(Spread)</strong></li>
+</ul>
+<p>在分布式环境中，终端有可能看不到所有的缓冲，而是只能看到其中的一部分。当终端希望通过哈希过程将内容映射到缓冲上时，由于不同终端所见的缓冲范围有可能不同，从而导致哈希的结果不一致，最终的结果是相同的内容被不同的终端映射到不同的缓冲区中。这种情况显然是应该避免的，因为它导致相同内容被存储到不同缓冲中去，降低了系统存储的效率。分散性的定义就是上述情况发生的严重程度。好的哈希算法应能够尽量避免不一致的情况发生，也就是尽量降低分散性。</p>
+<ul>
+<li><strong>负载(Load)</strong></li>
+</ul>
+<p>负载问题实际上是从另一个角度看待分散性问题。既然不同的终端可能将相同的内容映射到不同的缓冲区中，那么对于一个特定的缓冲区而言，也可能被不同的用户映射为不同的内容。与分散性一样，这种情况也是应当避免的，因此好的哈希算法应能够尽量降低缓冲的负荷。</p>
+<ul>
+<li><strong>平滑性(Smoothness)</strong></li>
+</ul>
+<p>平滑性是指缓存服务器的数目平滑改变和缓存对象的平滑改变是一致的。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>　　一致性哈希算法（Consistent Hashing）最早在论文《<a href="http://dl.acm.org/citation.cfm?id=258660">Consistent Hashing and Random Trees: Distributed Caching Protocols for Relieving Hot Spots on the World Wide Web</a>》中被提出。简单来说，一致性哈希将整个哈希值空间组织成一个虚拟的圆环，如假设某哈希函数H的值空间为0-2^32-1（即哈希值是一个32位无符号整形），整个哈希空间环如下：</p>
+<img src="/2021/07/24/Dubbo%EF%BC%88%E4%BA%8C%EF%BC%89/3.png" class>
+
+<p>　　整个空间按顺时针方向组织。0和232-1在零点中方向重合。</p>
+<p>　　下一步将各个服务器使用Hash进行一个哈希，具体可以选择服务器的ip或主机名作为关键字进行哈希，这样每台机器就能确定其在哈希环上的位置，这里假设将上文中四台服务器使用ip地址哈希后在环空间的位置如下：</p>
+<img src="/2021/07/24/Dubbo%EF%BC%88%E4%BA%8C%EF%BC%89/4.png" class> 
+
+<p>接下来使用如下算法定位数据访问到相应服务器：将数据key使用相同的函数Hash计算出哈希值，并确定此数据在环上的位置，从此位置沿环顺时针“行走”，第一台遇到的服务器就是其应该定位到的服务器。</p>
+<p>　　例如我们有Object A、Object B、Object C、Object D四个数据对象，经过哈希计算后，在环空间上的位置如下：</p>
+<img src="/2021/07/24/Dubbo%EF%BC%88%E4%BA%8C%EF%BC%89/5.png" class>
+
+<p>根据一致性哈希算法，数据A会被定为到Node A上，B被定为到Node B上，C被定为到Node C上，D被定为到Node D上。</p>
+<p>下面分析一致性哈希算法的容错性和可扩展性。现假设Node C不幸宕机，可以看到此时对象A、B、D不会受到影响，只有C对象被重定位到Node D。一般的，在一致性哈希算法中，如果一台服务器不可用，则受影响的数据仅仅是此服务器到其环空间中前一台服务器（即沿着逆时针方向行走遇到的第一台服务器）之间数据，其它不会受到影响。</p>
+<p>下面考虑另外一种情况，如果在系统中增加一台服务器Node X，如下图所示：</p>
+<img src="/2021/07/24/Dubbo%EF%BC%88%E4%BA%8C%EF%BC%89/6.png" class>
+
+<p>此时对象Object A、B、D不受影响，只有对象C需要重定位到新的Node X 。一般的，在一致性哈希算法中，如果增加一台服务器，则受影响的数据仅仅是新服务器到其环空间中前一台服务器（即沿着逆时针方向行走遇到的第一台服务器）之间数据，其它数据也不会受到影响。</p>
+<p>综上所述，一致性哈希算法对于节点的增减都只需重定位环空间中的一小部分数据，具有较好的容错性和可扩展性。</p>
+<p>另外，一致性哈希算法在服务节点太少时，容易因为节点分部不均匀而造成数据倾斜问题。例如系统中只有两台服务器，其环分布如下，</p>
+<img src="/2021/07/24/Dubbo%EF%BC%88%E4%BA%8C%EF%BC%89/7.png" class>
+
+<p>此时必然造成大量数据集中到Node A上，而只有极少量会定位到Node B上。为了解决这种数据倾斜问题，一致性哈希算法引入了虚拟节点机制，即对每一个服务节点计算多个哈希，每个计算结果位置都放置一个此服务节点，称为虚拟节点。具体做法可以在服务器ip或主机名的后面增加编号来实现。例如上面的情况，可以为每台服务器计算三个虚拟节点，于是可以分别计算 “Node A#1”、“Node A#2”、“Node A#3”、“Node B#1”、“Node B#2”、“Node B#3”的哈希值，于是形成六个虚拟节点：</p>
+<img src="/2021/07/24/Dubbo%EF%BC%88%E4%BA%8C%EF%BC%89/8.png" class>
+
+<p>同时数据定位算法不变，只是多了一步虚拟节点到实际节点的映射，例如定位到“Node A#1”、“Node A#2”、“Node A#3”三个虚拟节点的数据均定位到Node A上。这样就解决了服务节点少时数据倾斜的问题。在实际应用中，通常将虚拟节点数设置为32甚至更大，因此即使很少的服务节点也能做到相对均匀的数据分布。</p>
+<h1 id="🎉集群容错"><a href="#🎉集群容错" class="headerlink" title="🎉集群容错"></a>🎉集群容错</h1><p>集群调用失败时，Dubbo 提供的容错方案</p>
+<p>在集群调用失败时，Dubbo 提供了多种容错方案，缺省为 failover 重试。</p>
+<p><img src="https://dubbo.apache.org/imgs/user/cluster.jpg" alt="cluster"></p>
+<p>各节点关系：</p>
+<ul>
+<li>这里的 <code>Invoker</code> 是 <code>Provider</code> 的一个可调用 <code>Service</code> 的抽象，<code>Invoker</code> 封装了 <code>Provider</code> 地址及 <code>Service</code> 接口信息</li>
+<li><code>Directory</code> 代表多个 <code>Invoker</code>，可以把它看成 <code>List&lt;Invoker&gt;</code> ，但与 <code>List</code> 不同的是，它的值可能是动态变化的，比如注册中心推送变更</li>
+<li><code>Cluster</code> 将 <code>Directory</code> 中的多个 <code>Invoker</code> 伪装成一个 <code>Invoker</code>，对上层透明，伪装过程包含了容错逻辑，调用失败后，重试另一个</li>
+<li><code>Router</code> 负责从多个 <code>Invoker</code> 中按路由规则选出子集，比如读写分离，应用隔离等</li>
+<li><code>LoadBalance</code> 负责从多个 <code>Invoker</code> 中选出具体的一个用于本次调用，选的过程包含了负载均衡算法，调用失败后，需要重选</li>
+</ul>
+<h2 id="集群容错模式"><a href="#集群容错模式" class="headerlink" title="集群容错模式"></a>集群容错模式</h2><p>可以自行扩展集群容错策略，参见：<a href="https://dubbo.apache.org/zh/docs/dev/impls/cluster">集群扩展</a></p>
+<h3 id="Failover-Cluster"><a href="#Failover-Cluster" class="headerlink" title="Failover Cluster"></a>Failover Cluster</h3><p>失败自动切换，当出现失败，重试其它服务器。通常用于读操作，但重试会带来更长延迟。可通过 <code>retries=&quot;2&quot;</code> 来设置重试次数(不含第一次)。</p>
+<p>重试次数配置如下：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:service</span> <span class="attr">retries</span>=<span class="string">&quot;2&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:reference</span> <span class="attr">retries</span>=<span class="string">&quot;2&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:reference</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dubbo:method</span> <span class="attr">name</span>=<span class="string">&quot;findFoo&quot;</span> <span class="attr">retries</span>=<span class="string">&quot;2&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dubbo:reference</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Failfast-Cluster"><a href="#Failfast-Cluster" class="headerlink" title="Failfast Cluster"></a>Failfast Cluster</h3><p>快速失败，只发起一次调用，失败立即报错。通常用于非幂等性的写操作，比如新增记录。</p>
+<h3 id="Failsafe-Cluster"><a href="#Failsafe-Cluster" class="headerlink" title="Failsafe Cluster"></a>Failsafe Cluster</h3><p>失败安全，出现异常时，直接忽略。通常用于写入审计日志等操作。</p>
+<h3 id="Failback-Cluster"><a href="#Failback-Cluster" class="headerlink" title="Failback Cluster"></a>Failback Cluster</h3><p>失败自动恢复，后台记录失败请求，定时重发。通常用于消息通知操作。</p>
+<h3 id="Forking-Cluster"><a href="#Forking-Cluster" class="headerlink" title="Forking Cluster"></a>Forking Cluster</h3><p>并行调用多个服务器，只要一个成功即返回。通常用于实时性要求较高的读操作，但需要浪费更多服务资源。可通过 <code>forks=&quot;2&quot;</code> 来设置最大并行数。</p>
+<h3 id="Broadcast-Cluster"><a href="#Broadcast-Cluster" class="headerlink" title="Broadcast Cluster"></a>Broadcast Cluster</h3><p>广播调用所有提供者，逐个调用，任意一台报错则报错。通常用于通知所有提供者更新缓存或日志等本地资源信息。</p>
+<p>现在广播调用中，可以通过 <code>broadcast.fail.percent </code>配置节点调用失败的比例，当达到这个比例后，<code>BroadcastClusterInvoker</code> 将不再调用其他节点，直接抛出异常。 <code>broadcast.fail.percent</code> 取值在 0～100 范围内。默认情况下当全部调用失败后，才会抛出异常。 <code>broadcast.fail.percent</code> 只是控制的当失败后是否继续调用其他节点，并不改变结果(任意一台报错则报错)。broadcast.fail.percent 参数 在 dubbo2.7.10 及以上版本生效。</p>
+<p><code>Broadcast Cluster</code> 配置 <code>broadcast.fail.percent</code>。</p>
+<p><code>broadcast.fail.percent=20</code> 代表了当 20% 的节点调用失败就抛出异常，不再调用其他节点。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@reference(cluster = &quot;broadcast&quot;, parameters = &#123;&quot;broadcast.fail.percent&quot;, &quot;20&quot;&#125;)</span></span><br></pre></td></tr></table></figure>
+
+<p><code>2.1.0</code> 开始支持</p>
+<h2 id="集群模式配置"><a href="#集群模式配置" class="headerlink" title="集群模式配置"></a>集群模式配置</h2><p>按照以下示例在服务提供方和消费方配置集群模式</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:service</span> <span class="attr">cluster</span>=<span class="string">&quot;failsafe&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:reference</span> <span class="attr">cluster</span>=<span class="string">&quot;failsafe&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>分布式</category>
@@ -1571,6 +1673,72 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringBoot(三):数据库连接池</title>
+    <url>/2021/05/08/SpringBoot%EF%BC%88%E4%B8%89%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🎡数据库连接池相关概念"><a href="#🎡数据库连接池相关概念" class="headerlink" title="🎡数据库连接池相关概念"></a>🎡数据库连接池相关概念</h1><ul>
+<li><p><strong>什么是数据库连接池？</strong></p>
+<p>​        数据库连接池可以用于管理对数据库的连接，用于存放和管理这些连接，当使用完这些连接之后会将连接还回池中而不是直接关闭掉，可以等待下次进行连接可以直接使用。</p>
+</li>
+<li><p><strong>为什么需要数据库连接池?</strong></p>
+<p>​        在实际业务中，会存在对数据库的操作，如果每次操作都要进行一次数据库连接，那么消耗的内存和资源十分巨大，再加上高并发量，那么会导致性能下降，造成无法估计的损失.有了数据库连接池之后，可以动态的分配已经有的连接，可以动态控制连接数量，合理的分配连接，大大提高了使用率和运行效率.</p>
+</li>
+<li><p><strong>数据库连接池的底层原理？</strong></p>
+<p>​        数据库连接池可以用 <code>Java</code> 中的集合对象来实现 ， 比如 <code>LinkedList</code> ，初始化数据库连接数为10个，依次加入 <code>LinkedList</code>  当需要执行 <code>SQL</code> 语句的时候，请求从集合中获得连接，先要判断目前是否有闲置的连接，如果有则返回给请求对象，本质就是将连接从集合中移除，使用完毕后重新加入集合等待请求也就是所谓的闲置状态，如果请求时恰好没有闲置的连接，则进入等待，超过等待时间后，抛出异常等待下一次请求.</p>
+</li>
+</ul>
+<h1 id="🥽常见数据库连接池"><a href="#🥽常见数据库连接池" class="headerlink" title="🥽常见数据库连接池"></a>🥽常见数据库连接池</h1><p>常用的数据库连接池有如下四种：</p>
+<table>
+<thead>
+<tr>
+<th align="center">DBCP</th>
+<th align="center">Tomcat内部集成</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>C3P0</strong></td>
+<td align="center"><strong>性能较差架构复杂</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>Druid</strong></td>
+<td align="center"><strong>SQL监控黑名单拦截性能卓越</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>HikariCP</strong></td>
+<td align="center"><strong>性能最强稳定性较好screw内置使用</strong></td>
+</tr>
+</tbody></table>
+<p>​        <code>SpringBoot</code>默认将<code>HikariCP</code>作为默认的数据库连接池.<code>Java</code> 常用于构建大型的 <code>Web</code> 项目，在存在高并发的情况下，必然要挑选一个性能极强的数据库连接池而<code>HikariCP</code>当之无愧为性能之王.</p>
+<h1 id="✨SpringBoot中HikariCP配置"><a href="#✨SpringBoot中HikariCP配置" class="headerlink" title="✨SpringBoot中HikariCP配置"></a>✨SpringBoot中HikariCP配置</h1><p>1.<code>autoCommit</code><br>        自动提交从池中返回的连接，默认为<code>true</code>。</p>
+<p>2.<code>connectionTimeout</code><br>        等待来自池的连接的最大毫秒数，默认为30000，如果小于250毫秒，则被重置回30秒。</p>
+<p>3.<code>idleTimeout</code><br>        连接允许在池中闲置的最长时间，默认为600000，即10分钟。如果<code>idleTimeout</code>+1秒&gt;<code>maxLifetime</code> 且 <code>maxLifetime</code>&gt;0，则会被重置为0（代表永远不会退出）；如果<code>idleTimeout</code>!=0且小于10秒，则会被重置为10秒。只有当<code>minimumIdle</code>小于<code>maximumPoolSize</code>时，这个参数才生效，当空闲连接数超过<code>minimumIdle</code>，而且空闲时间超过<code>idleTimeout</code>，则会被移除。</p>
+<p>4.<code>maxLifetime</code><br>        池中连接最长生命周期。默认为1800000，如果不等于0且小于30秒则会被重置回30分钟。</p>
+<p>5.<code>minimumIdle</code><br>        控制连接池空闲连接的最小数量，当连接池空闲连接少于<code>minimumIdle</code>，而且总共连接数不大于<code>maximumPoolSize</code>时，<code>HikariCP</code>会尽力补充新的连接。为了性能考虑，不建议设置此值，而是让<code>HikariCP</code>把连接池当做固定大小的处理，默认<code>minimumIdle</code>与<code>maximumPoolSize</code>一样。当<code>minIdle</code>&lt;0或者<code>minIdle</code>&gt;<code>maxPoolSize</code>,则被重置为<code>maxPoolSize</code>，该值默认为10。</p>
+<p>6.<code>maximumPoolSize</code><br>        池中最大连接数，包括闲置和使用中的连接。默认为10。如果<code>maxPoolSize</code>小于1，则会被重置。当<code>minIdle</code>&lt;=0被重置为<code>DEFAULT_POOL_SIZE</code>则为10;如果<code>minIdle</code>&gt;0则重置为<code>minIdle</code>的值。</p>
+<p>7.<code>poolName</code><br>连接池的用户定义名称，主要出现在日志记录和JMX管理控制台中以识别池和池配置。默认为<code>HikariPool-1</code>。</p>
+<p>8.<code>readOnly</code><br>从池中获取的连接是否默认处于只读模式。默认为<code>false</code>。</p>
+<p>9.<code>connection-test-query</code><br>如果您的驱动程序支持<code>JDBC4</code>，我们强烈建议您不要设置此属性。这是针对不支持<code>JDBC4</code>的“传统”驱动程序<code>Connection.isValid() API</code>。这是在连接从池中获得连接以确认与数据库的连接仍然存在之前将要执行的查询。再一次，尝试运行没有此属性的池，如果您的驱动程序不符合<code>JDBC4</code>的要求，<code>HikariCP</code>将记录一个错误以告知您。 默认值：无</p>
+<h1 id="🎊SpringBoot中Druid配置"><a href="#🎊SpringBoot中Druid配置" class="headerlink" title="🎊SpringBoot中Druid配置"></a>🎊SpringBoot中Druid配置</h1><p>1.纯配置文件配置：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="comment"># 数据源配置</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">    <span class="comment"># 连接池配置</span></span><br><span class="line">    <span class="attr">druid:</span></span><br><span class="line">      <span class="comment"># 初始化大小，最小，最大</span></span><br><span class="line">      <span class="attr">initial-size:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">min-idle:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">max-active:</span> <span class="number">20</span></span><br><span class="line">      <span class="comment"># 配置获取连接等待超时的时间</span></span><br><span class="line">      <span class="attr">max-wait:</span> <span class="number">60000</span></span><br><span class="line">      <span class="comment"># 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位毫秒</span></span><br><span class="line">      <span class="attr">time-between-eviction-runs-millis:</span> <span class="number">60000</span></span><br><span class="line">      <span class="comment"># 配置一个连接在池中最小生存时间</span></span><br><span class="line">      <span class="attr">min-evictable-idle-time-millis:</span> <span class="number">300000</span></span><br><span class="line">      <span class="attr">validation-query:</span> <span class="string">SELECT</span> <span class="number">1</span> <span class="string">FROM</span> <span class="string">sys_user</span></span><br><span class="line">      <span class="attr">test-while-idle:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">test-on-borrow:</span> <span class="literal">false</span></span><br><span class="line">      <span class="attr">test-on-return:</span> <span class="literal">false</span></span><br><span class="line">      <span class="comment"># 打开 PSCache，并且指定每个连接上 PSCache 的大小</span></span><br><span class="line">      <span class="attr">pool-prepared-statements:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">max-pool-prepared-statement-per-connection-size:</span> <span class="number">20</span></span><br><span class="line">      <span class="comment"># 配置监控统计拦截的 Filter，去掉后监控界面 SQL 无法统计，wall 用于防火墙</span></span><br><span class="line">      <span class="attr">filters:</span> <span class="string">stat,wall,log4j</span></span><br><span class="line">      <span class="comment"># 通过 connection-properties 属性打开 mergeSql 功能；慢 SQL 记录</span></span><br><span class="line">      <span class="attr">connection-properties:</span> <span class="string">druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000</span></span><br><span class="line">      <span class="comment"># 配置 DruidStatFilter</span></span><br><span class="line">      <span class="attr">web-stat-filter:</span></span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">url-pattern:</span> <span class="string">/*</span></span><br><span class="line">        <span class="attr">exclusions:</span> <span class="string">.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*</span></span><br><span class="line">      <span class="comment"># 配置 DruidStatViewServlet</span></span><br><span class="line">      <span class="attr">stat-view-servlet:</span></span><br><span class="line">        <span class="attr">url-pattern:</span> <span class="string">/druid/*</span></span><br><span class="line">        <span class="comment"># IP 白名单，没有配置或者为空，则允许所有访问</span></span><br><span class="line">        <span class="attr">allow:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">        <span class="comment"># IP 黑名单，若白名单也存在，则优先使用</span></span><br><span class="line">        <span class="attr">deny:</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.253</span></span><br><span class="line">        <span class="comment"># 禁用 HTML 中 Reset All 按钮</span></span><br><span class="line">        <span class="attr">reset-enable:</span> <span class="literal">false</span></span><br><span class="line">        <span class="comment"># 登录用户名/密码</span></span><br><span class="line">        <span class="attr">login-username:</span> <span class="string">root</span></span><br><span class="line">        <span class="attr">login-password:</span> <span class="number">123</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.配置类版本：</p>
+<p>​    配置文件：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">datasource:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">        <span class="comment"># 数据源的其他配置</span></span><br><span class="line">        <span class="attr">initialSize:</span> <span class="number">5</span></span><br><span class="line">        <span class="attr">minIdle:</span> <span class="number">5</span></span><br><span class="line">        <span class="attr">maxActive:</span> <span class="number">20</span></span><br><span class="line">        <span class="attr">maxWait:</span> <span class="number">60000</span></span><br><span class="line">        <span class="attr">timeBetweenEvictionRunsMillis:</span> <span class="number">60000</span></span><br><span class="line">        <span class="attr">minEvictableIdleTimeMillis:</span> <span class="number">300000</span></span><br><span class="line">        <span class="attr">validationQuery:</span> <span class="string">SELECT</span> <span class="number">1</span> <span class="string">FROM</span> <span class="string">DUAL</span></span><br><span class="line">        <span class="attr">testWhileIdle:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">testOnBorrow:</span> <span class="literal">false</span></span><br><span class="line">        <span class="attr">testOnReturn:</span> <span class="literal">false</span></span><br><span class="line">        <span class="attr">poolPreparedStatements:</span> <span class="literal">true</span></span><br><span class="line">        <span class="comment"># 配置监控统计拦截的 filters，去掉后监控界面 sql 无法统计，&#x27;wall&#x27;用于防火墙</span></span><br><span class="line">        <span class="attr">filters:</span> <span class="string">stat,wall,log4j</span></span><br><span class="line">        <span class="attr">maxPoolPreparedStatementPerConnectionSize:</span> <span class="number">20</span></span><br><span class="line">        <span class="attr">useGlobalDataSourceStat:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">connectionProperties:</span> <span class="string">druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500</span></span><br></pre></td></tr></table></figure>
+
+<p>​    配置类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.servlet.Filter;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.Servlet;</span><br><span class="line"><span class="keyword">import</span> javax.sql.DataSource;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.web.servlet.FilterRegistrationBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.web.servlet.ServletRegistrationBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.pool.DruidDataSource;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.support.http.StatViewServlet;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.support.http.WebStatFilter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DruidConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="comment">// 将所有前缀为spring.datasource下的配置项都加载DataSource中</span></span><br><span class="line">    <span class="meta">@ConfigurationProperties(prefix = &quot;spring.datasource&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">druidDataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DruidDataSource();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServletRegistrationBean&lt;Servlet&gt; <span class="title">druidServlet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 进行 druid 监控的配置处理</span></span><br><span class="line">        ServletRegistrationBean&lt;Servlet&gt; srb = <span class="keyword">new</span> ServletRegistrationBean&lt;&gt;(<span class="keyword">new</span> StatViewServlet(), <span class="string">&quot;/druid/**&quot;</span>);</span><br><span class="line">        <span class="comment">// 白名单</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;allow&quot;</span>, <span class="string">&quot;127.0.0.1&quot;</span>);</span><br><span class="line">        <span class="comment">// 黑名单</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;deny&quot;</span>, <span class="string">&quot;192.168.31.253&quot;</span>);</span><br><span class="line">        <span class="comment">// 用户名</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;loginUsername&quot;</span>, <span class="string">&quot;root&quot;</span>);</span><br><span class="line">        <span class="comment">// 密码</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;loginPassword&quot;</span>, <span class="string">&quot;root&quot;</span>);</span><br><span class="line">        <span class="comment">// 是否可以重置数据源</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;resetEnable&quot;</span>, <span class="string">&quot;false&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> srb;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> FilterRegistrationBean&lt;Filter&gt; <span class="title">filterRegistrationBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        FilterRegistrationBean&lt;Filter&gt; frb = <span class="keyword">new</span> FilterRegistrationBean&lt;&gt;();</span><br><span class="line">        frb.setFilter(<span class="keyword">new</span> WebStatFilter());</span><br><span class="line">        <span class="comment">// 所有请求进行监控处理</span></span><br><span class="line">        frb.addUrlPatterns(<span class="string">&quot;/*&quot;</span>);</span><br><span class="line">        <span class="comment">// 排除名单</span></span><br><span class="line">        frb.addInitParameter(<span class="string">&quot;exclusions&quot;</span>, <span class="string">&quot;*.js,*.gif,*.jpg,*.css,/druid/*&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> frb;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动<code>SpringBoot</code>后可在 <code> http://localhost:8080/druid/login.html</code> 中查看监控信息.</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot(二):整合Mybatis</title>
     <url>/2021/05/06/SpringBoot%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🎉SpringBoot-Mybatis整合"><a href="#🎉SpringBoot-Mybatis整合" class="headerlink" title="🎉SpringBoot-Mybatis整合"></a>🎉SpringBoot-Mybatis整合</h1><blockquote>
@@ -1662,109 +1830,119 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot(三):数据库连接池</title>
-    <url>/2021/05/08/SpringBoot%EF%BC%88%E4%B8%89%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🎡数据库连接池相关概念"><a href="#🎡数据库连接池相关概念" class="headerlink" title="🎡数据库连接池相关概念"></a>🎡数据库连接池相关概念</h1><ul>
-<li><p><strong>什么是数据库连接池？</strong></p>
-<p>​        数据库连接池可以用于管理对数据库的连接，用于存放和管理这些连接，当使用完这些连接之后会将连接还回池中而不是直接关闭掉，可以等待下次进行连接可以直接使用。</p>
-</li>
-<li><p><strong>为什么需要数据库连接池?</strong></p>
-<p>​        在实际业务中，会存在对数据库的操作，如果每次操作都要进行一次数据库连接，那么消耗的内存和资源十分巨大，再加上高并发量，那么会导致性能下降，造成无法估计的损失.有了数据库连接池之后，可以动态的分配已经有的连接，可以动态控制连接数量，合理的分配连接，大大提高了使用率和运行效率.</p>
-</li>
-<li><p><strong>数据库连接池的底层原理？</strong></p>
-<p>​        数据库连接池可以用 <code>Java</code> 中的集合对象来实现 ， 比如 <code>LinkedList</code> ，初始化数据库连接数为10个，依次加入 <code>LinkedList</code>  当需要执行 <code>SQL</code> 语句的时候，请求从集合中获得连接，先要判断目前是否有闲置的连接，如果有则返回给请求对象，本质就是将连接从集合中移除，使用完毕后重新加入集合等待请求也就是所谓的闲置状态，如果请求时恰好没有闲置的连接，则进入等待，超过等待时间后，抛出异常等待下一次请求.</p>
-</li>
-</ul>
-<h1 id="🥽常见数据库连接池"><a href="#🥽常见数据库连接池" class="headerlink" title="🥽常见数据库连接池"></a>🥽常见数据库连接池</h1><p>常用的数据库连接池有如下四种：</p>
+    <title>SpringBoot(七):自定义条件注解</title>
+    <url>/2021/06/23/SpringBoot%EF%BC%88%E4%B8%83%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🚗动态注入实现原理"><a href="#🚗动态注入实现原理" class="headerlink" title="🚗动态注入实现原理"></a>🚗动态注入实现原理</h1><p><code>SpringBoot</code>中的一大特色为自动配置(包括动态配置)，其底层实现原理依托于<code>springFramework</code>中的<code>condition</code>接口类，在<code>SpringBoot</code>的源码中，随处可见类似于<code>@ConditionalOnBean</code>这样类似的注解，其依赖的条件类为<code>OnBeanCondition</code>.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//使用在类上 和 方法上</span></span><br><span class="line"><span class="meta">@Target(&#123; ElementType.TYPE, ElementType.METHOD &#125;)</span></span><br><span class="line">/运行时有效</span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="comment">//与javadoc文档有关</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="comment">//当OnBeanCondition判断有效(返回true)时启用</span></span><br><span class="line"><span class="meta">@Conditional(OnBeanCondition.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> ConditionalOnBean &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>类似的还有以下注解:</p>
 <table>
 <thead>
 <tr>
-<th align="center">DBCP</th>
-<th align="center">Tomcat内部集成</th>
+<th align="center">序号</th>
+<th align="center">注解</th>
+<th align="center">条件类</th>
+<th align="center">返回true的条件</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center"><strong>C3P0</strong></td>
-<td align="center"><strong>性能较差架构复杂</strong></td>
+<td align="center">1</td>
+<td align="center">@ConditionalOnBean</td>
+<td align="center">OnBeanCondition</td>
+<td align="center">容器中有指定bean的时候为true</td>
 </tr>
 <tr>
-<td align="center"><strong>Druid</strong></td>
-<td align="center"><strong>SQL监控黑名单拦截性能卓越</strong></td>
+<td align="center">2</td>
+<td align="center">@ConditionalOnMissingBean</td>
+<td align="center">OnBeanCondition</td>
+<td align="center">容器中没有指定bean的时候为true</td>
 </tr>
 <tr>
-<td align="center"><strong>HikariCP</strong></td>
-<td align="center"><strong>性能最强稳定性较好screw内置使用</strong></td>
+<td align="center">3</td>
+<td align="center">@ConditionalOnSingleCandidate</td>
+<td align="center">OnBeanCondition</td>
+<td align="center">容器中指定的bean只有一个时为true</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">@ConditionalOnClass</td>
+<td align="center">OnClassCondition</td>
+<td align="center">当类路径下有指定类的时候为true</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">@ConditionalOnMissingClass</td>
+<td align="center">OnClassCondition</td>
+<td align="center">当类路径下没有指定类的时候为true</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">@ConditionalOnProperty</td>
+<td align="center">OnPropertyCondition</td>
+<td align="center">当指定的属性有指定的值的时候为true</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">@ConditionalOnResource</td>
+<td align="center">OnResourceCondition</td>
+<td align="center">类路径有指定的值的时候为true</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">@ConditionalOnExpression</td>
+<td align="center">OnExpressionCondition</td>
+<td align="center">基于springEL表达式判断是否为true</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="center">@ConditionalOnJava</td>
+<td align="center">OnJavaCondition</td>
+<td align="center">基于Java版本进行判断，满足版本要求为true</td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td align="center">@ConditionalOnNotWebApplication</td>
+<td align="center">OnWebApplicationCondition</td>
+<td align="center">当项目不是web项目的条件下为true</td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td align="center">@ConditionalOnWebApplication</td>
+<td align="center">OnWebApplicationCondition</td>
+<td align="center">当项目时web项目的条件下为true</td>
 </tr>
 </tbody></table>
-<p>​        <code>SpringBoot</code>默认将<code>HikariCP</code>作为默认的数据库连接池.<code>Java</code> 常用于构建大型的 <code>Web</code> 项目，在存在高并发的情况下，必然要挑选一个性能极强的数据库连接池而<code>HikariCP</code>当之无愧为性能之王.</p>
-<h1 id="✨SpringBoot中HikariCP配置"><a href="#✨SpringBoot中HikariCP配置" class="headerlink" title="✨SpringBoot中HikariCP配置"></a>✨SpringBoot中HikariCP配置</h1><p>1.<code>autoCommit</code><br>        自动提交从池中返回的连接，默认为<code>true</code>。</p>
-<p>2.<code>connectionTimeout</code><br>        等待来自池的连接的最大毫秒数，默认为30000，如果小于250毫秒，则被重置回30秒。</p>
-<p>3.<code>idleTimeout</code><br>        连接允许在池中闲置的最长时间，默认为600000，即10分钟。如果<code>idleTimeout</code>+1秒&gt;<code>maxLifetime</code> 且 <code>maxLifetime</code>&gt;0，则会被重置为0（代表永远不会退出）；如果<code>idleTimeout</code>!=0且小于10秒，则会被重置为10秒。只有当<code>minimumIdle</code>小于<code>maximumPoolSize</code>时，这个参数才生效，当空闲连接数超过<code>minimumIdle</code>，而且空闲时间超过<code>idleTimeout</code>，则会被移除。</p>
-<p>4.<code>maxLifetime</code><br>        池中连接最长生命周期。默认为1800000，如果不等于0且小于30秒则会被重置回30分钟。</p>
-<p>5.<code>minimumIdle</code><br>        控制连接池空闲连接的最小数量，当连接池空闲连接少于<code>minimumIdle</code>，而且总共连接数不大于<code>maximumPoolSize</code>时，<code>HikariCP</code>会尽力补充新的连接。为了性能考虑，不建议设置此值，而是让<code>HikariCP</code>把连接池当做固定大小的处理，默认<code>minimumIdle</code>与<code>maximumPoolSize</code>一样。当<code>minIdle</code>&lt;0或者<code>minIdle</code>&gt;<code>maxPoolSize</code>,则被重置为<code>maxPoolSize</code>，该值默认为10。</p>
-<p>6.<code>maximumPoolSize</code><br>        池中最大连接数，包括闲置和使用中的连接。默认为10。如果<code>maxPoolSize</code>小于1，则会被重置。当<code>minIdle</code>&lt;=0被重置为<code>DEFAULT_POOL_SIZE</code>则为10;如果<code>minIdle</code>&gt;0则重置为<code>minIdle</code>的值。</p>
-<p>7.<code>poolName</code><br>连接池的用户定义名称，主要出现在日志记录和JMX管理控制台中以识别池和池配置。默认为<code>HikariPool-1</code>。</p>
-<p>8.<code>readOnly</code><br>从池中获取的连接是否默认处于只读模式。默认为<code>false</code>。</p>
-<p>9.<code>connection-test-query</code><br>如果您的驱动程序支持<code>JDBC4</code>，我们强烈建议您不要设置此属性。这是针对不支持<code>JDBC4</code>的“传统”驱动程序<code>Connection.isValid() API</code>。这是在连接从池中获得连接以确认与数据库的连接仍然存在之前将要执行的查询。再一次，尝试运行没有此属性的池，如果您的驱动程序不符合<code>JDBC4</code>的要求，<code>HikariCP</code>将记录一个错误以告知您。 默认值：无</p>
-<h1 id="🎊SpringBoot中Druid配置"><a href="#🎊SpringBoot中Druid配置" class="headerlink" title="🎊SpringBoot中Druid配置"></a>🎊SpringBoot中Druid配置</h1><p>1.纯配置文件配置：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="comment"># 数据源配置</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">    <span class="comment"># 连接池配置</span></span><br><span class="line">    <span class="attr">druid:</span></span><br><span class="line">      <span class="comment"># 初始化大小，最小，最大</span></span><br><span class="line">      <span class="attr">initial-size:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">min-idle:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">max-active:</span> <span class="number">20</span></span><br><span class="line">      <span class="comment"># 配置获取连接等待超时的时间</span></span><br><span class="line">      <span class="attr">max-wait:</span> <span class="number">60000</span></span><br><span class="line">      <span class="comment"># 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位毫秒</span></span><br><span class="line">      <span class="attr">time-between-eviction-runs-millis:</span> <span class="number">60000</span></span><br><span class="line">      <span class="comment"># 配置一个连接在池中最小生存时间</span></span><br><span class="line">      <span class="attr">min-evictable-idle-time-millis:</span> <span class="number">300000</span></span><br><span class="line">      <span class="attr">validation-query:</span> <span class="string">SELECT</span> <span class="number">1</span> <span class="string">FROM</span> <span class="string">sys_user</span></span><br><span class="line">      <span class="attr">test-while-idle:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">test-on-borrow:</span> <span class="literal">false</span></span><br><span class="line">      <span class="attr">test-on-return:</span> <span class="literal">false</span></span><br><span class="line">      <span class="comment"># 打开 PSCache，并且指定每个连接上 PSCache 的大小</span></span><br><span class="line">      <span class="attr">pool-prepared-statements:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">max-pool-prepared-statement-per-connection-size:</span> <span class="number">20</span></span><br><span class="line">      <span class="comment"># 配置监控统计拦截的 Filter，去掉后监控界面 SQL 无法统计，wall 用于防火墙</span></span><br><span class="line">      <span class="attr">filters:</span> <span class="string">stat,wall,log4j</span></span><br><span class="line">      <span class="comment"># 通过 connection-properties 属性打开 mergeSql 功能；慢 SQL 记录</span></span><br><span class="line">      <span class="attr">connection-properties:</span> <span class="string">druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000</span></span><br><span class="line">      <span class="comment"># 配置 DruidStatFilter</span></span><br><span class="line">      <span class="attr">web-stat-filter:</span></span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">url-pattern:</span> <span class="string">/*</span></span><br><span class="line">        <span class="attr">exclusions:</span> <span class="string">.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*</span></span><br><span class="line">      <span class="comment"># 配置 DruidStatViewServlet</span></span><br><span class="line">      <span class="attr">stat-view-servlet:</span></span><br><span class="line">        <span class="attr">url-pattern:</span> <span class="string">/druid/*</span></span><br><span class="line">        <span class="comment"># IP 白名单，没有配置或者为空，则允许所有访问</span></span><br><span class="line">        <span class="attr">allow:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">        <span class="comment"># IP 黑名单，若白名单也存在，则优先使用</span></span><br><span class="line">        <span class="attr">deny:</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.253</span></span><br><span class="line">        <span class="comment"># 禁用 HTML 中 Reset All 按钮</span></span><br><span class="line">        <span class="attr">reset-enable:</span> <span class="literal">false</span></span><br><span class="line">        <span class="comment"># 登录用户名/密码</span></span><br><span class="line">        <span class="attr">login-username:</span> <span class="string">root</span></span><br><span class="line">        <span class="attr">login-password:</span> <span class="number">123</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>2.配置类版本：</p>
-<p>​    配置文件：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">datasource:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">        <span class="comment"># 数据源的其他配置</span></span><br><span class="line">        <span class="attr">initialSize:</span> <span class="number">5</span></span><br><span class="line">        <span class="attr">minIdle:</span> <span class="number">5</span></span><br><span class="line">        <span class="attr">maxActive:</span> <span class="number">20</span></span><br><span class="line">        <span class="attr">maxWait:</span> <span class="number">60000</span></span><br><span class="line">        <span class="attr">timeBetweenEvictionRunsMillis:</span> <span class="number">60000</span></span><br><span class="line">        <span class="attr">minEvictableIdleTimeMillis:</span> <span class="number">300000</span></span><br><span class="line">        <span class="attr">validationQuery:</span> <span class="string">SELECT</span> <span class="number">1</span> <span class="string">FROM</span> <span class="string">DUAL</span></span><br><span class="line">        <span class="attr">testWhileIdle:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">testOnBorrow:</span> <span class="literal">false</span></span><br><span class="line">        <span class="attr">testOnReturn:</span> <span class="literal">false</span></span><br><span class="line">        <span class="attr">poolPreparedStatements:</span> <span class="literal">true</span></span><br><span class="line">        <span class="comment"># 配置监控统计拦截的 filters，去掉后监控界面 sql 无法统计，&#x27;wall&#x27;用于防火墙</span></span><br><span class="line">        <span class="attr">filters:</span> <span class="string">stat,wall,log4j</span></span><br><span class="line">        <span class="attr">maxPoolPreparedStatementPerConnectionSize:</span> <span class="number">20</span></span><br><span class="line">        <span class="attr">useGlobalDataSourceStat:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">connectionProperties:</span> <span class="string">druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500</span></span><br></pre></td></tr></table></figure>
-
-<p>​    配置类：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.servlet.Filter;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.Servlet;</span><br><span class="line"><span class="keyword">import</span> javax.sql.DataSource;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.web.servlet.FilterRegistrationBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.web.servlet.ServletRegistrationBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.pool.DruidDataSource;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.support.http.StatViewServlet;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.druid.support.http.WebStatFilter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DruidConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="comment">// 将所有前缀为spring.datasource下的配置项都加载DataSource中</span></span><br><span class="line">    <span class="meta">@ConfigurationProperties(prefix = &quot;spring.datasource&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">druidDataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DruidDataSource();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServletRegistrationBean&lt;Servlet&gt; <span class="title">druidServlet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 进行 druid 监控的配置处理</span></span><br><span class="line">        ServletRegistrationBean&lt;Servlet&gt; srb = <span class="keyword">new</span> ServletRegistrationBean&lt;&gt;(<span class="keyword">new</span> StatViewServlet(), <span class="string">&quot;/druid/**&quot;</span>);</span><br><span class="line">        <span class="comment">// 白名单</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;allow&quot;</span>, <span class="string">&quot;127.0.0.1&quot;</span>);</span><br><span class="line">        <span class="comment">// 黑名单</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;deny&quot;</span>, <span class="string">&quot;192.168.31.253&quot;</span>);</span><br><span class="line">        <span class="comment">// 用户名</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;loginUsername&quot;</span>, <span class="string">&quot;root&quot;</span>);</span><br><span class="line">        <span class="comment">// 密码</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;loginPassword&quot;</span>, <span class="string">&quot;root&quot;</span>);</span><br><span class="line">        <span class="comment">// 是否可以重置数据源</span></span><br><span class="line">        srb.addInitParameter(<span class="string">&quot;resetEnable&quot;</span>, <span class="string">&quot;false&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> srb;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> FilterRegistrationBean&lt;Filter&gt; <span class="title">filterRegistrationBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        FilterRegistrationBean&lt;Filter&gt; frb = <span class="keyword">new</span> FilterRegistrationBean&lt;&gt;();</span><br><span class="line">        frb.setFilter(<span class="keyword">new</span> WebStatFilter());</span><br><span class="line">        <span class="comment">// 所有请求进行监控处理</span></span><br><span class="line">        frb.addUrlPatterns(<span class="string">&quot;/*&quot;</span>);</span><br><span class="line">        <span class="comment">// 排除名单</span></span><br><span class="line">        frb.addInitParameter(<span class="string">&quot;exclusions&quot;</span>, <span class="string">&quot;*.js,*.gif,*.jpg,*.css,/druid/*&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> frb;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>启动<code>SpringBoot</code>后可在 <code> http://localhost:8080/druid/login.html</code> 中查看监控信息.</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot(五):实现邮箱验证</title>
-    <url>/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/</url>
-    <content><![CDATA[<blockquote>
-<p>前言：当下的业务背景中，存在许多需要保证用户数据安全的场景，在这些场景下，我们可以利用邮箱验证/手机短信验证的方式对用户身份进行审核，这大大提高了用户数据的安全性.在注册场景下，也可以利用这样的手段来阻止恶意注册.</p>
-</blockquote>
-<h1 id="🎃准备工作"><a href="#🎃准备工作" class="headerlink" title="🎃准备工作"></a>🎃准备工作</h1><p>再使用代码进行发送邮箱之前需要进行一些准备工作，具体如下：</p>
-<h2 id="开启邮箱的功能服务"><a href="#开启邮箱的功能服务" class="headerlink" title="开启邮箱的功能服务"></a>开启邮箱的功能服务</h2><p>这里以QQ邮箱为例，我们需要开启<code>POP3/SMTP</code>服务、以及<code>IMAP/SMTP</code>服务.</p>
-<img src="/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/1.png" class title="图片">
-
-<img src="/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/2.png" class title="图片">
-
-<p>开启过后，会告诉我们<strong>授权码</strong>，发送邮件时，我们需要通过这个授权码得到权限，从而发送邮件，保证邮箱的使用不被滥用侵犯，这个授权码要留着，等待后续使用.</p>
-<h2 id="导入依赖"><a href="#导入依赖" class="headerlink" title="导入依赖"></a>导入依赖</h2><p>由于需要存储验证码，并且验证码存在时效性，于是这里使用了<code>Redis</code>来实现这个功能，于是也需要导入<code>Redis</code>的依赖.</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--邮箱--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-mail<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--redis--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="comment">#  配置redis</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">database:</span> <span class="number">0</span> <span class="comment">#选择第一个数据库</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">xxxxxx</span> <span class="comment">#redis 服务器 ip 如果在本地就填 localhost</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">6379</span> <span class="comment">#redis服务端口号默认 6379</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">xxxxxx</span> <span class="comment">#redis登录密码</span></span><br><span class="line"><span class="comment"># 配置邮箱</span></span><br><span class="line">  <span class="attr">mail:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">smtp.qq.com</span>  <span class="comment">#使用哪一个类型的邮箱的标识</span></span><br><span class="line">    <span class="attr">username:</span> <span class="number">3164297994</span><span class="string">@qq.com</span> <span class="comment">#发送者的邮箱</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">xxxxxxxxxxxx</span> <span class="comment">#POP3服务的授权码</span></span><br><span class="line">    <span class="attr">default-encoding:</span> <span class="string">utf-8</span> <span class="comment">#文本解析格式</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h1 id="🚘代码实现"><a href="#🚘代码实现" class="headerlink" title="🚘代码实现"></a>🚘代码实现</h1><ul>
-<li>发送邮箱验证码的服务类编写</li>
+<p>一般情况下，我们还会在<code>application.properties</code>中进行一些配置，那么这是如何进行动态读取配置的呢？</p>
+<p>那就要使用到<code>@ConditionalOnProperty 、@ConfigurationProperties</code> 等，在启动<code>SpringBoot</code>的时候会对配置文件进行扫描，如果扫描到对应的配置，则对这些配置进行加载，当然，这些配置也有部分也有需要存在默认值，哪怕不进行显示的配置，也可以进行加载配置.</p>
+<h1 id="🏍自定义Conditon条件类"><a href="#🏍自定义Conditon条件类" class="headerlink" title="🏍自定义Conditon条件类"></a>🏍自定义Conditon条件类</h1><p>为什么需要自定义条件类？一来，可以加深对<code>SpringBoot</code>自动配置原理.二来，可以在业务需求中自己定制化配置，加快开发效率.总之，不管怎么样，尝试自己实现一遍其实也挺有意思的hhh.</p>
+<ul>
+<li>自定义接口类(本质上是为了进行类抽象，便于判断)</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//读取配置文件中的发件人</span></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;spring.mail.username&#125;&quot;)</span></span><br><span class="line">   	<span class="keyword">private</span> String from;</span><br><span class="line">    <span class="comment">//自动注入Java邮件发送对象</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JavaMailSender sender;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发送邮件</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> to 收信人邮箱</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> title 信件标题</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> code 验证码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendEmail</span><span class="params">(String to , String title , String code)</span></span>&#123;</span><br><span class="line">		SimpleMailMessage message = <span class="keyword">new</span> SimpleMailMessage();</span><br><span class="line">        message.setFrom(from); <span class="comment">//发件人邮箱</span></span><br><span class="line">        message.setTo(to); <span class="comment">//收件人邮箱</span></span><br><span class="line">        message.setSubject(title); <span class="comment">//邮件标题</span></span><br><span class="line">        message.setText(code);  <span class="comment">//邮件内容</span></span><br><span class="line">        sender.send(message);<span class="comment">//发送邮件</span></span><br><span class="line">        System.out.println(<span class="string">&quot;邮件发送成功&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MessagePrint</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">showMessage</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>邮件发送的接口编写</li>
+<li>接口实现类</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StringRedisTemplate stringRedisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> EmailService emailService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/email&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">emailVertCode</span><span class="params">(<span class="meta">@RequestBody</span> JSONObject requestbody)</span></span>&#123;</span><br><span class="line">        JSONObject response = <span class="keyword">new</span> JSONObject(<span class="keyword">true</span>);</span><br><span class="line">        String username = requestbody.getString(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        String email = requestbody.getString(<span class="string">&quot;email&quot;</span>);</span><br><span class="line">        <span class="comment">//自定义的生成 6 位验证码的工具类</span></span><br><span class="line">        String code = VerificationCode.getCode();</span><br><span class="line">        emailService.sendSimple(email,<span class="string">&quot;验证码测试&quot;</span>,code);</span><br><span class="line">        <span class="comment">//将验证码存入redis</span></span><br><span class="line">        stringRedisTemplate.opsForHash().put( username , username ,code);</span><br><span class="line">        <span class="comment">//设置验证码的过期时间为 5 分钟</span></span><br><span class="line">        stringRedisTemplate.expire(username , <span class="number">5</span> ,TimeUnit.MINUTES);</span><br><span class="line">        response.put(<span class="string">&quot;code&quot;</span>,<span class="number">200</span>);</span><br><span class="line">        response.put(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;发送邮件成功&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> response.toJSONString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMessage</span> <span class="keyword">implements</span> <span class="title">MessagePrint</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">showMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;文件存在！&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">YourMessage</span> <span class="keyword">implements</span> <span class="title">MessagePrint</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">showMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;文件不存在！！&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>附上自己写的验证码生成工具</li>
+<li>condition条件类实现condition接口(用于进行条件判断)</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VerificationCode</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> counts = <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">int</span> resCode = <span class="number">0</span>;</span><br><span class="line">        Random random = <span class="keyword">new</span> Random(System.currentTimeMillis());</span><br><span class="line">        <span class="keyword">while</span> (counts-- != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> i = random.nextInt(<span class="number">10</span>);</span><br><span class="line">            <span class="keyword">while</span> (i == <span class="number">0</span> &amp;&amp; counts == <span class="number">5</span>) &#123;</span><br><span class="line">                i = random.nextInt(<span class="number">10</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">0</span>) resCode *= <span class="number">10</span>;</span><br><span class="line">            <span class="keyword">else</span> resCode += (<span class="keyword">int</span>) (i * Math.pow(<span class="number">10</span>, <span class="number">5</span> - counts));</span><br><span class="line">        &#125;</span><br><span class="line">            <span class="keyword">return</span> String.valueOf(resCode);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyCondition</span> <span class="keyword">implements</span> <span class="title">Condition</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">matches</span><span class="params">(ConditionContext conditionContext, </span></span></span><br><span class="line"><span class="function"><span class="params">                           AnnotatedTypeMetadata annotatedTypeMetadata)</span> </span>&#123;</span><br><span class="line">        		<span class="comment">//上下文.资源加载器.获取资源(&quot;资源名&quot;).是否存在</span></span><br><span class="line">        <span class="keyword">return</span> conditionContext.getResourceLoader().getResource(<span class="string">&quot;classpath:test.properties&quot;</span>).exists();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">YourCondition</span> <span class="keyword">implements</span> <span class="title">Condition</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">matches</span><span class="params">(ConditionContext conditionContext,</span></span></span><br><span class="line"><span class="function"><span class="params">                           AnnotatedTypeMetadata annotatedTypeMetadata)</span> </span>&#123;</span><br><span class="line">        		<span class="comment">//上下文.资源加载器.获取资源(&quot;资源名&quot;).是否存在</span></span><br><span class="line">        <span class="keyword">return</span> !conditionContext.getResourceLoader().getResource(<span class="string">&quot;classpath:test.properties&quot;</span>).exists();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>自动注入配置类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//配置类，表示注入ioc容器中，存在于配置文件的上下文</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConditionConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="comment">//当MyCondition 判断为 true 的时候 向容器中注入 MyMessage</span></span><br><span class="line">    <span class="meta">@Conditional(MyCondition.class)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MessagePrint <span class="title">myMessage</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MyMessage();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="comment">//当YourCondition 判断为 true 的时候 向容器中注入 YourMessage</span></span><br><span class="line">    <span class="meta">@Conditional(YourCondition.class)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MessagePrint <span class="title">yourMessage</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> YourMessage();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">contextLoads</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="comment">//获取注解配置上下文</span></span><br><span class="line">      AnnotationConfigApplicationContext context;</span><br><span class="line">      <span class="comment">//获取条件配置类</span></span><br><span class="line">      context = <span class="keyword">new</span> AnnotationConfigApplicationContext(ConditionConfig.class);</span><br><span class="line">      <span class="comment">//获取接口类(这就是写接口的好处,不需要知道自定义类名是什么,只需要识别父类)</span></span><br><span class="line">      MessagePrint bean = context.getBean(MessagePrint.class);</span><br><span class="line">      System.out.println(bean.showMessage());</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -1817,6 +1995,53 @@
 <ul>
 <li>引用时只需要像普通依赖一样引入就可以了，也可以直接复制当前项目中的项目坐标</li>
 </ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot(五):实现邮箱验证</title>
+    <url>/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/</url>
+    <content><![CDATA[<blockquote>
+<p>前言：当下的业务背景中，存在许多需要保证用户数据安全的场景，在这些场景下，我们可以利用邮箱验证/手机短信验证的方式对用户身份进行审核，这大大提高了用户数据的安全性.在注册场景下，也可以利用这样的手段来阻止恶意注册.</p>
+</blockquote>
+<h1 id="🎃准备工作"><a href="#🎃准备工作" class="headerlink" title="🎃准备工作"></a>🎃准备工作</h1><p>再使用代码进行发送邮箱之前需要进行一些准备工作，具体如下：</p>
+<h2 id="开启邮箱的功能服务"><a href="#开启邮箱的功能服务" class="headerlink" title="开启邮箱的功能服务"></a>开启邮箱的功能服务</h2><p>这里以QQ邮箱为例，我们需要开启<code>POP3/SMTP</code>服务、以及<code>IMAP/SMTP</code>服务.</p>
+<img src="/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/1.png" class title="图片">
+
+<img src="/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/2.png" class title="图片">
+
+<p>开启过后，会告诉我们<strong>授权码</strong>，发送邮件时，我们需要通过这个授权码得到权限，从而发送邮件，保证邮箱的使用不被滥用侵犯，这个授权码要留着，等待后续使用.</p>
+<h2 id="导入依赖"><a href="#导入依赖" class="headerlink" title="导入依赖"></a>导入依赖</h2><p>由于需要存储验证码，并且验证码存在时效性，于是这里使用了<code>Redis</code>来实现这个功能，于是也需要导入<code>Redis</code>的依赖.</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--邮箱--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-mail<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--redis--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="comment">#  配置redis</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">database:</span> <span class="number">0</span> <span class="comment">#选择第一个数据库</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">xxxxxx</span> <span class="comment">#redis 服务器 ip 如果在本地就填 localhost</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">6379</span> <span class="comment">#redis服务端口号默认 6379</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">xxxxxx</span> <span class="comment">#redis登录密码</span></span><br><span class="line"><span class="comment"># 配置邮箱</span></span><br><span class="line">  <span class="attr">mail:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">smtp.qq.com</span>  <span class="comment">#使用哪一个类型的邮箱的标识</span></span><br><span class="line">    <span class="attr">username:</span> <span class="number">3164297994</span><span class="string">@qq.com</span> <span class="comment">#发送者的邮箱</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">xxxxxxxxxxxx</span> <span class="comment">#POP3服务的授权码</span></span><br><span class="line">    <span class="attr">default-encoding:</span> <span class="string">utf-8</span> <span class="comment">#文本解析格式</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="🚘代码实现"><a href="#🚘代码实现" class="headerlink" title="🚘代码实现"></a>🚘代码实现</h1><ul>
+<li>发送邮箱验证码的服务类编写</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//读取配置文件中的发件人</span></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;spring.mail.username&#125;&quot;)</span></span><br><span class="line">   	<span class="keyword">private</span> String from;</span><br><span class="line">    <span class="comment">//自动注入Java邮件发送对象</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JavaMailSender sender;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发送邮件</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> to 收信人邮箱</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> title 信件标题</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> code 验证码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendEmail</span><span class="params">(String to , String title , String code)</span></span>&#123;</span><br><span class="line">		SimpleMailMessage message = <span class="keyword">new</span> SimpleMailMessage();</span><br><span class="line">        message.setFrom(from); <span class="comment">//发件人邮箱</span></span><br><span class="line">        message.setTo(to); <span class="comment">//收件人邮箱</span></span><br><span class="line">        message.setSubject(title); <span class="comment">//邮件标题</span></span><br><span class="line">        message.setText(code);  <span class="comment">//邮件内容</span></span><br><span class="line">        sender.send(message);<span class="comment">//发送邮件</span></span><br><span class="line">        System.out.println(<span class="string">&quot;邮件发送成功&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>邮件发送的接口编写</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StringRedisTemplate stringRedisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> EmailService emailService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/email&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">emailVertCode</span><span class="params">(<span class="meta">@RequestBody</span> JSONObject requestbody)</span></span>&#123;</span><br><span class="line">        JSONObject response = <span class="keyword">new</span> JSONObject(<span class="keyword">true</span>);</span><br><span class="line">        String username = requestbody.getString(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        String email = requestbody.getString(<span class="string">&quot;email&quot;</span>);</span><br><span class="line">        <span class="comment">//自定义的生成 6 位验证码的工具类</span></span><br><span class="line">        String code = VerificationCode.getCode();</span><br><span class="line">        emailService.sendSimple(email,<span class="string">&quot;验证码测试&quot;</span>,code);</span><br><span class="line">        <span class="comment">//将验证码存入redis</span></span><br><span class="line">        stringRedisTemplate.opsForHash().put( username , username ,code);</span><br><span class="line">        <span class="comment">//设置验证码的过期时间为 5 分钟</span></span><br><span class="line">        stringRedisTemplate.expire(username , <span class="number">5</span> ,TimeUnit.MINUTES);</span><br><span class="line">        response.put(<span class="string">&quot;code&quot;</span>,<span class="number">200</span>);</span><br><span class="line">        response.put(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;发送邮件成功&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> response.toJSONString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>附上自己写的验证码生成工具</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VerificationCode</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> counts = <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">int</span> resCode = <span class="number">0</span>;</span><br><span class="line">        Random random = <span class="keyword">new</span> Random(System.currentTimeMillis());</span><br><span class="line">        <span class="keyword">while</span> (counts-- != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> i = random.nextInt(<span class="number">10</span>);</span><br><span class="line">            <span class="keyword">while</span> (i == <span class="number">0</span> &amp;&amp; counts == <span class="number">5</span>) &#123;</span><br><span class="line">                i = random.nextInt(<span class="number">10</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">0</span>) resCode *= <span class="number">10</span>;</span><br><span class="line">            <span class="keyword">else</span> resCode += (<span class="keyword">int</span>) (i * Math.pow(<span class="number">10</span>, <span class="number">5</span> - counts));</span><br><span class="line">        &#125;</span><br><span class="line">            <span class="keyword">return</span> String.valueOf(resCode);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>Java</category>
@@ -1908,6 +2133,89 @@
       </categories>
       <tags>
         <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringSecurity(一):访问认证与身份授权</title>
+    <url>/2021/07/10/SpringSecurity%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<blockquote>
+<p>前言：好久没有更新了，忙完了期末考试然后背好了行囊回了家，现在终于可以好好的更新一下博客了，毕竟需要整理的东西还有很多没有整理，果然程序员这条道路就是，越学越觉得自己越菜，活到老，学到老hhh.</p>
+</blockquote>
+<h1 id="🚓SpringSecurity简介"><a href="#🚓SpringSecurity简介" class="headerlink" title="🚓SpringSecurity简介"></a>🚓SpringSecurity简介</h1><p>&emsp;&emsp;<code>spring security </code>是基于<code>spring </code>的安全框架。它提供全面的安全性解决方案，同时在Web请求级和方法调用级处理身份确认和授权。在<code>Spring Framework</code>基础上,<code>spring security </code>充分利用了依赖注入（DI )和面向切面编程（AOP)功能，为应用系统提供声明式的安全访问控制功能，减少了为企业系统安全控制编写大量重复代码的工作。是一个轻量级的安全框架。它与<code>Spring MVC</code>有很好地集成.</p>
+<h2 id="核心功能"><a href="#核心功能" class="headerlink" title="核心功能"></a>核心功能</h2><p>( 1 ) <strong>认证</strong>（你是谁，用户/设备/系统)</p>
+<p>( 2 ) <strong>验证</strong>（你能干什么，也叫权限控制/授权，允许执行的操作)</p>
+<h2 id="基本实现原理"><a href="#基本实现原理" class="headerlink" title="基本实现原理"></a>基本实现原理</h2><p>基于 <code>Filter</code> , <code>Servlet</code> ,<code>AOP</code> 实现身份认证和权限验证.</p>
+<h1 id="🏰配置文件中配置用户"><a href="#🏰配置文件中配置用户" class="headerlink" title="🏰配置文件中配置用户"></a>🏰配置文件中配置用户</h1><ul>
+<li>在<code>application.properties</code>中配置</li>
+</ul>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">spring.security.user.name</span>=<span class="string">xxx</span></span><br><span class="line"><span class="meta">spring.security.user.password</span>=<span class="string">xxxx</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="关闭登陆认证"><a href="#关闭登陆认证" class="headerlink" title="关闭登陆认证"></a>关闭登陆认证</h2><p>在启动类注解中将自动配置去除加载即可</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//关闭安全验证</span></span><br><span class="line"><span class="meta">@SpringBootApplication(exclude = SecurityAutoConfiguration.class)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="🛰内存中配置用户"><a href="#🛰内存中配置用户" class="headerlink" title="🛰内存中配置用户"></a>🛰内存中配置用户</h1><ul>
+<li><p>继承<code>WebSecurityConfigurerAdapter</code></p>
+<ul>
+<li><p>重写 <code>protected void configure(AuthenticationManagerBuilder auth)</code>.</p>
+</li>
+<li><p>开启方法级别授权<code>@EnableGlobalMethodSecurity(prePostEnabled = true)</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="comment">//  启用方法级别的认证</span></span><br><span class="line"><span class="meta">@EnableGlobalMethodSecurity(prePostEnabled = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PasswordEncoder passwordEncoder; <span class="comment">//用于对密码进行加密(必须的，否则无法存储到内容中)</span></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        auth.inMemoryAuthentication()</span><br><span class="line">                .withUser(<span class="string">&quot;admin&quot;</span>)</span><br><span class="line">                .password(passwordEncoder.encode(<span class="string">&quot;123456&quot;</span>))</span><br><span class="line">                .roles(<span class="string">&quot;admin&quot;</span>,<span class="string">&quot;normal&quot;</span>);</span><br><span class="line">        auth.inMemoryAuthentication()</span><br><span class="line">                .withUser(<span class="string">&quot;zhangsan&quot;</span>)</span><br><span class="line">                .password(passwordEncoder.encode(<span class="string">&quot;123&quot;</span>))</span><br><span class="line">                .roles(<span class="string">&quot;normal&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> PasswordEncoder <span class="title">passwordEncoder</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BCryptPasswordEncoder();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>添加<code>@PreAuthorize(value = &quot;hasAnyRole(&#39;admin&#39; , &#39;normal&#39;)&quot;)</code> 进行授权绑定</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/users&quot;)</span></span><br><span class="line">    <span class="meta">@PreAuthorize(value = &quot;hasAnyRole(&#x27;admin&#x27; , &#x27;normal&#x27;)&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">helloWorld</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello Spring Security&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="⛵数据库中用户授权"><a href="#⛵数据库中用户授权" class="headerlink" title="⛵数据库中用户授权"></a>⛵数据库中用户授权</h1><ul>
+<li>实体类创建</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserInfo</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue(strategy = GenerationType.IDENTITY)</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String role;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>dao</code>层创建</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserInfoMapper</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">UserInfo</span> , <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">UserInfo <span class="title">findByUsername</span><span class="params">(String username)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>service</code>层创建</li>
+</ul>
+<figure class="highlight aspectj"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserInfoServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserInfoService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserInfoMapper userInfoMapper;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function">UserInfo <span class="title">findByUsername</span><span class="params">(String username)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">return</span> userInfoMapper.<span class="title">findByUsername</span><span class="params">(username)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>service</code>实现类创建</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserInfoServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserInfoService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserInfoMapper userInfoMapper;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> UserInfo <span class="title">findByUsername</span><span class="params">(String username)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userInfoMapper.findByUsername(username);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>配置认证（实现 <code>UserDetailsService</code>）</p>
+<p><font color="red">注意:</font>用户权限前面必须加上 <code>ROLE_</code> </p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component(&quot;MyUserDetailService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyUserDetailService</span> <span class="keyword">implements</span> <span class="title">UserDetailsService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserInfoMapper userInfoMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> UserDetails <span class="title">loadUserByUsername</span><span class="params">(String username)</span> <span class="keyword">throws</span> UsernameNotFoundException </span>&#123;</span><br><span class="line">        User user = <span class="keyword">null</span>;</span><br><span class="line">        UserInfo userInfo = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span>(username != <span class="keyword">null</span>)&#123;</span><br><span class="line">            userInfo = userInfoMapper.findByUsername(username);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(userInfo != <span class="keyword">null</span>)&#123;</span><br><span class="line">            List&lt;GrantedAuthority&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            GrantedAuthority authority = <span class="keyword">new</span> SimpleGrantedAuthority(<span class="string">&quot;ROLE_&quot;</span>+userInfo.getRole());</span><br><span class="line">            list.add(authority);</span><br><span class="line">            user  = <span class="keyword">new</span> User(userInfo.getUsername(),userInfo.getPassword(),list);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> user;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>初始化数据库数据</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JdbcInit</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserInfoMapper userInfoMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">        PasswordEncoder encoder = <span class="keyword">new</span> BCryptPasswordEncoder();</span><br><span class="line">        UserInfo u = <span class="keyword">new</span> UserInfo();</span><br><span class="line">        u.setPassword(<span class="keyword">new</span> BCryptPasswordEncoder().encode(<span class="string">&quot;admin&quot;</span>));</span><br><span class="line">        u.setUsername(<span class="string">&quot;lisi&quot;</span>);</span><br><span class="line">        u.setRole(<span class="string">&quot;admin&quot;</span>);</span><br><span class="line">        userInfoMapper.save(u);</span><br><span class="line"></span><br><span class="line">        u = <span class="keyword">new</span> UserInfo();</span><br><span class="line">        u.setRole(<span class="string">&quot;normal&quot;</span>);</span><br><span class="line">        u.setUsername(<span class="string">&quot;wangwu&quot;</span>);</span><br><span class="line">        u.setPassword(<span class="keyword">new</span> BCryptPasswordEncoder().encode(<span class="string">&quot;normal&quot;</span>));</span><br><span class="line">        userInfoMapper.save(u);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建配置类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="comment">//  启用方法级别的认证</span></span><br><span class="line"><span class="meta">@EnableGlobalMethodSecurity(prePostEnabled = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="meta">@Qualifier(&quot;MyUserDetailService&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> UserDetailsService userDetailsService;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//此处加密方式必须与初始化时数据库的加密方式相同</span></span><br><span class="line">        auth.userDetailsService(userDetailsService).passwordEncoder(<span class="keyword">new</span> BCryptPasswordEncoder());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringSecurity</tag>
       </tags>
   </entry>
   <entry>
@@ -2074,110 +2382,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringSecurity(一):访问认证与身份授权</title>
-    <url>/2021/07/10/SpringSecurity%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<blockquote>
-<p>前言：好久没有更新了，忙完了期末考试然后背好了行囊回了家，现在终于可以好好的更新一下博客了，毕竟需要整理的东西还有很多没有整理，果然程序员这条道路就是，越学越觉得自己越菜，活到老，学到老hhh.</p>
-</blockquote>
-<h1 id="🚓SpringSecurity简介"><a href="#🚓SpringSecurity简介" class="headerlink" title="🚓SpringSecurity简介"></a>🚓SpringSecurity简介</h1><p>&emsp;&emsp;<code>spring security </code>是基于<code>spring </code>的安全框架。它提供全面的安全性解决方案，同时在Web请求级和方法调用级处理身份确认和授权。在<code>Spring Framework</code>基础上,<code>spring security </code>充分利用了依赖注入（DI )和面向切面编程（AOP)功能，为应用系统提供声明式的安全访问控制功能，减少了为企业系统安全控制编写大量重复代码的工作。是一个轻量级的安全框架。它与<code>Spring MVC</code>有很好地集成.</p>
-<h2 id="核心功能"><a href="#核心功能" class="headerlink" title="核心功能"></a>核心功能</h2><p>( 1 ) <strong>认证</strong>（你是谁，用户/设备/系统)</p>
-<p>( 2 ) <strong>验证</strong>（你能干什么，也叫权限控制/授权，允许执行的操作)</p>
-<h2 id="基本实现原理"><a href="#基本实现原理" class="headerlink" title="基本实现原理"></a>基本实现原理</h2><p>基于 <code>Filter</code> , <code>Servlet</code> ,<code>AOP</code> 实现身份认证和权限验证.</p>
-<h1 id="🏰配置文件中配置用户"><a href="#🏰配置文件中配置用户" class="headerlink" title="🏰配置文件中配置用户"></a>🏰配置文件中配置用户</h1><ul>
-<li>在<code>application.properties</code>中配置</li>
-</ul>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">spring.security.user.name</span>=<span class="string">xxx</span></span><br><span class="line"><span class="meta">spring.security.user.password</span>=<span class="string">xxxx</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="关闭登陆认证"><a href="#关闭登陆认证" class="headerlink" title="关闭登陆认证"></a>关闭登陆认证</h2><p>在启动类注解中将自动配置去除加载即可</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//关闭安全验证</span></span><br><span class="line"><span class="meta">@SpringBootApplication(exclude = SecurityAutoConfiguration.class)</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="🛰内存中配置用户"><a href="#🛰内存中配置用户" class="headerlink" title="🛰内存中配置用户"></a>🛰内存中配置用户</h1><ul>
-<li><p>继承<code>WebSecurityConfigurerAdapter</code></p>
-<ul>
-<li><p>重写 <code>protected void configure(AuthenticationManagerBuilder auth)</code>.</p>
-</li>
-<li><p>开启方法级别授权<code>@EnableGlobalMethodSecurity(prePostEnabled = true)</code></p>
-</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="comment">//  启用方法级别的认证</span></span><br><span class="line"><span class="meta">@EnableGlobalMethodSecurity(prePostEnabled = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PasswordEncoder passwordEncoder; <span class="comment">//用于对密码进行加密(必须的，否则无法存储到内容中)</span></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        auth.inMemoryAuthentication()</span><br><span class="line">                .withUser(<span class="string">&quot;admin&quot;</span>)</span><br><span class="line">                .password(passwordEncoder.encode(<span class="string">&quot;123456&quot;</span>))</span><br><span class="line">                .roles(<span class="string">&quot;admin&quot;</span>,<span class="string">&quot;normal&quot;</span>);</span><br><span class="line">        auth.inMemoryAuthentication()</span><br><span class="line">                .withUser(<span class="string">&quot;zhangsan&quot;</span>)</span><br><span class="line">                .password(passwordEncoder.encode(<span class="string">&quot;123&quot;</span>))</span><br><span class="line">                .roles(<span class="string">&quot;normal&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> PasswordEncoder <span class="title">passwordEncoder</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BCryptPasswordEncoder();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>添加<code>@PreAuthorize(value = &quot;hasAnyRole(&#39;admin&#39; , &#39;normal&#39;)&quot;)</code> 进行授权绑定</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/users&quot;)</span></span><br><span class="line">    <span class="meta">@PreAuthorize(value = &quot;hasAnyRole(&#x27;admin&#x27; , &#x27;normal&#x27;)&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">helloWorld</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello Spring Security&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="⛵数据库中用户授权"><a href="#⛵数据库中用户授权" class="headerlink" title="⛵数据库中用户授权"></a>⛵数据库中用户授权</h1><ul>
-<li>实体类创建</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserInfo</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue(strategy = GenerationType.IDENTITY)</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String role;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>dao</code>层创建</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserInfoMapper</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">UserInfo</span> , <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">UserInfo <span class="title">findByUsername</span><span class="params">(String username)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>service</code>层创建</li>
-</ul>
-<figure class="highlight aspectj"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserInfoServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserInfoService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserInfoMapper userInfoMapper;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function">UserInfo <span class="title">findByUsername</span><span class="params">(String username)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">return</span> userInfoMapper.<span class="title">findByUsername</span><span class="params">(username)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>service</code>实现类创建</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserInfoServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserInfoService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserInfoMapper userInfoMapper;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> UserInfo <span class="title">findByUsername</span><span class="params">(String username)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userInfoMapper.findByUsername(username);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>配置认证（实现 <code>UserDetailsService</code>）</p>
-<p><font color="red">注意:</font>用户权限前面必须加上 <code>ROLE_</code> </p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component(&quot;MyUserDetailService&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyUserDetailService</span> <span class="keyword">implements</span> <span class="title">UserDetailsService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserInfoMapper userInfoMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> UserDetails <span class="title">loadUserByUsername</span><span class="params">(String username)</span> <span class="keyword">throws</span> UsernameNotFoundException </span>&#123;</span><br><span class="line">        User user = <span class="keyword">null</span>;</span><br><span class="line">        UserInfo userInfo = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span>(username != <span class="keyword">null</span>)&#123;</span><br><span class="line">            userInfo = userInfoMapper.findByUsername(username);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(userInfo != <span class="keyword">null</span>)&#123;</span><br><span class="line">            List&lt;GrantedAuthority&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            GrantedAuthority authority = <span class="keyword">new</span> SimpleGrantedAuthority(<span class="string">&quot;ROLE_&quot;</span>+userInfo.getRole());</span><br><span class="line">            list.add(authority);</span><br><span class="line">            user  = <span class="keyword">new</span> User(userInfo.getUsername(),userInfo.getPassword(),list);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> user;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>初始化数据库数据</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JdbcInit</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserInfoMapper userInfoMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">        PasswordEncoder encoder = <span class="keyword">new</span> BCryptPasswordEncoder();</span><br><span class="line">        UserInfo u = <span class="keyword">new</span> UserInfo();</span><br><span class="line">        u.setPassword(<span class="keyword">new</span> BCryptPasswordEncoder().encode(<span class="string">&quot;admin&quot;</span>));</span><br><span class="line">        u.setUsername(<span class="string">&quot;lisi&quot;</span>);</span><br><span class="line">        u.setRole(<span class="string">&quot;admin&quot;</span>);</span><br><span class="line">        userInfoMapper.save(u);</span><br><span class="line"></span><br><span class="line">        u = <span class="keyword">new</span> UserInfo();</span><br><span class="line">        u.setRole(<span class="string">&quot;normal&quot;</span>);</span><br><span class="line">        u.setUsername(<span class="string">&quot;wangwu&quot;</span>);</span><br><span class="line">        u.setPassword(<span class="keyword">new</span> BCryptPasswordEncoder().encode(<span class="string">&quot;normal&quot;</span>));</span><br><span class="line">        userInfoMapper.save(u);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>创建配置类</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="comment">//  启用方法级别的认证</span></span><br><span class="line"><span class="meta">@EnableGlobalMethodSecurity(prePostEnabled = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="meta">@Qualifier(&quot;MyUserDetailService&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> UserDetailsService userDetailsService;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthenticationManagerBuilder auth)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//此处加密方式必须与初始化时数据库的加密方式相同</span></span><br><span class="line">        auth.userDetailsService(userDetailsService).passwordEncoder(<span class="keyword">new</span> BCryptPasswordEncoder());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringSecurity</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringSecurity(四):结合Vue实现异步登录</title>
-    <url>/2021/07/16/SpringSecurity%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🏁问题分析"><a href="#🏁问题分析" class="headerlink" title="🏁问题分析"></a>🏁问题分析</h1><p>&emsp;&emsp;使用异步<code>axios</code>请求的方式进行登录与直接使用 <code>postman</code> 发送 <code>post</code> 请求进行测试 ，提交数据的方式似乎不太一样，<code>postman</code>能跑通，而使用<code>axios</code> ，后台<code>loadUserByusername</code>获取不到用户名，这就很奇怪，奈何看不太懂源码，主要是各种设计模式没学过以及底层的封装层数太多了，看的使人心累，于是开始逛论坛以及开源网站看别人的代码，后来才发现，<code>axios</code>提交的参数是存放在请求体当中的，而<code>SpringSecurity</code>中的处理逻辑使用了 <code>request.getParameter</code> 进行参数获取，有过原始表单或者 <code>servlet</code> 开发经验的人都知道 ， 此方法只能获取到类似于 <code>get</code>请求 以及 以原始表单格式提交的<code>post</code> 数据 ， 然而尝试过后发现 ，利用<code>axios</code>请求，将请求头设置一下，即<code>Content-Type: application/x-www-form-urlencoded``;charset=utf-8</code> ， 安全框架仍然解析不到<code>username</code>，此时心态已经崩了，然而就在此时，翻到一篇博客，记述到可以将传统原生的表单提交格式更改为 <code>get</code> 提交数据的数据格式，当然了只是更改了数据格式，并没有更改请求方式哈.</p>
-<h1 id="😎解决方案"><a href="#😎解决方案" class="headerlink" title="😎解决方案"></a>😎解决方案</h1><p>利用<code>qs</code> 包 中的 <code>stringify</code> 方法格式化数据.</p>
-<p>具体：</p>
-<ul>
-<li>先安装该包 <code>npm install qs --save</code></li>
-<li>修改前端提交数据的格式</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> http.request(&#123;</span><br><span class="line">    method: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    url: <span class="string">&#x27;login&#x27;</span>,</span><br><span class="line">    data: qs.stringify(data)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>测试过后可以请求成功，狂喜~</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringSecurity</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringSecurity(二):整合mybatis</title>
     <url>/2021/07/12/SpringSecurity%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
     <content><![CDATA[<h1 id="构建数据库表"><a href="#构建数据库表" class="headerlink" title="构建数据库表"></a>构建数据库表</h1><ul>
@@ -2314,30 +2518,24 @@
       </tags>
   </entry>
   <entry>
-    <title>Vue(二):整合mavon-editor</title>
-    <url>/2021/07/22/Vue%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<blockquote>
-<p>前言：不得不说我还是太懒了，前端部分的文章一直没有写，不知道为什么没有什么兴致写，现在趁着有时间还是写写吧，Vue最近也算是用的有点感觉了，组件化思想有一说一，对于个人开发者而言，开发小型项目还是用后端模板写前端比较方便hhh.</p>
-</blockquote>
-<h1 id="🚀下载安装-mavon-editor"><a href="#🚀下载安装-mavon-editor" class="headerlink" title="🚀下载安装 mavon-editor"></a>🚀下载安装 mavon-editor</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install mavon-editor --save</span><br></pre></td></tr></table></figure>
+    <title>SpringSecurity(四):结合Vue实现异步登录</title>
+    <url>/2021/07/16/SpringSecurity%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🏁问题分析"><a href="#🏁问题分析" class="headerlink" title="🏁问题分析"></a>🏁问题分析</h1><p>&emsp;&emsp;使用异步<code>axios</code>请求的方式进行登录与直接使用 <code>postman</code> 发送 <code>post</code> 请求进行测试 ，提交数据的方式似乎不太一样，<code>postman</code>能跑通，而使用<code>axios</code> ，后台<code>loadUserByusername</code>获取不到用户名，这就很奇怪，奈何看不太懂源码，主要是各种设计模式没学过以及底层的封装层数太多了，看的使人心累，于是开始逛论坛以及开源网站看别人的代码，后来才发现，<code>axios</code>提交的参数是存放在请求体当中的，而<code>SpringSecurity</code>中的处理逻辑使用了 <code>request.getParameter</code> 进行参数获取，有过原始表单或者 <code>servlet</code> 开发经验的人都知道 ， 此方法只能获取到类似于 <code>get</code>请求 以及 以原始表单格式提交的<code>post</code> 数据 ， 然而尝试过后发现 ，利用<code>axios</code>请求，将请求头设置一下，即<code>Content-Type: application/x-www-form-urlencoded``;charset=utf-8</code> ， 安全框架仍然解析不到<code>username</code>，此时心态已经崩了，然而就在此时，翻到一篇博客，记述到可以将传统原生的表单提交格式更改为 <code>get</code> 提交数据的数据格式，当然了只是更改了数据格式，并没有更改请求方式哈.</p>
+<h1 id="😎解决方案"><a href="#😎解决方案" class="headerlink" title="😎解决方案"></a>😎解决方案</h1><p>利用<code>qs</code> 包 中的 <code>stringify</code> 方法格式化数据.</p>
+<p>具体：</p>
+<ul>
+<li>先安装该包 <code>npm install qs --save</code></li>
+<li>修改前端提交数据的格式</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> http.request(&#123;</span><br><span class="line">    method: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    url: <span class="string">&#x27;login&#x27;</span>,</span><br><span class="line">    data: qs.stringify(data)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
-<h1 id="🛰使用-mavon-editor"><a href="#🛰使用-mavon-editor" class="headerlink" title="🛰使用 mavon-editor"></a>🛰使用 mavon-editor</h1><h2 id="在需要的组件中使用"><a href="#在需要的组件中使用" class="headerlink" title="在需要的组件中使用"></a>在需要的组件中使用</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;mavon-editor v-model&#x3D;&quot;content&quot; </span><br><span class="line">                  :codeStyle&#x3D;&quot;codeStyle&quot;</span><br><span class="line">                  &#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; mavonEditor &#125; from &#39;mavon-editor&#39;</span><br><span class="line">import &#39;mavon-editor&#x2F;dist&#x2F;css&#x2F;index.css&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;MavonEditor&#39;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      content: &#39;&#39;,</span><br><span class="line">      codeStyle: &#39;主题&#39;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    mavonEditor</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>注意：<code>content</code> 保存的为md语法，<code>codeStyle</code>属性可以更换代码块的主题，具体有哪些主题可以参考一下  <a href="https://github.com/hinesboy/mavonEditor/blob/HEAD/src/lib/core/hljs/lang.hljs.css.js"><font color="red">可选主题表</font></a>  , 每一种主题的样式可以参考<a href="https://highlightjs.org/static/demo/"> <code>highlight.js</code>demo文档</a>  ， 更多相关的设置可以参考文档 : <a href="https://www.npmjs.com/package/mavon-editor">mavon-editor参考文档</a> </p>
-<h2 id="实现编辑器中实时图片上传"><a href="#实现编辑器中实时图片上传" class="headerlink" title="实现编辑器中实时图片上传"></a>实现编辑器中实时图片上传</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;mavon-editor ref&#x3D;md @imgAdd&#x3D;&quot;imgAdd&quot; @imgDel&#x3D;&quot;$imgDel&quot;&gt;&lt;&#x2F;mavon-editor&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    exports default &#123;</span><br><span class="line">    methods: &#123;</span><br><span class="line">        &#x2F;&#x2F; 绑定@imgAdd event</span><br><span class="line">        imgAdd(pos, $file)&#123;</span><br><span class="line">		   let _this &#x3D; this</span><br><span class="line">            &#x2F;&#x2F; 第一步.将图片上传到服务器.</span><br><span class="line">           var formdata &#x3D; new FormData();</span><br><span class="line">           formdata.append(&#39;image&#39;, $file);</span><br><span class="line">           axios(&#123;</span><br><span class="line">               url: &#39;图片上传api路径&#39;,</span><br><span class="line">               method: &#39;post&#39;,</span><br><span class="line">               data: formdata,</span><br><span class="line">               headers: &#123; &#39;Content-Type&#39;: &#39;multipart&#x2F;form-data&#39; &#125;,</span><br><span class="line">           &#125;).then((url) &#x3D;&gt; &#123;</span><br><span class="line">               _this.$refs.md.$img2Url(pos, url);</span><br><span class="line">           &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>上述的写法比较固定，按着如上方式写即可.</p>
-<p>注意替换的方式：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//将返回的url替换到文本原位置![...](0) -&gt; ![...](url)  替换方式为: $vm.$img2Url(pos , url)</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * $vm 指为mavonEditor实例，可以通过如下两种方式获取</span></span><br><span class="line"><span class="comment"> * 1. 通过引入对象获取: `import &#123;mavonEditor&#125; from ...` 等方式引入后，`$vm`为`mavonEditor`</span></span><br><span class="line"><span class="comment"> * 2. 通过$refs获取: html声明ref : `&lt;mavon-editor ref=md &gt;&lt;/mavon-editor&gt;，`$vm`为`this.$refs.md`</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-
+<p>测试过后可以请求成功，狂喜~</p>
 ]]></content>
       <categories>
-        <category>Vue</category>
+        <category>Java</category>
       </categories>
       <tags>
-        <tag>Vue</tag>
+        <tag>SpringSecurity</tag>
       </tags>
   </entry>
   <entry>
@@ -2622,28 +2820,30 @@
       </tags>
   </entry>
   <entry>
-    <title>每日一题(二):双指针算法</title>
-    <url>/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🎃双指针算法"><a href="#🎃双指针算法" class="headerlink" title="🎃双指针算法"></a>🎃双指针算法</h1><p>何为双指针？其实在算法中是一种技巧性的东西，这个指针也并非如同<code>C语言</code> 那种指针，只是一种标识，用于表示状态，很凑巧，在上一篇每日一题中的快速排序就使用了双指针算法,十分经典，并且属于对撞指针（通俗的讲就是相向扫描），当然了，既然有相向扫描，也肯定有同向扫描，比较常用于字符串比对，分治之中.</p>
-<p>突然有个不错的想法，每日一题连续更新同一类型的题目，这样有便于全面掌握一种算法.</p>
-<p>这里附上上一篇文章的链接以供复习.</p>
-<p><a href="https://soul-pe.gitee.io/shdsoul/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">每日一题(一):快速排序</a></p>
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><img src="/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/1.png" class title="题目">
-
-<p>题目来源：Acwing：<a href="https://www.acwing.com/problem/content/description/773/">原题链接</a></p>
-<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>我们只需要，遍历每一个字符，然后将字符与后方的字符逐一比较，相同则继续向后比较并记录连续次数，不同则停止比较，继续向后方遍历即可.</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串</span></span><br><span class="line">    string str;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串数量</span></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="comment">//当 n 为 0 的时候停止输入</span></span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        cin &gt;&gt; str;</span><br><span class="line">        <span class="comment">//定义最大长度为 -1</span></span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">-1</span>;</span><br><span class="line">        <span class="comment">//记录最多重复的字符</span></span><br><span class="line">        string maxs;</span><br><span class="line">        <span class="comment">//指针i :遍历输入的字符</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; str.<span class="built_in">size</span>() ; i++)&#123;</span><br><span class="line">            <span class="comment">//指针j :用于字符串比较</span></span><br><span class="line">            <span class="keyword">int</span> j = i; <span class="comment">//由于要求连续,所以默认开始扫描的地方为 指针i 的位置,只需要遍历后面，不需要管前面</span></span><br><span class="line">            <span class="keyword">int</span> nums = <span class="number">0</span>;<span class="comment">//用于记录连续次数</span></span><br><span class="line">            <span class="comment">//当指针j指向的值与指针i指向的值相同的时候,并且j指针没有越界的时候</span></span><br><span class="line">            <span class="keyword">while</span>(str[j] == str[i] &amp;&amp; j &lt; str.<span class="built_in">size</span>())</span><br><span class="line">                <span class="comment">//指针j向后移动,连续次数自增1</span></span><br><span class="line">                j++ , nums++;</span><br><span class="line">            <span class="comment">//如果连续次数大于最大值则进行记录,并且记录当前字符    </span></span><br><span class="line">            <span class="keyword">if</span>(nums &gt; max)</span><br><span class="line">                max = nums,maxs = str[i];</span><br><span class="line">            <span class="comment">//当指针j停止移动时,[i,j)区间中必然全是相同的字符,此时 i只需要从j的位置开始继续遍历即可</span></span><br><span class="line">            i = j <span class="number">-1</span>;<span class="comment">//这里减1,是为了抵消掉循环中的 i++</span></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; nums &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; max;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>Vue(二):整合mavon-editor</title>
+    <url>/2021/07/22/Vue%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<blockquote>
+<p>前言：不得不说我还是太懒了，前端部分的文章一直没有写，不知道为什么没有什么兴致写，现在趁着有时间还是写写吧，Vue最近也算是用的有点感觉了，组件化思想有一说一，对于个人开发者而言，开发小型项目还是用后端模板写前端比较方便hhh.</p>
+</blockquote>
+<h1 id="🚀下载安装-mavon-editor"><a href="#🚀下载安装-mavon-editor" class="headerlink" title="🚀下载安装 mavon-editor"></a>🚀下载安装 mavon-editor</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install mavon-editor --save</span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">int</span> n = Integer.parseInt(reader.readLine());</span><br><span class="line">        <span class="keyword">while</span>(n-- != <span class="number">0</span>)&#123;</span><br><span class="line">            String s = reader.readLine();</span><br><span class="line">            <span class="keyword">char</span> c = <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">            <span class="keyword">int</span> max = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; s.length() ; i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> j = i;</span><br><span class="line">                <span class="keyword">int</span> nums = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span>(j &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(j))&#123; </span><br><span class="line">                    j++;</span><br><span class="line">                    nums++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(nums &gt; max)&#123;</span><br><span class="line">                    max = nums ;</span><br><span class="line">                    c = s.charAt(i);</span><br><span class="line">                &#125;</span><br><span class="line">                i = j - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(c + <span class="string">&quot; &quot;</span> + max);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="🛰使用-mavon-editor"><a href="#🛰使用-mavon-editor" class="headerlink" title="🛰使用 mavon-editor"></a>🛰使用 mavon-editor</h1><h2 id="在需要的组件中使用"><a href="#在需要的组件中使用" class="headerlink" title="在需要的组件中使用"></a>在需要的组件中使用</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;mavon-editor v-model&#x3D;&quot;content&quot; </span><br><span class="line">                  :codeStyle&#x3D;&quot;codeStyle&quot;</span><br><span class="line">                  &#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; mavonEditor &#125; from &#39;mavon-editor&#39;</span><br><span class="line">import &#39;mavon-editor&#x2F;dist&#x2F;css&#x2F;index.css&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;MavonEditor&#39;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      content: &#39;&#39;,</span><br><span class="line">      codeStyle: &#39;主题&#39;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    mavonEditor</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>注意：<code>content</code> 保存的为md语法，<code>codeStyle</code>属性可以更换代码块的主题，具体有哪些主题可以参考一下  <a href="https://github.com/hinesboy/mavonEditor/blob/HEAD/src/lib/core/hljs/lang.hljs.css.js"><font color="red">可选主题表</font></a>  , 每一种主题的样式可以参考<a href="https://highlightjs.org/static/demo/"> <code>highlight.js</code>demo文档</a>  ， 更多相关的设置可以参考文档 : <a href="https://www.npmjs.com/package/mavon-editor">mavon-editor参考文档</a> </p>
+<h2 id="实现编辑器中实时图片上传"><a href="#实现编辑器中实时图片上传" class="headerlink" title="实现编辑器中实时图片上传"></a>实现编辑器中实时图片上传</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;mavon-editor ref&#x3D;md @imgAdd&#x3D;&quot;imgAdd&quot; @imgDel&#x3D;&quot;$imgDel&quot;&gt;&lt;&#x2F;mavon-editor&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    exports default &#123;</span><br><span class="line">    methods: &#123;</span><br><span class="line">        &#x2F;&#x2F; 绑定@imgAdd event</span><br><span class="line">        imgAdd(pos, $file)&#123;</span><br><span class="line">		   let _this &#x3D; this</span><br><span class="line">            &#x2F;&#x2F; 第一步.将图片上传到服务器.</span><br><span class="line">           var formdata &#x3D; new FormData();</span><br><span class="line">           formdata.append(&#39;image&#39;, $file);</span><br><span class="line">           axios(&#123;</span><br><span class="line">               url: &#39;图片上传api路径&#39;,</span><br><span class="line">               method: &#39;post&#39;,</span><br><span class="line">               data: formdata,</span><br><span class="line">               headers: &#123; &#39;Content-Type&#39;: &#39;multipart&#x2F;form-data&#39; &#125;,</span><br><span class="line">           &#125;).then((url) &#x3D;&gt; &#123;</span><br><span class="line">               _this.$refs.md.$img2Url(pos, url);</span><br><span class="line">           &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上述的写法比较固定，按着如上方式写即可.</p>
+<p>注意替换的方式：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//将返回的url替换到文本原位置![...](0) -&gt; ![...](url)  替换方式为: $vm.$img2Url(pos , url)</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * $vm 指为mavonEditor实例，可以通过如下两种方式获取</span></span><br><span class="line"><span class="comment"> * 1. 通过引入对象获取: `import &#123;mavonEditor&#125; from ...` 等方式引入后，`$vm`为`mavonEditor`</span></span><br><span class="line"><span class="comment"> * 2. 通过$refs获取: html声明ref : `&lt;mavon-editor ref=md &gt;&lt;/mavon-editor&gt;，`$vm`为`this.$refs.md`</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>Vue</category>
       </categories>
       <tags>
-        <tag>算法</tag>
+        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
@@ -2667,6 +2867,31 @@
 
 
 
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>每日一题(二):双指针算法</title>
+    <url>/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🎃双指针算法"><a href="#🎃双指针算法" class="headerlink" title="🎃双指针算法"></a>🎃双指针算法</h1><p>何为双指针？其实在算法中是一种技巧性的东西，这个指针也并非如同<code>C语言</code> 那种指针，只是一种标识，用于表示状态，很凑巧，在上一篇每日一题中的快速排序就使用了双指针算法,十分经典，并且属于对撞指针（通俗的讲就是相向扫描），当然了，既然有相向扫描，也肯定有同向扫描，比较常用于字符串比对，分治之中.</p>
+<p>突然有个不错的想法，每日一题连续更新同一类型的题目，这样有便于全面掌握一种算法.</p>
+<p>这里附上上一篇文章的链接以供复习.</p>
+<p><a href="https://soul-pe.gitee.io/shdsoul/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">每日一题(一):快速排序</a></p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><img src="/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/1.png" class title="题目">
+
+<p>题目来源：Acwing：<a href="https://www.acwing.com/problem/content/description/773/">原题链接</a></p>
+<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>我们只需要，遍历每一个字符，然后将字符与后方的字符逐一比较，相同则继续向后比较并记录连续次数，不同则停止比较，继续向后方遍历即可.</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串</span></span><br><span class="line">    string str;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串数量</span></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="comment">//当 n 为 0 的时候停止输入</span></span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        cin &gt;&gt; str;</span><br><span class="line">        <span class="comment">//定义最大长度为 -1</span></span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">-1</span>;</span><br><span class="line">        <span class="comment">//记录最多重复的字符</span></span><br><span class="line">        string maxs;</span><br><span class="line">        <span class="comment">//指针i :遍历输入的字符</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; str.<span class="built_in">size</span>() ; i++)&#123;</span><br><span class="line">            <span class="comment">//指针j :用于字符串比较</span></span><br><span class="line">            <span class="keyword">int</span> j = i; <span class="comment">//由于要求连续,所以默认开始扫描的地方为 指针i 的位置,只需要遍历后面，不需要管前面</span></span><br><span class="line">            <span class="keyword">int</span> nums = <span class="number">0</span>;<span class="comment">//用于记录连续次数</span></span><br><span class="line">            <span class="comment">//当指针j指向的值与指针i指向的值相同的时候,并且j指针没有越界的时候</span></span><br><span class="line">            <span class="keyword">while</span>(str[j] == str[i] &amp;&amp; j &lt; str.<span class="built_in">size</span>())</span><br><span class="line">                <span class="comment">//指针j向后移动,连续次数自增1</span></span><br><span class="line">                j++ , nums++;</span><br><span class="line">            <span class="comment">//如果连续次数大于最大值则进行记录,并且记录当前字符    </span></span><br><span class="line">            <span class="keyword">if</span>(nums &gt; max)</span><br><span class="line">                max = nums,maxs = str[i];</span><br><span class="line">            <span class="comment">//当指针j停止移动时,[i,j)区间中必然全是相同的字符,此时 i只需要从j的位置开始继续遍历即可</span></span><br><span class="line">            i = j <span class="number">-1</span>;<span class="comment">//这里减1,是为了抵消掉循环中的 i++</span></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; nums &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; max;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">int</span> n = Integer.parseInt(reader.readLine());</span><br><span class="line">        <span class="keyword">while</span>(n-- != <span class="number">0</span>)&#123;</span><br><span class="line">            String s = reader.readLine();</span><br><span class="line">            <span class="keyword">char</span> c = <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">            <span class="keyword">int</span> max = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; s.length() ; i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> j = i;</span><br><span class="line">                <span class="keyword">int</span> nums = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span>(j &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(j))&#123; </span><br><span class="line">                    j++;</span><br><span class="line">                    nums++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(nums &gt; max)&#123;</span><br><span class="line">                    max = nums ;</span><br><span class="line">                    c = s.charAt(i);</span><br><span class="line">                &#125;</span><br><span class="line">                i = j - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(c + <span class="string">&quot; &quot;</span> + max);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -2702,6 +2927,23 @@
       </categories>
       <tags>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>近期杂谈</title>
+    <url>/2021/04/18/%E8%BF%91%E6%9C%9F%E6%9D%82%E8%B0%88/</url>
+    <content><![CDATA[<h1 id="🕶开学了？"><a href="#🕶开学了？" class="headerlink" title="🕶开学了？"></a>🕶开学了？</h1><p>&emsp;&emsp;其实在4月初的时候我依旧保持着放假的状态，上课不是很认真，在寝室也是学技术效率比较慢，整个人也就是处于悠哉悠哉的那种状态，感觉目标有点不明确，不知道到底自己想干嘛，期间最引发我思考的莫过于那一份关于考研和就业选择的问卷，在我上大学没多久的时候，觉得我肯定是会考研的，目的是为了提升自己的学历，顺便也可以锻炼自己，然而到了现在我却感觉不是很确定了，内心可能更向往技术开发的方向，实在不想加入考研大军，就算有保研这条路子，也不是很想做研究的那种方向.自知能力有限，觉得自己还是不合适的.不过呢，关于这个以后或许会有新的思考，以后再说吧hhhh.</p>
+<p>&emsp;&emsp;开学至4月初期，对自己的表现怎么说呢，比较懒散，很浮躁，也很对不起我家小朋友，老是惹她不开心，自己犯的错误比较多，唉.道阻且长，同志仍然需要努力啊.</p>
+<h1 id="🎃参加了数学竞赛？"><a href="#🎃参加了数学竞赛？" class="headerlink" title="🎃参加了数学竞赛？"></a>🎃参加了数学竞赛？</h1><p>&emsp;&emsp;怎么说呢，源于从小对于数学的兴趣吧，数学的巧妙逻辑实在是让我沉迷，高数中，各大数学家巧妙的定理证明也着实很吸引我，大一上还是有好好学高等数学的.下学期其实也有好好学，只是中途有点划水哈….这也算是我大一下生活中一件趣事，与其说是参加比赛，不如说是去感受的.</p>
+<h1 id="🥼-提前步入社畜生活？"><a href="#🥼-提前步入社畜生活？" class="headerlink" title="🥼 提前步入社畜生活？"></a>🥼 提前步入社畜生活？</h1><p>&emsp;&emsp;hhhh，其实有点标题党的味道了，哪里是社畜，还是个学徒哈.说来也十分偶然，我近期也只是想找个做项目的团队，一起做项目，共同学习进步，然后翻阅QQ群，发现了网安协会的项目部，再一番咨询后，投了简历，然后参加了笔试以及面试，然后成功进入了这个部门，去的时候很惊奇这个部门居然有办公室，我还会有工位，后来第一天去的时候才了解到部门旗下有一所公司，我相当于进入了一个公司，成为了里面的职员，哦对了，我选择了开发岗中的后端开发，恰好也是他们部门现在缺人的岗位，怎么说呢也挺有压力的.据说等以后学成接手的时候，有绩效了，我就会有工资了hhh，还挺激动的. 话又说回来，在这个团队中，自己也挺想快点学习可以参加到项目中，自己最近也变得开始好好搞学习，不是很懒散了，有点大一上学期的感觉了hhh，也多亏了我家小朋友，给予我理解和帮助，十分体贴我，温柔又可爱，有了我家小朋友，感觉能把我从紧张的环境中解脱出来，让我轻松不少，真好啊.</p>
+<p>&emsp;&emsp;对于现阶段目标，就是学习经典的 <code>SSM</code> 技术框架，说多也不多，说少也不少，慢慢来咯，后期才能运用自如，而且团队中缺少，<code>Java</code> 后端开发的老师傅，现在自己只能一步一个脚印，脚踏实地的进行学习.未来的路还是挺长的，我对现在自己的状态很满意，希望自己能多保持保持，也希望多陪陪我家小朋友hhh，也希望我家小朋友能理解我哦.</p>
+<h1 id="✨结束END"><a href="#✨结束END" class="headerlink" title="✨结束END"></a>✨结束END</h1><p>放上一句自己特别喜欢的一句诗：“醉后不知天在水，满船清梦压星河.”   莫名喜欢这句诗的意境，让我对未来生活有着无限畅想hhhh</p>
+]]></content>
+      <categories>
+        <category>生活杂谈</category>
+      </categories>
+      <tags>
+        <tag>生活杂谈</tag>
       </tags>
   </entry>
   <entry>
@@ -2778,146 +3020,6 @@
       <tags>
         <tag>线程池</tag>
         <tag>网络编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>近期杂谈</title>
-    <url>/2021/04/18/%E8%BF%91%E6%9C%9F%E6%9D%82%E8%B0%88/</url>
-    <content><![CDATA[<h1 id="🕶开学了？"><a href="#🕶开学了？" class="headerlink" title="🕶开学了？"></a>🕶开学了？</h1><p>&emsp;&emsp;其实在4月初的时候我依旧保持着放假的状态，上课不是很认真，在寝室也是学技术效率比较慢，整个人也就是处于悠哉悠哉的那种状态，感觉目标有点不明确，不知道到底自己想干嘛，期间最引发我思考的莫过于那一份关于考研和就业选择的问卷，在我上大学没多久的时候，觉得我肯定是会考研的，目的是为了提升自己的学历，顺便也可以锻炼自己，然而到了现在我却感觉不是很确定了，内心可能更向往技术开发的方向，实在不想加入考研大军，就算有保研这条路子，也不是很想做研究的那种方向.自知能力有限，觉得自己还是不合适的.不过呢，关于这个以后或许会有新的思考，以后再说吧hhhh.</p>
-<p>&emsp;&emsp;开学至4月初期，对自己的表现怎么说呢，比较懒散，很浮躁，也很对不起我家小朋友，老是惹她不开心，自己犯的错误比较多，唉.道阻且长，同志仍然需要努力啊.</p>
-<h1 id="🎃参加了数学竞赛？"><a href="#🎃参加了数学竞赛？" class="headerlink" title="🎃参加了数学竞赛？"></a>🎃参加了数学竞赛？</h1><p>&emsp;&emsp;怎么说呢，源于从小对于数学的兴趣吧，数学的巧妙逻辑实在是让我沉迷，高数中，各大数学家巧妙的定理证明也着实很吸引我，大一上还是有好好学高等数学的.下学期其实也有好好学，只是中途有点划水哈….这也算是我大一下生活中一件趣事，与其说是参加比赛，不如说是去感受的.</p>
-<h1 id="🥼-提前步入社畜生活？"><a href="#🥼-提前步入社畜生活？" class="headerlink" title="🥼 提前步入社畜生活？"></a>🥼 提前步入社畜生活？</h1><p>&emsp;&emsp;hhhh，其实有点标题党的味道了，哪里是社畜，还是个学徒哈.说来也十分偶然，我近期也只是想找个做项目的团队，一起做项目，共同学习进步，然后翻阅QQ群，发现了网安协会的项目部，再一番咨询后，投了简历，然后参加了笔试以及面试，然后成功进入了这个部门，去的时候很惊奇这个部门居然有办公室，我还会有工位，后来第一天去的时候才了解到部门旗下有一所公司，我相当于进入了一个公司，成为了里面的职员，哦对了，我选择了开发岗中的后端开发，恰好也是他们部门现在缺人的岗位，怎么说呢也挺有压力的.据说等以后学成接手的时候，有绩效了，我就会有工资了hhh，还挺激动的. 话又说回来，在这个团队中，自己也挺想快点学习可以参加到项目中，自己最近也变得开始好好搞学习，不是很懒散了，有点大一上学期的感觉了hhh，也多亏了我家小朋友，给予我理解和帮助，十分体贴我，温柔又可爱，有了我家小朋友，感觉能把我从紧张的环境中解脱出来，让我轻松不少，真好啊.</p>
-<p>&emsp;&emsp;对于现阶段目标，就是学习经典的 <code>SSM</code> 技术框架，说多也不多，说少也不少，慢慢来咯，后期才能运用自如，而且团队中缺少，<code>Java</code> 后端开发的老师傅，现在自己只能一步一个脚印，脚踏实地的进行学习.未来的路还是挺长的，我对现在自己的状态很满意，希望自己能多保持保持，也希望多陪陪我家小朋友hhh，也希望我家小朋友能理解我哦.</p>
-<h1 id="✨结束END"><a href="#✨结束END" class="headerlink" title="✨结束END"></a>✨结束END</h1><p>放上一句自己特别喜欢的一句诗：“醉后不知天在水，满船清梦压星河.”   莫名喜欢这句诗的意境，让我对未来生活有着无限畅想hhhh</p>
-]]></content>
-      <categories>
-        <category>生活杂谈</category>
-      </categories>
-      <tags>
-        <tag>生活杂谈</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot(七):自定义条件注解</title>
-    <url>/2021/06/23/SpringBoot%EF%BC%88%E4%B8%83%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🚗动态注入实现原理"><a href="#🚗动态注入实现原理" class="headerlink" title="🚗动态注入实现原理"></a>🚗动态注入实现原理</h1><p><code>SpringBoot</code>中的一大特色为自动配置(包括动态配置)，其底层实现原理依托于<code>springFramework</code>中的<code>condition</code>接口类，在<code>SpringBoot</code>的源码中，随处可见类似于<code>@ConditionalOnBean</code>这样类似的注解，其依赖的条件类为<code>OnBeanCondition</code>.</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//使用在类上 和 方法上</span></span><br><span class="line"><span class="meta">@Target(&#123; ElementType.TYPE, ElementType.METHOD &#125;)</span></span><br><span class="line">/运行时有效</span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="comment">//与javadoc文档有关</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="comment">//当OnBeanCondition判断有效(返回true)时启用</span></span><br><span class="line"><span class="meta">@Conditional(OnBeanCondition.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> ConditionalOnBean &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>类似的还有以下注解:</p>
-<table>
-<thead>
-<tr>
-<th align="center">序号</th>
-<th align="center">注解</th>
-<th align="center">条件类</th>
-<th align="center">返回true的条件</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">1</td>
-<td align="center">@ConditionalOnBean</td>
-<td align="center">OnBeanCondition</td>
-<td align="center">容器中有指定bean的时候为true</td>
-</tr>
-<tr>
-<td align="center">2</td>
-<td align="center">@ConditionalOnMissingBean</td>
-<td align="center">OnBeanCondition</td>
-<td align="center">容器中没有指定bean的时候为true</td>
-</tr>
-<tr>
-<td align="center">3</td>
-<td align="center">@ConditionalOnSingleCandidate</td>
-<td align="center">OnBeanCondition</td>
-<td align="center">容器中指定的bean只有一个时为true</td>
-</tr>
-<tr>
-<td align="center">4</td>
-<td align="center">@ConditionalOnClass</td>
-<td align="center">OnClassCondition</td>
-<td align="center">当类路径下有指定类的时候为true</td>
-</tr>
-<tr>
-<td align="center">5</td>
-<td align="center">@ConditionalOnMissingClass</td>
-<td align="center">OnClassCondition</td>
-<td align="center">当类路径下没有指定类的时候为true</td>
-</tr>
-<tr>
-<td align="center">6</td>
-<td align="center">@ConditionalOnProperty</td>
-<td align="center">OnPropertyCondition</td>
-<td align="center">当指定的属性有指定的值的时候为true</td>
-</tr>
-<tr>
-<td align="center">7</td>
-<td align="center">@ConditionalOnResource</td>
-<td align="center">OnResourceCondition</td>
-<td align="center">类路径有指定的值的时候为true</td>
-</tr>
-<tr>
-<td align="center">8</td>
-<td align="center">@ConditionalOnExpression</td>
-<td align="center">OnExpressionCondition</td>
-<td align="center">基于springEL表达式判断是否为true</td>
-</tr>
-<tr>
-<td align="center">9</td>
-<td align="center">@ConditionalOnJava</td>
-<td align="center">OnJavaCondition</td>
-<td align="center">基于Java版本进行判断，满足版本要求为true</td>
-</tr>
-<tr>
-<td align="center">10</td>
-<td align="center">@ConditionalOnNotWebApplication</td>
-<td align="center">OnWebApplicationCondition</td>
-<td align="center">当项目不是web项目的条件下为true</td>
-</tr>
-<tr>
-<td align="center">11</td>
-<td align="center">@ConditionalOnWebApplication</td>
-<td align="center">OnWebApplicationCondition</td>
-<td align="center">当项目时web项目的条件下为true</td>
-</tr>
-</tbody></table>
-<p>一般情况下，我们还会在<code>application.properties</code>中进行一些配置，那么这是如何进行动态读取配置的呢？</p>
-<p>那就要使用到<code>@ConditionalOnProperty 、@ConfigurationProperties</code> 等，在启动<code>SpringBoot</code>的时候会对配置文件进行扫描，如果扫描到对应的配置，则对这些配置进行加载，当然，这些配置也有部分也有需要存在默认值，哪怕不进行显示的配置，也可以进行加载配置.</p>
-<h1 id="🏍自定义Conditon条件类"><a href="#🏍自定义Conditon条件类" class="headerlink" title="🏍自定义Conditon条件类"></a>🏍自定义Conditon条件类</h1><p>为什么需要自定义条件类？一来，可以加深对<code>SpringBoot</code>自动配置原理.二来，可以在业务需求中自己定制化配置，加快开发效率.总之，不管怎么样，尝试自己实现一遍其实也挺有意思的hhh.</p>
-<ul>
-<li>自定义接口类(本质上是为了进行类抽象，便于判断)</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MessagePrint</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">showMessage</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>接口实现类</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMessage</span> <span class="keyword">implements</span> <span class="title">MessagePrint</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">showMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;文件存在！&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">YourMessage</span> <span class="keyword">implements</span> <span class="title">MessagePrint</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">showMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;文件不存在！！&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>condition条件类实现condition接口(用于进行条件判断)</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyCondition</span> <span class="keyword">implements</span> <span class="title">Condition</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">matches</span><span class="params">(ConditionContext conditionContext, </span></span></span><br><span class="line"><span class="function"><span class="params">                           AnnotatedTypeMetadata annotatedTypeMetadata)</span> </span>&#123;</span><br><span class="line">        		<span class="comment">//上下文.资源加载器.获取资源(&quot;资源名&quot;).是否存在</span></span><br><span class="line">        <span class="keyword">return</span> conditionContext.getResourceLoader().getResource(<span class="string">&quot;classpath:test.properties&quot;</span>).exists();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">YourCondition</span> <span class="keyword">implements</span> <span class="title">Condition</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">matches</span><span class="params">(ConditionContext conditionContext,</span></span></span><br><span class="line"><span class="function"><span class="params">                           AnnotatedTypeMetadata annotatedTypeMetadata)</span> </span>&#123;</span><br><span class="line">        		<span class="comment">//上下文.资源加载器.获取资源(&quot;资源名&quot;).是否存在</span></span><br><span class="line">        <span class="keyword">return</span> !conditionContext.getResourceLoader().getResource(<span class="string">&quot;classpath:test.properties&quot;</span>).exists();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>自动注入配置类</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//配置类，表示注入ioc容器中，存在于配置文件的上下文</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConditionConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="comment">//当MyCondition 判断为 true 的时候 向容器中注入 MyMessage</span></span><br><span class="line">    <span class="meta">@Conditional(MyCondition.class)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MessagePrint <span class="title">myMessage</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MyMessage();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="comment">//当YourCondition 判断为 true 的时候 向容器中注入 YourMessage</span></span><br><span class="line">    <span class="meta">@Conditional(YourCondition.class)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MessagePrint <span class="title">yourMessage</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> YourMessage();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>测试</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">contextLoads</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="comment">//获取注解配置上下文</span></span><br><span class="line">      AnnotationConfigApplicationContext context;</span><br><span class="line">      <span class="comment">//获取条件配置类</span></span><br><span class="line">      context = <span class="keyword">new</span> AnnotationConfigApplicationContext(ConditionConfig.class);</span><br><span class="line">      <span class="comment">//获取接口类(这就是写接口的好处,不需要知道自定义类名是什么,只需要识别父类)</span></span><br><span class="line">      MessagePrint bean = context.getBean(MessagePrint.class);</span><br><span class="line">      System.out.println(bean.showMessage());</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
       </tags>
   </entry>
   <entry>
