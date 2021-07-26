@@ -1,109 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Docker(一):虚拟化容器技术</title>
-    <url>/2021/07/24/Docker%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<blockquote>
-<p>前言：曾经尝试过使用Vmware来学习Linux，尝试当做服务器，之后便开始搭环境，一套整下来，确实麻烦，而且还吃自己电脑的资源，电脑不出所料的发生了一些微小的变化hhhh，直到后来我的Vmware出了点小问题，怎么调都调不好，调好了又得重新配环境，心态崩了，遂放弃，转头就在腾讯云买了一台服务器玩.当然了，也部署过一些服务，emmm，版本问题我始终调不好，要下载一堆东西，后来才发现了docker这个好东西</p>
-</blockquote>
-<ul>
-<li>官方文档地址:<a href="https://www.docker.com/get-started">https://www.docker.com/get-started</a></li>
-<li>中文参考手册:<a href="https://docker_practice.gitee.io/zh-cn/">https://docker_practice.gitee.io/zh-cn/</a></li>
-</ul>
-<hr>
-<h1 id="😏什么是Dcoker"><a href="#😏什么是Dcoker" class="headerlink" title="😏什么是Dcoker"></a>😏什么是Dcoker</h1><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 1.官方介绍</span></span><br><span class="line"><span class="bullet">-</span> We have a complete container solution for you - no matter who you are and where you are on your containerization journey.</span><br><span class="line"><span class="bullet">-</span> 翻译: 我们为你提供了一个完整的容器解决方案,不管你是谁,不管你在哪,你都可以开始容器的的旅程。</span><br><span class="line"><span class="bullet">-</span> 官方定义: docker是一个容器技术。</span><br></pre></td></tr></table></figure>
-
-<h2 id="😮Docker的起源"><a href="#😮Docker的起源" class="headerlink" title="😮Docker的起源"></a>😮Docker的起源</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">Docker 最初是 dotCloud 公司创始人 Solomon Hykes 在法国期间发起的一个公司内部项目，它是基于 dotCloud 公司多年云服务技术的一次革新，并于 2013 年 3 月以 Apache 2.0 授权协议开源，主要项目代码在 GitHub 上进行维护。Docker 项目后来还加入了 Linux 基金会，并成立推动 开放容器联盟（OCI）。</span><br><span class="line"></span><br><span class="line">Docker 自开源后受到广泛的关注和讨论，至今其 GitHub 项目 已经超过 5 万 7 千个星标和一万多个 fork。甚至由于 Docker 项目的火爆，在 2013 年底，dotCloud 公司决定改名为 Docker。Docker 最初是在 Ubuntu 12.04 上开发实现的；Red Hat 则从 RHEL 6.5 开始对 Docker 进行支持；Google 也在其 PaaS 产品中广泛应用 Docker。</span><br><span class="line"></span><br><span class="line">Docker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及 OverlayFS 类的 Union FS 等技术，对进程进行封装隔离，属于操作系统层面的虚拟化技术。由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。</span><br></pre></td></tr></table></figure>
-
-<h2 id="😲为什么是Docker"><a href="#😲为什么是Docker" class="headerlink" title="😲为什么是Docker"></a>😲为什么是Docker</h2><ul>
-<li><p><code>在开发的时候，在本机测试环境可以跑，生产环境跑不起来</code></p>
-<p>这里我们拿java Web应用程序举例，我们一个java Web应用程序涉及很多东西，比如jdk、tomcat、mysql等软件环境。当这些其中某一项版本不一致的时候，可能就会导致应用程序跑不起来这种情况。Docker则将程序以及使用软件环境直接打包在一起，无论在那个机器上保证了环境一致。</p>
-<p><strong>优势1:  一致的运行环境,更轻松的迁移</strong></p>
-</li>
-<li><p><code>服务器自己的程序挂了，结果发现是别人程序出了问题把内存吃完了，自己程序因为内存不够就挂了</code></p>
-<p>这种也是一种比较常见的情况，如果你的程序重要性不是特别高的话，公司基本上不可能让你的程序独享一台服务器的，这时候你的服务器就会跟公司其他人的程序共享一台服务器，所以不可避免地就会受到其他程序的干扰，导致自己的程序出现问题。Docker就很好解决了环境隔离的问题，别人程序不会影响到自己的程序。</p>
-<p><strong>优势2：对进程进行封装隔离,容器与容器之间互不影响,更高效的利用系统资源</strong></p>
-</li>
-<li><p><code>公司要弄一个活动，可能会有大量的流量进来，公司需要再多部署几十台服务器</code></p>
-<p>在没有Docker的情况下，要在几天内部署几十台服务器，这对运维来说是一件非常折磨人的事，而且每台服务器的环境还不一定一样，就会出现各种问题，最后部署地头皮发麻。用Docker的话，我只需要将程序打包到镜像，你要多少台服务，我就给力跑多少容器，极大地提高了部署效率。</p>
-<p><strong>优势3: 通过镜像复制N多个环境一致容器</strong></p>
-</li>
-</ul>
-<hr>
-<h1 id="😉Docker和虚拟机区别"><a href="#😉Docker和虚拟机区别" class="headerlink" title="😉Docker和虚拟机区别"></a>😉Docker和虚拟机区别</h1><blockquote>
-<p>关于Docker与虚拟机的区别，我在网上找到的一张图，非常直观形象地展示出来，话不多说，直接上图。</p>
-</blockquote>
-<img src="/2021/07/24/Docker%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class>
-
-<p><code>比较上面两张图，我们发现虚拟机是携带操作系统，本身很小的应用程序却因为携带了操作系统而变得非常大，很笨重</code>。Docker是不携带操作系统的，所以Docker的应用就非常的轻巧。另外在调用宿主机的CPU、磁盘等等这些资源的时候，拿内存举例，虚拟机是利用Hypervisor去虚拟化内存，整个调用过程是虚拟内存-&gt;虚拟物理内存-&gt;真正物理内存，但是Docker是利用Docker Engine去调用宿主的的资源，这时候过程是虚拟内存-&gt;真正物理内存。</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>传统虚拟机</th>
-<th>Docker容器</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>磁盘占用</td>
-<td>几个GB到几十个GB左右</td>
-<td>几十MB到几百MB左右</td>
-</tr>
-<tr>
-<td>CPU内存占用</td>
-<td>虚拟操作系统非常占用CPU和内存</td>
-<td>Docker引擎占用极低</td>
-</tr>
-<tr>
-<td>启动速度</td>
-<td>（从开机到运行项目）几分钟</td>
-<td>（从开启容器到运行项目）几秒</td>
-</tr>
-<tr>
-<td>安装管理</td>
-<td>需要专门的运维技术</td>
-<td>安装、管理方便</td>
-</tr>
-<tr>
-<td>应用部署</td>
-<td>每次部署都费时费力</td>
-<td>从第二次部署开始轻松简捷</td>
-</tr>
-<tr>
-<td>耦合性</td>
-<td>多个应用服务安装到一起，容易互相影响</td>
-<td>每个应用服务一个容器，达成隔离</td>
-</tr>
-<tr>
-<td>系统依赖</td>
-<td>无</td>
-<td>需求相同或相似的内核，目前推荐是Linux</td>
-</tr>
-</tbody></table>
-<h1 id="😁Docker安装-Linux"><a href="#😁Docker安装-Linux" class="headerlink" title="😁Docker安装(Linux)"></a>😁Docker安装(Linux)</h1><ul>
-<li><p>在测试或开发环境中 Docker 官方为了简化安装流程，提供了一套便捷的安装脚本，CentOS 系统上可以使用这套脚本安装，另外可以通过 <code>--mirror</code> 选项使用国内源进行安装：执行这个命令后，脚本就会自动的将一切准备工作做好，并且把 Docker 的稳定(stable)版本安装在系统中。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ curl -fsSL get.docker.com -o get-docker.sh</span><br><span class="line">$ sudo sh get-docker.sh --mirror Aliyun</span><br></pre></td></tr></table></figure></li>
-<li><p>启动docker</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">$ sudo systemctl start docker</span><br></pre></td></tr></table></figure></li>
-<li><p>创建docker用户组</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo groupadd docker</span><br></pre></td></tr></table></figure></li>
-<li><p>将当前用户加入docker组</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo usermod -aG docker <span class="variable">$USER</span></span><br><span class="line"><span class="comment">#重启docker</span></span><br><span class="line">$ systemctl restart docker</span><br></pre></td></tr></table></figure></li>
-<li><p>测试docker安装是否正确</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run hello-world</span><br></pre></td></tr></table></figure></li>
-<li><p>出现如下内容，即成功</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># docker run hello-world</span></span><br><span class="line"></span><br><span class="line">Hello from Docker!</span><br><span class="line">This message shows that your installation appears to be working correctly.</span><br><span class="line"></span><br><span class="line">To generate this message, Docker took the following steps:</span><br><span class="line"> 1. The Docker client contacted the Docker daemon.</span><br><span class="line"> 2. The Docker daemon pulled the <span class="string">&quot;hello-world&quot;</span> image from the Docker Hub.</span><br><span class="line">    (amd64)</span><br><span class="line"> 3. The Docker daemon created a new container from that image <span class="built_in">which</span> runs the</span><br><span class="line">    executable that produces the output you are currently reading.</span><br><span class="line"> 4. The Docker daemon streamed that output to the Docker client, <span class="built_in">which</span> sent it</span><br><span class="line">    to your terminal.</span><br><span class="line"></span><br><span class="line">To try something more ambitious, you can run an Ubuntu container with:</span><br><span class="line"> $ docker run -it ubuntu bash</span><br><span class="line"></span><br><span class="line">Share images, automate workflows, and more with a free Docker ID:</span><br><span class="line"> https://hub.docker.com/</span><br><span class="line"></span><br><span class="line">For more examples and ideas, visit:</span><br><span class="line"> https://docs.docker.com/get-started/</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>虚拟化容器</category>
-      </categories>
-      <tags>
-        <tag>虚拟化容器</tag>
-        <tag>Docker</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Docker(三):Dockerfile</title>
     <url>/2021/07/27/Docker%EF%BC%88%E4%B8%89%EF%BC%89/</url>
     <content><![CDATA[<h1 id="Dockerfile介绍"><a href="#Dockerfile介绍" class="headerlink" title="Dockerfile介绍"></a>Dockerfile介绍</h1><p>Dockerfile可以认为是<strong>Docker镜像的描述文件，是由一系列命令和参数构成的脚本</strong>。主要作用是<strong>用来构建docker镜像的构建文件</strong>。</p>
@@ -277,6 +174,109 @@
 </ul>
 <img src="/2021/07/27/Docker%EF%BC%88%E4%B8%89%EF%BC%89/6.png" class>
 
+]]></content>
+      <categories>
+        <category>虚拟化容器</category>
+      </categories>
+      <tags>
+        <tag>虚拟化容器</tag>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker(一):虚拟化容器技术</title>
+    <url>/2021/07/24/Docker%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<blockquote>
+<p>前言：曾经尝试过使用Vmware来学习Linux，尝试当做服务器，之后便开始搭环境，一套整下来，确实麻烦，而且还吃自己电脑的资源，电脑不出所料的发生了一些微小的变化hhhh，直到后来我的Vmware出了点小问题，怎么调都调不好，调好了又得重新配环境，心态崩了，遂放弃，转头就在腾讯云买了一台服务器玩.当然了，也部署过一些服务，emmm，版本问题我始终调不好，要下载一堆东西，后来才发现了docker这个好东西</p>
+</blockquote>
+<ul>
+<li>官方文档地址:<a href="https://www.docker.com/get-started">https://www.docker.com/get-started</a></li>
+<li>中文参考手册:<a href="https://docker_practice.gitee.io/zh-cn/">https://docker_practice.gitee.io/zh-cn/</a></li>
+</ul>
+<hr>
+<h1 id="😏什么是Dcoker"><a href="#😏什么是Dcoker" class="headerlink" title="😏什么是Dcoker"></a>😏什么是Dcoker</h1><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 1.官方介绍</span></span><br><span class="line"><span class="bullet">-</span> We have a complete container solution for you - no matter who you are and where you are on your containerization journey.</span><br><span class="line"><span class="bullet">-</span> 翻译: 我们为你提供了一个完整的容器解决方案,不管你是谁,不管你在哪,你都可以开始容器的的旅程。</span><br><span class="line"><span class="bullet">-</span> 官方定义: docker是一个容器技术。</span><br></pre></td></tr></table></figure>
+
+<h2 id="😮Docker的起源"><a href="#😮Docker的起源" class="headerlink" title="😮Docker的起源"></a>😮Docker的起源</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">Docker 最初是 dotCloud 公司创始人 Solomon Hykes 在法国期间发起的一个公司内部项目，它是基于 dotCloud 公司多年云服务技术的一次革新，并于 2013 年 3 月以 Apache 2.0 授权协议开源，主要项目代码在 GitHub 上进行维护。Docker 项目后来还加入了 Linux 基金会，并成立推动 开放容器联盟（OCI）。</span><br><span class="line"></span><br><span class="line">Docker 自开源后受到广泛的关注和讨论，至今其 GitHub 项目 已经超过 5 万 7 千个星标和一万多个 fork。甚至由于 Docker 项目的火爆，在 2013 年底，dotCloud 公司决定改名为 Docker。Docker 最初是在 Ubuntu 12.04 上开发实现的；Red Hat 则从 RHEL 6.5 开始对 Docker 进行支持；Google 也在其 PaaS 产品中广泛应用 Docker。</span><br><span class="line"></span><br><span class="line">Docker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及 OverlayFS 类的 Union FS 等技术，对进程进行封装隔离，属于操作系统层面的虚拟化技术。由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。</span><br></pre></td></tr></table></figure>
+
+<h2 id="😲为什么是Docker"><a href="#😲为什么是Docker" class="headerlink" title="😲为什么是Docker"></a>😲为什么是Docker</h2><ul>
+<li><p><code>在开发的时候，在本机测试环境可以跑，生产环境跑不起来</code></p>
+<p>这里我们拿java Web应用程序举例，我们一个java Web应用程序涉及很多东西，比如jdk、tomcat、mysql等软件环境。当这些其中某一项版本不一致的时候，可能就会导致应用程序跑不起来这种情况。Docker则将程序以及使用软件环境直接打包在一起，无论在那个机器上保证了环境一致。</p>
+<p><strong>优势1:  一致的运行环境,更轻松的迁移</strong></p>
+</li>
+<li><p><code>服务器自己的程序挂了，结果发现是别人程序出了问题把内存吃完了，自己程序因为内存不够就挂了</code></p>
+<p>这种也是一种比较常见的情况，如果你的程序重要性不是特别高的话，公司基本上不可能让你的程序独享一台服务器的，这时候你的服务器就会跟公司其他人的程序共享一台服务器，所以不可避免地就会受到其他程序的干扰，导致自己的程序出现问题。Docker就很好解决了环境隔离的问题，别人程序不会影响到自己的程序。</p>
+<p><strong>优势2：对进程进行封装隔离,容器与容器之间互不影响,更高效的利用系统资源</strong></p>
+</li>
+<li><p><code>公司要弄一个活动，可能会有大量的流量进来，公司需要再多部署几十台服务器</code></p>
+<p>在没有Docker的情况下，要在几天内部署几十台服务器，这对运维来说是一件非常折磨人的事，而且每台服务器的环境还不一定一样，就会出现各种问题，最后部署地头皮发麻。用Docker的话，我只需要将程序打包到镜像，你要多少台服务，我就给力跑多少容器，极大地提高了部署效率。</p>
+<p><strong>优势3: 通过镜像复制N多个环境一致容器</strong></p>
+</li>
+</ul>
+<hr>
+<h1 id="😉Docker和虚拟机区别"><a href="#😉Docker和虚拟机区别" class="headerlink" title="😉Docker和虚拟机区别"></a>😉Docker和虚拟机区别</h1><blockquote>
+<p>关于Docker与虚拟机的区别，我在网上找到的一张图，非常直观形象地展示出来，话不多说，直接上图。</p>
+</blockquote>
+<img src="/2021/07/24/Docker%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class>
+
+<p><code>比较上面两张图，我们发现虚拟机是携带操作系统，本身很小的应用程序却因为携带了操作系统而变得非常大，很笨重</code>。Docker是不携带操作系统的，所以Docker的应用就非常的轻巧。另外在调用宿主机的CPU、磁盘等等这些资源的时候，拿内存举例，虚拟机是利用Hypervisor去虚拟化内存，整个调用过程是虚拟内存-&gt;虚拟物理内存-&gt;真正物理内存，但是Docker是利用Docker Engine去调用宿主的的资源，这时候过程是虚拟内存-&gt;真正物理内存。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>传统虚拟机</th>
+<th>Docker容器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>磁盘占用</td>
+<td>几个GB到几十个GB左右</td>
+<td>几十MB到几百MB左右</td>
+</tr>
+<tr>
+<td>CPU内存占用</td>
+<td>虚拟操作系统非常占用CPU和内存</td>
+<td>Docker引擎占用极低</td>
+</tr>
+<tr>
+<td>启动速度</td>
+<td>（从开机到运行项目）几分钟</td>
+<td>（从开启容器到运行项目）几秒</td>
+</tr>
+<tr>
+<td>安装管理</td>
+<td>需要专门的运维技术</td>
+<td>安装、管理方便</td>
+</tr>
+<tr>
+<td>应用部署</td>
+<td>每次部署都费时费力</td>
+<td>从第二次部署开始轻松简捷</td>
+</tr>
+<tr>
+<td>耦合性</td>
+<td>多个应用服务安装到一起，容易互相影响</td>
+<td>每个应用服务一个容器，达成隔离</td>
+</tr>
+<tr>
+<td>系统依赖</td>
+<td>无</td>
+<td>需求相同或相似的内核，目前推荐是Linux</td>
+</tr>
+</tbody></table>
+<h1 id="😁Docker安装-Linux"><a href="#😁Docker安装-Linux" class="headerlink" title="😁Docker安装(Linux)"></a>😁Docker安装(Linux)</h1><ul>
+<li><p>在测试或开发环境中 Docker 官方为了简化安装流程，提供了一套便捷的安装脚本，CentOS 系统上可以使用这套脚本安装，另外可以通过 <code>--mirror</code> 选项使用国内源进行安装：执行这个命令后，脚本就会自动的将一切准备工作做好，并且把 Docker 的稳定(stable)版本安装在系统中。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ curl -fsSL get.docker.com -o get-docker.sh</span><br><span class="line">$ sudo sh get-docker.sh --mirror Aliyun</span><br></pre></td></tr></table></figure></li>
+<li><p>启动docker</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">$ sudo systemctl start docker</span><br></pre></td></tr></table></figure></li>
+<li><p>创建docker用户组</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo groupadd docker</span><br></pre></td></tr></table></figure></li>
+<li><p>将当前用户加入docker组</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo usermod -aG docker <span class="variable">$USER</span></span><br><span class="line"><span class="comment">#重启docker</span></span><br><span class="line">$ systemctl restart docker</span><br></pre></td></tr></table></figure></li>
+<li><p>测试docker安装是否正确</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run hello-world</span><br></pre></td></tr></table></figure></li>
+<li><p>出现如下内容，即成功</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># docker run hello-world</span></span><br><span class="line"></span><br><span class="line">Hello from Docker!</span><br><span class="line">This message shows that your installation appears to be working correctly.</span><br><span class="line"></span><br><span class="line">To generate this message, Docker took the following steps:</span><br><span class="line"> 1. The Docker client contacted the Docker daemon.</span><br><span class="line"> 2. The Docker daemon pulled the <span class="string">&quot;hello-world&quot;</span> image from the Docker Hub.</span><br><span class="line">    (amd64)</span><br><span class="line"> 3. The Docker daemon created a new container from that image <span class="built_in">which</span> runs the</span><br><span class="line">    executable that produces the output you are currently reading.</span><br><span class="line"> 4. The Docker daemon streamed that output to the Docker client, <span class="built_in">which</span> sent it</span><br><span class="line">    to your terminal.</span><br><span class="line"></span><br><span class="line">To try something more ambitious, you can run an Ubuntu container with:</span><br><span class="line"> $ docker run -it ubuntu bash</span><br><span class="line"></span><br><span class="line">Share images, automate workflows, and more with a free Docker ID:</span><br><span class="line"> https://hub.docker.com/</span><br><span class="line"></span><br><span class="line">For more examples and ideas, visit:</span><br><span class="line"> https://docs.docker.com/get-started/</span><br></pre></td></tr></table></figure></li>
+</ul>
 ]]></content>
       <categories>
         <category>虚拟化容器</category>
@@ -706,108 +706,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Markdown入门</title>
-    <url>/2021/04/09/Markdown%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[<h2 id="1-代码块"><a href="#1-代码块" class="headerlink" title="1.代码块:"></a>1.代码块:</h2><p>​    使用三个 “ ``` ” 即可生成代码块,并且可以选择语言类型</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">( args [] string)</span></span>&#123;</span><br><span class="line">        System.println(<span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<h2 id="2-标题"><a href="#2-标题" class="headerlink" title="2.标题"></a>2.标题</h2><p>​    使用 “ # ” 来表示，“ # ”越多字体越小 ， 最多六级标题，注意：# 后面必须有一个空格</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题 </span><br></pre></td></tr></table></figure>
-
-<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h1 id="3-字体"><a href="#3-字体" class="headerlink" title="3.字体"></a>3.字体</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//加粗</span></span><br><span class="line">	**加粗**</span><br><span class="line"><span class="comment">//代码高亮显示</span></span><br><span class="line">    ==高亮==</span><br><span class="line"><span class="comment">//删除线</span></span><br><span class="line">    ~删除线~</span><br><span class="line"><span class="comment">//斜体</span></span><br><span class="line">    *斜体*</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>（高亮好像有点问题哈）</p>
-<p><strong>加粗</strong></p>
-<p><del>删除线</del></p>
-<p><em>斜体</em></p>
-<h1 id="4-引用"><a href="#4-引用" class="headerlink" title="4.引用"></a>4.引用</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//引用语法</span></span><br><span class="line">&gt;作者:XXX</span><br><span class="line">&gt;&gt;作者:XXX</span><br><span class="line">&gt;&gt;&gt;作者:XXX</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>作者:XXX</p>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>作者:XXX</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>作者:XXX</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<h1 id="5-分割线"><a href="#5-分割线" class="headerlink" title="5.分割线"></a>5.分割线</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//分割线</span></span><br><span class="line">	---</span><br><span class="line"><span class="comment">//分割线2</span></span><br><span class="line">   	***</span><br></pre></td></tr></table></figure>
-
-<hr>
-<hr>
-<h1 id="6-图片插入"><a href="#6-图片插入" class="headerlink" title="6.图片插入"></a>6.图片插入</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//在线图片和本地图片</span></span><br><span class="line">![奥特曼](https:<span class="comment">//ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/42166d224f4a20a46b610b709b529822720ed00d.jpg)</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/42166d224f4a20a46b610b709b529822720ed00d.jpg" alt="奥特曼" title="奥特曼"></p>
-<img src="/2021/04/09/Markdown%E5%85%A5%E9%97%A8/ddm.jpg" class title="叮当猫">
-
-
-
-
-
-<h1 id="7-超链接"><a href="#7-超链接" class="headerlink" title="7.超链接"></a>7.超链接</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//超链接语法</span></span><br><span class="line">[内容](链接)</span><br></pre></td></tr></table></figure>
-
-<p><a href="www.baidu.com">百度</a></p>
-<h1 id="8-列表"><a href="#8-列表" class="headerlink" title="8.列表"></a>8.列表</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//无序列表</span></span><br><span class="line">- 目录<span class="number">1</span></span><br><span class="line">- 目录<span class="number">2</span></span><br><span class="line">- 目录<span class="number">3</span></span><br><span class="line">- 目录<span class="number">4</span></span><br><span class="line"><span class="comment">//有序列表</span></span><br><span class="line"><span class="number">1</span>+. +名称</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<ul>
-<li>目录1</li>
-<li>目录2</li>
-<li>目录3</li>
-<li>目录4</li>
-</ul>
-<ol>
-<li>首页</li>
-<li>拉文克劳</li>
-<li>挖金矿为了救</li>
-</ol>
-<h1 id="9-表格"><a href="#9-表格" class="headerlink" title="9.表格"></a>9.表格</h1><p>​    一般情况下直接用Typora快速生成，十分方便</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>Markdown</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MySQL(一)</title>
     <url>/2021/04/11/MySQL%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🎊MySQL的安装"><a href="#🎊MySQL的安装" class="headerlink" title="🎊MySQL的安装"></a>🎊MySQL的安装</h1><p>​    ①：去官网下载社区版上面的一个；<br>​    （建议复制下载地址然后在迅雷当中下载比较快）<br>​    ②：在非C盘建一个 <code>MySQL</code> 文件夹装入下载文件并且解压；<br>​    ③：将bin目录配入环境变量；<br>​    ④：编写配置文件：(先建文本文件，编写好以后，将文件更改为 <code>my.ini</code> 文件并改以 <code>ANSCI</code> 编译保存)；<br>​        如下：（注意）设置 <code>mysql</code> 的安装目录和数据库的数据存放目录根据个人下载位置进更改<br>​            </p>
@@ -1079,6 +977,108 @@
       </categories>
       <tags>
         <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown入门</title>
+    <url>/2021/04/09/Markdown%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<h2 id="1-代码块"><a href="#1-代码块" class="headerlink" title="1.代码块:"></a>1.代码块:</h2><p>​    使用三个 “ ``` ” 即可生成代码块,并且可以选择语言类型</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">( args [] string)</span></span>&#123;</span><br><span class="line">        System.println(<span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h2 id="2-标题"><a href="#2-标题" class="headerlink" title="2.标题"></a>2.标题</h2><p>​    使用 “ # ” 来表示，“ # ”越多字体越小 ， 最多六级标题，注意：# 后面必须有一个空格</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题 </span><br></pre></td></tr></table></figure>
+
+<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h1 id="3-字体"><a href="#3-字体" class="headerlink" title="3.字体"></a>3.字体</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//加粗</span></span><br><span class="line">	**加粗**</span><br><span class="line"><span class="comment">//代码高亮显示</span></span><br><span class="line">    ==高亮==</span><br><span class="line"><span class="comment">//删除线</span></span><br><span class="line">    ~删除线~</span><br><span class="line"><span class="comment">//斜体</span></span><br><span class="line">    *斜体*</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>（高亮好像有点问题哈）</p>
+<p><strong>加粗</strong></p>
+<p><del>删除线</del></p>
+<p><em>斜体</em></p>
+<h1 id="4-引用"><a href="#4-引用" class="headerlink" title="4.引用"></a>4.引用</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//引用语法</span></span><br><span class="line">&gt;作者:XXX</span><br><span class="line">&gt;&gt;作者:XXX</span><br><span class="line">&gt;&gt;&gt;作者:XXX</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>作者:XXX</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>作者:XXX</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>作者:XXX</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h1 id="5-分割线"><a href="#5-分割线" class="headerlink" title="5.分割线"></a>5.分割线</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//分割线</span></span><br><span class="line">	---</span><br><span class="line"><span class="comment">//分割线2</span></span><br><span class="line">   	***</span><br></pre></td></tr></table></figure>
+
+<hr>
+<hr>
+<h1 id="6-图片插入"><a href="#6-图片插入" class="headerlink" title="6.图片插入"></a>6.图片插入</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//在线图片和本地图片</span></span><br><span class="line">![奥特曼](https:<span class="comment">//ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/42166d224f4a20a46b610b709b529822720ed00d.jpg)</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/42166d224f4a20a46b610b709b529822720ed00d.jpg" alt="奥特曼" title="奥特曼"></p>
+<img src="/2021/04/09/Markdown%E5%85%A5%E9%97%A8/ddm.jpg" class title="叮当猫">
+
+
+
+
+
+<h1 id="7-超链接"><a href="#7-超链接" class="headerlink" title="7.超链接"></a>7.超链接</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//超链接语法</span></span><br><span class="line">[内容](链接)</span><br></pre></td></tr></table></figure>
+
+<p><a href="www.baidu.com">百度</a></p>
+<h1 id="8-列表"><a href="#8-列表" class="headerlink" title="8.列表"></a>8.列表</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//无序列表</span></span><br><span class="line">- 目录<span class="number">1</span></span><br><span class="line">- 目录<span class="number">2</span></span><br><span class="line">- 目录<span class="number">3</span></span><br><span class="line">- 目录<span class="number">4</span></span><br><span class="line"><span class="comment">//有序列表</span></span><br><span class="line"><span class="number">1</span>+. +名称</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<ul>
+<li>目录1</li>
+<li>目录2</li>
+<li>目录3</li>
+<li>目录4</li>
+</ul>
+<ol>
+<li>首页</li>
+<li>拉文克劳</li>
+<li>挖金矿为了救</li>
+</ol>
+<h1 id="9-表格"><a href="#9-表格" class="headerlink" title="9.表格"></a>9.表格</h1><p>​    一般情况下直接用Typora快速生成，十分方便</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -1714,6 +1714,45 @@
       </tags>
   </entry>
   <entry>
+    <title>Shiro(一):介绍与基本概念</title>
+    <url>/2021/06/09/Shiro%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="🚧权限管理"><a href="#🚧权限管理" class="headerlink" title="🚧权限管理"></a>🚧权限管理</h2><h3 id="什么是权限管理"><a href="#什么是权限管理" class="headerlink" title="什么是权限管理"></a>什么是权限管理</h3><p>基本上涉及到用户参与的系统都要进行权限管理，权限管理属于系统安全的范畴，权限管理实现<code>对用户访问系统的控制</code>，按照安全规则或者<a href="http://baike.baidu.com/view/160028.htm">安全策略</a>控制用户可以访问而且只能访问自己被授权的资源。</p>
+<p>权限管理包括用户<code>身份认证</code>和<code>授权</code>两部分，简称<code>认证授权</code>。对于需要访问控制的资源用户首先经过身份认证，认证通过后用户具有该资源的访问权限方可访问。</p>
+<h3 id="什么是身份认证"><a href="#什么是身份认证" class="headerlink" title="什么是身份认证"></a>什么是身份认证</h3><p><code>身份认证</code>，就是判断一个用户是否为合法用户的处理过程。最常用的简单身份认证方式是系统通过核对用户输入的用户名和口令，看其是否与系统中存储的该用户的用户名和口令一致，来判断用户身份是否正确。对于采用<a href="http://baike.baidu.com/view/5628.htm">指纹</a>等系统，则出示指纹；对于硬件Key等刷卡系统，则需要刷卡。</p>
+<h3 id="什么是授权"><a href="#什么是授权" class="headerlink" title="什么是授权"></a>什么是授权</h3><p><code>授权，即访问控制</code>，控制谁能访问哪些资源。主体进行身份认证后需要分配权限方可访问系统的资源，对于某些资源没有权限是无法访问的</p>
+<hr>
+<h2 id="🏁什么是shiro"><a href="#🏁什么是shiro" class="headerlink" title="🏁什么是shiro"></a>🏁什么是shiro</h2><blockquote>
+<p><strong>Apache Shiro™</strong> is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.  </p>
+<p>Shiro 是一个功能强大且易于使用的Java安全框架，它执行身份验证、授权、加密和会话管理。使用Shiro易于理解的API，您可以快速轻松地保护任何应用程序—从最小的移动应用程序到最大的web和企业应用程序。</p>
+</blockquote>
+<p><code>Shiro是apache旗下一个开源框架，它将软件系统的安全认证相关的功能抽取出来，实现用户身份认证，权限授权、加密、会话管理等功能，组成了一个通用的安全认证框架。</code></p>
+<hr>
+<h2 id="🌎shiro的核心架构"><a href="#🌎shiro的核心架构" class="headerlink" title="🌎shiro的核心架构"></a>🌎shiro的核心架构</h2><img src="/2021/06/09/Shiro%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class title="架构图">
+
+
+
+<h3 id="Subject"><a href="#Subject" class="headerlink" title="Subject"></a>Subject</h3><p><code>Subject即主体</code>，外部应用与subject进行交互，subject记录了当前操作用户，将用户的概念理解为当前操作的主体，可能是一个通过浏览器请求的用户，也可能是一个运行的程序。    Subject在shiro中是一个接口，接口中定义了很多认证授相关的方法，外部程序通过subject进行认证授，而subject是通过SecurityManager安全管理器进行认证授权</p>
+<h3 id="SecurityManager"><a href="#SecurityManager" class="headerlink" title="SecurityManager"></a>SecurityManager</h3><p><code>SecurityManager即安全管理器</code>，对全部的subject进行安全管理，它是shiro的核心，负责对所有的subject进行安全管理。通过SecurityManager可以完成subject的认证、授权等，实质上SecurityManager是通过Authenticator进行认证，通过Authorizer进行授权，通过SessionManager进行会话管理等。</p>
+<p><code>SecurityManager是一个接口，继承了Authenticator, Authorizer, SessionManager这三个接口。</code></p>
+<h3 id="Authenticator"><a href="#Authenticator" class="headerlink" title="Authenticator"></a>Authenticator</h3><p><code>Authenticator即认证器</code>，对用户身份进行认证，Authenticator是一个接口，shiro提供ModularRealmAuthenticator实现类，通过ModularRealmAuthenticator基本上可以满足大多数需求，也可以自定义认证器。</p>
+<h3 id="Authorizer"><a href="#Authorizer" class="headerlink" title="Authorizer"></a>Authorizer</h3><p><code>Authorizer即授权器</code>，用户通过认证器认证通过，在访问功能时需要通过授权器判断用户是否有此功能的操作权限。</p>
+<h3 id="Realm"><a href="#Realm" class="headerlink" title="Realm"></a>Realm</h3><p><code>Realm即领域</code>，相当于datasource数据源，securityManager进行安全认证需要通过Realm获取用户权限数据，比如：如果用户身份数据在数据库那么realm就需要从数据库获取用户身份信息。</p>
+<ul>
+<li>​    注意：不要把realm理解成只是从数据源取数据，在realm中还有认证授权校验的相关的代码。</li>
+</ul>
+<h3 id="SessionManager"><a href="#SessionManager" class="headerlink" title="SessionManager"></a>SessionManager</h3><p><code>sessionManager即会话管理</code>，shiro框架定义了一套会话管理，它不依赖web容器的session，所以shiro可以使用在非web应用上，也可以将分布式应用的会话集中在一点管理，此特性可使它实现单点登录。</p>
+<h3 id="SessionDAO"><a href="#SessionDAO" class="headerlink" title="SessionDAO"></a>SessionDAO</h3><p><code>SessionDAO即会话dao</code>，是对session会话操作的一套接口，比如要将session存储到数据库，可以通过jdbc将会话存储到数据库。</p>
+<h3 id="CacheManager"><a href="#CacheManager" class="headerlink" title="CacheManager"></a>CacheManager</h3><p><code>CacheManager即缓存管理</code>，将用户权限数据存储在缓存，这样可以提高性能。</p>
+<h3 id="Cryptography"><a href="#Cryptography" class="headerlink" title="Cryptography"></a>Cryptography</h3><p>​    <code>Cryptography即密码管理</code>，shiro提供了一套加密/解密的组件，方便开发。比如提供常用的散列、加/解密等功能。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Shiro</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring5(一)</title>
     <url>/2021/04/22/Spring5%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<blockquote>
@@ -1817,45 +1856,6 @@
       </categories>
       <tags>
         <tag>Spring5</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Shiro(一):介绍与基本概念</title>
-    <url>/2021/06/09/Shiro%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="🚧权限管理"><a href="#🚧权限管理" class="headerlink" title="🚧权限管理"></a>🚧权限管理</h2><h3 id="什么是权限管理"><a href="#什么是权限管理" class="headerlink" title="什么是权限管理"></a>什么是权限管理</h3><p>基本上涉及到用户参与的系统都要进行权限管理，权限管理属于系统安全的范畴，权限管理实现<code>对用户访问系统的控制</code>，按照安全规则或者<a href="http://baike.baidu.com/view/160028.htm">安全策略</a>控制用户可以访问而且只能访问自己被授权的资源。</p>
-<p>权限管理包括用户<code>身份认证</code>和<code>授权</code>两部分，简称<code>认证授权</code>。对于需要访问控制的资源用户首先经过身份认证，认证通过后用户具有该资源的访问权限方可访问。</p>
-<h3 id="什么是身份认证"><a href="#什么是身份认证" class="headerlink" title="什么是身份认证"></a>什么是身份认证</h3><p><code>身份认证</code>，就是判断一个用户是否为合法用户的处理过程。最常用的简单身份认证方式是系统通过核对用户输入的用户名和口令，看其是否与系统中存储的该用户的用户名和口令一致，来判断用户身份是否正确。对于采用<a href="http://baike.baidu.com/view/5628.htm">指纹</a>等系统，则出示指纹；对于硬件Key等刷卡系统，则需要刷卡。</p>
-<h3 id="什么是授权"><a href="#什么是授权" class="headerlink" title="什么是授权"></a>什么是授权</h3><p><code>授权，即访问控制</code>，控制谁能访问哪些资源。主体进行身份认证后需要分配权限方可访问系统的资源，对于某些资源没有权限是无法访问的</p>
-<hr>
-<h2 id="🏁什么是shiro"><a href="#🏁什么是shiro" class="headerlink" title="🏁什么是shiro"></a>🏁什么是shiro</h2><blockquote>
-<p><strong>Apache Shiro™</strong> is a powerful and easy-to-use Java security framework that performs authentication, authorization, cryptography, and session management. With Shiro’s easy-to-understand API, you can quickly and easily secure any application – from the smallest mobile applications to the largest web and enterprise applications.  </p>
-<p>Shiro 是一个功能强大且易于使用的Java安全框架，它执行身份验证、授权、加密和会话管理。使用Shiro易于理解的API，您可以快速轻松地保护任何应用程序—从最小的移动应用程序到最大的web和企业应用程序。</p>
-</blockquote>
-<p><code>Shiro是apache旗下一个开源框架，它将软件系统的安全认证相关的功能抽取出来，实现用户身份认证，权限授权、加密、会话管理等功能，组成了一个通用的安全认证框架。</code></p>
-<hr>
-<h2 id="🌎shiro的核心架构"><a href="#🌎shiro的核心架构" class="headerlink" title="🌎shiro的核心架构"></a>🌎shiro的核心架构</h2><img src="/2021/06/09/Shiro%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class title="架构图">
-
-
-
-<h3 id="Subject"><a href="#Subject" class="headerlink" title="Subject"></a>Subject</h3><p><code>Subject即主体</code>，外部应用与subject进行交互，subject记录了当前操作用户，将用户的概念理解为当前操作的主体，可能是一个通过浏览器请求的用户，也可能是一个运行的程序。    Subject在shiro中是一个接口，接口中定义了很多认证授相关的方法，外部程序通过subject进行认证授，而subject是通过SecurityManager安全管理器进行认证授权</p>
-<h3 id="SecurityManager"><a href="#SecurityManager" class="headerlink" title="SecurityManager"></a>SecurityManager</h3><p><code>SecurityManager即安全管理器</code>，对全部的subject进行安全管理，它是shiro的核心，负责对所有的subject进行安全管理。通过SecurityManager可以完成subject的认证、授权等，实质上SecurityManager是通过Authenticator进行认证，通过Authorizer进行授权，通过SessionManager进行会话管理等。</p>
-<p><code>SecurityManager是一个接口，继承了Authenticator, Authorizer, SessionManager这三个接口。</code></p>
-<h3 id="Authenticator"><a href="#Authenticator" class="headerlink" title="Authenticator"></a>Authenticator</h3><p><code>Authenticator即认证器</code>，对用户身份进行认证，Authenticator是一个接口，shiro提供ModularRealmAuthenticator实现类，通过ModularRealmAuthenticator基本上可以满足大多数需求，也可以自定义认证器。</p>
-<h3 id="Authorizer"><a href="#Authorizer" class="headerlink" title="Authorizer"></a>Authorizer</h3><p><code>Authorizer即授权器</code>，用户通过认证器认证通过，在访问功能时需要通过授权器判断用户是否有此功能的操作权限。</p>
-<h3 id="Realm"><a href="#Realm" class="headerlink" title="Realm"></a>Realm</h3><p><code>Realm即领域</code>，相当于datasource数据源，securityManager进行安全认证需要通过Realm获取用户权限数据，比如：如果用户身份数据在数据库那么realm就需要从数据库获取用户身份信息。</p>
-<ul>
-<li>​    注意：不要把realm理解成只是从数据源取数据，在realm中还有认证授权校验的相关的代码。</li>
-</ul>
-<h3 id="SessionManager"><a href="#SessionManager" class="headerlink" title="SessionManager"></a>SessionManager</h3><p><code>sessionManager即会话管理</code>，shiro框架定义了一套会话管理，它不依赖web容器的session，所以shiro可以使用在非web应用上，也可以将分布式应用的会话集中在一点管理，此特性可使它实现单点登录。</p>
-<h3 id="SessionDAO"><a href="#SessionDAO" class="headerlink" title="SessionDAO"></a>SessionDAO</h3><p><code>SessionDAO即会话dao</code>，是对session会话操作的一套接口，比如要将session存储到数据库，可以通过jdbc将会话存储到数据库。</p>
-<h3 id="CacheManager"><a href="#CacheManager" class="headerlink" title="CacheManager"></a>CacheManager</h3><p><code>CacheManager即缓存管理</code>，将用户权限数据存储在缓存，这样可以提高性能。</p>
-<h3 id="Cryptography"><a href="#Cryptography" class="headerlink" title="Cryptography"></a>Cryptography</h3><p>​    <code>Cryptography即密码管理</code>，shiro提供了一套加密/解密的组件，方便开发。比如提供常用的散列、加/解密等功能。</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Shiro</tag>
       </tags>
   </entry>
   <entry>
@@ -2232,6 +2232,57 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringBoot(八):自定义starter</title>
+    <url>/2021/06/24/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🚀SpringBoot-starter机制"><a href="#🚀SpringBoot-starter机制" class="headerlink" title="🚀SpringBoot starter机制"></a>🚀SpringBoot starter机制</h1><p><code>SpringBoot</code>中提供了大量开箱即用的<code>starter</code>，<code>starter</code>中配置了一定业务场景中所需要的依赖以及各种服务，让开发者摆脱了大量配置和依赖文件，让工程的整体结构更加优美而不臃肿，其具体实现依托于<code>SpringBoot</code>中自动配置原理，自动进行包扫描，既可以自定义配置，也可以使用默认配置.</p>
+<h1 id="🏛自定义starter的命名规则"><a href="#🏛自定义starter的命名规则" class="headerlink" title="🏛自定义starter的命名规则"></a>🏛自定义starter的命名规则</h1><p><code>SpringBoot</code>提供的<code>starter</code>以<code>spring-boot-starter-xxx</code>的方式命名的。官方建议自定义的<code>starter</code>使用<code>xxx-spring-boot-starter</code>命名规则。以区分<code>SpringBoot</code>生态提供的<code>starter</code></p>
+<h1 id="🎡自定义starter"><a href="#🎡自定义starter" class="headerlink" title="🎡自定义starter"></a>🎡自定义starter</h1><ul>
+<li><p>创建一个<code>SpringBoot</code>项目</p>
+<p>目录结构如下，删除<code>SpringBoot</code>启动类以及配置文件，可以选择性删掉<code>test</code>目录，再删除<code>pom.xml</code>中<code>plugins</code>，不然打包会报错.</p>
+<p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/2.png" alt="img"></p>
+</li>
+<li><p>引入相关依赖</p>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--拓展配置文件的格式--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-configuration-processor<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      </span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      </span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment">&lt;!--必需--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-autoconfigure<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>编写数据映射实体类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//可以把.properties中获取.yaml中符号以下前缀的数据映射到本类中</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(prefix = &quot;com.anthony.starter&quot;)</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Accessors(chain = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyProperties</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String msg = <span class="string">&quot;默认值&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> String username = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> String password = <span class="string">&quot;123456&quot;</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>编写service类: 用于对外提供服务</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Accessors(chain = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String msg;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>配置类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//向IOC容器中注册该类</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">//允许该类进行数据映射</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties(MyProperties.class)</span></span><br><span class="line"><span class="comment">//当类路径下存在该类时再往IOC容器中进行注册</span></span><br><span class="line"><span class="meta">@ConditionalOnClass(MyService.class)</span></span><br><span class="line"><span class="comment">//当配置文件中存在这些配置时，可以注入，如果未匹配到也可以注入，所以这一条写不写都行</span></span><br><span class="line"><span class="meta">@ConditionalOnProperty(prefix = &quot;com.anthony.starter&quot; , value = &quot;enabled&quot; , matchIfMissing = true )</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAutoConfiguration</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MyProperties myProperties;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MyService <span class="title">myService</span><span class="params">()</span></span>&#123;</span><br><span class="line">        MyService myService = <span class="keyword">new</span> MyService()</span><br><span class="line">                .setMsg(myProperties.getMsg())</span><br><span class="line">                .setPassword(myProperties.getPassword())</span><br><span class="line">                .setUsername(myProperties.getUsername());</span><br><span class="line">        <span class="keyword">return</span> myService;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>打包发布安装到本地仓库</li>
+</ul>
+<p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/1.png" alt="img"></p>
+<ul>
+<li>引用时只需要像普通依赖一样引入就可以了，也可以直接复制当前项目中的项目坐标</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot(五):实现邮箱验证</title>
     <url>/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/</url>
     <content><![CDATA[<blockquote>
@@ -2320,57 +2371,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot(八):自定义starter</title>
-    <url>/2021/06/24/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🚀SpringBoot-starter机制"><a href="#🚀SpringBoot-starter机制" class="headerlink" title="🚀SpringBoot starter机制"></a>🚀SpringBoot starter机制</h1><p><code>SpringBoot</code>中提供了大量开箱即用的<code>starter</code>，<code>starter</code>中配置了一定业务场景中所需要的依赖以及各种服务，让开发者摆脱了大量配置和依赖文件，让工程的整体结构更加优美而不臃肿，其具体实现依托于<code>SpringBoot</code>中自动配置原理，自动进行包扫描，既可以自定义配置，也可以使用默认配置.</p>
-<h1 id="🏛自定义starter的命名规则"><a href="#🏛自定义starter的命名规则" class="headerlink" title="🏛自定义starter的命名规则"></a>🏛自定义starter的命名规则</h1><p><code>SpringBoot</code>提供的<code>starter</code>以<code>spring-boot-starter-xxx</code>的方式命名的。官方建议自定义的<code>starter</code>使用<code>xxx-spring-boot-starter</code>命名规则。以区分<code>SpringBoot</code>生态提供的<code>starter</code></p>
-<h1 id="🎡自定义starter"><a href="#🎡自定义starter" class="headerlink" title="🎡自定义starter"></a>🎡自定义starter</h1><ul>
-<li><p>创建一个<code>SpringBoot</code>项目</p>
-<p>目录结构如下，删除<code>SpringBoot</code>启动类以及配置文件，可以选择性删掉<code>test</code>目录，再删除<code>pom.xml</code>中<code>plugins</code>，不然打包会报错.</p>
-<p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/2.png" alt="img"></p>
-</li>
-<li><p>引入相关依赖</p>
-</li>
-</ul>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--拓展配置文件的格式--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-configuration-processor<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      </span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      </span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment">&lt;!--必需--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-autoconfigure<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li>编写数据映射实体类</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//可以把.properties中获取.yaml中符号以下前缀的数据映射到本类中</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(prefix = &quot;com.anthony.starter&quot;)</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Accessors(chain = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyProperties</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String msg = <span class="string">&quot;默认值&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> String username = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">    <span class="keyword">private</span> String password = <span class="string">&quot;123456&quot;</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li>编写service类: 用于对外提供服务</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Accessors(chain = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String msg;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li>配置类</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//向IOC容器中注册该类</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">//允许该类进行数据映射</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties(MyProperties.class)</span></span><br><span class="line"><span class="comment">//当类路径下存在该类时再往IOC容器中进行注册</span></span><br><span class="line"><span class="meta">@ConditionalOnClass(MyService.class)</span></span><br><span class="line"><span class="comment">//当配置文件中存在这些配置时，可以注入，如果未匹配到也可以注入，所以这一条写不写都行</span></span><br><span class="line"><span class="meta">@ConditionalOnProperty(prefix = &quot;com.anthony.starter&quot; , value = &quot;enabled&quot; , matchIfMissing = true )</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAutoConfiguration</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MyProperties myProperties;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MyService <span class="title">myService</span><span class="params">()</span></span>&#123;</span><br><span class="line">        MyService myService = <span class="keyword">new</span> MyService()</span><br><span class="line">                .setMsg(myProperties.getMsg())</span><br><span class="line">                .setPassword(myProperties.getPassword())</span><br><span class="line">                .setUsername(myProperties.getUsername());</span><br><span class="line">        <span class="keyword">return</span> myService;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>打包发布安装到本地仓库</li>
-</ul>
-<p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/1.png" alt="img"></p>
-<ul>
-<li>引用时只需要像普通依赖一样引入就可以了，也可以直接复制当前项目中的项目坐标</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringBoot(四):注解开发</title>
     <url>/2021/06/15/SpringBoot%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
     <content><![CDATA[<blockquote>
@@ -2412,6 +2412,80 @@
       </categories>
       <tags>
         <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringMVC：流程分析概览</title>
+    <url>/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/</url>
+    <content><![CDATA[<h1 id="🎈SpringMVC简介"><a href="#🎈SpringMVC简介" class="headerlink" title="🎈SpringMVC简介"></a>🎈SpringMVC简介</h1><p>​        <code>SpringMVC</code> 显然是由 <code>Spring</code> 以及 <code>MVC</code> 俩部分组成，先说说 <code>Spring</code> 那当然就是指 <code>Spring Framework</code> 框架了，前面的文章已经介绍过了相关的基础知识，这里就相当于在 <code>Spring</code> 中使用<code>MVC</code> 架构，当然了这里讨论应用于在 <code>Web</code> 开发之中.</p>
+<p>​        接下来简单介绍一下 <code>MVC</code> 架构以及 <code>Web </code> 开发中的三层架构，也可能是我理解浅显，在我看我 <code>MVC</code> 架构与 <code>Web</code> 中经典的三层结构十分相似，目的都是为了代码解耦合、以及高可维护性.</p>
+<ul>
+<li><p><code>MVC(MODEL-VIEW-CONTROLLER)</code> 即 模型-视图-控制</p>
+<ul>
+<li><p><code>MODEL</code> : 属于处理业务逻辑的部分，相当于三层架构中的 <code>service、dao</code> 层，可以对数据库进行直接操作，储存业务核心逻辑.</p>
+</li>
+<li><p><code>VIEW</code> : 属于向用户展示的部分, <code>MODEL</code> 层处理完之后返回的数据交给 <code>CONTROLLER </code> 层，再交由 <code>VIEW</code> 层，从而呈现相应的页面.</p>
+</li>
+<li><p><code>CONTROLLER</code> ：属于连接<code>MODEL</code> 与 <code>VIEW</code> 的部分，相当于<code>Servlet</code> 中的存储的映射关系，起到了<code>Servlet</code>的作用，将<code>MODLE</code> 与</p>
+<p><code>VIEW</code> 解耦合.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>用一张图来概括：</p>
+<p>​                                        <img src="https://img-blog.csdnimg.cn/20181030204359635.png" alt="MVC"></p>
+<p>​        而 <code>SpringMVC</code> 简化了 <code>JavaWeb</code> 的开发，将<code>Servlet</code> 的相关配置简化了许多 ，只需要配置一个 <code>请求转发控制器DispatcherServlet</code> 以及 <code>资源视图解析器ResourceViewResolver</code> 即可，有效提高了开发效率.</p>
+<hr>
+<h1 id="✨SpringMVC执行概览"><a href="#✨SpringMVC执行概览" class="headerlink" title="✨SpringMVC执行概览"></a>✨SpringMVC执行概览</h1><img src="/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/1.png" class title="流程图">
+
+
+
+<p>流程分析：</p>
+<ol>
+<li>用户发起请求，通过web容器中通过 <code>DispathcerServlet</code> 的映射路径将请求交给 <code>DispathcerServlet</code> 处理.</li>
+<li><code>DispatcherServlet</code>通过处理器映射器（ <code>HandlerMapping</code> ）获取请求信息对应的处理器执行链.</li>
+<li><code>DispatcherServlet</code> 将执行链交给处理器适配器（ <code>HandlerAdapter</code> ）然后其调用相应的处理器（<code>Handler </code>）执行</li>
+<li>最终返回处理结果到 <code>DispatcherServlet</code></li>
+<li><code>DispatcherServlet</code> 将结果交给视图解析器（<code>ViewResolver</code>）解析视图，随后返回解析后的View对象</li>
+<li><code>DispatcherServlet</code>再将View对象进行视图渲染最后返回给用户呈现出页面</li>
+</ol>
+<blockquote>
+<h2 id="组件说明："><a href="#组件说明：" class="headerlink" title="组件说明："></a>组件说明：</h2><ul>
+<li><h3 id="DispatcherServlet：前端控制器"><a href="#DispatcherServlet：前端控制器" class="headerlink" title="DispatcherServlet：前端控制器"></a><code>DispatcherServlet</code>：前端控制器</h3></li>
+</ul>
+<p>​      <strong>用户请求到达前端控制器，它就相当于<code>mvc</code>模式中的<code>c</code>，<code>dispatcherServlet</code>是整个流程控制的中心，</strong></p>
+<p>​      <strong>由它调用其它组件处理用户的请求，<code>dispatcherServlet</code>的存在降低了组件之间的耦合性。</strong></p>
+<ul>
+<li><h3 id="HandlerMapping：处理器映射器"><a href="#HandlerMapping：处理器映射器" class="headerlink" title="HandlerMapping：处理器映射器"></a><code>HandlerMapping</code>：处理器映射器</h3></li>
+</ul>
+<p>　　　<code>HandlerMapping</code>负责根据用户请求<code>url</code>找到<code>Handler</code>即处理器，<code>springmvc</code>提供了不同的映射器实现不同的映射方式，</p>
+<p>　　  <strong>例如：配置文件方式，实现接口方式，注解方式等。</strong></p>
+<ul>
+<li><h3 id="Handler：处理器"><a href="#Handler：处理器" class="headerlink" title="Handler：处理器"></a><code>Handler</code>：处理器</h3></li>
+</ul>
+<p>　　 <strong><code>Handler</code> 是继 <code>DispatcherServlet </code>前端控制器的后端控制器，在 <code>DispatcherServlet </code>的控制下 <code>Handler</code>对具体的用户请求进行处理。</strong></p>
+<p>​    <strong>由于 <code>Handler </code>涉及到具体的用户业务请求，所以一般情况需要程序员根据业务需求开发Handler。</strong></p>
+<ul>
+<li><h3 id="HandlAdapter-：处理器适配器"><a href="#HandlAdapter-：处理器适配器" class="headerlink" title="HandlAdapter ：处理器适配器"></a><code>HandlAdapter </code>：处理器适配器</h3></li>
+</ul>
+<p>　　<strong>通过<code>HandlerAdapter</code>对处理器进行执行，这是适配器模式的应用，通过扩展适配器可以对更多类型的处理器进行执行。</strong></p>
+<ul>
+<li><h3 id="ViewResolver：视图解析器"><a href="#ViewResolver：视图解析器" class="headerlink" title="ViewResolver：视图解析器"></a><code>ViewResolver</code>：视图解析器</h3></li>
+</ul>
+<p>　　<strong>View Resolver负责将处理结果生成View视图，View Resolver首先根据逻辑视图名解析成物理视图名即具体的页面地址，</strong></p>
+<p>　　<strong>再生成View视图对象，最后对View进行渲染将处理结果通过页面展示给用户。</strong></p>
+<ul>
+<li><h3 id="View：视图"><a href="#View：视图" class="headerlink" title="View：视图"></a><code>View</code>：视图</h3></li>
+</ul>
+<p>　　<strong><code>springmvc</code>框架提供了很多的View视图类型的支持，包括：<code>jstlView、freemarkerView、pdfView</code>等。我们最常用的视图就是<code>jsp</code>。</strong></p>
+<p>　　一般情况下需要通过页面标签或页面模版技术将模型数据通过页面展示给用户，需要由程序员根据业务需求开发具体的页面。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringMVC</tag>
       </tags>
   </entry>
   <entry>
@@ -2495,80 +2569,6 @@
       </categories>
       <tags>
         <tag>SpringSecurity</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringMVC：流程分析概览</title>
-    <url>/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/</url>
-    <content><![CDATA[<h1 id="🎈SpringMVC简介"><a href="#🎈SpringMVC简介" class="headerlink" title="🎈SpringMVC简介"></a>🎈SpringMVC简介</h1><p>​        <code>SpringMVC</code> 显然是由 <code>Spring</code> 以及 <code>MVC</code> 俩部分组成，先说说 <code>Spring</code> 那当然就是指 <code>Spring Framework</code> 框架了，前面的文章已经介绍过了相关的基础知识，这里就相当于在 <code>Spring</code> 中使用<code>MVC</code> 架构，当然了这里讨论应用于在 <code>Web</code> 开发之中.</p>
-<p>​        接下来简单介绍一下 <code>MVC</code> 架构以及 <code>Web </code> 开发中的三层架构，也可能是我理解浅显，在我看我 <code>MVC</code> 架构与 <code>Web</code> 中经典的三层结构十分相似，目的都是为了代码解耦合、以及高可维护性.</p>
-<ul>
-<li><p><code>MVC(MODEL-VIEW-CONTROLLER)</code> 即 模型-视图-控制</p>
-<ul>
-<li><p><code>MODEL</code> : 属于处理业务逻辑的部分，相当于三层架构中的 <code>service、dao</code> 层，可以对数据库进行直接操作，储存业务核心逻辑.</p>
-</li>
-<li><p><code>VIEW</code> : 属于向用户展示的部分, <code>MODEL</code> 层处理完之后返回的数据交给 <code>CONTROLLER </code> 层，再交由 <code>VIEW</code> 层，从而呈现相应的页面.</p>
-</li>
-<li><p><code>CONTROLLER</code> ：属于连接<code>MODEL</code> 与 <code>VIEW</code> 的部分，相当于<code>Servlet</code> 中的存储的映射关系，起到了<code>Servlet</code>的作用，将<code>MODLE</code> 与</p>
-<p><code>VIEW</code> 解耦合.</p>
-</li>
-</ul>
-</li>
-</ul>
-<p>用一张图来概括：</p>
-<p>​                                        <img src="https://img-blog.csdnimg.cn/20181030204359635.png" alt="MVC"></p>
-<p>​        而 <code>SpringMVC</code> 简化了 <code>JavaWeb</code> 的开发，将<code>Servlet</code> 的相关配置简化了许多 ，只需要配置一个 <code>请求转发控制器DispatcherServlet</code> 以及 <code>资源视图解析器ResourceViewResolver</code> 即可，有效提高了开发效率.</p>
-<hr>
-<h1 id="✨SpringMVC执行概览"><a href="#✨SpringMVC执行概览" class="headerlink" title="✨SpringMVC执行概览"></a>✨SpringMVC执行概览</h1><img src="/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/1.png" class title="流程图">
-
-
-
-<p>流程分析：</p>
-<ol>
-<li>用户发起请求，通过web容器中通过 <code>DispathcerServlet</code> 的映射路径将请求交给 <code>DispathcerServlet</code> 处理.</li>
-<li><code>DispatcherServlet</code>通过处理器映射器（ <code>HandlerMapping</code> ）获取请求信息对应的处理器执行链.</li>
-<li><code>DispatcherServlet</code> 将执行链交给处理器适配器（ <code>HandlerAdapter</code> ）然后其调用相应的处理器（<code>Handler </code>）执行</li>
-<li>最终返回处理结果到 <code>DispatcherServlet</code></li>
-<li><code>DispatcherServlet</code> 将结果交给视图解析器（<code>ViewResolver</code>）解析视图，随后返回解析后的View对象</li>
-<li><code>DispatcherServlet</code>再将View对象进行视图渲染最后返回给用户呈现出页面</li>
-</ol>
-<blockquote>
-<h2 id="组件说明："><a href="#组件说明：" class="headerlink" title="组件说明："></a>组件说明：</h2><ul>
-<li><h3 id="DispatcherServlet：前端控制器"><a href="#DispatcherServlet：前端控制器" class="headerlink" title="DispatcherServlet：前端控制器"></a><code>DispatcherServlet</code>：前端控制器</h3></li>
-</ul>
-<p>​      <strong>用户请求到达前端控制器，它就相当于<code>mvc</code>模式中的<code>c</code>，<code>dispatcherServlet</code>是整个流程控制的中心，</strong></p>
-<p>​      <strong>由它调用其它组件处理用户的请求，<code>dispatcherServlet</code>的存在降低了组件之间的耦合性。</strong></p>
-<ul>
-<li><h3 id="HandlerMapping：处理器映射器"><a href="#HandlerMapping：处理器映射器" class="headerlink" title="HandlerMapping：处理器映射器"></a><code>HandlerMapping</code>：处理器映射器</h3></li>
-</ul>
-<p>　　　<code>HandlerMapping</code>负责根据用户请求<code>url</code>找到<code>Handler</code>即处理器，<code>springmvc</code>提供了不同的映射器实现不同的映射方式，</p>
-<p>　　  <strong>例如：配置文件方式，实现接口方式，注解方式等。</strong></p>
-<ul>
-<li><h3 id="Handler：处理器"><a href="#Handler：处理器" class="headerlink" title="Handler：处理器"></a><code>Handler</code>：处理器</h3></li>
-</ul>
-<p>　　 <strong><code>Handler</code> 是继 <code>DispatcherServlet </code>前端控制器的后端控制器，在 <code>DispatcherServlet </code>的控制下 <code>Handler</code>对具体的用户请求进行处理。</strong></p>
-<p>​    <strong>由于 <code>Handler </code>涉及到具体的用户业务请求，所以一般情况需要程序员根据业务需求开发Handler。</strong></p>
-<ul>
-<li><h3 id="HandlAdapter-：处理器适配器"><a href="#HandlAdapter-：处理器适配器" class="headerlink" title="HandlAdapter ：处理器适配器"></a><code>HandlAdapter </code>：处理器适配器</h3></li>
-</ul>
-<p>　　<strong>通过<code>HandlerAdapter</code>对处理器进行执行，这是适配器模式的应用，通过扩展适配器可以对更多类型的处理器进行执行。</strong></p>
-<ul>
-<li><h3 id="ViewResolver：视图解析器"><a href="#ViewResolver：视图解析器" class="headerlink" title="ViewResolver：视图解析器"></a><code>ViewResolver</code>：视图解析器</h3></li>
-</ul>
-<p>　　<strong>View Resolver负责将处理结果生成View视图，View Resolver首先根据逻辑视图名解析成物理视图名即具体的页面地址，</strong></p>
-<p>　　<strong>再生成View视图对象，最后对View进行渲染将处理结果通过页面展示给用户。</strong></p>
-<ul>
-<li><h3 id="View：视图"><a href="#View：视图" class="headerlink" title="View：视图"></a><code>View</code>：视图</h3></li>
-</ul>
-<p>　　<strong><code>springmvc</code>框架提供了很多的View视图类型的支持，包括：<code>jstlView、freemarkerView、pdfView</code>等。我们最常用的视图就是<code>jsp</code>。</strong></p>
-<p>　　一般情况下需要通过页面标签或页面模版技术将模型数据通过页面展示给用户，需要由程序员根据业务需求开发具体的页面。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringMVC</tag>
       </tags>
   </entry>
   <entry>
