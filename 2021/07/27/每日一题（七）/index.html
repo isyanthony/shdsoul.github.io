@@ -36,27 +36,31 @@
 
 
 <meta name="hexo-config" content="{&quot;hostname&quot;:&quot;shdsoul.github.io&quot;,&quot;root&quot;:&quot;/&quot;,&quot;images&quot;:&quot;/images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;/search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}">
-<meta name="description" content="本文用于记录我在进行博客搭建过程中新接触到的小玩意(后续Vue文章可能也会如此).">
+<meta name="description" content="题目:打家劫舍.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue(二):整合mavon-editor">
-<meta property="og:url" content="https://shdsoul.github.io/2021/07/22/Vue%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
+<meta property="og:title" content="每日一题(七):动态规划">
+<meta property="og:url" content="https://shdsoul.github.io/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/index.html">
 <meta property="og:site_name" content="Luke">
-<meta property="og:description" content="本文用于记录我在进行博客搭建过程中新接触到的小玩意(后续Vue文章可能也会如此).">
+<meta property="og:description" content="题目:打家劫舍.">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-07-21T16:19:25.000Z">
-<meta property="article:modified_time" content="2021-07-21T16:22:07.648Z">
+<meta property="og:image" content="https://shdsoul.github.io/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/1.png">
+<meta property="og:image" content="https://shdsoul.github.io/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/2.png">
+<meta property="og:image" content="https://shdsoul.github.io/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/3.png">
+<meta property="article:published_time" content="2021-07-26T16:06:48.000Z">
+<meta property="article:modified_time" content="2021-07-26T16:06:49.002Z">
 <meta property="article:author" content="Soucat">
-<meta property="article:tag" content="Vue">
+<meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shdsoul.github.io/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/1.png">
 
 
-<link rel="canonical" href="https://shdsoul.github.io/2021/07/22/Vue%EF%BC%88%E4%BA%8C%EF%BC%89/">
+<link rel="canonical" href="https://shdsoul.github.io/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/">
 
 
 
 <meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;}">
 <meta name="hexo-config-calendar" content="">
-<title>Vue(二):整合mavon-editor | Luke</title><script data-pjax src="/js/load-config.js"></script>
+<title>每日一题(七):动态规划 | Luke</title><script data-pjax src="/js/load-config.js"></script>
   
 
 
@@ -164,7 +168,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%9A%80%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85-mavon-editor"><span class="nav-number">1.</span> <span class="nav-text">🚀下载安装 mavon-editor</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%9B%B0%E4%BD%BF%E7%94%A8-mavon-editor"><span class="nav-number">2.</span> <span class="nav-text">🛰使用 mavon-editor</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E9%9C%80%E8%A6%81%E7%9A%84%E7%BB%84%E4%BB%B6%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">在需要的组件中使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%AD%E5%AE%9E%E6%97%B6%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0"><span class="nav-number">2.2.</span> <span class="nav-text">实现编辑器中实时图片上传</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">思路分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#C"><span class="nav-number">3.1.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java"><span class="nav-number">3.2.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go"><span class="nav-number">3.3.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -236,7 +240,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://shdsoul.github.io/2021/07/22/Vue%EF%BC%88%E4%BA%8C%EF%BC%89/">
+    <link itemprop="mainEntityOfPage" href="https://shdsoul.github.io/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/./images/tx.jpg">
@@ -249,7 +253,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Vue(二):整合mavon-editor
+          每日一题(七):动态规划
         </h1>
 
         <div class="post-meta-container">
@@ -261,7 +265,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-07-22 00:19:25 / 修改时间：00:22:07" itemprop="dateCreated datePublished" datetime="2021-07-22T00:19:25+08:00">2021-07-22</time>
+      <time title="创建时间：2021-07-27 00:06:48 / 修改时间：00:06:49" itemprop="dateCreated datePublished" datetime="2021-07-27T00:06:48+08:00">2021-07-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -269,7 +273,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
         </span>
     </span>
 
@@ -281,18 +285,18 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.8k</span>
+      <span>1.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
-            <div class="post-description">本文用于记录我在进行博客搭建过程中新接触到的小玩意(后续Vue文章可能也会如此).</div>
+            <div class="post-description">题目:打家劫舍.</div>
         </div>
       </header>
 
@@ -300,21 +304,27 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <blockquote>
-<p>前言：不得不说我还是太懒了，前端部分的文章一直没有写，不知道为什么没有什么兴致写，现在趁着有时间还是写写吧，Vue最近也算是用的有点感觉了，组件化思想有一说一，对于个人开发者而言，开发小型项目还是用后端模板写前端比较方便hhh.</p>
-</blockquote>
-<h1 id="🚀下载安装-mavon-editor"><a href="#🚀下载安装-mavon-editor" class="headerlink" title="🚀下载安装 mavon-editor"></a>🚀下载安装 mavon-editor</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install mavon-editor --save</span><br></pre></td></tr></table></figure>
+        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><img src="/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/1.png" class>
+
+<p>原题连接: <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/house-robber/">点这里</a></p>
+<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><p>看到这题，很明显能感觉到要用动态规划，实际上，拿草稿纸试了一试能写出递推，果然可以用动态规划，当然了我们需要先确定状态方程的含义，<code>dp[i] </code> 表示前<code>i</code> 间房子能偷的最大金额(这一点也需要想清楚，这是因为本质上，最大金额是由局部最大叠加导致的，即保证前面能取到最大，相应的后面的也取最大就能保证这一段区间内取到最大，即dp[i] 的值取决于 dp[i-1] ，dp[i-2]等等的值的大小)，这里粘上大佬画的图(白嫖怪狂喜)</p>
+<img src="/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/2.png" class>
+
+<p>我们可以从只有 1 间房子 和 只有 2 间房子然后再只要 3 间房子乃至 4、5····依次手动计算一下，然后可以慢慢的写出表达式，写的表达式要具有普遍性，纯理论分析的话就如下图这般，动态规划问题本质上就是能将问题抽象成递推关系，如何找出递推关系就是动态规划的难点.</p>
+<img src="/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/3.png" class>
 
 
 
-<h1 id="🛰使用-mavon-editor"><a href="#🛰使用-mavon-editor" class="headerlink" title="🛰使用 mavon-editor"></a>🛰使用 mavon-editor</h1><h2 id="在需要的组件中使用"><a href="#在需要的组件中使用" class="headerlink" title="在需要的组件中使用"></a>在需要的组件中使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;mavon-editor v-model&#x3D;&quot;content&quot; </span><br><span class="line">                  :codeStyle&#x3D;&quot;codeStyle&quot;</span><br><span class="line">                  &#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; mavonEditor &#125; from &#39;mavon-editor&#39;</span><br><span class="line">import &#39;mavon-editor&#x2F;dist&#x2F;css&#x2F;index.css&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;MavonEditor&#39;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      content: &#39;&#39;,</span><br><span class="line">      codeStyle: &#39;主题&#39;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    mavonEditor</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">rob</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//判断是否为空</span></span><br><span class="line">        <span class="keyword">if</span> (nums.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> size = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="comment">//只有一间的时候</span></span><br><span class="line">        <span class="keyword">if</span> (size == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//定义vector数组</span></span><br><span class="line">        vector&lt;<span class="keyword">int</span>&gt; dp = vector&lt;<span class="keyword">int</span>&gt;(size, <span class="number">0</span>);</span><br><span class="line">        dp[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        dp[<span class="number">1</span>] = <span class="built_in">max</span>(nums[<span class="number">0</span>], nums[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; size; i++) &#123;</span><br><span class="line">            <span class="comment">//递推表达式</span></span><br><span class="line">            dp[i] = <span class="built_in">max</span>(dp[i - <span class="number">2</span>] + nums[i], dp[i - <span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[size - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>注意：<code>content</code> 保存的为md语法，<code>codeStyle</code>属性可以更换代码块的主题，具体有哪些主题可以参考一下  <a target="_blank" rel="noopener" href="https://github.com/hinesboy/mavonEditor/blob/HEAD/src/lib/core/hljs/lang.hljs.css.js"><font color="red">可选主题表</font></a>  , 每一种主题的样式可以参考<a target="_blank" rel="noopener" href="https://highlightjs.org/static/demo/"> <code>highlight.js</code>demo文档</a>  ， 更多相关的设置可以参考文档 : <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/mavon-editor">mavon-editor参考文档</a> </p>
-<h2 id="实现编辑器中实时图片上传"><a href="#实现编辑器中实时图片上传" class="headerlink" title="实现编辑器中实时图片上传"></a>实现编辑器中实时图片上传</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;mavon-editor ref&#x3D;md @imgAdd&#x3D;&quot;imgAdd&quot; @imgDel&#x3D;&quot;$imgDel&quot;&gt;&lt;&#x2F;mavon-editor&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    exports default &#123;</span><br><span class="line">    methods: &#123;</span><br><span class="line">        &#x2F;&#x2F; 绑定@imgAdd event</span><br><span class="line">        imgAdd(pos, $file)&#123;</span><br><span class="line">		   let _this &#x3D; this</span><br><span class="line">            &#x2F;&#x2F; 第一步.将图片上传到服务器.</span><br><span class="line">           var formdata &#x3D; new FormData();</span><br><span class="line">           formdata.append(&#39;image&#39;, $file);</span><br><span class="line">           axios(&#123;</span><br><span class="line">               url: &#39;图片上传api路径&#39;,</span><br><span class="line">               method: &#39;post&#39;,</span><br><span class="line">               data: formdata,</span><br><span class="line">               headers: &#123; &#39;Content-Type&#39;: &#39;multipart&#x2F;form-data&#39; &#125;,</span><br><span class="line">           &#125;).then((url) &#x3D;&gt; &#123;</span><br><span class="line">               _this.$refs.md.$img2Url(pos, url);</span><br><span class="line">           &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
 
-<p>上述的写法比较固定，按着如上方式写即可.</p>
-<p>注意替换的方式：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将返回的url替换到文本原位置![...](0) -&gt; ![...](url)  替换方式为: $vm.$img2Url(pos , url)</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * $vm 指为mavonEditor实例，可以通过如下两种方式获取</span></span><br><span class="line"><span class="comment"> * 1. 通过引入对象获取: `import &#123;mavonEditor&#125; from ...` 等方式引入后，`$vm`为`mavonEditor`</span></span><br><span class="line"><span class="comment"> * 2. 通过$refs获取: html声明ref : `&lt;mavon-editor ref=md &gt;&lt;/mavon-editor&gt;，`$vm`为`this.$refs.md`</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.length;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">1</span>) <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;<span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> [] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">5</span>];</span><br><span class="line">        dp[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        dp[<span class="number">1</span>] = Math.max(nums[<span class="number">0</span>],nums[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span> ; i &lt; n ; i++)&#123;</span><br><span class="line">          dp[i] = Math.max(dp[i-<span class="number">2</span>]+nums[i],dp[i-<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n-<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h2><p>十分想吐槽一下<code>Go</code>的<code>Api</code> , 数学类的<code>api</code>形参类型也太局限了，还不支持 三目表达式，确实很有效的统一了编码风格hhh</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">rob</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    n := <span class="built_in">len</span>(nums)</span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">1</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> nums[<span class="number">0</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    dp := <span class="built_in">make</span>([]<span class="keyword">int</span> , n+<span class="number">5</span>)</span><br><span class="line">    dp[<span class="number">0</span>] = nums[<span class="number">0</span>]</span><br><span class="line">    dp[<span class="number">1</span>] = max(nums[<span class="number">0</span>] , nums[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">2</span> ; i &lt; n ; i++ &#123;</span><br><span class="line">        dp[i] = max(dp[i<span class="number">-2</span>]+nums[i],dp[i<span class="number">-1</span>])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n<span class="number">-1</span>];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">max</span><span class="params">(x , y <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> x &gt; y &#123;</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
       <div>
@@ -335,21 +345,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Vue/" rel="tag"># Vue</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/07/20/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%EF%BC%88%E4%BA%8C%EF%BC%89/" rel="prev" title="网络编程(二):服务器开发以及线程池">
-                  <i class="fa fa-chevron-left"></i> 网络编程(二):服务器开发以及线程池
+                <a href="/2021/07/25/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%85%AD%EF%BC%89/" rel="prev" title="每日一题(六):动态规划">
+                  <i class="fa fa-chevron-left"></i> 每日一题(六):动态规划
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/07/22/Dubbo%EF%BC%88%E4%B8%80%EF%BC%89/" rel="next" title="Dubbo(一):核心概念与基础配置">
-                  Dubbo(一):核心概念与基础配置 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -436,7 +443,7 @@ setInterval("createtime()",250);
 <script>
 NexT.utils.loadComments('#lv-container', () => {
   window.livereOptions = {
-    refer: "2021/07/22/Vue（二）/"
+    refer: "2021/07/27/每日一题（七）/"
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
