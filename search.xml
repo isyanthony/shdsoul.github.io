@@ -1,109 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Docker(一):虚拟化容器技术</title>
-    <url>/2021/07/24/Docker%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<blockquote>
-<p>前言：曾经尝试过使用Vmware来学习Linux，尝试当做服务器，之后便开始搭环境，一套整下来，确实麻烦，而且还吃自己电脑的资源，电脑不出所料的发生了一些微小的变化hhhh，直到后来我的Vmware出了点小问题，怎么调都调不好，调好了又得重新配环境，心态崩了，遂放弃，转头就在腾讯云买了一台服务器玩.当然了，也部署过一些服务，emmm，版本问题我始终调不好，要下载一堆东西，后来才发现了docker这个好东西</p>
-</blockquote>
-<ul>
-<li>官方文档地址:<a href="https://www.docker.com/get-started">https://www.docker.com/get-started</a></li>
-<li>中文参考手册:<a href="https://docker_practice.gitee.io/zh-cn/">https://docker_practice.gitee.io/zh-cn/</a></li>
-</ul>
-<hr>
-<h1 id="😏什么是Dcoker"><a href="#😏什么是Dcoker" class="headerlink" title="😏什么是Dcoker"></a>😏什么是Dcoker</h1><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 1.官方介绍</span></span><br><span class="line"><span class="bullet">-</span> We have a complete container solution for you - no matter who you are and where you are on your containerization journey.</span><br><span class="line"><span class="bullet">-</span> 翻译: 我们为你提供了一个完整的容器解决方案,不管你是谁,不管你在哪,你都可以开始容器的的旅程。</span><br><span class="line"><span class="bullet">-</span> 官方定义: docker是一个容器技术。</span><br></pre></td></tr></table></figure>
-
-<h2 id="😮Docker的起源"><a href="#😮Docker的起源" class="headerlink" title="😮Docker的起源"></a>😮Docker的起源</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">Docker 最初是 dotCloud 公司创始人 Solomon Hykes 在法国期间发起的一个公司内部项目，它是基于 dotCloud 公司多年云服务技术的一次革新，并于 2013 年 3 月以 Apache 2.0 授权协议开源，主要项目代码在 GitHub 上进行维护。Docker 项目后来还加入了 Linux 基金会，并成立推动 开放容器联盟（OCI）。</span><br><span class="line"></span><br><span class="line">Docker 自开源后受到广泛的关注和讨论，至今其 GitHub 项目 已经超过 5 万 7 千个星标和一万多个 fork。甚至由于 Docker 项目的火爆，在 2013 年底，dotCloud 公司决定改名为 Docker。Docker 最初是在 Ubuntu 12.04 上开发实现的；Red Hat 则从 RHEL 6.5 开始对 Docker 进行支持；Google 也在其 PaaS 产品中广泛应用 Docker。</span><br><span class="line"></span><br><span class="line">Docker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及 OverlayFS 类的 Union FS 等技术，对进程进行封装隔离，属于操作系统层面的虚拟化技术。由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。</span><br></pre></td></tr></table></figure>
-
-<h2 id="😲为什么是Docker"><a href="#😲为什么是Docker" class="headerlink" title="😲为什么是Docker"></a>😲为什么是Docker</h2><ul>
-<li><p><code>在开发的时候，在本机测试环境可以跑，生产环境跑不起来</code></p>
-<p>这里我们拿java Web应用程序举例，我们一个java Web应用程序涉及很多东西，比如jdk、tomcat、mysql等软件环境。当这些其中某一项版本不一致的时候，可能就会导致应用程序跑不起来这种情况。Docker则将程序以及使用软件环境直接打包在一起，无论在那个机器上保证了环境一致。</p>
-<p><strong>优势1:  一致的运行环境,更轻松的迁移</strong></p>
-</li>
-<li><p><code>服务器自己的程序挂了，结果发现是别人程序出了问题把内存吃完了，自己程序因为内存不够就挂了</code></p>
-<p>这种也是一种比较常见的情况，如果你的程序重要性不是特别高的话，公司基本上不可能让你的程序独享一台服务器的，这时候你的服务器就会跟公司其他人的程序共享一台服务器，所以不可避免地就会受到其他程序的干扰，导致自己的程序出现问题。Docker就很好解决了环境隔离的问题，别人程序不会影响到自己的程序。</p>
-<p><strong>优势2：对进程进行封装隔离,容器与容器之间互不影响,更高效的利用系统资源</strong></p>
-</li>
-<li><p><code>公司要弄一个活动，可能会有大量的流量进来，公司需要再多部署几十台服务器</code></p>
-<p>在没有Docker的情况下，要在几天内部署几十台服务器，这对运维来说是一件非常折磨人的事，而且每台服务器的环境还不一定一样，就会出现各种问题，最后部署地头皮发麻。用Docker的话，我只需要将程序打包到镜像，你要多少台服务，我就给力跑多少容器，极大地提高了部署效率。</p>
-<p><strong>优势3: 通过镜像复制N多个环境一致容器</strong></p>
-</li>
-</ul>
-<hr>
-<h1 id="😉Docker和虚拟机区别"><a href="#😉Docker和虚拟机区别" class="headerlink" title="😉Docker和虚拟机区别"></a>😉Docker和虚拟机区别</h1><blockquote>
-<p>关于Docker与虚拟机的区别，我在网上找到的一张图，非常直观形象地展示出来，话不多说，直接上图。</p>
-</blockquote>
-<img src="/2021/07/24/Docker%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class>
-
-<p><code>比较上面两张图，我们发现虚拟机是携带操作系统，本身很小的应用程序却因为携带了操作系统而变得非常大，很笨重</code>。Docker是不携带操作系统的，所以Docker的应用就非常的轻巧。另外在调用宿主机的CPU、磁盘等等这些资源的时候，拿内存举例，虚拟机是利用Hypervisor去虚拟化内存，整个调用过程是虚拟内存-&gt;虚拟物理内存-&gt;真正物理内存，但是Docker是利用Docker Engine去调用宿主的的资源，这时候过程是虚拟内存-&gt;真正物理内存。</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>传统虚拟机</th>
-<th>Docker容器</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>磁盘占用</td>
-<td>几个GB到几十个GB左右</td>
-<td>几十MB到几百MB左右</td>
-</tr>
-<tr>
-<td>CPU内存占用</td>
-<td>虚拟操作系统非常占用CPU和内存</td>
-<td>Docker引擎占用极低</td>
-</tr>
-<tr>
-<td>启动速度</td>
-<td>（从开机到运行项目）几分钟</td>
-<td>（从开启容器到运行项目）几秒</td>
-</tr>
-<tr>
-<td>安装管理</td>
-<td>需要专门的运维技术</td>
-<td>安装、管理方便</td>
-</tr>
-<tr>
-<td>应用部署</td>
-<td>每次部署都费时费力</td>
-<td>从第二次部署开始轻松简捷</td>
-</tr>
-<tr>
-<td>耦合性</td>
-<td>多个应用服务安装到一起，容易互相影响</td>
-<td>每个应用服务一个容器，达成隔离</td>
-</tr>
-<tr>
-<td>系统依赖</td>
-<td>无</td>
-<td>需求相同或相似的内核，目前推荐是Linux</td>
-</tr>
-</tbody></table>
-<h1 id="😁Docker安装-Linux"><a href="#😁Docker安装-Linux" class="headerlink" title="😁Docker安装(Linux)"></a>😁Docker安装(Linux)</h1><ul>
-<li><p>在测试或开发环境中 Docker 官方为了简化安装流程，提供了一套便捷的安装脚本，CentOS 系统上可以使用这套脚本安装，另外可以通过 <code>--mirror</code> 选项使用国内源进行安装：执行这个命令后，脚本就会自动的将一切准备工作做好，并且把 Docker 的稳定(stable)版本安装在系统中。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ curl -fsSL get.docker.com -o get-docker.sh</span><br><span class="line">$ sudo sh get-docker.sh --mirror Aliyun</span><br></pre></td></tr></table></figure></li>
-<li><p>启动docker</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">$ sudo systemctl start docker</span><br></pre></td></tr></table></figure></li>
-<li><p>创建docker用户组</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo groupadd docker</span><br></pre></td></tr></table></figure></li>
-<li><p>将当前用户加入docker组</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo usermod -aG docker <span class="variable">$USER</span></span><br><span class="line"><span class="comment">#重启docker</span></span><br><span class="line">$ systemctl restart docker</span><br></pre></td></tr></table></figure></li>
-<li><p>测试docker安装是否正确</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run hello-world</span><br></pre></td></tr></table></figure></li>
-<li><p>出现如下内容，即成功</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># docker run hello-world</span></span><br><span class="line"></span><br><span class="line">Hello from Docker!</span><br><span class="line">This message shows that your installation appears to be working correctly.</span><br><span class="line"></span><br><span class="line">To generate this message, Docker took the following steps:</span><br><span class="line"> 1. The Docker client contacted the Docker daemon.</span><br><span class="line"> 2. The Docker daemon pulled the <span class="string">&quot;hello-world&quot;</span> image from the Docker Hub.</span><br><span class="line">    (amd64)</span><br><span class="line"> 3. The Docker daemon created a new container from that image <span class="built_in">which</span> runs the</span><br><span class="line">    executable that produces the output you are currently reading.</span><br><span class="line"> 4. The Docker daemon streamed that output to the Docker client, <span class="built_in">which</span> sent it</span><br><span class="line">    to your terminal.</span><br><span class="line"></span><br><span class="line">To try something more ambitious, you can run an Ubuntu container with:</span><br><span class="line"> $ docker run -it ubuntu bash</span><br><span class="line"></span><br><span class="line">Share images, automate workflows, and more with a free Docker ID:</span><br><span class="line"> https://hub.docker.com/</span><br><span class="line"></span><br><span class="line">For more examples and ideas, visit:</span><br><span class="line"> https://docs.docker.com/get-started/</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>虚拟化容器</category>
-      </categories>
-      <tags>
-        <tag>虚拟化容器</tag>
-        <tag>Docker</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Docker(三):Dockerfile</title>
     <url>/2021/07/27/Docker%EF%BC%88%E4%B8%89%EF%BC%89/</url>
     <content><![CDATA[<h1 id="Dockerfile介绍"><a href="#Dockerfile介绍" class="headerlink" title="Dockerfile介绍"></a>Dockerfile介绍</h1><p>Dockerfile可以认为是<strong>Docker镜像的描述文件，是由一系列命令和参数构成的脚本</strong>。主要作用是<strong>用来构建docker镜像的构建文件</strong>。</p>
@@ -277,6 +174,109 @@
 </ul>
 <img src="/2021/07/27/Docker%EF%BC%88%E4%B8%89%EF%BC%89/6.png" class>
 
+]]></content>
+      <categories>
+        <category>虚拟化容器</category>
+      </categories>
+      <tags>
+        <tag>虚拟化容器</tag>
+        <tag>Docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker(一):虚拟化容器技术</title>
+    <url>/2021/07/24/Docker%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<blockquote>
+<p>前言：曾经尝试过使用Vmware来学习Linux，尝试当做服务器，之后便开始搭环境，一套整下来，确实麻烦，而且还吃自己电脑的资源，电脑不出所料的发生了一些微小的变化hhhh，直到后来我的Vmware出了点小问题，怎么调都调不好，调好了又得重新配环境，心态崩了，遂放弃，转头就在腾讯云买了一台服务器玩.当然了，也部署过一些服务，emmm，版本问题我始终调不好，要下载一堆东西，后来才发现了docker这个好东西</p>
+</blockquote>
+<ul>
+<li>官方文档地址:<a href="https://www.docker.com/get-started">https://www.docker.com/get-started</a></li>
+<li>中文参考手册:<a href="https://docker_practice.gitee.io/zh-cn/">https://docker_practice.gitee.io/zh-cn/</a></li>
+</ul>
+<hr>
+<h1 id="😏什么是Dcoker"><a href="#😏什么是Dcoker" class="headerlink" title="😏什么是Dcoker"></a>😏什么是Dcoker</h1><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 1.官方介绍</span></span><br><span class="line"><span class="bullet">-</span> We have a complete container solution for you - no matter who you are and where you are on your containerization journey.</span><br><span class="line"><span class="bullet">-</span> 翻译: 我们为你提供了一个完整的容器解决方案,不管你是谁,不管你在哪,你都可以开始容器的的旅程。</span><br><span class="line"><span class="bullet">-</span> 官方定义: docker是一个容器技术。</span><br></pre></td></tr></table></figure>
+
+<h2 id="😮Docker的起源"><a href="#😮Docker的起源" class="headerlink" title="😮Docker的起源"></a>😮Docker的起源</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">Docker 最初是 dotCloud 公司创始人 Solomon Hykes 在法国期间发起的一个公司内部项目，它是基于 dotCloud 公司多年云服务技术的一次革新，并于 2013 年 3 月以 Apache 2.0 授权协议开源，主要项目代码在 GitHub 上进行维护。Docker 项目后来还加入了 Linux 基金会，并成立推动 开放容器联盟（OCI）。</span><br><span class="line"></span><br><span class="line">Docker 自开源后受到广泛的关注和讨论，至今其 GitHub 项目 已经超过 5 万 7 千个星标和一万多个 fork。甚至由于 Docker 项目的火爆，在 2013 年底，dotCloud 公司决定改名为 Docker。Docker 最初是在 Ubuntu 12.04 上开发实现的；Red Hat 则从 RHEL 6.5 开始对 Docker 进行支持；Google 也在其 PaaS 产品中广泛应用 Docker。</span><br><span class="line"></span><br><span class="line">Docker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及 OverlayFS 类的 Union FS 等技术，对进程进行封装隔离，属于操作系统层面的虚拟化技术。由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。</span><br></pre></td></tr></table></figure>
+
+<h2 id="😲为什么是Docker"><a href="#😲为什么是Docker" class="headerlink" title="😲为什么是Docker"></a>😲为什么是Docker</h2><ul>
+<li><p><code>在开发的时候，在本机测试环境可以跑，生产环境跑不起来</code></p>
+<p>这里我们拿java Web应用程序举例，我们一个java Web应用程序涉及很多东西，比如jdk、tomcat、mysql等软件环境。当这些其中某一项版本不一致的时候，可能就会导致应用程序跑不起来这种情况。Docker则将程序以及使用软件环境直接打包在一起，无论在那个机器上保证了环境一致。</p>
+<p><strong>优势1:  一致的运行环境,更轻松的迁移</strong></p>
+</li>
+<li><p><code>服务器自己的程序挂了，结果发现是别人程序出了问题把内存吃完了，自己程序因为内存不够就挂了</code></p>
+<p>这种也是一种比较常见的情况，如果你的程序重要性不是特别高的话，公司基本上不可能让你的程序独享一台服务器的，这时候你的服务器就会跟公司其他人的程序共享一台服务器，所以不可避免地就会受到其他程序的干扰，导致自己的程序出现问题。Docker就很好解决了环境隔离的问题，别人程序不会影响到自己的程序。</p>
+<p><strong>优势2：对进程进行封装隔离,容器与容器之间互不影响,更高效的利用系统资源</strong></p>
+</li>
+<li><p><code>公司要弄一个活动，可能会有大量的流量进来，公司需要再多部署几十台服务器</code></p>
+<p>在没有Docker的情况下，要在几天内部署几十台服务器，这对运维来说是一件非常折磨人的事，而且每台服务器的环境还不一定一样，就会出现各种问题，最后部署地头皮发麻。用Docker的话，我只需要将程序打包到镜像，你要多少台服务，我就给力跑多少容器，极大地提高了部署效率。</p>
+<p><strong>优势3: 通过镜像复制N多个环境一致容器</strong></p>
+</li>
+</ul>
+<hr>
+<h1 id="😉Docker和虚拟机区别"><a href="#😉Docker和虚拟机区别" class="headerlink" title="😉Docker和虚拟机区别"></a>😉Docker和虚拟机区别</h1><blockquote>
+<p>关于Docker与虚拟机的区别，我在网上找到的一张图，非常直观形象地展示出来，话不多说，直接上图。</p>
+</blockquote>
+<img src="/2021/07/24/Docker%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class>
+
+<p><code>比较上面两张图，我们发现虚拟机是携带操作系统，本身很小的应用程序却因为携带了操作系统而变得非常大，很笨重</code>。Docker是不携带操作系统的，所以Docker的应用就非常的轻巧。另外在调用宿主机的CPU、磁盘等等这些资源的时候，拿内存举例，虚拟机是利用Hypervisor去虚拟化内存，整个调用过程是虚拟内存-&gt;虚拟物理内存-&gt;真正物理内存，但是Docker是利用Docker Engine去调用宿主的的资源，这时候过程是虚拟内存-&gt;真正物理内存。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>传统虚拟机</th>
+<th>Docker容器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>磁盘占用</td>
+<td>几个GB到几十个GB左右</td>
+<td>几十MB到几百MB左右</td>
+</tr>
+<tr>
+<td>CPU内存占用</td>
+<td>虚拟操作系统非常占用CPU和内存</td>
+<td>Docker引擎占用极低</td>
+</tr>
+<tr>
+<td>启动速度</td>
+<td>（从开机到运行项目）几分钟</td>
+<td>（从开启容器到运行项目）几秒</td>
+</tr>
+<tr>
+<td>安装管理</td>
+<td>需要专门的运维技术</td>
+<td>安装、管理方便</td>
+</tr>
+<tr>
+<td>应用部署</td>
+<td>每次部署都费时费力</td>
+<td>从第二次部署开始轻松简捷</td>
+</tr>
+<tr>
+<td>耦合性</td>
+<td>多个应用服务安装到一起，容易互相影响</td>
+<td>每个应用服务一个容器，达成隔离</td>
+</tr>
+<tr>
+<td>系统依赖</td>
+<td>无</td>
+<td>需求相同或相似的内核，目前推荐是Linux</td>
+</tr>
+</tbody></table>
+<h1 id="😁Docker安装-Linux"><a href="#😁Docker安装-Linux" class="headerlink" title="😁Docker安装(Linux)"></a>😁Docker安装(Linux)</h1><ul>
+<li><p>在测试或开发环境中 Docker 官方为了简化安装流程，提供了一套便捷的安装脚本，CentOS 系统上可以使用这套脚本安装，另外可以通过 <code>--mirror</code> 选项使用国内源进行安装：执行这个命令后，脚本就会自动的将一切准备工作做好，并且把 Docker 的稳定(stable)版本安装在系统中。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ curl -fsSL get.docker.com -o get-docker.sh</span><br><span class="line">$ sudo sh get-docker.sh --mirror Aliyun</span><br></pre></td></tr></table></figure></li>
+<li><p>启动docker</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">$ sudo systemctl start docker</span><br></pre></td></tr></table></figure></li>
+<li><p>创建docker用户组</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo groupadd docker</span><br></pre></td></tr></table></figure></li>
+<li><p>将当前用户加入docker组</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo usermod -aG docker <span class="variable">$USER</span></span><br><span class="line"><span class="comment">#重启docker</span></span><br><span class="line">$ systemctl restart docker</span><br></pre></td></tr></table></figure></li>
+<li><p>测试docker安装是否正确</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ docker run hello-world</span><br></pre></td></tr></table></figure></li>
+<li><p>出现如下内容，即成功</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># docker run hello-world</span></span><br><span class="line"></span><br><span class="line">Hello from Docker!</span><br><span class="line">This message shows that your installation appears to be working correctly.</span><br><span class="line"></span><br><span class="line">To generate this message, Docker took the following steps:</span><br><span class="line"> 1. The Docker client contacted the Docker daemon.</span><br><span class="line"> 2. The Docker daemon pulled the <span class="string">&quot;hello-world&quot;</span> image from the Docker Hub.</span><br><span class="line">    (amd64)</span><br><span class="line"> 3. The Docker daemon created a new container from that image <span class="built_in">which</span> runs the</span><br><span class="line">    executable that produces the output you are currently reading.</span><br><span class="line"> 4. The Docker daemon streamed that output to the Docker client, <span class="built_in">which</span> sent it</span><br><span class="line">    to your terminal.</span><br><span class="line"></span><br><span class="line">To try something more ambitious, you can run an Ubuntu container with:</span><br><span class="line"> $ docker run -it ubuntu bash</span><br><span class="line"></span><br><span class="line">Share images, automate workflows, and more with a free Docker ID:</span><br><span class="line"> https://hub.docker.com/</span><br><span class="line"></span><br><span class="line">For more examples and ideas, visit:</span><br><span class="line"> https://docs.docker.com/get-started/</span><br></pre></td></tr></table></figure></li>
+</ul>
 ]]></content>
       <categories>
         <category>虚拟化容器</category>
@@ -640,72 +640,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Linux中配置Redis</title>
-    <url>/2021/05/27/Linux%E4%B8%AD%E9%85%8D%E7%BD%AERedis/</url>
-    <content><![CDATA[<h1 id="🎇Linux系统下安装Redis"><a href="#🎇Linux系统下安装Redis" class="headerlink" title="🎇Linux系统下安装Redis"></a>🎇Linux系统下安装Redis</h1><p>这里先给出所用到的版本：</p>
-<blockquote>
-<p>VMware 15.x+</p>
-<p>CentOS 7 </p>
-<p>Redis 4.0.10</p>
-</blockquote>
-<p>​        还要使用 <code>xshell</code> 以及 <code>xftp</code> 这两个工具，一个是用来远程连接服务器进行命令行操作服务器，一个是连接远程服务器进行文件传输以及对服务器中的文件进行一系列操作.</p>
-<ul>
-<li>利用<code>xftp</code> 将下载好的 <code>redis.tar</code> 上传到虚拟机中，通常情况下，是上传到根目录下的<code>opt</code>目录之中</li>
-<li>利用 <code>xshell</code> 或者 <code>VMware</code> 终端将压缩包进行解压安装，解压缩之前需要把终端路径切换到<code>tar</code>包所在路径</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 对tar包进行解压</span></span><br><span class="line"><span class="bullet">-</span> tar -zxvf redis-4.0.10.tar.gz</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>安装<code>gcc</code>编译<code>redis</code> 源码 (<code>Redis</code>是<code>C</code>语言所编写的，所以需要<code>c</code>语言的编译器 <code>gcc</code>进行编译)</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 5.安装gcc  </span></span><br><span class="line"><span class="bullet">-</span> yum install -y gcc</span><br><span class="line"></span><br><span class="line"><span class="section"># 6.进入解压缩目录执行如下命令</span></span><br><span class="line"><span class="bullet">-</span> make MALLOC=libc</span><br><span class="line"></span><br><span class="line"><span class="section"># 7.编译完成后执行如下命令</span></span><br><span class="line"><span class="bullet">-</span> make install PREFIX=/usr/redis</span><br><span class="line"></span><br><span class="line"><span class="section"># 8.进入/usr/redis目录启动redis服务 </span></span><br><span class="line"><span class="bullet">-</span> ./redis-server</span><br></pre></td></tr></table></figure>
-
-<img src="/2021/05/27/Linux%E4%B8%AD%E9%85%8D%E7%BD%AERedis/1.png" class title="配置成功提示">
-
-<ul>
-<li>复制一个会话，进行客户端连接</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 9.Redis服务端口默认是 6379</span></span><br><span class="line"></span><br><span class="line"><span class="section"># 10.进入bin目录执行客户端连接操作</span></span><br><span class="line"><span class="bullet">-</span> ./redis-cli –p 6379</span><br></pre></td></tr></table></figure>
-
-<p>出现如下提示即连接成功 !</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[root@localhost bin]# ./redis-cli -p 6379</span><br><span class="line">127.0.0.1:6379&gt; </span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="🎉配置Redis服务远程连接"><a href="#🎉配置Redis服务远程连接" class="headerlink" title="🎉配置Redis服务远程连接"></a>🎉配置Redis服务远程连接</h1><p>​        通常情况下，需要在自己的电脑上看<code>Redis</code>中的数据，使用<code>xshell</code>用命令来查询效率十分低下，于是我们可以利用<code>Redis</code>可视化工具在本地连接后，本地查看数据库中的内容.</p>
-<ul>
-<li><p>可以在本地先安装 <code>RedisDeskManager</code></p>
-</li>
-<li><p>Linux中安装防火墙服务</p>
-</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 安装iptables-services</span></span><br><span class="line"><span class="bullet">-</span> yum install iptables-services</span><br><span class="line"></span><br><span class="line"><span class="section"># 启动服务</span></span><br><span class="line"><span class="bullet">-</span> systemctl enable iptables</span><br><span class="line"><span class="bullet">-</span> systemctl start iptables</span><br><span class="line"></span><br><span class="line"><span class="section"># 查看防火墙状态</span></span><br><span class="line"><span class="bullet">-</span> service iptables status</span><br><span class="line"></span><br><span class="line"><span class="section"># 关闭防火墙</span></span><br><span class="line"><span class="bullet">-</span> service iptables stop</span><br><span class="line"></span><br><span class="line"><span class="section"># 打开防火墙</span></span><br><span class="line"><span class="bullet">-</span> service iptables start </span><br><span class="line"></span><br><span class="line"><span class="section"># 重启防火墙</span></span><br><span class="line"><span class="bullet">-</span> service iptables restart </span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li><p>编辑<code>Linux</code>防火墙 </p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 增加防火墙规则</span></span><br><span class="line"><span class="bullet">-</span> vi /etc/sysconfig/iptables</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>加入防火墙规则：<code>-A INPUT -m state –state NEW -m tcp -p tcp –dport 6379 -j ACCEPT</code></p>
-</li>
-<li><p>将压缩包解压目录之中的<code>redis.conf</code> 移动到 <code>usr/redis</code> 下（主要是为了方便操作）</p>
-<ul>
-<li>注意：一定要用管理员身份进行编辑，不然文件为只读文件无法更改</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 更改白名单</span></span><br><span class="line">bind 127.0.0.1 </span><br><span class="line"><span class="section"># 改为 （注释掉）</span></span><br><span class="line">= &gt; # bind 127.0.0.1 </span><br><span class="line"></span><br><span class="line"><span class="section"># 将yes改为no</span></span><br><span class="line">protected-mode yes</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Markdown入门</title>
     <url>/2021/04/09/Markdown%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<h2 id="1-代码块"><a href="#1-代码块" class="headerlink" title="1.代码块:"></a>1.代码块:</h2><p>​    使用三个 “ ``` ” 即可生成代码块,并且可以选择语言类型</p>
@@ -805,6 +739,72 @@
       </categories>
       <tags>
         <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux中配置Redis</title>
+    <url>/2021/05/27/Linux%E4%B8%AD%E9%85%8D%E7%BD%AERedis/</url>
+    <content><![CDATA[<h1 id="🎇Linux系统下安装Redis"><a href="#🎇Linux系统下安装Redis" class="headerlink" title="🎇Linux系统下安装Redis"></a>🎇Linux系统下安装Redis</h1><p>这里先给出所用到的版本：</p>
+<blockquote>
+<p>VMware 15.x+</p>
+<p>CentOS 7 </p>
+<p>Redis 4.0.10</p>
+</blockquote>
+<p>​        还要使用 <code>xshell</code> 以及 <code>xftp</code> 这两个工具，一个是用来远程连接服务器进行命令行操作服务器，一个是连接远程服务器进行文件传输以及对服务器中的文件进行一系列操作.</p>
+<ul>
+<li>利用<code>xftp</code> 将下载好的 <code>redis.tar</code> 上传到虚拟机中，通常情况下，是上传到根目录下的<code>opt</code>目录之中</li>
+<li>利用 <code>xshell</code> 或者 <code>VMware</code> 终端将压缩包进行解压安装，解压缩之前需要把终端路径切换到<code>tar</code>包所在路径</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 对tar包进行解压</span></span><br><span class="line"><span class="bullet">-</span> tar -zxvf redis-4.0.10.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装<code>gcc</code>编译<code>redis</code> 源码 (<code>Redis</code>是<code>C</code>语言所编写的，所以需要<code>c</code>语言的编译器 <code>gcc</code>进行编译)</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 5.安装gcc  </span></span><br><span class="line"><span class="bullet">-</span> yum install -y gcc</span><br><span class="line"></span><br><span class="line"><span class="section"># 6.进入解压缩目录执行如下命令</span></span><br><span class="line"><span class="bullet">-</span> make MALLOC=libc</span><br><span class="line"></span><br><span class="line"><span class="section"># 7.编译完成后执行如下命令</span></span><br><span class="line"><span class="bullet">-</span> make install PREFIX=/usr/redis</span><br><span class="line"></span><br><span class="line"><span class="section"># 8.进入/usr/redis目录启动redis服务 </span></span><br><span class="line"><span class="bullet">-</span> ./redis-server</span><br></pre></td></tr></table></figure>
+
+<img src="/2021/05/27/Linux%E4%B8%AD%E9%85%8D%E7%BD%AERedis/1.png" class title="配置成功提示">
+
+<ul>
+<li>复制一个会话，进行客户端连接</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 9.Redis服务端口默认是 6379</span></span><br><span class="line"></span><br><span class="line"><span class="section"># 10.进入bin目录执行客户端连接操作</span></span><br><span class="line"><span class="bullet">-</span> ./redis-cli –p 6379</span><br></pre></td></tr></table></figure>
+
+<p>出现如下提示即连接成功 !</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[root@localhost bin]# ./redis-cli -p 6379</span><br><span class="line">127.0.0.1:6379&gt; </span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="🎉配置Redis服务远程连接"><a href="#🎉配置Redis服务远程连接" class="headerlink" title="🎉配置Redis服务远程连接"></a>🎉配置Redis服务远程连接</h1><p>​        通常情况下，需要在自己的电脑上看<code>Redis</code>中的数据，使用<code>xshell</code>用命令来查询效率十分低下，于是我们可以利用<code>Redis</code>可视化工具在本地连接后，本地查看数据库中的内容.</p>
+<ul>
+<li><p>可以在本地先安装 <code>RedisDeskManager</code></p>
+</li>
+<li><p>Linux中安装防火墙服务</p>
+</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 安装iptables-services</span></span><br><span class="line"><span class="bullet">-</span> yum install iptables-services</span><br><span class="line"></span><br><span class="line"><span class="section"># 启动服务</span></span><br><span class="line"><span class="bullet">-</span> systemctl enable iptables</span><br><span class="line"><span class="bullet">-</span> systemctl start iptables</span><br><span class="line"></span><br><span class="line"><span class="section"># 查看防火墙状态</span></span><br><span class="line"><span class="bullet">-</span> service iptables status</span><br><span class="line"></span><br><span class="line"><span class="section"># 关闭防火墙</span></span><br><span class="line"><span class="bullet">-</span> service iptables stop</span><br><span class="line"></span><br><span class="line"><span class="section"># 打开防火墙</span></span><br><span class="line"><span class="bullet">-</span> service iptables start </span><br><span class="line"></span><br><span class="line"><span class="section"># 重启防火墙</span></span><br><span class="line"><span class="bullet">-</span> service iptables restart </span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>编辑<code>Linux</code>防火墙 </p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 增加防火墙规则</span></span><br><span class="line"><span class="bullet">-</span> vi /etc/sysconfig/iptables</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>加入防火墙规则：<code>-A INPUT -m state –state NEW -m tcp -p tcp –dport 6379 -j ACCEPT</code></p>
+</li>
+<li><p>将压缩包解压目录之中的<code>redis.conf</code> 移动到 <code>usr/redis</code> 下（主要是为了方便操作）</p>
+<ul>
+<li>注意：一定要用管理员身份进行编辑，不然文件为只读文件无法更改</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># 更改白名单</span></span><br><span class="line">bind 127.0.0.1 </span><br><span class="line"><span class="section"># 改为 （注释掉）</span></span><br><span class="line">= &gt; # bind 127.0.0.1 </span><br><span class="line"></span><br><span class="line"><span class="section"># 将yes改为no</span></span><br><span class="line">protected-mode yes</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
       </tags>
   </entry>
   <entry>
@@ -1082,81 +1082,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MybatisPlus(一):极致简化</title>
-    <url>/2021/05/12/MybatisPlus%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🎉MybatisPlus基本概念"><a href="#🎉MybatisPlus基本概念" class="headerlink" title="🎉MybatisPlus基本概念"></a>🎉MybatisPlus基本概念</h1><p>​    <a href="https://github.com/baomidou/mybatis-plus">MyBatis-Plus (opens new window)</a>（简称 MP）是一个 <a href="http://www.mybatis.org/mybatis-3/">MyBatis (opens new window)</a>的增强工具，在 MyBatis 的基础上只做增强不做改变，为简化开发、提高效率而生。</p>
-<p><strong>特性：</strong></p>
-<ul>
-<li><strong>无侵入</strong>：只做增强不做改变，引入它不会对现有工程产生影响，如丝般顺滑</li>
-<li><strong>损耗小</strong>：启动即会自动注入基本 <code>CURD</code>，性能基本无损耗，直接面向对象操作</li>
-<li><strong>强大的 CRUD 操作</strong>：内置通用 <code>Mapper</code>、通用 <code>Service</code>，仅仅通过少量配置即可实现单表大部分 <code>CRUD</code> 操作，更有强大的条件构造器，满足各类使用需求</li>
-<li><strong>支持 Lambda 形式调用</strong>：通过 <code>Lambda</code> 表达式，方便的编写各类查询条件，无需再担心字段写错</li>
-<li><strong>支持主键自动生成</strong>：支持多达 4 种主键策略（内含分布式唯一 ID 生成器 -<code> Sequence</code>），可自由配置，完美解决主键问题</li>
-<li><strong>支持 ActiveRecord 模式</strong>：支持 <code>ActiveRecord </code>形式调用，实体类只需继承 Model 类即可进行强大的 CRUD 操作</li>
-<li><strong>支持自定义全局通用操作</strong>：支持全局通用方法注入（ <code>Write once</code>, <code>use anywhere</code> ）</li>
-<li><strong>内置代码生成器</strong>：采用代码或者<code> Maven</code> 插件可快速生成<code>Mapper</code>、 <code>Model </code>、<code> Service</code> 、 <code>Controller </code>层代码，支持模板引擎，更有超多自定义配置等您来使用</li>
-<li><strong>内置分页插件</strong>：基于<code>MyBatis</code> 物理分页，开发者无需关心具体操作，配置好插件之后，写分页等同于普通 List 查询</li>
-<li><strong>分页插件支持多种数据库</strong>：支持<code> MySQL</code>、<code>MariaDB</code>、<code>Oracle</code>、<code>DB2</code>、<code>H2</code>、<code>HSQL</code>、<code>SQLite</code>、<code>Postgre</code>、<code>SQLServer</code> 等多种数据库</li>
-<li><strong>内置性能分析插件</strong>：可输出<code> Sql</code> 语句以及其执行时间，建议开发测试时启用该功能，能快速揪出慢查询</li>
-<li><strong>内置全局拦截插件</strong>：提供全表<code> delete</code> 、<code>update</code>操作智能分析阻断，也可自定义拦截规则，预防误操作</li>
-</ul>
-<p>​    </p>
-<p>对于<code>SpringBoot</code>项目而言，使用<code>MybatisPlus</code>十分便携，直接在依赖文件中添加相关依赖即可</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>其中已经包含了<code>Mybatis</code>的相关依赖，不用额外添加.</p>
-<h1 id="🎇基本的SQL语句"><a href="#🎇基本的SQL语句" class="headerlink" title="🎇基本的SQL语句"></a>🎇基本的SQL语句</h1><p>构建实体类：</p>
-<p>（其中的注释会在后续文章中做汇总）</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//对应的数据库表名，表名的首字母大写就是类名的话可以不用写，不过还是建议加上，方便维护</span></span><br><span class="line"><span class="meta">@TableName(value = &quot;books&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Books</span> </span>&#123;</span><br><span class="line">	<span class="comment">//   数据表主键，value值为表中的字段  类型为主键自增 </span></span><br><span class="line">  <span class="meta">@TableId(value = &quot;book_id&quot; , type = IdType.AUTO)</span></span><br><span class="line">  <span class="keyword">private</span> Integer bookId;</span><br><span class="line">  <span class="keyword">private</span> String bookName;</span><br><span class="line">  <span class="keyword">private</span> Integer bookCounts;</span><br><span class="line">  <span class="keyword">private</span> String detail;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookId</span><span class="params">(Integer bookId)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookId = bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getBookName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookName</span><span class="params">(String bookName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookName = bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookCounts</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookCounts</span><span class="params">(Integer bookCounts)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookCounts = bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getDetail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDetail</span><span class="params">(String detail)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.detail = detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Books&#123;&quot;</span> +</span><br><span class="line">            <span class="string">&quot;bookId=&quot;</span> + bookId +</span><br><span class="line">            <span class="string">&quot;, bookName=&#x27;&quot;</span> + bookName + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&quot;, bookCounts=&quot;</span> + bookCounts +</span><br><span class="line">            <span class="string">&quot;, detail=&#x27;&quot;</span> + detail + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>构建 <code>dao</code> 层：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//继承之后才会有基本的SQL语句，这里使用了泛型，避免需要强制类型转换</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BooksMapper</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>最后在启动类配置扫描包：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="comment">//用于让SpringBoot自动帮dao接口进行注册</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;com.soucat.mapper&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(DemoApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>以上完成之后就可以进行测试了，十分的方便.</p>
-<p>在测试类中先要将<code>dao</code>接口自动注入，<code>idea</code>会报错，只是因为这个对象是在程序运行时才会产生，编译阶段没有创建</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> BooksMapper booksMapper;</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p><strong>查询用户</strong></p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectBook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//查询一本书</span></span><br><span class="line">    System.out.println(booksMapper.selectById(<span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectBoos</span><span class="params">()</span></span>&#123;</span><br><span class="line">    List&lt;Integer&gt; list = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">6</span>).collect(Collectors.toList());</span><br><span class="line">    <span class="comment">//这里当然了也可以创建List对象后一个一个加进去也没有问题，只是以上方式比较方便</span></span><br><span class="line">    System.out.println(booksMapper.selectBatchIds(list));</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>​        其余的也都是类似的，毕竟只是基本的 <code>SQL</code> 语句，当然了，<code>MybatisPlus</code> 也可以像 <code>Mybatis</code> 那样自定义 <code>SQL</code> 语句，编写配置文件实现.就不一一演示了.</p>
-<h1 id="🎨AR模式"><a href="#🎨AR模式" class="headerlink" title="🎨AR模式"></a>🎨AR模式</h1><p>​        <code>Active Record</code>(活动记录)，是一种领域模型模式，特点是一个模型类对应关系型数据库中的一个表，而模型类的一个实例对应表中的一行记录，属于动态模型。而Java作为准静态语言，对于 <code>ActiveRecord </code>往往只能感叹其优雅，所以 <code>MP</code> 也在 <code>AR </code>道路上进行了一定的探索，才有了现在的功能Java也能实现AR模式。简而言之，就是直接用实体类对数据库进行<code>CRUD</code>操作，接下来看具体代码：</p>
-<p><strong>要实现AR模式需要两个前提：一是实体类继承Model抽象类，二是定义实体类对应的mapper接口继承BaseMapper</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@TableName(value = &quot;books&quot;)</span></span><br><span class="line">				<span class="comment">//一定要继承这个Model</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Books</span> <span class="keyword">extends</span> <span class="title">Model</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@TableId(value = &quot;book_id&quot; , type = IdType.AUTO)</span></span><br><span class="line">  <span class="keyword">private</span> Integer bookId;</span><br><span class="line">  <span class="keyword">private</span> String bookName;</span><br><span class="line">  <span class="keyword">private</span> Integer bookCounts;</span><br><span class="line">  <span class="keyword">private</span> String detail;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookId</span><span class="params">(Integer bookId)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookId = bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getBookName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookName</span><span class="params">(String bookName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookName = bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookCounts</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookCounts</span><span class="params">(Integer bookCounts)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookCounts = bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getDetail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDetail</span><span class="params">(String detail)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.detail = detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Books&#123;&quot;</span> +</span><br><span class="line">            <span class="string">&quot;bookId=&quot;</span> + bookId +</span><br><span class="line">            <span class="string">&quot;, bookName=&#x27;&quot;</span> + bookName + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&quot;, bookCounts=&quot;</span> + bookCounts +</span><br><span class="line">            <span class="string">&quot;, detail=&#x27;&quot;</span> + detail + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><code>dao</code>接口类</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//继承之后才会有基本的SQL语句，这里使用了泛型，避免需要强制类型转换</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BooksMapper</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>启动类:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="comment">//用于让SpringBoot自动帮dao接口进行注册</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;com.soucat.mapper&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(DemoApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p><strong>查询功能</strong></p>
-</blockquote>
-<p>AR模式和普通的模式不同之处就在于可以直接使用实体类进行查询,不需要 <code>dao</code> 接口对象来调，当然了这不意味着接口类可以不写了</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectBook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//查询一本书</span></span><br><span class="line">    Books books = <span class="keyword">new</span> Books();</span><br><span class="line">    books.setBookId(<span class="number">1</span>);</span><br><span class="line">    Books books1 = books.selectById();</span><br><span class="line">    System.out.println(books1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其余的基本语句也都类似，就不一一介绍了.</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>MybatisPlus</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Mybatis（一）</title>
     <url>/2021/04/18/Mybatis%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🍚初识Mybatis"><a href="#🍚初识Mybatis" class="headerlink" title="🍚初识Mybatis"></a>🍚初识Mybatis</h1><blockquote>
@@ -1358,6 +1283,81 @@
       </categories>
       <tags>
         <tag>Mybatis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MybatisPlus(一):极致简化</title>
+    <url>/2021/05/12/MybatisPlus%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🎉MybatisPlus基本概念"><a href="#🎉MybatisPlus基本概念" class="headerlink" title="🎉MybatisPlus基本概念"></a>🎉MybatisPlus基本概念</h1><p>​    <a href="https://github.com/baomidou/mybatis-plus">MyBatis-Plus (opens new window)</a>（简称 MP）是一个 <a href="http://www.mybatis.org/mybatis-3/">MyBatis (opens new window)</a>的增强工具，在 MyBatis 的基础上只做增强不做改变，为简化开发、提高效率而生。</p>
+<p><strong>特性：</strong></p>
+<ul>
+<li><strong>无侵入</strong>：只做增强不做改变，引入它不会对现有工程产生影响，如丝般顺滑</li>
+<li><strong>损耗小</strong>：启动即会自动注入基本 <code>CURD</code>，性能基本无损耗，直接面向对象操作</li>
+<li><strong>强大的 CRUD 操作</strong>：内置通用 <code>Mapper</code>、通用 <code>Service</code>，仅仅通过少量配置即可实现单表大部分 <code>CRUD</code> 操作，更有强大的条件构造器，满足各类使用需求</li>
+<li><strong>支持 Lambda 形式调用</strong>：通过 <code>Lambda</code> 表达式，方便的编写各类查询条件，无需再担心字段写错</li>
+<li><strong>支持主键自动生成</strong>：支持多达 4 种主键策略（内含分布式唯一 ID 生成器 -<code> Sequence</code>），可自由配置，完美解决主键问题</li>
+<li><strong>支持 ActiveRecord 模式</strong>：支持 <code>ActiveRecord </code>形式调用，实体类只需继承 Model 类即可进行强大的 CRUD 操作</li>
+<li><strong>支持自定义全局通用操作</strong>：支持全局通用方法注入（ <code>Write once</code>, <code>use anywhere</code> ）</li>
+<li><strong>内置代码生成器</strong>：采用代码或者<code> Maven</code> 插件可快速生成<code>Mapper</code>、 <code>Model </code>、<code> Service</code> 、 <code>Controller </code>层代码，支持模板引擎，更有超多自定义配置等您来使用</li>
+<li><strong>内置分页插件</strong>：基于<code>MyBatis</code> 物理分页，开发者无需关心具体操作，配置好插件之后，写分页等同于普通 List 查询</li>
+<li><strong>分页插件支持多种数据库</strong>：支持<code> MySQL</code>、<code>MariaDB</code>、<code>Oracle</code>、<code>DB2</code>、<code>H2</code>、<code>HSQL</code>、<code>SQLite</code>、<code>Postgre</code>、<code>SQLServer</code> 等多种数据库</li>
+<li><strong>内置性能分析插件</strong>：可输出<code> Sql</code> 语句以及其执行时间，建议开发测试时启用该功能，能快速揪出慢查询</li>
+<li><strong>内置全局拦截插件</strong>：提供全表<code> delete</code> 、<code>update</code>操作智能分析阻断，也可自定义拦截规则，预防误操作</li>
+</ul>
+<p>​    </p>
+<p>对于<code>SpringBoot</code>项目而言，使用<code>MybatisPlus</code>十分便携，直接在依赖文件中添加相关依赖即可</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中已经包含了<code>Mybatis</code>的相关依赖，不用额外添加.</p>
+<h1 id="🎇基本的SQL语句"><a href="#🎇基本的SQL语句" class="headerlink" title="🎇基本的SQL语句"></a>🎇基本的SQL语句</h1><p>构建实体类：</p>
+<p>（其中的注释会在后续文章中做汇总）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//对应的数据库表名，表名的首字母大写就是类名的话可以不用写，不过还是建议加上，方便维护</span></span><br><span class="line"><span class="meta">@TableName(value = &quot;books&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Books</span> </span>&#123;</span><br><span class="line">	<span class="comment">//   数据表主键，value值为表中的字段  类型为主键自增 </span></span><br><span class="line">  <span class="meta">@TableId(value = &quot;book_id&quot; , type = IdType.AUTO)</span></span><br><span class="line">  <span class="keyword">private</span> Integer bookId;</span><br><span class="line">  <span class="keyword">private</span> String bookName;</span><br><span class="line">  <span class="keyword">private</span> Integer bookCounts;</span><br><span class="line">  <span class="keyword">private</span> String detail;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookId</span><span class="params">(Integer bookId)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookId = bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getBookName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookName</span><span class="params">(String bookName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookName = bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookCounts</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookCounts</span><span class="params">(Integer bookCounts)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookCounts = bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getDetail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDetail</span><span class="params">(String detail)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.detail = detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Books&#123;&quot;</span> +</span><br><span class="line">            <span class="string">&quot;bookId=&quot;</span> + bookId +</span><br><span class="line">            <span class="string">&quot;, bookName=&#x27;&quot;</span> + bookName + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&quot;, bookCounts=&quot;</span> + bookCounts +</span><br><span class="line">            <span class="string">&quot;, detail=&#x27;&quot;</span> + detail + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>构建 <code>dao</code> 层：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//继承之后才会有基本的SQL语句，这里使用了泛型，避免需要强制类型转换</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BooksMapper</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后在启动类配置扫描包：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="comment">//用于让SpringBoot自动帮dao接口进行注册</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;com.soucat.mapper&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(DemoApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上完成之后就可以进行测试了，十分的方便.</p>
+<p>在测试类中先要将<code>dao</code>接口自动注入，<code>idea</code>会报错，只是因为这个对象是在程序运行时才会产生，编译阶段没有创建</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> BooksMapper booksMapper;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>查询用户</strong></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectBook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//查询一本书</span></span><br><span class="line">    System.out.println(booksMapper.selectById(<span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectBoos</span><span class="params">()</span></span>&#123;</span><br><span class="line">    List&lt;Integer&gt; list = Stream.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">6</span>).collect(Collectors.toList());</span><br><span class="line">    <span class="comment">//这里当然了也可以创建List对象后一个一个加进去也没有问题，只是以上方式比较方便</span></span><br><span class="line">    System.out.println(booksMapper.selectBatchIds(list));</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>​        其余的也都是类似的，毕竟只是基本的 <code>SQL</code> 语句，当然了，<code>MybatisPlus</code> 也可以像 <code>Mybatis</code> 那样自定义 <code>SQL</code> 语句，编写配置文件实现.就不一一演示了.</p>
+<h1 id="🎨AR模式"><a href="#🎨AR模式" class="headerlink" title="🎨AR模式"></a>🎨AR模式</h1><p>​        <code>Active Record</code>(活动记录)，是一种领域模型模式，特点是一个模型类对应关系型数据库中的一个表，而模型类的一个实例对应表中的一行记录，属于动态模型。而Java作为准静态语言，对于 <code>ActiveRecord </code>往往只能感叹其优雅，所以 <code>MP</code> 也在 <code>AR </code>道路上进行了一定的探索，才有了现在的功能Java也能实现AR模式。简而言之，就是直接用实体类对数据库进行<code>CRUD</code>操作，接下来看具体代码：</p>
+<p><strong>要实现AR模式需要两个前提：一是实体类继承Model抽象类，二是定义实体类对应的mapper接口继承BaseMapper</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@TableName(value = &quot;books&quot;)</span></span><br><span class="line">				<span class="comment">//一定要继承这个Model</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Books</span> <span class="keyword">extends</span> <span class="title">Model</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@TableId(value = &quot;book_id&quot; , type = IdType.AUTO)</span></span><br><span class="line">  <span class="keyword">private</span> Integer bookId;</span><br><span class="line">  <span class="keyword">private</span> String bookName;</span><br><span class="line">  <span class="keyword">private</span> Integer bookCounts;</span><br><span class="line">  <span class="keyword">private</span> String detail;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookId</span><span class="params">(Integer bookId)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookId = bookId;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getBookName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookName</span><span class="params">(String bookName)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookName = bookName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Integer <span class="title">getBookCounts</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBookCounts</span><span class="params">(Integer bookCounts)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bookCounts = bookCounts;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getDetail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDetail</span><span class="params">(String detail)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.detail = detail;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Books&#123;&quot;</span> +</span><br><span class="line">            <span class="string">&quot;bookId=&quot;</span> + bookId +</span><br><span class="line">            <span class="string">&quot;, bookName=&#x27;&quot;</span> + bookName + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&quot;, bookCounts=&quot;</span> + bookCounts +</span><br><span class="line">            <span class="string">&quot;, detail=&#x27;&quot;</span> + detail + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>dao</code>接口类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//继承之后才会有基本的SQL语句，这里使用了泛型，避免需要强制类型转换</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BooksMapper</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">Books</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动类:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="comment">//用于让SpringBoot自动帮dao接口进行注册</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;com.soucat.mapper&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(DemoApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>查询功能</strong></p>
+</blockquote>
+<p>AR模式和普通的模式不同之处就在于可以直接使用实体类进行查询,不需要 <code>dao</code> 接口对象来调，当然了这不意味着接口类可以不写了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectBook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//查询一本书</span></span><br><span class="line">    Books books = <span class="keyword">new</span> Books();</span><br><span class="line">    books.setBookId(<span class="number">1</span>);</span><br><span class="line">    Books books1 = books.selectById();</span><br><span class="line">    System.out.println(books1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其余的基本语句也都类似，就不一一介绍了.</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>MybatisPlus</tag>
       </tags>
   </entry>
   <entry>
@@ -2053,11 +2053,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot（九）</title>
-    <url>/2021/07/27/SpringBoot%EF%BC%88%E4%B9%9D%EF%BC%89/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>SpringBoot(三):数据库连接池</title>
     <url>/2021/05/08/SpringBoot%EF%BC%88%E4%B8%89%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🎡数据库连接池相关概念"><a href="#🎡数据库连接池相关概念" class="headerlink" title="🎡数据库连接池相关概念"></a>🎡数据库连接池相关概念</h1><ul>
@@ -2215,6 +2210,28 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringBoot(九):日志记录</title>
+    <url>/2021/07/27/SpringBoot%EF%BC%88%E4%B9%9D%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="Logback"><a href="#Logback" class="headerlink" title="Logback"></a>Logback</h1><p><code>logback</code> 与同类的日志框架相比效率似乎高将近 <code>10</code> 倍，有一说一，不管是否是，作为<code>SpringBoot</code>的御用日志框架，起码给予了<code>logback</code>性能一定的肯定的，后续也还会对其它常用的日志框架进行一定的了解.</p>
+<ul>
+<li><code>xml</code>配置</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 日志级别从低到高分为TRACE &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL，如果设置为WARN，则低于WARN的信息都不会输出 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- scan:当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- scanPeriod:设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒；当scan为true时，此属性生效。默认的时间间隔为1分钟。 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- de<span class="doctag">bug:</span>当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态，默认值为false。 --&gt;</span></span><br><span class="line">&lt;configuration</span><br><span class="line">        xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">        xsi:noNamespaceSchemaLocation=&quot;http://www.padual.com/java/logback.xsd&quot;</span><br><span class="line">        debug=&quot;false&quot; scan=&quot;true&quot; scanPeriod=&quot;10 second&quot;&gt;</span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 配置日志输出目录文件夹以及进行重命名 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;ROOT&quot;</span> <span class="attr">value</span>=<span class="string">&quot;logs/&quot;</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 配置日志文件大小 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;FILESIZE&quot;</span> <span class="attr">value</span>=<span class="string">&quot;50MB&quot;</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 设置日志保留的时间，单位为天 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;MAXHISTORY&quot;</span> <span class="attr">value</span>=<span class="string">&quot;10&quot;</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 格式化输出日期 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">timestamp</span> <span class="attr">key</span>=<span class="string">&quot;DATETIME&quot;</span> <span class="attr">datePattern</span>=<span class="string">&quot;yyyy-MM-dd HH:mm:ss.SSS&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 控制台打印 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;STDOUT&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.ConsoleAppender&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">encoder</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 格式化日志输出：</span></span><br><span class="line"><span class="comment">             %-5level表示级别从左显示5个字符宽度，%d表示日期，%thread表示线程名，%m表示日志消息，%n是换行符</span></span><br><span class="line"><span class="comment">             %logger&#123;36&#125;表示logger是class的全名，36表示限制最长字符</span></span><br><span class="line"><span class="comment">            --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>[%-5level] %d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; [%thread] %logger&#123;36&#125; - %msg%n<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- ERROR日志输出到文件  --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;ERROR&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">encoder</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>[%-5level] %d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; [%thread] %logger&#123;36&#125; - %m%n<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 设置当前日志文档输出的级别，只记录ERROR级别的日志 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.classic.filter.LevelFilter&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">level</span>&gt;</span>ERROR<span class="tag">&lt;/<span class="name">level</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">onMatch</span>&gt;</span>ACCEPT<span class="tag">&lt;/<span class="name">onMatch</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">onMismatch</span>&gt;</span>DENY<span class="tag">&lt;/<span class="name">onMismatch</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 设置日志记录器的滚动策略，按日期和大小记录--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>$&#123;ROOT&#125;%d/error.%i.log<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">maxHistory</span>&gt;</span>$&#123;MAXHISTORY&#125;<span class="tag">&lt;/<span class="name">maxHistory</span>&gt;</span></span><br><span class="line">            &lt;timeBasedFileNamingAndTriggeringPolicy</span><br><span class="line">                    class=&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP&quot;&gt;</span><br><span class="line">                <span class="tag">&lt;<span class="name">maxFileSize</span>&gt;</span>$&#123;FILESIZE&#125;<span class="tag">&lt;/<span class="name">maxFileSize</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">timeBasedFileNamingAndTriggeringPolicy</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- WARN日志输出到文件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;WARN&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">encoder</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>[%-5level] %d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; [%thread] %logger&#123;36&#125; - %m%n<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.classic.filter.LevelFilter&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">level</span>&gt;</span>WARN<span class="tag">&lt;/<span class="name">level</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">onMatch</span>&gt;</span>ACCEPT<span class="tag">&lt;/<span class="name">onMatch</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">onMismatch</span>&gt;</span>DENY<span class="tag">&lt;/<span class="name">onMismatch</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>$&#123;ROOT&#125;%d/warn.%i.log<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">maxHistory</span>&gt;</span>$&#123;MAXHISTORY&#125;<span class="tag">&lt;/<span class="name">maxHistory</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">timeBasedFileNamingAndTriggeringPolicy</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">maxFileSize</span>&gt;</span>$&#123;FILESIZE&#125;<span class="tag">&lt;/<span class="name">maxFileSize</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">timeBasedFileNamingAndTriggeringPolicy</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- INFO日志输出到文件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;INFO&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">encoder</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>[%-5level] %d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; [%thread] %logger&#123;36&#125; - %m%n<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.classic.filter.LevelFilter&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">level</span>&gt;</span>INFO<span class="tag">&lt;/<span class="name">level</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">onMatch</span>&gt;</span>ACCEPT<span class="tag">&lt;/<span class="name">onMatch</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">onMismatch</span>&gt;</span>DENY<span class="tag">&lt;/<span class="name">onMismatch</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>$&#123;ROOT&#125;%d/info.%i.log<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">maxHistory</span>&gt;</span>$&#123;MAXHISTORY&#125;<span class="tag">&lt;/<span class="name">maxHistory</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">timeBasedFileNamingAndTriggeringPolicy</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">maxFileSize</span>&gt;</span>$&#123;FILESIZE&#125;<span class="tag">&lt;/<span class="name">maxFileSize</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">timeBasedFileNamingAndTriggeringPolicy</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- DEBUG日志输出到文件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;DEBUG&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">encoder</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>[%-5level] %d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; [%thread] %logger&#123;36&#125; - %m%n<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.classic.filter.LevelFilter&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">level</span>&gt;</span>DEBUG<span class="tag">&lt;/<span class="name">level</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">onMatch</span>&gt;</span>ACCEPT<span class="tag">&lt;/<span class="name">onMatch</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">onMismatch</span>&gt;</span>DENY<span class="tag">&lt;/<span class="name">onMismatch</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>$&#123;ROOT&#125;%d/debug.%i.log<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">maxHistory</span>&gt;</span>$&#123;MAXHISTORY&#125;<span class="tag">&lt;/<span class="name">maxHistory</span>&gt;</span></span><br><span class="line">            &lt;timeBasedFileNamingAndTriggeringPolicy</span><br><span class="line">                    class=&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP&quot;&gt;</span><br><span class="line">                <span class="tag">&lt;<span class="name">maxFileSize</span>&gt;</span>$&#123;FILESIZE&#125;<span class="tag">&lt;/<span class="name">maxFileSize</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">timeBasedFileNamingAndTriggeringPolicy</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- TRACE日志输出到文件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;TRACE&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">encoder</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>[%-5level] %d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; [%thread] %logger&#123;36&#125; - %m%n<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filter</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.classic.filter.LevelFilter&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">level</span>&gt;</span>TRACE<span class="tag">&lt;/<span class="name">level</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">onMatch</span>&gt;</span>ACCEPT<span class="tag">&lt;/<span class="name">onMatch</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">onMismatch</span>&gt;</span>DENY<span class="tag">&lt;/<span class="name">onMismatch</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">        &lt;rollingPolicy</span><br><span class="line">                class=&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&gt;</span><br><span class="line">            <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>$&#123;ROOT&#125;%d/trace.%i.log<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">maxHistory</span>&gt;</span>$&#123;MAXHISTORY&#125;<span class="tag">&lt;/<span class="name">maxHistory</span>&gt;</span></span><br><span class="line">            &lt;timeBasedFileNamingAndTriggeringPolicy</span><br><span class="line">                    class=&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP&quot;&gt;</span><br><span class="line">                <span class="tag">&lt;<span class="name">maxFileSize</span>&gt;</span>$&#123;FILESIZE&#125;<span class="tag">&lt;/<span class="name">maxFileSize</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">timeBasedFileNamingAndTriggeringPolicy</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 输出sql相关日志，不需要可删除；additivity：是否向上级loger传递打印信息，默认是true--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot;org.apache.ibatis&quot;</span> <span class="attr">level</span>=<span class="string">&quot;INFO&quot;</span> <span class="attr">additivity</span>=<span class="string">&quot;false&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot;org.mybatis.spring&quot;</span> <span class="attr">level</span>=<span class="string">&quot;INFO&quot;</span> <span class="attr">additivity</span>=<span class="string">&quot;false&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot;com.github.miemiedev.mybatis.paginator&quot;</span> <span class="attr">level</span>=<span class="string">&quot;INFO&quot;</span> <span class="attr">additivity</span>=<span class="string">&quot;false&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- logger设置输出到文件，输出级别为info --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">&quot;INFO&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;STDOUT&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;DEBUG&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;ERROR&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;WARN&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;INFO&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;TRACE&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>全局配置文件配置</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">logging:</span></span><br><span class="line">  <span class="attr">config:</span> <span class="string">classpath:logback.xml</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot(五):实现邮箱验证</title>
     <url>/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/</url>
     <content><![CDATA[<blockquote>
@@ -2252,6 +2269,47 @@
 <li>附上自己写的验证码生成工具</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VerificationCode</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> counts = <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">int</span> resCode = <span class="number">0</span>;</span><br><span class="line">        Random random = <span class="keyword">new</span> Random(System.currentTimeMillis());</span><br><span class="line">        <span class="keyword">while</span> (counts-- != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> i = random.nextInt(<span class="number">10</span>);</span><br><span class="line">            <span class="keyword">while</span> (i == <span class="number">0</span> &amp;&amp; counts == <span class="number">5</span>) &#123;</span><br><span class="line">                i = random.nextInt(<span class="number">10</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">0</span>) resCode *= <span class="number">10</span>;</span><br><span class="line">            <span class="keyword">else</span> resCode += (<span class="keyword">int</span>) (i * Math.pow(<span class="number">10</span>, <span class="number">5</span> - counts));</span><br><span class="line">        &#125;</span><br><span class="line">            <span class="keyword">return</span> String.valueOf(resCode);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot(六):解决前后端分离跨域</title>
+    <url>/2021/06/18/SpringBoot%EF%BC%88%E5%85%AD%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🚀什么是跨域？"><a href="#🚀什么是跨域？" class="headerlink" title="🚀什么是跨域？"></a>🚀什么是跨域？</h1><ul>
+<li><strong>url的一般格式</strong>：</li>
+</ul>
+<p><font color="skyblue">协议 + 域名（子域名 + 主域名） + 端口号 + 资源地址</font></p>
+<ul>
+<li><strong>示例</strong>：</li>
+</ul>
+<p><a href="https://www.dustyblog.cn:8080/say/Hello">https://www.dustyblog.cn:8080/say/Hello</a> 是由</p>
+<p>https + www + dustyblog.cn + 8080 + say/Hello组成。</p>
+<blockquote>
+<p>只要<font color="red">协议，子域名，主域名，端口号这四项组成部分中有一项不同</font>就可以认为是不同的域，不同的域之间互相访问资源，就被称之为跨域。</p>
+</blockquote>
+<p>前后端分离项目中，前端项目后端项目分别占用不同的端口号(这里只是针对个人开发而言，实际业务中不一定)从而导致了跨域问题</p>
+<h1 id="🚑解决方案"><a href="#🚑解决方案" class="headerlink" title="🚑解决方案"></a>🚑解决方案</h1><p><strong>注意</strong>：解决方案既可以在前端解决也可以在后端解决，这里只讨论后端的解决方案.</p>
+<h2 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h2><blockquote>
+<p>解决跨域问题有多种全局配置的方案，接下来一一列举</p>
+</blockquote>
+<h3 id="配置方案一"><a href="#配置方案一" class="headerlink" title="配置方案一"></a>配置方案一</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.cors.CorsConfiguration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.cors.UrlBasedCorsConfigurationSource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.filter.CorsFilter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CorsConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CorsConfiguration <span class="title">corsConfiguration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        CorsConfiguration corsConfiguration = <span class="keyword">new</span> CorsConfiguration();</span><br><span class="line">        <span class="comment">//实际请求中允许携带的首部字段</span></span><br><span class="line">        corsConfiguration.addAllowedHeader(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="comment">//允许那些域跨域访问</span></span><br><span class="line">        corsConfiguration.addAllowedOrigin(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="comment">//允许那些请求方法</span></span><br><span class="line">        corsConfiguration.addAllowedMethod(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> corsConfiguration;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CorsFilter <span class="title">corsFilter</span><span class="params">(CorsConfiguration corsConfiguration)</span> </span>&#123;</span><br><span class="line">        UrlBasedCorsConfigurationSource source = <span class="keyword">new</span> UrlBasedCorsConfigurationSource();</span><br><span class="line">        source.registerCorsConfiguration(<span class="string">&quot;/**&quot;</span>, corsConfiguration); <span class="comment">// 4</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> CorsFilter(source);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="配置方案二"><a href="#配置方案二" class="headerlink" title="配置方案二"></a>配置方案二</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.CorsRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebAllowConfig</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//添加访问什么路径时需要配置跨域</span></span><br><span class="line">        <span class="comment">//此处配置所有路径</span></span><br><span class="line">        registry.addMapping(<span class="string">&quot;/**&quot;</span>) <span class="comment">//允许谁跨域,vue开启服务默认跑在8080</span></span><br><span class="line">                .allowedOrigins(<span class="string">&quot;http://localhost:8080&quot;</span>, <span class="string">&quot;null&quot;</span>)  <span class="comment">//允许谁跨域,vue开启服务默认跑在8080</span></span><br><span class="line">                .allowedMethods(<span class="string">&quot;POST&quot;</span>, <span class="string">&quot;GET&quot;</span>, <span class="string">&quot;PUT&quot;</span>, <span class="string">&quot;OPTIONS&quot;</span>, <span class="string">&quot;DELETE&quot;</span>) <span class="comment">//设置需要进行配置的http请求方法</span></span><br><span class="line">                .maxAge(<span class="number">3600</span>) <span class="comment">//设置最大相应时间</span></span><br><span class="line">                .allowCredentials(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="CrossOrigin"><a href="#CrossOrigin" class="headerlink" title="@CrossOrigin"></a>@CrossOrigin</h2><p><code>@CrossOrigin</code> 用于<code>controller</code>类上，使用相对较为简单.</p>
+<p>但是有坑：<code>CROS</code>复杂请求时会首先发送一个<code>OPTIONS</code>请求做嗅探，来测试服务器是否支持本次请求，请求成功后才会发送真实的请求；而<code>OPTIONS</code>请求不会携带任何数据，导致这个请求不符合我们拦截器的校验规则被拦截了，直接返回了状态码，响应头中也没携带解决跨域需要的头部信息，进而出现了跨域问题.</p>
+<p>只需要重写<code>handler</code>中<code>preHandlr</code>并且加上下方代码即可</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="string">&quot;OPTIONS&quot;</span>.equals(request.getMethod().toUpperCase())) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Method:OPTIONS&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -2304,47 +2362,6 @@
 <ul>
 <li>引用时只需要像普通依赖一样引入就可以了，也可以直接复制当前项目中的项目坐标</li>
 </ul>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot(六):解决前后端分离跨域</title>
-    <url>/2021/06/18/SpringBoot%EF%BC%88%E5%85%AD%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🚀什么是跨域？"><a href="#🚀什么是跨域？" class="headerlink" title="🚀什么是跨域？"></a>🚀什么是跨域？</h1><ul>
-<li><strong>url的一般格式</strong>：</li>
-</ul>
-<p><font color="skyblue">协议 + 域名（子域名 + 主域名） + 端口号 + 资源地址</font></p>
-<ul>
-<li><strong>示例</strong>：</li>
-</ul>
-<p><a href="https://www.dustyblog.cn:8080/say/Hello">https://www.dustyblog.cn:8080/say/Hello</a> 是由</p>
-<p>https + www + dustyblog.cn + 8080 + say/Hello组成。</p>
-<blockquote>
-<p>只要<font color="red">协议，子域名，主域名，端口号这四项组成部分中有一项不同</font>就可以认为是不同的域，不同的域之间互相访问资源，就被称之为跨域。</p>
-</blockquote>
-<p>前后端分离项目中，前端项目后端项目分别占用不同的端口号(这里只是针对个人开发而言，实际业务中不一定)从而导致了跨域问题</p>
-<h1 id="🚑解决方案"><a href="#🚑解决方案" class="headerlink" title="🚑解决方案"></a>🚑解决方案</h1><p><strong>注意</strong>：解决方案既可以在前端解决也可以在后端解决，这里只讨论后端的解决方案.</p>
-<h2 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h2><blockquote>
-<p>解决跨域问题有多种全局配置的方案，接下来一一列举</p>
-</blockquote>
-<h3 id="配置方案一"><a href="#配置方案一" class="headerlink" title="配置方案一"></a>配置方案一</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.cors.CorsConfiguration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.cors.UrlBasedCorsConfigurationSource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.filter.CorsFilter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CorsConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CorsConfiguration <span class="title">corsConfiguration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        CorsConfiguration corsConfiguration = <span class="keyword">new</span> CorsConfiguration();</span><br><span class="line">        <span class="comment">//实际请求中允许携带的首部字段</span></span><br><span class="line">        corsConfiguration.addAllowedHeader(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="comment">//允许那些域跨域访问</span></span><br><span class="line">        corsConfiguration.addAllowedOrigin(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="comment">//允许那些请求方法</span></span><br><span class="line">        corsConfiguration.addAllowedMethod(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> corsConfiguration;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CorsFilter <span class="title">corsFilter</span><span class="params">(CorsConfiguration corsConfiguration)</span> </span>&#123;</span><br><span class="line">        UrlBasedCorsConfigurationSource source = <span class="keyword">new</span> UrlBasedCorsConfigurationSource();</span><br><span class="line">        source.registerCorsConfiguration(<span class="string">&quot;/**&quot;</span>, corsConfiguration); <span class="comment">// 4</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> CorsFilter(source);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="配置方案二"><a href="#配置方案二" class="headerlink" title="配置方案二"></a>配置方案二</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.CorsRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebAllowConfig</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//添加访问什么路径时需要配置跨域</span></span><br><span class="line">        <span class="comment">//此处配置所有路径</span></span><br><span class="line">        registry.addMapping(<span class="string">&quot;/**&quot;</span>) <span class="comment">//允许谁跨域,vue开启服务默认跑在8080</span></span><br><span class="line">                .allowedOrigins(<span class="string">&quot;http://localhost:8080&quot;</span>, <span class="string">&quot;null&quot;</span>)  <span class="comment">//允许谁跨域,vue开启服务默认跑在8080</span></span><br><span class="line">                .allowedMethods(<span class="string">&quot;POST&quot;</span>, <span class="string">&quot;GET&quot;</span>, <span class="string">&quot;PUT&quot;</span>, <span class="string">&quot;OPTIONS&quot;</span>, <span class="string">&quot;DELETE&quot;</span>) <span class="comment">//设置需要进行配置的http请求方法</span></span><br><span class="line">                .maxAge(<span class="number">3600</span>) <span class="comment">//设置最大相应时间</span></span><br><span class="line">                .allowCredentials(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="CrossOrigin"><a href="#CrossOrigin" class="headerlink" title="@CrossOrigin"></a>@CrossOrigin</h2><p><code>@CrossOrigin</code> 用于<code>controller</code>类上，使用相对较为简单.</p>
-<p>但是有坑：<code>CROS</code>复杂请求时会首先发送一个<code>OPTIONS</code>请求做嗅探，来测试服务器是否支持本次请求，请求成功后才会发送真实的请求；而<code>OPTIONS</code>请求不会携带任何数据，导致这个请求不符合我们拦截器的校验规则被拦截了，直接返回了状态码，响应头中也没携带解决跨域需要的头部信息，进而出现了跨域问题.</p>
-<p>只需要重写<code>handler</code>中<code>preHandlr</code>并且加上下方代码即可</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="string">&quot;OPTIONS&quot;</span>.equals(request.getMethod().toUpperCase())) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Method:OPTIONS&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 ]]></content>
       <categories>
         <category>Java</category>
@@ -2644,27 +2661,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringSecurity(四):结合Vue实现异步登录</title>
-    <url>/2021/07/16/SpringSecurity%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🏁问题分析"><a href="#🏁问题分析" class="headerlink" title="🏁问题分析"></a>🏁问题分析</h1><p>&emsp;&emsp;使用异步<code>axios</code>请求的方式进行登录与直接使用 <code>postman</code> 发送 <code>post</code> 请求进行测试 ，提交数据的方式似乎不太一样，<code>postman</code>能跑通，而使用<code>axios</code> ，后台<code>loadUserByusername</code>获取不到用户名，这就很奇怪，奈何看不太懂源码，主要是各种设计模式没学过以及底层的封装层数太多了，看的使人心累，于是开始逛论坛以及开源网站看别人的代码，后来才发现，<code>axios</code>提交的参数是存放在请求体当中的，而<code>SpringSecurity</code>中的处理逻辑使用了 <code>request.getParameter</code> 进行参数获取，有过原始表单或者 <code>servlet</code> 开发经验的人都知道 ， 此方法只能获取到类似于 <code>get</code>请求 以及 以原始表单格式提交的<code>post</code> 数据 ， 然而尝试过后发现 ，利用<code>axios</code>请求，将请求头设置一下，即<code>Content-Type: application/x-www-form-urlencoded``;charset=utf-8</code> ， 安全框架仍然解析不到<code>username</code>，此时心态已经崩了，然而就在此时，翻到一篇博客，记述到可以将传统原生的表单提交格式更改为 <code>get</code> 提交数据的数据格式，当然了只是更改了数据格式，并没有更改请求方式哈.</p>
-<h1 id="😎解决方案"><a href="#😎解决方案" class="headerlink" title="😎解决方案"></a>😎解决方案</h1><p>利用<code>qs</code> 包 中的 <code>stringify</code> 方法格式化数据.</p>
-<p>具体：</p>
-<ul>
-<li>先安装该包 <code>npm install qs --save</code></li>
-<li>修改前端提交数据的格式</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> http.request(&#123;</span><br><span class="line">    method: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    url: <span class="string">&#x27;login&#x27;</span>,</span><br><span class="line">    data: qs.stringify(data)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>测试过后可以请求成功，狂喜~</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringSecurity</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringSecurity(二):整合mybatis</title>
     <url>/2021/07/12/SpringSecurity%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
     <content><![CDATA[<h1 id="构建数据库表"><a href="#构建数据库表" class="headerlink" title="构建数据库表"></a>构建数据库表</h1><ul>
@@ -2731,6 +2727,54 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringSecurity(四):结合Vue实现异步登录</title>
+    <url>/2021/07/16/SpringSecurity%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🏁问题分析"><a href="#🏁问题分析" class="headerlink" title="🏁问题分析"></a>🏁问题分析</h1><p>&emsp;&emsp;使用异步<code>axios</code>请求的方式进行登录与直接使用 <code>postman</code> 发送 <code>post</code> 请求进行测试 ，提交数据的方式似乎不太一样，<code>postman</code>能跑通，而使用<code>axios</code> ，后台<code>loadUserByusername</code>获取不到用户名，这就很奇怪，奈何看不太懂源码，主要是各种设计模式没学过以及底层的封装层数太多了，看的使人心累，于是开始逛论坛以及开源网站看别人的代码，后来才发现，<code>axios</code>提交的参数是存放在请求体当中的，而<code>SpringSecurity</code>中的处理逻辑使用了 <code>request.getParameter</code> 进行参数获取，有过原始表单或者 <code>servlet</code> 开发经验的人都知道 ， 此方法只能获取到类似于 <code>get</code>请求 以及 以原始表单格式提交的<code>post</code> 数据 ， 然而尝试过后发现 ，利用<code>axios</code>请求，将请求头设置一下，即<code>Content-Type: application/x-www-form-urlencoded``;charset=utf-8</code> ， 安全框架仍然解析不到<code>username</code>，此时心态已经崩了，然而就在此时，翻到一篇博客，记述到可以将传统原生的表单提交格式更改为 <code>get</code> 提交数据的数据格式，当然了只是更改了数据格式，并没有更改请求方式哈.</p>
+<h1 id="😎解决方案"><a href="#😎解决方案" class="headerlink" title="😎解决方案"></a>😎解决方案</h1><p>利用<code>qs</code> 包 中的 <code>stringify</code> 方法格式化数据.</p>
+<p>具体：</p>
+<ul>
+<li>先安装该包 <code>npm install qs --save</code></li>
+<li>修改前端提交数据的格式</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> http.request(&#123;</span><br><span class="line">    method: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    url: <span class="string">&#x27;login&#x27;</span>,</span><br><span class="line">    data: qs.stringify(data)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试过后可以请求成功，狂喜~</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringSecurity</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue(二):整合mavon-editor</title>
+    <url>/2021/07/22/Vue%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<blockquote>
+<p>前言：不得不说我还是太懒了，前端部分的文章一直没有写，不知道为什么没有什么兴致写，现在趁着有时间还是写写吧，Vue最近也算是用的有点感觉了，组件化思想有一说一，对于个人开发者而言，开发小型项目还是用后端模板写前端比较方便hhh.</p>
+</blockquote>
+<h1 id="🚀下载安装-mavon-editor"><a href="#🚀下载安装-mavon-editor" class="headerlink" title="🚀下载安装 mavon-editor"></a>🚀下载安装 mavon-editor</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install mavon-editor --save</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="🛰使用-mavon-editor"><a href="#🛰使用-mavon-editor" class="headerlink" title="🛰使用 mavon-editor"></a>🛰使用 mavon-editor</h1><h2 id="在需要的组件中使用"><a href="#在需要的组件中使用" class="headerlink" title="在需要的组件中使用"></a>在需要的组件中使用</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;mavon-editor v-model&#x3D;&quot;content&quot; </span><br><span class="line">                  :codeStyle&#x3D;&quot;codeStyle&quot;</span><br><span class="line">                  &#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; mavonEditor &#125; from &#39;mavon-editor&#39;</span><br><span class="line">import &#39;mavon-editor&#x2F;dist&#x2F;css&#x2F;index.css&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;MavonEditor&#39;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      content: &#39;&#39;,</span><br><span class="line">      codeStyle: &#39;主题&#39;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    mavonEditor</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>注意：<code>content</code> 保存的为md语法，<code>codeStyle</code>属性可以更换代码块的主题，具体有哪些主题可以参考一下  <a href="https://github.com/hinesboy/mavonEditor/blob/HEAD/src/lib/core/hljs/lang.hljs.css.js"><font color="red">可选主题表</font></a>  , 每一种主题的样式可以参考<a href="https://highlightjs.org/static/demo/"> <code>highlight.js</code>demo文档</a>  ， 更多相关的设置可以参考文档 : <a href="https://www.npmjs.com/package/mavon-editor">mavon-editor参考文档</a> </p>
+<h2 id="实现编辑器中实时图片上传"><a href="#实现编辑器中实时图片上传" class="headerlink" title="实现编辑器中实时图片上传"></a>实现编辑器中实时图片上传</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;mavon-editor ref&#x3D;md @imgAdd&#x3D;&quot;imgAdd&quot; @imgDel&#x3D;&quot;$imgDel&quot;&gt;&lt;&#x2F;mavon-editor&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    exports default &#123;</span><br><span class="line">    methods: &#123;</span><br><span class="line">        &#x2F;&#x2F; 绑定@imgAdd event</span><br><span class="line">        imgAdd(pos, $file)&#123;</span><br><span class="line">		   let _this &#x3D; this</span><br><span class="line">            &#x2F;&#x2F; 第一步.将图片上传到服务器.</span><br><span class="line">           var formdata &#x3D; new FormData();</span><br><span class="line">           formdata.append(&#39;image&#39;, $file);</span><br><span class="line">           axios(&#123;</span><br><span class="line">               url: &#39;图片上传api路径&#39;,</span><br><span class="line">               method: &#39;post&#39;,</span><br><span class="line">               data: formdata,</span><br><span class="line">               headers: &#123; &#39;Content-Type&#39;: &#39;multipart&#x2F;form-data&#39; &#125;,</span><br><span class="line">           &#125;).then((url) &#x3D;&gt; &#123;</span><br><span class="line">               _this.$refs.md.$img2Url(pos, url);</span><br><span class="line">           &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上述的写法比较固定，按着如上方式写即可.</p>
+<p>注意替换的方式：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//将返回的url替换到文本原位置![...](0) -&gt; ![...](url)  替换方式为: $vm.$img2Url(pos , url)</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * $vm 指为mavonEditor实例，可以通过如下两种方式获取</span></span><br><span class="line"><span class="comment"> * 1. 通过引入对象获取: `import &#123;mavonEditor&#125; from ...` 等方式引入后，`$vm`为`mavonEditor`</span></span><br><span class="line"><span class="comment"> * 2. 通过$refs获取: html声明ref : `&lt;mavon-editor ref=md &gt;&lt;/mavon-editor&gt;，`$vm`为`this.$refs.md`</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Vue(一):介绍与起步使用</title>
     <url>/2021/06/01/Vue%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<h1 id="Vue-js介绍"><a href="#Vue-js介绍" class="headerlink" title="Vue.js介绍"></a>Vue.js介绍</h1><p>​        Vue (读音 /vjuː/，类似于 <strong>view</strong>) 是一套用于构建用户界面的<strong>渐进式框架</strong>。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与<a href="https://cn.vuejs.org/v2/guide/single-file-components.html">现代化的工具链</a>以及各种<a href="https://github.com/vuejs/awesome-vue#libraries--plugins">支持类库</a>结合使用时，Vue 也完全能够为复杂的单页应用提供驱动，并且采用了<code>SPA</code>的设计思想来对页面进行开发，让开发十分便携且可维护性得到提高.</p>
@@ -2791,33 +2835,6 @@
 
 <p><code>vue</code>中的方法：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">      <span class="comment">//挂载html元素,使用id进行挂载绑定，因为id具有唯一性</span></span><br><span class="line">      el: <span class="string">&#x27;#app&#x27;</span> ,</span><br><span class="line">      <span class="comment">//声明数据</span></span><br><span class="line">      data: &#123;</span><br><span class="line">          ids: <span class="string">&quot;test&quot;</span>,</span><br><span class="line">          event: <span class="string">&quot;click&quot;</span></span><br><span class="line">      &#125;,</span><br><span class="line">    	methods: &#123;</span><br><span class="line">          <span class="comment">//ES5写法</span></span><br><span class="line">          test: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">              </span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="comment">//ES6写法</span></span><br><span class="line">          <span class="function"><span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">              </span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Vue</category>
-      </categories>
-      <tags>
-        <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue(二):整合mavon-editor</title>
-    <url>/2021/07/22/Vue%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<blockquote>
-<p>前言：不得不说我还是太懒了，前端部分的文章一直没有写，不知道为什么没有什么兴致写，现在趁着有时间还是写写吧，Vue最近也算是用的有点感觉了，组件化思想有一说一，对于个人开发者而言，开发小型项目还是用后端模板写前端比较方便hhh.</p>
-</blockquote>
-<h1 id="🚀下载安装-mavon-editor"><a href="#🚀下载安装-mavon-editor" class="headerlink" title="🚀下载安装 mavon-editor"></a>🚀下载安装 mavon-editor</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install mavon-editor --save</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="🛰使用-mavon-editor"><a href="#🛰使用-mavon-editor" class="headerlink" title="🛰使用 mavon-editor"></a>🛰使用 mavon-editor</h1><h2 id="在需要的组件中使用"><a href="#在需要的组件中使用" class="headerlink" title="在需要的组件中使用"></a>在需要的组件中使用</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;mavon-editor v-model&#x3D;&quot;content&quot; </span><br><span class="line">                  :codeStyle&#x3D;&quot;codeStyle&quot;</span><br><span class="line">                  &#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; mavonEditor &#125; from &#39;mavon-editor&#39;</span><br><span class="line">import &#39;mavon-editor&#x2F;dist&#x2F;css&#x2F;index.css&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;MavonEditor&#39;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      content: &#39;&#39;,</span><br><span class="line">      codeStyle: &#39;主题&#39;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    mavonEditor</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>注意：<code>content</code> 保存的为md语法，<code>codeStyle</code>属性可以更换代码块的主题，具体有哪些主题可以参考一下  <a href="https://github.com/hinesboy/mavonEditor/blob/HEAD/src/lib/core/hljs/lang.hljs.css.js"><font color="red">可选主题表</font></a>  , 每一种主题的样式可以参考<a href="https://highlightjs.org/static/demo/"> <code>highlight.js</code>demo文档</a>  ， 更多相关的设置可以参考文档 : <a href="https://www.npmjs.com/package/mavon-editor">mavon-editor参考文档</a> </p>
-<h2 id="实现编辑器中实时图片上传"><a href="#实现编辑器中实时图片上传" class="headerlink" title="实现编辑器中实时图片上传"></a>实现编辑器中实时图片上传</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;mavon-editor ref&#x3D;md @imgAdd&#x3D;&quot;imgAdd&quot; @imgDel&#x3D;&quot;$imgDel&quot;&gt;&lt;&#x2F;mavon-editor&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    exports default &#123;</span><br><span class="line">    methods: &#123;</span><br><span class="line">        &#x2F;&#x2F; 绑定@imgAdd event</span><br><span class="line">        imgAdd(pos, $file)&#123;</span><br><span class="line">		   let _this &#x3D; this</span><br><span class="line">            &#x2F;&#x2F; 第一步.将图片上传到服务器.</span><br><span class="line">           var formdata &#x3D; new FormData();</span><br><span class="line">           formdata.append(&#39;image&#39;, $file);</span><br><span class="line">           axios(&#123;</span><br><span class="line">               url: &#39;图片上传api路径&#39;,</span><br><span class="line">               method: &#39;post&#39;,</span><br><span class="line">               data: formdata,</span><br><span class="line">               headers: &#123; &#39;Content-Type&#39;: &#39;multipart&#x2F;form-data&#39; &#125;,</span><br><span class="line">           &#125;).then((url) &#x3D;&gt; &#123;</span><br><span class="line">               _this.$refs.md.$img2Url(pos, url);</span><br><span class="line">           &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>上述的写法比较固定，按着如上方式写即可.</p>
-<p>注意替换的方式：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//将返回的url替换到文本原位置![...](0) -&gt; ![...](url)  替换方式为: $vm.$img2Url(pos , url)</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * $vm 指为mavonEditor实例，可以通过如下两种方式获取</span></span><br><span class="line"><span class="comment"> * 1. 通过引入对象获取: `import &#123;mavonEditor&#125; from ...` 等方式引入后，`$vm`为`mavonEditor`</span></span><br><span class="line"><span class="comment"> * 2. 通过$refs获取: html声明ref : `&lt;mavon-editor ref=md &gt;&lt;/mavon-editor&gt;，`$vm`为`this.$refs.md`</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -3142,31 +3159,6 @@
       </tags>
   </entry>
   <entry>
-    <title>每日一题(二):双指针算法</title>
-    <url>/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🎃双指针算法"><a href="#🎃双指针算法" class="headerlink" title="🎃双指针算法"></a>🎃双指针算法</h1><p>何为双指针？其实在算法中是一种技巧性的东西，这个指针也并非如同<code>C语言</code> 那种指针，只是一种标识，用于表示状态，很凑巧，在上一篇每日一题中的快速排序就使用了双指针算法,十分经典，并且属于对撞指针（通俗的讲就是相向扫描），当然了，既然有相向扫描，也肯定有同向扫描，比较常用于字符串比对，分治之中.</p>
-<p>突然有个不错的想法，每日一题连续更新同一类型的题目，这样有便于全面掌握一种算法.</p>
-<p>这里附上上一篇文章的链接以供复习.</p>
-<p><a href="https://soul-pe.gitee.io/shdsoul/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">每日一题(一):快速排序</a></p>
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><img src="/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/1.png" class title="题目">
-
-<p>题目来源：Acwing：<a href="https://www.acwing.com/problem/content/description/773/">原题链接</a></p>
-<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>我们只需要，遍历每一个字符，然后将字符与后方的字符逐一比较，相同则继续向后比较并记录连续次数，不同则停止比较，继续向后方遍历即可.</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串</span></span><br><span class="line">    string str;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串数量</span></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="comment">//当 n 为 0 的时候停止输入</span></span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        cin &gt;&gt; str;</span><br><span class="line">        <span class="comment">//定义最大长度为 -1</span></span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">-1</span>;</span><br><span class="line">        <span class="comment">//记录最多重复的字符</span></span><br><span class="line">        string maxs;</span><br><span class="line">        <span class="comment">//指针i :遍历输入的字符</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; str.<span class="built_in">size</span>() ; i++)&#123;</span><br><span class="line">            <span class="comment">//指针j :用于字符串比较</span></span><br><span class="line">            <span class="keyword">int</span> j = i; <span class="comment">//由于要求连续,所以默认开始扫描的地方为 指针i 的位置,只需要遍历后面，不需要管前面</span></span><br><span class="line">            <span class="keyword">int</span> nums = <span class="number">0</span>;<span class="comment">//用于记录连续次数</span></span><br><span class="line">            <span class="comment">//当指针j指向的值与指针i指向的值相同的时候,并且j指针没有越界的时候</span></span><br><span class="line">            <span class="keyword">while</span>(str[j] == str[i] &amp;&amp; j &lt; str.<span class="built_in">size</span>())</span><br><span class="line">                <span class="comment">//指针j向后移动,连续次数自增1</span></span><br><span class="line">                j++ , nums++;</span><br><span class="line">            <span class="comment">//如果连续次数大于最大值则进行记录,并且记录当前字符    </span></span><br><span class="line">            <span class="keyword">if</span>(nums &gt; max)</span><br><span class="line">                max = nums,maxs = str[i];</span><br><span class="line">            <span class="comment">//当指针j停止移动时,[i,j)区间中必然全是相同的字符,此时 i只需要从j的位置开始继续遍历即可</span></span><br><span class="line">            i = j <span class="number">-1</span>;<span class="comment">//这里减1,是为了抵消掉循环中的 i++</span></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; nums &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; max;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">int</span> n = Integer.parseInt(reader.readLine());</span><br><span class="line">        <span class="keyword">while</span>(n-- != <span class="number">0</span>)&#123;</span><br><span class="line">            String s = reader.readLine();</span><br><span class="line">            <span class="keyword">char</span> c = <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">            <span class="keyword">int</span> max = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; s.length() ; i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> j = i;</span><br><span class="line">                <span class="keyword">int</span> nums = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span>(j &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(j))&#123; </span><br><span class="line">                    j++;</span><br><span class="line">                    nums++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(nums &gt; max)&#123;</span><br><span class="line">                    max = nums ;</span><br><span class="line">                    c = s.charAt(i);</span><br><span class="line">                &#125;</span><br><span class="line">                i = j - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(c + <span class="string">&quot; &quot;</span> + max);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>每日一题(三):双指针算法</title>
     <url>/2021/06/15/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%89%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🚠双指针算法"><a href="#🚠双指针算法" class="headerlink" title="🚠双指针算法"></a>🚠双指针算法</h1><p>范式：</p>
@@ -3187,6 +3179,31 @@
 
 
 
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>每日一题(二):双指针算法</title>
+    <url>/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🎃双指针算法"><a href="#🎃双指针算法" class="headerlink" title="🎃双指针算法"></a>🎃双指针算法</h1><p>何为双指针？其实在算法中是一种技巧性的东西，这个指针也并非如同<code>C语言</code> 那种指针，只是一种标识，用于表示状态，很凑巧，在上一篇每日一题中的快速排序就使用了双指针算法,十分经典，并且属于对撞指针（通俗的讲就是相向扫描），当然了，既然有相向扫描，也肯定有同向扫描，比较常用于字符串比对，分治之中.</p>
+<p>突然有个不错的想法，每日一题连续更新同一类型的题目，这样有便于全面掌握一种算法.</p>
+<p>这里附上上一篇文章的链接以供复习.</p>
+<p><a href="https://soul-pe.gitee.io/shdsoul/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">每日一题(一):快速排序</a></p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><img src="/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/1.png" class title="题目">
+
+<p>题目来源：Acwing：<a href="https://www.acwing.com/problem/content/description/773/">原题链接</a></p>
+<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>我们只需要，遍历每一个字符，然后将字符与后方的字符逐一比较，相同则继续向后比较并记录连续次数，不同则停止比较，继续向后方遍历即可.</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串</span></span><br><span class="line">    string str;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串数量</span></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="comment">//当 n 为 0 的时候停止输入</span></span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        cin &gt;&gt; str;</span><br><span class="line">        <span class="comment">//定义最大长度为 -1</span></span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">-1</span>;</span><br><span class="line">        <span class="comment">//记录最多重复的字符</span></span><br><span class="line">        string maxs;</span><br><span class="line">        <span class="comment">//指针i :遍历输入的字符</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; str.<span class="built_in">size</span>() ; i++)&#123;</span><br><span class="line">            <span class="comment">//指针j :用于字符串比较</span></span><br><span class="line">            <span class="keyword">int</span> j = i; <span class="comment">//由于要求连续,所以默认开始扫描的地方为 指针i 的位置,只需要遍历后面，不需要管前面</span></span><br><span class="line">            <span class="keyword">int</span> nums = <span class="number">0</span>;<span class="comment">//用于记录连续次数</span></span><br><span class="line">            <span class="comment">//当指针j指向的值与指针i指向的值相同的时候,并且j指针没有越界的时候</span></span><br><span class="line">            <span class="keyword">while</span>(str[j] == str[i] &amp;&amp; j &lt; str.<span class="built_in">size</span>())</span><br><span class="line">                <span class="comment">//指针j向后移动,连续次数自增1</span></span><br><span class="line">                j++ , nums++;</span><br><span class="line">            <span class="comment">//如果连续次数大于最大值则进行记录,并且记录当前字符    </span></span><br><span class="line">            <span class="keyword">if</span>(nums &gt; max)</span><br><span class="line">                max = nums,maxs = str[i];</span><br><span class="line">            <span class="comment">//当指针j停止移动时,[i,j)区间中必然全是相同的字符,此时 i只需要从j的位置开始继续遍历即可</span></span><br><span class="line">            i = j <span class="number">-1</span>;<span class="comment">//这里减1,是为了抵消掉循环中的 i++</span></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; nums &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; max;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">int</span> n = Integer.parseInt(reader.readLine());</span><br><span class="line">        <span class="keyword">while</span>(n-- != <span class="number">0</span>)&#123;</span><br><span class="line">            String s = reader.readLine();</span><br><span class="line">            <span class="keyword">char</span> c = <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">            <span class="keyword">int</span> max = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; s.length() ; i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> j = i;</span><br><span class="line">                <span class="keyword">int</span> nums = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span>(j &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(j))&#123; </span><br><span class="line">                    j++;</span><br><span class="line">                    nums++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(nums &gt; max)&#123;</span><br><span class="line">                    max = nums ;</span><br><span class="line">                    c = s.charAt(i);</span><br><span class="line">                &#125;</span><br><span class="line">                i = j - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(c + <span class="string">&quot; &quot;</span> + max);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -3223,34 +3240,6 @@
 
 
 <h2 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h2><h3 id="动态规划-2"><a href="#动态规划-2" class="headerlink" title="动态规划"></a>动态规划</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">climbStairs</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> n &lt;= <span class="number">2</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> n</span><br><span class="line">    &#125;</span><br><span class="line">    dp := <span class="built_in">make</span>([]<span class="keyword">int</span>, n+<span class="number">1</span>)</span><br><span class="line">    dp[<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">    dp[<span class="number">2</span>] = <span class="number">2</span></span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">3</span> ; i &lt;= n ; i++ &#123;</span><br><span class="line">        dp[i] = dp[i<span class="number">-1</span>] + dp[i<span class="number">-2</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>每日一题(四):滑动窗口</title>
-    <url>/2021/07/14/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%9B%9B%EF%BC%89/1.png" alt="image-20210714161119231"></p>
-<p>原题链接：<a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">无重复字符的最长子串</a> —-leetcode</p>
-<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><p>最常见的莫过于双重循环的暴力解法，但是时间复杂度过高了. </p>
-<p>对于子串问题还有一种比较常用的解法，双指针算法，于是考虑使用双指针来进行分析.</p>
-<ul>
-<li>定义一个<code> map</code> 数据结构存储<code> (k, v)</code>，其中 <code>key</code> 值为字符，<code>value</code> 值为字符位置</li>
-<li>我们定义不重复子串的开始位置为 <code>start</code>，结束位置为<code> end</code></li>
-<li>随着 <code>end</code> 不断遍历向后，会遇到与 [start, end] 区间内字符相同的情况，此时将字符作为 <code>key</code> 值，获取其 <code>value</code> 值，并更新<code>start</code>，此时<code> [start, end]</code> 区间内不存在重复字符</li>
-<li>无论是否更新<code> star</code>t，都会更新其 <code>map</code> 数据结构和结果 <code>ans</code>。</li>
-<li>时间复杂度：O(n)</li>
-</ul>
-<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//定义map集合</span></span><br><span class="line">        Map&lt;Character,Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="comment">//获取字符串长度</span></span><br><span class="line">        <span class="keyword">int</span> n = s.length();</span><br><span class="line">        <span class="comment">//定义结果</span></span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 头指针 以及 尾指针</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> start = <span class="number">0</span> , end = <span class="number">0</span> ; end &lt; n ; end++)&#123;</span><br><span class="line">            <span class="comment">//取出 字符串中的位于尾指针处的字符</span></span><br><span class="line">            Character element = s.charAt(end);</span><br><span class="line">            <span class="comment">//如果map中含有这个字符</span></span><br><span class="line">            <span class="keyword">if</span>(map.containsKey(element))&#123;</span><br><span class="line">                <span class="comment">//则 头指针需要移动 使 start - end 之间为无重复的字符串</span></span><br><span class="line">                <span class="comment">//同时必须往右移动，往左必然会多重复元素，因此 start 必须大于等于当前 start</span></span><br><span class="line">                <span class="comment">//因此 start 需要取 重复元素坐标的下一个位置的下标 </span></span><br><span class="line">                start = Math.max(map.get(element)+<span class="number">1</span> , start);</span><br><span class="line">            &#125;</span><br><span class="line">            map.put(element , end);</span><br><span class="line">            <span class="comment">//获取子串长度 </span></span><br><span class="line">            ans = Math.max(end - start + <span class="number">1</span> , ans);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//用于记录 每个字符出现的下标位置的下一个位置 </span></span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">m</span><span class="params">(<span class="number">128</span>, <span class="number">0</span>)</span></span>; <span class="comment">//ASCII码范围：0-127</span></span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> start = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> end = <span class="number">0</span>; end &lt; s.<span class="built_in">size</span>(); end++) &#123;</span><br><span class="line">            <span class="comment">//如果这个字符以及出现过</span></span><br><span class="line">            <span class="keyword">if</span>(m[s[end]]!=<span class="number">0</span>)  </span><br><span class="line">            <span class="comment">//则移动头指针到 使字符串中无重复字符的位置</span></span><br><span class="line">            <span class="comment">//要么是重复字符的下一位 即 m[s[end]]</span></span><br><span class="line">            <span class="comment">//如果在当前位置之前 start 则不动 </span></span><br><span class="line">            start = <span class="built_in">max</span>(start, m[s[end]]);</span><br><span class="line">			<span class="comment">//将出现的字符加入集合</span></span><br><span class="line">            m[s[end]] = end + <span class="number">1</span>;</span><br><span class="line">            <span class="comment">//计算长度</span></span><br><span class="line">            ans = <span class="built_in">max</span>(ans, end - start + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -3334,6 +3323,34 @@
       <tags>
         <tag>线程池</tag>
         <tag>网络编程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>每日一题(四):滑动窗口</title>
+    <url>/2021/07/14/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%9B%9B%EF%BC%89/1.png" alt="image-20210714161119231"></p>
+<p>原题链接：<a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">无重复字符的最长子串</a> —-leetcode</p>
+<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><p>最常见的莫过于双重循环的暴力解法，但是时间复杂度过高了. </p>
+<p>对于子串问题还有一种比较常用的解法，双指针算法，于是考虑使用双指针来进行分析.</p>
+<ul>
+<li>定义一个<code> map</code> 数据结构存储<code> (k, v)</code>，其中 <code>key</code> 值为字符，<code>value</code> 值为字符位置</li>
+<li>我们定义不重复子串的开始位置为 <code>start</code>，结束位置为<code> end</code></li>
+<li>随着 <code>end</code> 不断遍历向后，会遇到与 [start, end] 区间内字符相同的情况，此时将字符作为 <code>key</code> 值，获取其 <code>value</code> 值，并更新<code>start</code>，此时<code> [start, end]</code> 区间内不存在重复字符</li>
+<li>无论是否更新<code> star</code>t，都会更新其 <code>map</code> 数据结构和结果 <code>ans</code>。</li>
+<li>时间复杂度：O(n)</li>
+</ul>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//定义map集合</span></span><br><span class="line">        Map&lt;Character,Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="comment">//获取字符串长度</span></span><br><span class="line">        <span class="keyword">int</span> n = s.length();</span><br><span class="line">        <span class="comment">//定义结果</span></span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 头指针 以及 尾指针</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> start = <span class="number">0</span> , end = <span class="number">0</span> ; end &lt; n ; end++)&#123;</span><br><span class="line">            <span class="comment">//取出 字符串中的位于尾指针处的字符</span></span><br><span class="line">            Character element = s.charAt(end);</span><br><span class="line">            <span class="comment">//如果map中含有这个字符</span></span><br><span class="line">            <span class="keyword">if</span>(map.containsKey(element))&#123;</span><br><span class="line">                <span class="comment">//则 头指针需要移动 使 start - end 之间为无重复的字符串</span></span><br><span class="line">                <span class="comment">//同时必须往右移动，往左必然会多重复元素，因此 start 必须大于等于当前 start</span></span><br><span class="line">                <span class="comment">//因此 start 需要取 重复元素坐标的下一个位置的下标 </span></span><br><span class="line">                start = Math.max(map.get(element)+<span class="number">1</span> , start);</span><br><span class="line">            &#125;</span><br><span class="line">            map.put(element , end);</span><br><span class="line">            <span class="comment">//获取子串长度 </span></span><br><span class="line">            ans = Math.max(end - start + <span class="number">1</span> , ans);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//用于记录 每个字符出现的下标位置的下一个位置 </span></span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">m</span><span class="params">(<span class="number">128</span>, <span class="number">0</span>)</span></span>; <span class="comment">//ASCII码范围：0-127</span></span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> start = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> end = <span class="number">0</span>; end &lt; s.<span class="built_in">size</span>(); end++) &#123;</span><br><span class="line">            <span class="comment">//如果这个字符以及出现过</span></span><br><span class="line">            <span class="keyword">if</span>(m[s[end]]!=<span class="number">0</span>)  </span><br><span class="line">            <span class="comment">//则移动头指针到 使字符串中无重复字符的位置</span></span><br><span class="line">            <span class="comment">//要么是重复字符的下一位 即 m[s[end]]</span></span><br><span class="line">            <span class="comment">//如果在当前位置之前 start 则不动 </span></span><br><span class="line">            start = <span class="built_in">max</span>(start, m[s[end]]);</span><br><span class="line">			<span class="comment">//将出现的字符加入集合</span></span><br><span class="line">            m[s[end]] = end + <span class="number">1</span>;</span><br><span class="line">            <span class="comment">//计算长度</span></span><br><span class="line">            ans = <span class="built_in">max</span>(ans, end - start + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
