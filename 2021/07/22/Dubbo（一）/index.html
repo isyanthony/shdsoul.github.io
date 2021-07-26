@@ -24,6 +24,8 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
 
 
   <script>
@@ -472,9 +474,23 @@
     
 
     <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wxpay.jpg" alt="Soucat 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
           <div class="post-tags">
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag"># 分布式</a>
-              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 分布式</a>
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
           </div>
 
         
@@ -565,6 +581,26 @@ setInterval("createtime()",250);
 
 
 
+  <script>
+    NProgress.configure({
+      showSpinner: true
+    });
+    NProgress.start();
+    document.addEventListener('readystatechange', () => {
+      if (document.readyState === 'interactive') {
+        NProgress.inc(0.8);
+      }
+      if (document.readyState === 'complete') {
+        NProgress.done();
+      }
+    });
+    document.addEventListener('pjax:send', () => {
+      NProgress.start();
+    });
+    document.addEventListener('pjax:success', () => {
+      NProgress.done();
+    });
+  </script>
 
   
 
