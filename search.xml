@@ -246,8 +246,20 @@
 <ul>
 <li>配置远程连接</li>
 </ul>
-<p><font color="skyblue">注意：此处选择<code>tcp socket </code>连接 , 这里会用到2375端口号，需要配置服务器开放2375端口号进行(一个是在宝塔页面设置开放，一个是在服务器安全组设置开放) , 马赛克的位置是服务器ip地址</font></p>
+<p><font color="skyblue">注意：此处选择<code>tcp socket </code>连接 , 这里会用到2375端口号，需要配置服务器开放2375端口号进行(一个是在宝塔页面设置开放，一个是在服务器安全组设置开放) ，还需要进行其它相关设置请继续往下阅读, 马赛克的位置是服务器ip地址</font></p>
 <img src="/2021/07/27/Docker%EF%BC%88%E4%B8%89%EF%BC%89/3.png" class>
+
+<p><font color="red">重要配置:</font></p>
+<p>还需要在这个文件中:</p>
+<p><code>/lib/systemd/system/docker.service</code></p>
+<img src="/2021/07/27/Docker%EF%BC%88%E4%B8%89%EF%BC%89/7.png" class>
+
+<p>进入文件后按 <code>i </code>进入 <code>insert </code>模式，然后改为上面的红色语句</p>
+<p>即 <code>ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2375</code></p>
+<p>如果你的服务器是<code>centos7 </code>及以上，就改为：</p>
+<p><code>ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock</code><br>然后保存退出.</p>
+<p>随后再进行如下操作：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#通知docker服务做出的修改</span></span><br><span class="line">systemctl daemon-reload</span><br><span class="line"></span><br><span class="line"><span class="comment">#重启docker</span></span><br><span class="line">service docker restart</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 
@@ -2041,6 +2053,11 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringBoot（九）</title>
+    <url>/2021/07/27/SpringBoot%EF%BC%88%E4%B9%9D%EF%BC%89/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>SpringBoot(三):数据库连接池</title>
     <url>/2021/05/08/SpringBoot%EF%BC%88%E4%B8%89%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🎡数据库连接池相关概念"><a href="#🎡数据库连接池相关概念" class="headerlink" title="🎡数据库连接池相关概念"></a>🎡数据库连接池相关概念</h1><ul>
@@ -2381,6 +2398,80 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringMVC：流程分析概览</title>
+    <url>/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/</url>
+    <content><![CDATA[<h1 id="🎈SpringMVC简介"><a href="#🎈SpringMVC简介" class="headerlink" title="🎈SpringMVC简介"></a>🎈SpringMVC简介</h1><p>​        <code>SpringMVC</code> 显然是由 <code>Spring</code> 以及 <code>MVC</code> 俩部分组成，先说说 <code>Spring</code> 那当然就是指 <code>Spring Framework</code> 框架了，前面的文章已经介绍过了相关的基础知识，这里就相当于在 <code>Spring</code> 中使用<code>MVC</code> 架构，当然了这里讨论应用于在 <code>Web</code> 开发之中.</p>
+<p>​        接下来简单介绍一下 <code>MVC</code> 架构以及 <code>Web </code> 开发中的三层架构，也可能是我理解浅显，在我看我 <code>MVC</code> 架构与 <code>Web</code> 中经典的三层结构十分相似，目的都是为了代码解耦合、以及高可维护性.</p>
+<ul>
+<li><p><code>MVC(MODEL-VIEW-CONTROLLER)</code> 即 模型-视图-控制</p>
+<ul>
+<li><p><code>MODEL</code> : 属于处理业务逻辑的部分，相当于三层架构中的 <code>service、dao</code> 层，可以对数据库进行直接操作，储存业务核心逻辑.</p>
+</li>
+<li><p><code>VIEW</code> : 属于向用户展示的部分, <code>MODEL</code> 层处理完之后返回的数据交给 <code>CONTROLLER </code> 层，再交由 <code>VIEW</code> 层，从而呈现相应的页面.</p>
+</li>
+<li><p><code>CONTROLLER</code> ：属于连接<code>MODEL</code> 与 <code>VIEW</code> 的部分，相当于<code>Servlet</code> 中的存储的映射关系，起到了<code>Servlet</code>的作用，将<code>MODLE</code> 与</p>
+<p><code>VIEW</code> 解耦合.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>用一张图来概括：</p>
+<p>​                                        <img src="https://img-blog.csdnimg.cn/20181030204359635.png" alt="MVC"></p>
+<p>​        而 <code>SpringMVC</code> 简化了 <code>JavaWeb</code> 的开发，将<code>Servlet</code> 的相关配置简化了许多 ，只需要配置一个 <code>请求转发控制器DispatcherServlet</code> 以及 <code>资源视图解析器ResourceViewResolver</code> 即可，有效提高了开发效率.</p>
+<hr>
+<h1 id="✨SpringMVC执行概览"><a href="#✨SpringMVC执行概览" class="headerlink" title="✨SpringMVC执行概览"></a>✨SpringMVC执行概览</h1><img src="/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/1.png" class title="流程图">
+
+
+
+<p>流程分析：</p>
+<ol>
+<li>用户发起请求，通过web容器中通过 <code>DispathcerServlet</code> 的映射路径将请求交给 <code>DispathcerServlet</code> 处理.</li>
+<li><code>DispatcherServlet</code>通过处理器映射器（ <code>HandlerMapping</code> ）获取请求信息对应的处理器执行链.</li>
+<li><code>DispatcherServlet</code> 将执行链交给处理器适配器（ <code>HandlerAdapter</code> ）然后其调用相应的处理器（<code>Handler </code>）执行</li>
+<li>最终返回处理结果到 <code>DispatcherServlet</code></li>
+<li><code>DispatcherServlet</code> 将结果交给视图解析器（<code>ViewResolver</code>）解析视图，随后返回解析后的View对象</li>
+<li><code>DispatcherServlet</code>再将View对象进行视图渲染最后返回给用户呈现出页面</li>
+</ol>
+<blockquote>
+<h2 id="组件说明："><a href="#组件说明：" class="headerlink" title="组件说明："></a>组件说明：</h2><ul>
+<li><h3 id="DispatcherServlet：前端控制器"><a href="#DispatcherServlet：前端控制器" class="headerlink" title="DispatcherServlet：前端控制器"></a><code>DispatcherServlet</code>：前端控制器</h3></li>
+</ul>
+<p>​      <strong>用户请求到达前端控制器，它就相当于<code>mvc</code>模式中的<code>c</code>，<code>dispatcherServlet</code>是整个流程控制的中心，</strong></p>
+<p>​      <strong>由它调用其它组件处理用户的请求，<code>dispatcherServlet</code>的存在降低了组件之间的耦合性。</strong></p>
+<ul>
+<li><h3 id="HandlerMapping：处理器映射器"><a href="#HandlerMapping：处理器映射器" class="headerlink" title="HandlerMapping：处理器映射器"></a><code>HandlerMapping</code>：处理器映射器</h3></li>
+</ul>
+<p>　　　<code>HandlerMapping</code>负责根据用户请求<code>url</code>找到<code>Handler</code>即处理器，<code>springmvc</code>提供了不同的映射器实现不同的映射方式，</p>
+<p>　　  <strong>例如：配置文件方式，实现接口方式，注解方式等。</strong></p>
+<ul>
+<li><h3 id="Handler：处理器"><a href="#Handler：处理器" class="headerlink" title="Handler：处理器"></a><code>Handler</code>：处理器</h3></li>
+</ul>
+<p>　　 <strong><code>Handler</code> 是继 <code>DispatcherServlet </code>前端控制器的后端控制器，在 <code>DispatcherServlet </code>的控制下 <code>Handler</code>对具体的用户请求进行处理。</strong></p>
+<p>​    <strong>由于 <code>Handler </code>涉及到具体的用户业务请求，所以一般情况需要程序员根据业务需求开发Handler。</strong></p>
+<ul>
+<li><h3 id="HandlAdapter-：处理器适配器"><a href="#HandlAdapter-：处理器适配器" class="headerlink" title="HandlAdapter ：处理器适配器"></a><code>HandlAdapter </code>：处理器适配器</h3></li>
+</ul>
+<p>　　<strong>通过<code>HandlerAdapter</code>对处理器进行执行，这是适配器模式的应用，通过扩展适配器可以对更多类型的处理器进行执行。</strong></p>
+<ul>
+<li><h3 id="ViewResolver：视图解析器"><a href="#ViewResolver：视图解析器" class="headerlink" title="ViewResolver：视图解析器"></a><code>ViewResolver</code>：视图解析器</h3></li>
+</ul>
+<p>　　<strong>View Resolver负责将处理结果生成View视图，View Resolver首先根据逻辑视图名解析成物理视图名即具体的页面地址，</strong></p>
+<p>　　<strong>再生成View视图对象，最后对View进行渲染将处理结果通过页面展示给用户。</strong></p>
+<ul>
+<li><h3 id="View：视图"><a href="#View：视图" class="headerlink" title="View：视图"></a><code>View</code>：视图</h3></li>
+</ul>
+<p>　　<strong><code>springmvc</code>框架提供了很多的View视图类型的支持，包括：<code>jstlView、freemarkerView、pdfView</code>等。我们最常用的视图就是<code>jsp</code>。</strong></p>
+<p>　　一般情况下需要通过页面标签或页面模版技术将模型数据通过页面展示给用户，需要由程序员根据业务需求开发具体的页面。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringMVC</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringSecurity(一):访问认证与身份授权</title>
     <url>/2021/07/10/SpringSecurity%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<blockquote>
@@ -2461,80 +2552,6 @@
       </categories>
       <tags>
         <tag>SpringSecurity</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringMVC：流程分析概览</title>
-    <url>/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/</url>
-    <content><![CDATA[<h1 id="🎈SpringMVC简介"><a href="#🎈SpringMVC简介" class="headerlink" title="🎈SpringMVC简介"></a>🎈SpringMVC简介</h1><p>​        <code>SpringMVC</code> 显然是由 <code>Spring</code> 以及 <code>MVC</code> 俩部分组成，先说说 <code>Spring</code> 那当然就是指 <code>Spring Framework</code> 框架了，前面的文章已经介绍过了相关的基础知识，这里就相当于在 <code>Spring</code> 中使用<code>MVC</code> 架构，当然了这里讨论应用于在 <code>Web</code> 开发之中.</p>
-<p>​        接下来简单介绍一下 <code>MVC</code> 架构以及 <code>Web </code> 开发中的三层架构，也可能是我理解浅显，在我看我 <code>MVC</code> 架构与 <code>Web</code> 中经典的三层结构十分相似，目的都是为了代码解耦合、以及高可维护性.</p>
-<ul>
-<li><p><code>MVC(MODEL-VIEW-CONTROLLER)</code> 即 模型-视图-控制</p>
-<ul>
-<li><p><code>MODEL</code> : 属于处理业务逻辑的部分，相当于三层架构中的 <code>service、dao</code> 层，可以对数据库进行直接操作，储存业务核心逻辑.</p>
-</li>
-<li><p><code>VIEW</code> : 属于向用户展示的部分, <code>MODEL</code> 层处理完之后返回的数据交给 <code>CONTROLLER </code> 层，再交由 <code>VIEW</code> 层，从而呈现相应的页面.</p>
-</li>
-<li><p><code>CONTROLLER</code> ：属于连接<code>MODEL</code> 与 <code>VIEW</code> 的部分，相当于<code>Servlet</code> 中的存储的映射关系，起到了<code>Servlet</code>的作用，将<code>MODLE</code> 与</p>
-<p><code>VIEW</code> 解耦合.</p>
-</li>
-</ul>
-</li>
-</ul>
-<p>用一张图来概括：</p>
-<p>​                                        <img src="https://img-blog.csdnimg.cn/20181030204359635.png" alt="MVC"></p>
-<p>​        而 <code>SpringMVC</code> 简化了 <code>JavaWeb</code> 的开发，将<code>Servlet</code> 的相关配置简化了许多 ，只需要配置一个 <code>请求转发控制器DispatcherServlet</code> 以及 <code>资源视图解析器ResourceViewResolver</code> 即可，有效提高了开发效率.</p>
-<hr>
-<h1 id="✨SpringMVC执行概览"><a href="#✨SpringMVC执行概览" class="headerlink" title="✨SpringMVC执行概览"></a>✨SpringMVC执行概览</h1><img src="/2021/05/06/SpringMVC%EF%BC%9A%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90%E6%A6%82%E8%A7%88/1.png" class title="流程图">
-
-
-
-<p>流程分析：</p>
-<ol>
-<li>用户发起请求，通过web容器中通过 <code>DispathcerServlet</code> 的映射路径将请求交给 <code>DispathcerServlet</code> 处理.</li>
-<li><code>DispatcherServlet</code>通过处理器映射器（ <code>HandlerMapping</code> ）获取请求信息对应的处理器执行链.</li>
-<li><code>DispatcherServlet</code> 将执行链交给处理器适配器（ <code>HandlerAdapter</code> ）然后其调用相应的处理器（<code>Handler </code>）执行</li>
-<li>最终返回处理结果到 <code>DispatcherServlet</code></li>
-<li><code>DispatcherServlet</code> 将结果交给视图解析器（<code>ViewResolver</code>）解析视图，随后返回解析后的View对象</li>
-<li><code>DispatcherServlet</code>再将View对象进行视图渲染最后返回给用户呈现出页面</li>
-</ol>
-<blockquote>
-<h2 id="组件说明："><a href="#组件说明：" class="headerlink" title="组件说明："></a>组件说明：</h2><ul>
-<li><h3 id="DispatcherServlet：前端控制器"><a href="#DispatcherServlet：前端控制器" class="headerlink" title="DispatcherServlet：前端控制器"></a><code>DispatcherServlet</code>：前端控制器</h3></li>
-</ul>
-<p>​      <strong>用户请求到达前端控制器，它就相当于<code>mvc</code>模式中的<code>c</code>，<code>dispatcherServlet</code>是整个流程控制的中心，</strong></p>
-<p>​      <strong>由它调用其它组件处理用户的请求，<code>dispatcherServlet</code>的存在降低了组件之间的耦合性。</strong></p>
-<ul>
-<li><h3 id="HandlerMapping：处理器映射器"><a href="#HandlerMapping：处理器映射器" class="headerlink" title="HandlerMapping：处理器映射器"></a><code>HandlerMapping</code>：处理器映射器</h3></li>
-</ul>
-<p>　　　<code>HandlerMapping</code>负责根据用户请求<code>url</code>找到<code>Handler</code>即处理器，<code>springmvc</code>提供了不同的映射器实现不同的映射方式，</p>
-<p>　　  <strong>例如：配置文件方式，实现接口方式，注解方式等。</strong></p>
-<ul>
-<li><h3 id="Handler：处理器"><a href="#Handler：处理器" class="headerlink" title="Handler：处理器"></a><code>Handler</code>：处理器</h3></li>
-</ul>
-<p>　　 <strong><code>Handler</code> 是继 <code>DispatcherServlet </code>前端控制器的后端控制器，在 <code>DispatcherServlet </code>的控制下 <code>Handler</code>对具体的用户请求进行处理。</strong></p>
-<p>​    <strong>由于 <code>Handler </code>涉及到具体的用户业务请求，所以一般情况需要程序员根据业务需求开发Handler。</strong></p>
-<ul>
-<li><h3 id="HandlAdapter-：处理器适配器"><a href="#HandlAdapter-：处理器适配器" class="headerlink" title="HandlAdapter ：处理器适配器"></a><code>HandlAdapter </code>：处理器适配器</h3></li>
-</ul>
-<p>　　<strong>通过<code>HandlerAdapter</code>对处理器进行执行，这是适配器模式的应用，通过扩展适配器可以对更多类型的处理器进行执行。</strong></p>
-<ul>
-<li><h3 id="ViewResolver：视图解析器"><a href="#ViewResolver：视图解析器" class="headerlink" title="ViewResolver：视图解析器"></a><code>ViewResolver</code>：视图解析器</h3></li>
-</ul>
-<p>　　<strong>View Resolver负责将处理结果生成View视图，View Resolver首先根据逻辑视图名解析成物理视图名即具体的页面地址，</strong></p>
-<p>　　<strong>再生成View视图对象，最后对View进行渲染将处理结果通过页面展示给用户。</strong></p>
-<ul>
-<li><h3 id="View：视图"><a href="#View：视图" class="headerlink" title="View：视图"></a><code>View</code>：视图</h3></li>
-</ul>
-<p>　　<strong><code>springmvc</code>框架提供了很多的View视图类型的支持，包括：<code>jstlView、freemarkerView、pdfView</code>等。我们最常用的视图就是<code>jsp</code>。</strong></p>
-<p>　　一般情况下需要通过页面标签或页面模版技术将模型数据通过页面展示给用户，需要由程序员根据业务需求开发具体的页面。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringMVC</tag>
       </tags>
   </entry>
   <entry>
@@ -2627,6 +2644,27 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringSecurity(四):结合Vue实现异步登录</title>
+    <url>/2021/07/16/SpringSecurity%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🏁问题分析"><a href="#🏁问题分析" class="headerlink" title="🏁问题分析"></a>🏁问题分析</h1><p>&emsp;&emsp;使用异步<code>axios</code>请求的方式进行登录与直接使用 <code>postman</code> 发送 <code>post</code> 请求进行测试 ，提交数据的方式似乎不太一样，<code>postman</code>能跑通，而使用<code>axios</code> ，后台<code>loadUserByusername</code>获取不到用户名，这就很奇怪，奈何看不太懂源码，主要是各种设计模式没学过以及底层的封装层数太多了，看的使人心累，于是开始逛论坛以及开源网站看别人的代码，后来才发现，<code>axios</code>提交的参数是存放在请求体当中的，而<code>SpringSecurity</code>中的处理逻辑使用了 <code>request.getParameter</code> 进行参数获取，有过原始表单或者 <code>servlet</code> 开发经验的人都知道 ， 此方法只能获取到类似于 <code>get</code>请求 以及 以原始表单格式提交的<code>post</code> 数据 ， 然而尝试过后发现 ，利用<code>axios</code>请求，将请求头设置一下，即<code>Content-Type: application/x-www-form-urlencoded``;charset=utf-8</code> ， 安全框架仍然解析不到<code>username</code>，此时心态已经崩了，然而就在此时，翻到一篇博客，记述到可以将传统原生的表单提交格式更改为 <code>get</code> 提交数据的数据格式，当然了只是更改了数据格式，并没有更改请求方式哈.</p>
+<h1 id="😎解决方案"><a href="#😎解决方案" class="headerlink" title="😎解决方案"></a>😎解决方案</h1><p>利用<code>qs</code> 包 中的 <code>stringify</code> 方法格式化数据.</p>
+<p>具体：</p>
+<ul>
+<li>先安装该包 <code>npm install qs --save</code></li>
+<li>修改前端提交数据的格式</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> http.request(&#123;</span><br><span class="line">    method: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    url: <span class="string">&#x27;login&#x27;</span>,</span><br><span class="line">    data: qs.stringify(data)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试过后可以请求成功，狂喜~</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringSecurity</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringSecurity(二):整合mybatis</title>
     <url>/2021/07/12/SpringSecurity%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
     <content><![CDATA[<h1 id="构建数据库表"><a href="#构建数据库表" class="headerlink" title="构建数据库表"></a>构建数据库表</h1><ul>
@@ -2684,27 +2722,6 @@
 
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(value = &quot;/access/user&quot;, produces = &quot;text/html;charset=utf-8&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hiUser</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello User!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(value = &quot;/access/admin&quot;,produces = &quot;text/html;charset=utf-8&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hiAdmin</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello admin!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringSecurity</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringSecurity(四):结合Vue实现异步登录</title>
-    <url>/2021/07/16/SpringSecurity%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🏁问题分析"><a href="#🏁问题分析" class="headerlink" title="🏁问题分析"></a>🏁问题分析</h1><p>&emsp;&emsp;使用异步<code>axios</code>请求的方式进行登录与直接使用 <code>postman</code> 发送 <code>post</code> 请求进行测试 ，提交数据的方式似乎不太一样，<code>postman</code>能跑通，而使用<code>axios</code> ，后台<code>loadUserByusername</code>获取不到用户名，这就很奇怪，奈何看不太懂源码，主要是各种设计模式没学过以及底层的封装层数太多了，看的使人心累，于是开始逛论坛以及开源网站看别人的代码，后来才发现，<code>axios</code>提交的参数是存放在请求体当中的，而<code>SpringSecurity</code>中的处理逻辑使用了 <code>request.getParameter</code> 进行参数获取，有过原始表单或者 <code>servlet</code> 开发经验的人都知道 ， 此方法只能获取到类似于 <code>get</code>请求 以及 以原始表单格式提交的<code>post</code> 数据 ， 然而尝试过后发现 ，利用<code>axios</code>请求，将请求头设置一下，即<code>Content-Type: application/x-www-form-urlencoded``;charset=utf-8</code> ， 安全框架仍然解析不到<code>username</code>，此时心态已经崩了，然而就在此时，翻到一篇博客，记述到可以将传统原生的表单提交格式更改为 <code>get</code> 提交数据的数据格式，当然了只是更改了数据格式，并没有更改请求方式哈.</p>
-<h1 id="😎解决方案"><a href="#😎解决方案" class="headerlink" title="😎解决方案"></a>😎解决方案</h1><p>利用<code>qs</code> 包 中的 <code>stringify</code> 方法格式化数据.</p>
-<p>具体：</p>
-<ul>
-<li>先安装该包 <code>npm install qs --save</code></li>
-<li>修改前端提交数据的格式</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> http.request(&#123;</span><br><span class="line">    method: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    url: <span class="string">&#x27;login&#x27;</span>,</span><br><span class="line">    data: qs.stringify(data)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>测试过后可以请求成功，狂喜~</p>
 ]]></content>
       <categories>
         <category>Java</category>
@@ -2774,6 +2791,33 @@
 
 <p><code>vue</code>中的方法：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">      <span class="comment">//挂载html元素,使用id进行挂载绑定，因为id具有唯一性</span></span><br><span class="line">      el: <span class="string">&#x27;#app&#x27;</span> ,</span><br><span class="line">      <span class="comment">//声明数据</span></span><br><span class="line">      data: &#123;</span><br><span class="line">          ids: <span class="string">&quot;test&quot;</span>,</span><br><span class="line">          event: <span class="string">&quot;click&quot;</span></span><br><span class="line">      &#125;,</span><br><span class="line">    	methods: &#123;</span><br><span class="line">          <span class="comment">//ES5写法</span></span><br><span class="line">          test: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">              </span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="comment">//ES6写法</span></span><br><span class="line">          <span class="function"><span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">              </span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue(二):整合mavon-editor</title>
+    <url>/2021/07/22/Vue%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<blockquote>
+<p>前言：不得不说我还是太懒了，前端部分的文章一直没有写，不知道为什么没有什么兴致写，现在趁着有时间还是写写吧，Vue最近也算是用的有点感觉了，组件化思想有一说一，对于个人开发者而言，开发小型项目还是用后端模板写前端比较方便hhh.</p>
+</blockquote>
+<h1 id="🚀下载安装-mavon-editor"><a href="#🚀下载安装-mavon-editor" class="headerlink" title="🚀下载安装 mavon-editor"></a>🚀下载安装 mavon-editor</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install mavon-editor --save</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="🛰使用-mavon-editor"><a href="#🛰使用-mavon-editor" class="headerlink" title="🛰使用 mavon-editor"></a>🛰使用 mavon-editor</h1><h2 id="在需要的组件中使用"><a href="#在需要的组件中使用" class="headerlink" title="在需要的组件中使用"></a>在需要的组件中使用</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;mavon-editor v-model&#x3D;&quot;content&quot; </span><br><span class="line">                  :codeStyle&#x3D;&quot;codeStyle&quot;</span><br><span class="line">                  &#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; mavonEditor &#125; from &#39;mavon-editor&#39;</span><br><span class="line">import &#39;mavon-editor&#x2F;dist&#x2F;css&#x2F;index.css&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;MavonEditor&#39;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      content: &#39;&#39;,</span><br><span class="line">      codeStyle: &#39;主题&#39;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    mavonEditor</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>注意：<code>content</code> 保存的为md语法，<code>codeStyle</code>属性可以更换代码块的主题，具体有哪些主题可以参考一下  <a href="https://github.com/hinesboy/mavonEditor/blob/HEAD/src/lib/core/hljs/lang.hljs.css.js"><font color="red">可选主题表</font></a>  , 每一种主题的样式可以参考<a href="https://highlightjs.org/static/demo/"> <code>highlight.js</code>demo文档</a>  ， 更多相关的设置可以参考文档 : <a href="https://www.npmjs.com/package/mavon-editor">mavon-editor参考文档</a> </p>
+<h2 id="实现编辑器中实时图片上传"><a href="#实现编辑器中实时图片上传" class="headerlink" title="实现编辑器中实时图片上传"></a>实现编辑器中实时图片上传</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;mavon-editor ref&#x3D;md @imgAdd&#x3D;&quot;imgAdd&quot; @imgDel&#x3D;&quot;$imgDel&quot;&gt;&lt;&#x2F;mavon-editor&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    exports default &#123;</span><br><span class="line">    methods: &#123;</span><br><span class="line">        &#x2F;&#x2F; 绑定@imgAdd event</span><br><span class="line">        imgAdd(pos, $file)&#123;</span><br><span class="line">		   let _this &#x3D; this</span><br><span class="line">            &#x2F;&#x2F; 第一步.将图片上传到服务器.</span><br><span class="line">           var formdata &#x3D; new FormData();</span><br><span class="line">           formdata.append(&#39;image&#39;, $file);</span><br><span class="line">           axios(&#123;</span><br><span class="line">               url: &#39;图片上传api路径&#39;,</span><br><span class="line">               method: &#39;post&#39;,</span><br><span class="line">               data: formdata,</span><br><span class="line">               headers: &#123; &#39;Content-Type&#39;: &#39;multipart&#x2F;form-data&#39; &#125;,</span><br><span class="line">           &#125;).then((url) &#x3D;&gt; &#123;</span><br><span class="line">               _this.$refs.md.$img2Url(pos, url);</span><br><span class="line">           &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上述的写法比较固定，按着如上方式写即可.</p>
+<p>注意替换的方式：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//将返回的url替换到文本原位置![...](0) -&gt; ![...](url)  替换方式为: $vm.$img2Url(pos , url)</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * $vm 指为mavonEditor实例，可以通过如下两种方式获取</span></span><br><span class="line"><span class="comment"> * 1. 通过引入对象获取: `import &#123;mavonEditor&#125; from ...` 等方式引入后，`$vm`为`mavonEditor`</span></span><br><span class="line"><span class="comment"> * 2. 通过$refs获取: html声明ref : `&lt;mavon-editor ref=md &gt;&lt;/mavon-editor&gt;，`$vm`为`this.$refs.md`</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -2890,33 +2934,6 @@
       </categories>
       <tags>
         <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue(二):整合mavon-editor</title>
-    <url>/2021/07/22/Vue%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<blockquote>
-<p>前言：不得不说我还是太懒了，前端部分的文章一直没有写，不知道为什么没有什么兴致写，现在趁着有时间还是写写吧，Vue最近也算是用的有点感觉了，组件化思想有一说一，对于个人开发者而言，开发小型项目还是用后端模板写前端比较方便hhh.</p>
-</blockquote>
-<h1 id="🚀下载安装-mavon-editor"><a href="#🚀下载安装-mavon-editor" class="headerlink" title="🚀下载安装 mavon-editor"></a>🚀下载安装 mavon-editor</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install mavon-editor --save</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="🛰使用-mavon-editor"><a href="#🛰使用-mavon-editor" class="headerlink" title="🛰使用 mavon-editor"></a>🛰使用 mavon-editor</h1><h2 id="在需要的组件中使用"><a href="#在需要的组件中使用" class="headerlink" title="在需要的组件中使用"></a>在需要的组件中使用</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;mavon-editor v-model&#x3D;&quot;content&quot; </span><br><span class="line">                  :codeStyle&#x3D;&quot;codeStyle&quot;</span><br><span class="line">                  &#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; mavonEditor &#125; from &#39;mavon-editor&#39;</span><br><span class="line">import &#39;mavon-editor&#x2F;dist&#x2F;css&#x2F;index.css&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;MavonEditor&#39;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      content: &#39;&#39;,</span><br><span class="line">      codeStyle: &#39;主题&#39;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    mavonEditor</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>注意：<code>content</code> 保存的为md语法，<code>codeStyle</code>属性可以更换代码块的主题，具体有哪些主题可以参考一下  <a href="https://github.com/hinesboy/mavonEditor/blob/HEAD/src/lib/core/hljs/lang.hljs.css.js"><font color="red">可选主题表</font></a>  , 每一种主题的样式可以参考<a href="https://highlightjs.org/static/demo/"> <code>highlight.js</code>demo文档</a>  ， 更多相关的设置可以参考文档 : <a href="https://www.npmjs.com/package/mavon-editor">mavon-editor参考文档</a> </p>
-<h2 id="实现编辑器中实时图片上传"><a href="#实现编辑器中实时图片上传" class="headerlink" title="实现编辑器中实时图片上传"></a>实现编辑器中实时图片上传</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;mavon-editor ref&#x3D;md @imgAdd&#x3D;&quot;imgAdd&quot; @imgDel&#x3D;&quot;$imgDel&quot;&gt;&lt;&#x2F;mavon-editor&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    exports default &#123;</span><br><span class="line">    methods: &#123;</span><br><span class="line">        &#x2F;&#x2F; 绑定@imgAdd event</span><br><span class="line">        imgAdd(pos, $file)&#123;</span><br><span class="line">		   let _this &#x3D; this</span><br><span class="line">            &#x2F;&#x2F; 第一步.将图片上传到服务器.</span><br><span class="line">           var formdata &#x3D; new FormData();</span><br><span class="line">           formdata.append(&#39;image&#39;, $file);</span><br><span class="line">           axios(&#123;</span><br><span class="line">               url: &#39;图片上传api路径&#39;,</span><br><span class="line">               method: &#39;post&#39;,</span><br><span class="line">               data: formdata,</span><br><span class="line">               headers: &#123; &#39;Content-Type&#39;: &#39;multipart&#x2F;form-data&#39; &#125;,</span><br><span class="line">           &#125;).then((url) &#x3D;&gt; &#123;</span><br><span class="line">               _this.$refs.md.$img2Url(pos, url);</span><br><span class="line">           &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>上述的写法比较固定，按着如上方式写即可.</p>
-<p>注意替换的方式：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//将返回的url替换到文本原位置![...](0) -&gt; ![...](url)  替换方式为: $vm.$img2Url(pos , url)</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * $vm 指为mavonEditor实例，可以通过如下两种方式获取</span></span><br><span class="line"><span class="comment"> * 1. 通过引入对象获取: `import &#123;mavonEditor&#125; from ...` 等方式引入后，`$vm`为`mavonEditor`</span></span><br><span class="line"><span class="comment"> * 2. 通过$refs获取: html声明ref : `&lt;mavon-editor ref=md &gt;&lt;/mavon-editor&gt;，`$vm`为`this.$refs.md`</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Vue</category>
-      </categories>
-      <tags>
-        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
@@ -3125,6 +3142,31 @@
       </tags>
   </entry>
   <entry>
+    <title>每日一题(二):双指针算法</title>
+    <url>/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🎃双指针算法"><a href="#🎃双指针算法" class="headerlink" title="🎃双指针算法"></a>🎃双指针算法</h1><p>何为双指针？其实在算法中是一种技巧性的东西，这个指针也并非如同<code>C语言</code> 那种指针，只是一种标识，用于表示状态，很凑巧，在上一篇每日一题中的快速排序就使用了双指针算法,十分经典，并且属于对撞指针（通俗的讲就是相向扫描），当然了，既然有相向扫描，也肯定有同向扫描，比较常用于字符串比对，分治之中.</p>
+<p>突然有个不错的想法，每日一题连续更新同一类型的题目，这样有便于全面掌握一种算法.</p>
+<p>这里附上上一篇文章的链接以供复习.</p>
+<p><a href="https://soul-pe.gitee.io/shdsoul/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">每日一题(一):快速排序</a></p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><img src="/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/1.png" class title="题目">
+
+<p>题目来源：Acwing：<a href="https://www.acwing.com/problem/content/description/773/">原题链接</a></p>
+<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>我们只需要，遍历每一个字符，然后将字符与后方的字符逐一比较，相同则继续向后比较并记录连续次数，不同则停止比较，继续向后方遍历即可.</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串</span></span><br><span class="line">    string str;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串数量</span></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="comment">//当 n 为 0 的时候停止输入</span></span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        cin &gt;&gt; str;</span><br><span class="line">        <span class="comment">//定义最大长度为 -1</span></span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">-1</span>;</span><br><span class="line">        <span class="comment">//记录最多重复的字符</span></span><br><span class="line">        string maxs;</span><br><span class="line">        <span class="comment">//指针i :遍历输入的字符</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; str.<span class="built_in">size</span>() ; i++)&#123;</span><br><span class="line">            <span class="comment">//指针j :用于字符串比较</span></span><br><span class="line">            <span class="keyword">int</span> j = i; <span class="comment">//由于要求连续,所以默认开始扫描的地方为 指针i 的位置,只需要遍历后面，不需要管前面</span></span><br><span class="line">            <span class="keyword">int</span> nums = <span class="number">0</span>;<span class="comment">//用于记录连续次数</span></span><br><span class="line">            <span class="comment">//当指针j指向的值与指针i指向的值相同的时候,并且j指针没有越界的时候</span></span><br><span class="line">            <span class="keyword">while</span>(str[j] == str[i] &amp;&amp; j &lt; str.<span class="built_in">size</span>())</span><br><span class="line">                <span class="comment">//指针j向后移动,连续次数自增1</span></span><br><span class="line">                j++ , nums++;</span><br><span class="line">            <span class="comment">//如果连续次数大于最大值则进行记录,并且记录当前字符    </span></span><br><span class="line">            <span class="keyword">if</span>(nums &gt; max)</span><br><span class="line">                max = nums,maxs = str[i];</span><br><span class="line">            <span class="comment">//当指针j停止移动时,[i,j)区间中必然全是相同的字符,此时 i只需要从j的位置开始继续遍历即可</span></span><br><span class="line">            i = j <span class="number">-1</span>;<span class="comment">//这里减1,是为了抵消掉循环中的 i++</span></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; nums &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; max;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">int</span> n = Integer.parseInt(reader.readLine());</span><br><span class="line">        <span class="keyword">while</span>(n-- != <span class="number">0</span>)&#123;</span><br><span class="line">            String s = reader.readLine();</span><br><span class="line">            <span class="keyword">char</span> c = <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">            <span class="keyword">int</span> max = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; s.length() ; i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> j = i;</span><br><span class="line">                <span class="keyword">int</span> nums = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span>(j &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(j))&#123; </span><br><span class="line">                    j++;</span><br><span class="line">                    nums++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(nums &gt; max)&#123;</span><br><span class="line">                    max = nums ;</span><br><span class="line">                    c = s.charAt(i);</span><br><span class="line">                &#125;</span><br><span class="line">                i = j - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(c + <span class="string">&quot; &quot;</span> + max);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>每日一题(三):双指针算法</title>
     <url>/2021/06/15/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%89%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🚠双指针算法"><a href="#🚠双指针算法" class="headerlink" title="🚠双指针算法"></a>🚠双指针算法</h1><p>范式：</p>
@@ -3145,31 +3187,6 @@
 
 
 
-
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>每日一题(二):双指针算法</title>
-    <url>/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🎃双指针算法"><a href="#🎃双指针算法" class="headerlink" title="🎃双指针算法"></a>🎃双指针算法</h1><p>何为双指针？其实在算法中是一种技巧性的东西，这个指针也并非如同<code>C语言</code> 那种指针，只是一种标识，用于表示状态，很凑巧，在上一篇每日一题中的快速排序就使用了双指针算法,十分经典，并且属于对撞指针（通俗的讲就是相向扫描），当然了，既然有相向扫描，也肯定有同向扫描，比较常用于字符串比对，分治之中.</p>
-<p>突然有个不错的想法，每日一题连续更新同一类型的题目，这样有便于全面掌握一种算法.</p>
-<p>这里附上上一篇文章的链接以供复习.</p>
-<p><a href="https://soul-pe.gitee.io/shdsoul/2021/06/11/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%80%EF%BC%89/">每日一题(一):快速排序</a></p>
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><img src="/2021/06/12/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%BA%8C%EF%BC%89/1.png" class title="题目">
-
-<p>题目来源：Acwing：<a href="https://www.acwing.com/problem/content/description/773/">原题链接</a></p>
-<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>我们只需要，遍历每一个字符，然后将字符与后方的字符逐一比较，相同则继续向后比较并记录连续次数，不同则停止比较，继续向后方遍历即可.</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串</span></span><br><span class="line">    string str;</span><br><span class="line">    <span class="comment">//用于接收输入的字符串数量</span></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="comment">//当 n 为 0 的时候停止输入</span></span><br><span class="line">    <span class="keyword">while</span>(n--)&#123;</span><br><span class="line">        cin &gt;&gt; str;</span><br><span class="line">        <span class="comment">//定义最大长度为 -1</span></span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">-1</span>;</span><br><span class="line">        <span class="comment">//记录最多重复的字符</span></span><br><span class="line">        string maxs;</span><br><span class="line">        <span class="comment">//指针i :遍历输入的字符</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; str.<span class="built_in">size</span>() ; i++)&#123;</span><br><span class="line">            <span class="comment">//指针j :用于字符串比较</span></span><br><span class="line">            <span class="keyword">int</span> j = i; <span class="comment">//由于要求连续,所以默认开始扫描的地方为 指针i 的位置,只需要遍历后面，不需要管前面</span></span><br><span class="line">            <span class="keyword">int</span> nums = <span class="number">0</span>;<span class="comment">//用于记录连续次数</span></span><br><span class="line">            <span class="comment">//当指针j指向的值与指针i指向的值相同的时候,并且j指针没有越界的时候</span></span><br><span class="line">            <span class="keyword">while</span>(str[j] == str[i] &amp;&amp; j &lt; str.<span class="built_in">size</span>())</span><br><span class="line">                <span class="comment">//指针j向后移动,连续次数自增1</span></span><br><span class="line">                j++ , nums++;</span><br><span class="line">            <span class="comment">//如果连续次数大于最大值则进行记录,并且记录当前字符    </span></span><br><span class="line">            <span class="keyword">if</span>(nums &gt; max)</span><br><span class="line">                max = nums,maxs = str[i];</span><br><span class="line">            <span class="comment">//当指针j停止移动时,[i,j)区间中必然全是相同的字符,此时 i只需要从j的位置开始继续遍历即可</span></span><br><span class="line">            i = j <span class="number">-1</span>;<span class="comment">//这里减1,是为了抵消掉循环中的 i++</span></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; nums &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; max;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">int</span> n = Integer.parseInt(reader.readLine());</span><br><span class="line">        <span class="keyword">while</span>(n-- != <span class="number">0</span>)&#123;</span><br><span class="line">            String s = reader.readLine();</span><br><span class="line">            <span class="keyword">char</span> c = <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">            <span class="keyword">int</span> max = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; s.length() ; i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> j = i;</span><br><span class="line">                <span class="keyword">int</span> nums = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span>(j &lt; s.length() &amp;&amp; s.charAt(i) == s.charAt(j))&#123; </span><br><span class="line">                    j++;</span><br><span class="line">                    nums++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(nums &gt; max)&#123;</span><br><span class="line">                    max = nums ;</span><br><span class="line">                    c = s.charAt(i);</span><br><span class="line">                &#125;</span><br><span class="line">                i = j - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(c + <span class="string">&quot; &quot;</span> + max);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
