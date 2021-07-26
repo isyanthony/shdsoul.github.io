@@ -706,6 +706,108 @@
       </tags>
   </entry>
   <entry>
+    <title>Markdown入门</title>
+    <url>/2021/04/09/Markdown%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<h2 id="1-代码块"><a href="#1-代码块" class="headerlink" title="1.代码块:"></a>1.代码块:</h2><p>​    使用三个 “ ``` ” 即可生成代码块,并且可以选择语言类型</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">( args [] string)</span></span>&#123;</span><br><span class="line">        System.println(<span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h2 id="2-标题"><a href="#2-标题" class="headerlink" title="2.标题"></a>2.标题</h2><p>​    使用 “ # ” 来表示，“ # ”越多字体越小 ， 最多六级标题，注意：# 后面必须有一个空格</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题 </span><br></pre></td></tr></table></figure>
+
+<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h1 id="3-字体"><a href="#3-字体" class="headerlink" title="3.字体"></a>3.字体</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//加粗</span></span><br><span class="line">	**加粗**</span><br><span class="line"><span class="comment">//代码高亮显示</span></span><br><span class="line">    ==高亮==</span><br><span class="line"><span class="comment">//删除线</span></span><br><span class="line">    ~删除线~</span><br><span class="line"><span class="comment">//斜体</span></span><br><span class="line">    *斜体*</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>（高亮好像有点问题哈）</p>
+<p><strong>加粗</strong></p>
+<p><del>删除线</del></p>
+<p><em>斜体</em></p>
+<h1 id="4-引用"><a href="#4-引用" class="headerlink" title="4.引用"></a>4.引用</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//引用语法</span></span><br><span class="line">&gt;作者:XXX</span><br><span class="line">&gt;&gt;作者:XXX</span><br><span class="line">&gt;&gt;&gt;作者:XXX</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>作者:XXX</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>作者:XXX</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>作者:XXX</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h1 id="5-分割线"><a href="#5-分割线" class="headerlink" title="5.分割线"></a>5.分割线</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//分割线</span></span><br><span class="line">	---</span><br><span class="line"><span class="comment">//分割线2</span></span><br><span class="line">   	***</span><br></pre></td></tr></table></figure>
+
+<hr>
+<hr>
+<h1 id="6-图片插入"><a href="#6-图片插入" class="headerlink" title="6.图片插入"></a>6.图片插入</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//在线图片和本地图片</span></span><br><span class="line">![奥特曼](https:<span class="comment">//ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/42166d224f4a20a46b610b709b529822720ed00d.jpg)</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/42166d224f4a20a46b610b709b529822720ed00d.jpg" alt="奥特曼" title="奥特曼"></p>
+<img src="/2021/04/09/Markdown%E5%85%A5%E9%97%A8/ddm.jpg" class title="叮当猫">
+
+
+
+
+
+<h1 id="7-超链接"><a href="#7-超链接" class="headerlink" title="7.超链接"></a>7.超链接</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//超链接语法</span></span><br><span class="line">[内容](链接)</span><br></pre></td></tr></table></figure>
+
+<p><a href="www.baidu.com">百度</a></p>
+<h1 id="8-列表"><a href="#8-列表" class="headerlink" title="8.列表"></a>8.列表</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//无序列表</span></span><br><span class="line">- 目录<span class="number">1</span></span><br><span class="line">- 目录<span class="number">2</span></span><br><span class="line">- 目录<span class="number">3</span></span><br><span class="line">- 目录<span class="number">4</span></span><br><span class="line"><span class="comment">//有序列表</span></span><br><span class="line"><span class="number">1</span>+. +名称</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<ul>
+<li>目录1</li>
+<li>目录2</li>
+<li>目录3</li>
+<li>目录4</li>
+</ul>
+<ol>
+<li>首页</li>
+<li>拉文克劳</li>
+<li>挖金矿为了救</li>
+</ol>
+<h1 id="9-表格"><a href="#9-表格" class="headerlink" title="9.表格"></a>9.表格</h1><p>​    一般情况下直接用Typora快速生成，十分方便</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MySQL(一)</title>
     <url>/2021/04/11/MySQL%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🎊MySQL的安装"><a href="#🎊MySQL的安装" class="headerlink" title="🎊MySQL的安装"></a>🎊MySQL的安装</h1><p>​    ①：去官网下载社区版上面的一个；<br>​    （建议复制下载地址然后在迅雷当中下载比较快）<br>​    ②：在非C盘建一个 <code>MySQL</code> 文件夹装入下载文件并且解压；<br>​    ③：将bin目录配入环境变量；<br>​    ④：编写配置文件：(先建文本文件，编写好以后，将文件更改为 <code>my.ini</code> 文件并改以 <code>ANSCI</code> 编译保存)；<br>​        如下：（注意）设置 <code>mysql</code> 的安装目录和数据库的数据存放目录根据个人下载位置进更改<br>​            </p>
@@ -977,108 +1079,6 @@
       </categories>
       <tags>
         <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Markdown入门</title>
-    <url>/2021/04/09/Markdown%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[<h2 id="1-代码块"><a href="#1-代码块" class="headerlink" title="1.代码块:"></a>1.代码块:</h2><p>​    使用三个 “ ``` ” 即可生成代码块,并且可以选择语言类型</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">( args [] string)</span></span>&#123;</span><br><span class="line">        System.println(<span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<h2 id="2-标题"><a href="#2-标题" class="headerlink" title="2.标题"></a>2.标题</h2><p>​    使用 “ # ” 来表示，“ # ”越多字体越小 ， 最多六级标题，注意：# 后面必须有一个空格</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题 </span><br></pre></td></tr></table></figure>
-
-<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h1 id="3-字体"><a href="#3-字体" class="headerlink" title="3.字体"></a>3.字体</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//加粗</span></span><br><span class="line">	**加粗**</span><br><span class="line"><span class="comment">//代码高亮显示</span></span><br><span class="line">    ==高亮==</span><br><span class="line"><span class="comment">//删除线</span></span><br><span class="line">    ~删除线~</span><br><span class="line"><span class="comment">//斜体</span></span><br><span class="line">    *斜体*</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>（高亮好像有点问题哈）</p>
-<p><strong>加粗</strong></p>
-<p><del>删除线</del></p>
-<p><em>斜体</em></p>
-<h1 id="4-引用"><a href="#4-引用" class="headerlink" title="4.引用"></a>4.引用</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//引用语法</span></span><br><span class="line">&gt;作者:XXX</span><br><span class="line">&gt;&gt;作者:XXX</span><br><span class="line">&gt;&gt;&gt;作者:XXX</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>作者:XXX</p>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>作者:XXX</p>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>作者:XXX</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<h1 id="5-分割线"><a href="#5-分割线" class="headerlink" title="5.分割线"></a>5.分割线</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//分割线</span></span><br><span class="line">	---</span><br><span class="line"><span class="comment">//分割线2</span></span><br><span class="line">   	***</span><br></pre></td></tr></table></figure>
-
-<hr>
-<hr>
-<h1 id="6-图片插入"><a href="#6-图片插入" class="headerlink" title="6.图片插入"></a>6.图片插入</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//在线图片和本地图片</span></span><br><span class="line">![奥特曼](https:<span class="comment">//ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/42166d224f4a20a46b610b709b529822720ed00d.jpg)</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/42166d224f4a20a46b610b709b529822720ed00d.jpg" alt="奥特曼" title="奥特曼"></p>
-<img src="/2021/04/09/Markdown%E5%85%A5%E9%97%A8/ddm.jpg" class title="叮当猫">
-
-
-
-
-
-<h1 id="7-超链接"><a href="#7-超链接" class="headerlink" title="7.超链接"></a>7.超链接</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//超链接语法</span></span><br><span class="line">[内容](链接)</span><br></pre></td></tr></table></figure>
-
-<p><a href="www.baidu.com">百度</a></p>
-<h1 id="8-列表"><a href="#8-列表" class="headerlink" title="8.列表"></a>8.列表</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//无序列表</span></span><br><span class="line">- 目录<span class="number">1</span></span><br><span class="line">- 目录<span class="number">2</span></span><br><span class="line">- 目录<span class="number">3</span></span><br><span class="line">- 目录<span class="number">4</span></span><br><span class="line"><span class="comment">//有序列表</span></span><br><span class="line"><span class="number">1</span>+. +名称</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<ul>
-<li>目录1</li>
-<li>目录2</li>
-<li>目录3</li>
-<li>目录4</li>
-</ul>
-<ol>
-<li>首页</li>
-<li>拉文克劳</li>
-<li>挖金矿为了救</li>
-</ol>
-<h1 id="9-表格"><a href="#9-表格" class="headerlink" title="9.表格"></a>9.表格</h1><p>​    一般情况下直接用Typora快速生成，十分方便</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>Markdown</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -2232,6 +2232,53 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringBoot(五):实现邮箱验证</title>
+    <url>/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/</url>
+    <content><![CDATA[<blockquote>
+<p>前言：当下的业务背景中，存在许多需要保证用户数据安全的场景，在这些场景下，我们可以利用邮箱验证/手机短信验证的方式对用户身份进行审核，这大大提高了用户数据的安全性.在注册场景下，也可以利用这样的手段来阻止恶意注册.</p>
+</blockquote>
+<h1 id="🎃准备工作"><a href="#🎃准备工作" class="headerlink" title="🎃准备工作"></a>🎃准备工作</h1><p>再使用代码进行发送邮箱之前需要进行一些准备工作，具体如下：</p>
+<h2 id="开启邮箱的功能服务"><a href="#开启邮箱的功能服务" class="headerlink" title="开启邮箱的功能服务"></a>开启邮箱的功能服务</h2><p>这里以QQ邮箱为例，我们需要开启<code>POP3/SMTP</code>服务、以及<code>IMAP/SMTP</code>服务.</p>
+<img src="/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/1.png" class title="图片">
+
+<img src="/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/2.png" class title="图片">
+
+<p>开启过后，会告诉我们<strong>授权码</strong>，发送邮件时，我们需要通过这个授权码得到权限，从而发送邮件，保证邮箱的使用不被滥用侵犯，这个授权码要留着，等待后续使用.</p>
+<h2 id="导入依赖"><a href="#导入依赖" class="headerlink" title="导入依赖"></a>导入依赖</h2><p>由于需要存储验证码，并且验证码存在时效性，于是这里使用了<code>Redis</code>来实现这个功能，于是也需要导入<code>Redis</code>的依赖.</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--邮箱--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-mail<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--redis--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="comment">#  配置redis</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">database:</span> <span class="number">0</span> <span class="comment">#选择第一个数据库</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">xxxxxx</span> <span class="comment">#redis 服务器 ip 如果在本地就填 localhost</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">6379</span> <span class="comment">#redis服务端口号默认 6379</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">xxxxxx</span> <span class="comment">#redis登录密码</span></span><br><span class="line"><span class="comment"># 配置邮箱</span></span><br><span class="line">  <span class="attr">mail:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">smtp.qq.com</span>  <span class="comment">#使用哪一个类型的邮箱的标识</span></span><br><span class="line">    <span class="attr">username:</span> <span class="number">3164297994</span><span class="string">@qq.com</span> <span class="comment">#发送者的邮箱</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">xxxxxxxxxxxx</span> <span class="comment">#POP3服务的授权码</span></span><br><span class="line">    <span class="attr">default-encoding:</span> <span class="string">utf-8</span> <span class="comment">#文本解析格式</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="🚘代码实现"><a href="#🚘代码实现" class="headerlink" title="🚘代码实现"></a>🚘代码实现</h1><ul>
+<li>发送邮箱验证码的服务类编写</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//读取配置文件中的发件人</span></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;spring.mail.username&#125;&quot;)</span></span><br><span class="line">   	<span class="keyword">private</span> String from;</span><br><span class="line">    <span class="comment">//自动注入Java邮件发送对象</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JavaMailSender sender;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发送邮件</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> to 收信人邮箱</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> title 信件标题</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> code 验证码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendEmail</span><span class="params">(String to , String title , String code)</span></span>&#123;</span><br><span class="line">		SimpleMailMessage message = <span class="keyword">new</span> SimpleMailMessage();</span><br><span class="line">        message.setFrom(from); <span class="comment">//发件人邮箱</span></span><br><span class="line">        message.setTo(to); <span class="comment">//收件人邮箱</span></span><br><span class="line">        message.setSubject(title); <span class="comment">//邮件标题</span></span><br><span class="line">        message.setText(code);  <span class="comment">//邮件内容</span></span><br><span class="line">        sender.send(message);<span class="comment">//发送邮件</span></span><br><span class="line">        System.out.println(<span class="string">&quot;邮件发送成功&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>邮件发送的接口编写</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StringRedisTemplate stringRedisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> EmailService emailService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/email&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">emailVertCode</span><span class="params">(<span class="meta">@RequestBody</span> JSONObject requestbody)</span></span>&#123;</span><br><span class="line">        JSONObject response = <span class="keyword">new</span> JSONObject(<span class="keyword">true</span>);</span><br><span class="line">        String username = requestbody.getString(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        String email = requestbody.getString(<span class="string">&quot;email&quot;</span>);</span><br><span class="line">        <span class="comment">//自定义的生成 6 位验证码的工具类</span></span><br><span class="line">        String code = VerificationCode.getCode();</span><br><span class="line">        emailService.sendSimple(email,<span class="string">&quot;验证码测试&quot;</span>,code);</span><br><span class="line">        <span class="comment">//将验证码存入redis</span></span><br><span class="line">        stringRedisTemplate.opsForHash().put( username , username ,code);</span><br><span class="line">        <span class="comment">//设置验证码的过期时间为 5 分钟</span></span><br><span class="line">        stringRedisTemplate.expire(username , <span class="number">5</span> ,TimeUnit.MINUTES);</span><br><span class="line">        response.put(<span class="string">&quot;code&quot;</span>,<span class="number">200</span>);</span><br><span class="line">        response.put(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;发送邮件成功&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> response.toJSONString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>附上自己写的验证码生成工具</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VerificationCode</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> counts = <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">int</span> resCode = <span class="number">0</span>;</span><br><span class="line">        Random random = <span class="keyword">new</span> Random(System.currentTimeMillis());</span><br><span class="line">        <span class="keyword">while</span> (counts-- != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> i = random.nextInt(<span class="number">10</span>);</span><br><span class="line">            <span class="keyword">while</span> (i == <span class="number">0</span> &amp;&amp; counts == <span class="number">5</span>) &#123;</span><br><span class="line">                i = random.nextInt(<span class="number">10</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">0</span>) resCode *= <span class="number">10</span>;</span><br><span class="line">            <span class="keyword">else</span> resCode += (<span class="keyword">int</span>) (i * Math.pow(<span class="number">10</span>, <span class="number">5</span> - counts));</span><br><span class="line">        &#125;</span><br><span class="line">            <span class="keyword">return</span> String.valueOf(resCode);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot(八):自定义starter</title>
     <url>/2021/06/24/SpringBoot%EF%BC%88%E5%85%AB%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🚀SpringBoot-starter机制"><a href="#🚀SpringBoot-starter机制" class="headerlink" title="🚀SpringBoot starter机制"></a>🚀SpringBoot starter机制</h1><p><code>SpringBoot</code>中提供了大量开箱即用的<code>starter</code>，<code>starter</code>中配置了一定业务场景中所需要的依赖以及各种服务，让开发者摆脱了大量配置和依赖文件，让工程的整体结构更加优美而不臃肿，其具体实现依托于<code>SpringBoot</code>中自动配置原理，自动进行包扫描，既可以自定义配置，也可以使用默认配置.</p>
@@ -2283,53 +2330,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot(五):实现邮箱验证</title>
-    <url>/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/</url>
-    <content><![CDATA[<blockquote>
-<p>前言：当下的业务背景中，存在许多需要保证用户数据安全的场景，在这些场景下，我们可以利用邮箱验证/手机短信验证的方式对用户身份进行审核，这大大提高了用户数据的安全性.在注册场景下，也可以利用这样的手段来阻止恶意注册.</p>
-</blockquote>
-<h1 id="🎃准备工作"><a href="#🎃准备工作" class="headerlink" title="🎃准备工作"></a>🎃准备工作</h1><p>再使用代码进行发送邮箱之前需要进行一些准备工作，具体如下：</p>
-<h2 id="开启邮箱的功能服务"><a href="#开启邮箱的功能服务" class="headerlink" title="开启邮箱的功能服务"></a>开启邮箱的功能服务</h2><p>这里以QQ邮箱为例，我们需要开启<code>POP3/SMTP</code>服务、以及<code>IMAP/SMTP</code>服务.</p>
-<img src="/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/1.png" class title="图片">
-
-<img src="/2021/06/15/SpringBoot%EF%BC%88%E4%BA%94%EF%BC%89/2.png" class title="图片">
-
-<p>开启过后，会告诉我们<strong>授权码</strong>，发送邮件时，我们需要通过这个授权码得到权限，从而发送邮件，保证邮箱的使用不被滥用侵犯，这个授权码要留着，等待后续使用.</p>
-<h2 id="导入依赖"><a href="#导入依赖" class="headerlink" title="导入依赖"></a>导入依赖</h2><p>由于需要存储验证码，并且验证码存在时效性，于是这里使用了<code>Redis</code>来实现这个功能，于是也需要导入<code>Redis</code>的依赖.</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--邮箱--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-mail<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--redis--&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="comment">#  配置redis</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">database:</span> <span class="number">0</span> <span class="comment">#选择第一个数据库</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">xxxxxx</span> <span class="comment">#redis 服务器 ip 如果在本地就填 localhost</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">6379</span> <span class="comment">#redis服务端口号默认 6379</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">xxxxxx</span> <span class="comment">#redis登录密码</span></span><br><span class="line"><span class="comment"># 配置邮箱</span></span><br><span class="line">  <span class="attr">mail:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">smtp.qq.com</span>  <span class="comment">#使用哪一个类型的邮箱的标识</span></span><br><span class="line">    <span class="attr">username:</span> <span class="number">3164297994</span><span class="string">@qq.com</span> <span class="comment">#发送者的邮箱</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">xxxxxxxxxxxx</span> <span class="comment">#POP3服务的授权码</span></span><br><span class="line">    <span class="attr">default-encoding:</span> <span class="string">utf-8</span> <span class="comment">#文本解析格式</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h1 id="🚘代码实现"><a href="#🚘代码实现" class="headerlink" title="🚘代码实现"></a>🚘代码实现</h1><ul>
-<li>发送邮箱验证码的服务类编写</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//读取配置文件中的发件人</span></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;spring.mail.username&#125;&quot;)</span></span><br><span class="line">   	<span class="keyword">private</span> String from;</span><br><span class="line">    <span class="comment">//自动注入Java邮件发送对象</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JavaMailSender sender;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发送邮件</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> to 收信人邮箱</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> title 信件标题</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> code 验证码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendEmail</span><span class="params">(String to , String title , String code)</span></span>&#123;</span><br><span class="line">		SimpleMailMessage message = <span class="keyword">new</span> SimpleMailMessage();</span><br><span class="line">        message.setFrom(from); <span class="comment">//发件人邮箱</span></span><br><span class="line">        message.setTo(to); <span class="comment">//收件人邮箱</span></span><br><span class="line">        message.setSubject(title); <span class="comment">//邮件标题</span></span><br><span class="line">        message.setText(code);  <span class="comment">//邮件内容</span></span><br><span class="line">        sender.send(message);<span class="comment">//发送邮件</span></span><br><span class="line">        System.out.println(<span class="string">&quot;邮件发送成功&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li>邮件发送的接口编写</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmailController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StringRedisTemplate stringRedisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> EmailService emailService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/email&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">emailVertCode</span><span class="params">(<span class="meta">@RequestBody</span> JSONObject requestbody)</span></span>&#123;</span><br><span class="line">        JSONObject response = <span class="keyword">new</span> JSONObject(<span class="keyword">true</span>);</span><br><span class="line">        String username = requestbody.getString(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        String email = requestbody.getString(<span class="string">&quot;email&quot;</span>);</span><br><span class="line">        <span class="comment">//自定义的生成 6 位验证码的工具类</span></span><br><span class="line">        String code = VerificationCode.getCode();</span><br><span class="line">        emailService.sendSimple(email,<span class="string">&quot;验证码测试&quot;</span>,code);</span><br><span class="line">        <span class="comment">//将验证码存入redis</span></span><br><span class="line">        stringRedisTemplate.opsForHash().put( username , username ,code);</span><br><span class="line">        <span class="comment">//设置验证码的过期时间为 5 分钟</span></span><br><span class="line">        stringRedisTemplate.expire(username , <span class="number">5</span> ,TimeUnit.MINUTES);</span><br><span class="line">        response.put(<span class="string">&quot;code&quot;</span>,<span class="number">200</span>);</span><br><span class="line">        response.put(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;发送邮件成功&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> response.toJSONString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>附上自己写的验证码生成工具</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VerificationCode</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> counts = <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">int</span> resCode = <span class="number">0</span>;</span><br><span class="line">        Random random = <span class="keyword">new</span> Random(System.currentTimeMillis());</span><br><span class="line">        <span class="keyword">while</span> (counts-- != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> i = random.nextInt(<span class="number">10</span>);</span><br><span class="line">            <span class="keyword">while</span> (i == <span class="number">0</span> &amp;&amp; counts == <span class="number">5</span>) &#123;</span><br><span class="line">                i = random.nextInt(<span class="number">10</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">0</span>) resCode *= <span class="number">10</span>;</span><br><span class="line">            <span class="keyword">else</span> resCode += (<span class="keyword">int</span>) (i * Math.pow(<span class="number">10</span>, <span class="number">5</span> - counts));</span><br><span class="line">        &#125;</span><br><span class="line">            <span class="keyword">return</span> String.valueOf(resCode);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringBoot(六):解决前后端分离跨域</title>
     <url>/2021/06/18/SpringBoot%EF%BC%88%E5%85%AD%EF%BC%89/</url>
     <content><![CDATA[<h1 id="🚀什么是跨域？"><a href="#🚀什么是跨域？" class="headerlink" title="🚀什么是跨域？"></a>🚀什么是跨域？</h1><ul>
@@ -2362,50 +2362,6 @@
 <p>只需要重写<code>handler</code>中<code>preHandlr</code>并且加上下方代码即可</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="string">&quot;OPTIONS&quot;</span>.equals(request.getMethod().toUpperCase())) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Method:OPTIONS&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot(四):注解开发</title>
-    <url>/2021/06/15/SpringBoot%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
-    <content><![CDATA[<blockquote>
-<p>可以说注解是SpringBoot的精髓，有着非常非常多的注解，这篇博客将持续更新我平时所用到的注解~~</p>
-<p>当然了，这篇博客主要是为了作为一份备忘录，具体的底层解析，会另外写博客进行分析~</p>
-</blockquote>
-<h1 id="🎁类注解"><a href="#🎁类注解" class="headerlink" title="🎁类注解"></a>🎁类注解</h1><ul>
-<li><code>@Component</code> ：当不明确类属于哪一层架构时，用于注册<code>Spring</code>组件.</li>
-<li><code>@Repository</code> ：对应持久层即<code>Dao</code>层，主要用于数据库相关操作.</li>
-<li><code>@Service</code> ：对应服务层，主要涉及一些复杂的逻辑，需要用到 <code>Dao </code>层.</li>
-<li><code>@Controller</code> ：对应MVC 控制层，用户接受用户请求并调用 <code>Service </code>层返回数据给前端页面.</li>
-<li><code>@RestController</code>：相较于<code>@Controller</code> 而言，限制了控制器中的方法返回值只能为<code>return</code>中内容本身</li>
-<li><code>@SpringBootAplication</code>：用于标注SpringBoot启动类，也是启动自动配置扫描的注解</li>
-<li><code>@SpringBootTest</code>：用于进行单元测试</li>
-<li><code>@Configuration</code>：用于声明某个类为配置类，多用于<code>Spring</code>应用中，相当于在全局配置文件中进行相关配置</li>
-<li><code>@SpringBootConfiguration</code>：更多的用于<code>SpringBoot</code>应用中，效果同<code>@Configuration</code></li>
-<li><code>@ComponentScan</code>：使<code>SpringBoot</code>应用自动扫描<code>@SpringBootApplication</code>所在类的同级包以及它的子包中的配置</li>
-<li><code>@EnableAutoConfiguration</code>：使<code>SpringBoot</code>根据当前应用项目的依赖进行相关的配置</li>
-<li><code>@ConfigurationProperties(prefix = &quot;xxxx&quot;)</code>：用于读取配置文件中的数据</li>
-<li><code>@PropertySource</code>：可以指定需要加载的配置文件，可以一个也可以多个(多个使用{}括起来即可)，读取数据需要使用<code>@Value</code></li>
-</ul>
-<h1 id="🎫方法注解"><a href="#🎫方法注解" class="headerlink" title="🎫方法注解"></a>🎫方法注解</h1><ul>
-<li><code>@RequestMapping</code>：请求映射路径</li>
-<li><code>@GetMapping</code>：<code>get</code>请求映射路径，只接受<code>get</code>请求</li>
-<li><code>@PostMapping</code>: <code>post</code>请求映射路径，只接受<code>post</code>请求</li>
-<li><code>@ResponseBody</code>: 当使用<code>@controller</code>的时候，在方法上加次注解等价于使用<code>@RestController</code></li>
-<li><code>@Test</code>：标注测试方法，让方法可以独立运行</li>
-</ul>
-<h1 id="🎨属性注解"><a href="#🎨属性注解" class="headerlink" title="🎨属性注解"></a>🎨属性注解</h1><ul>
-<li><code>@Value</code> : 用于读取配置文件中值</li>
-<li><code>@Autowired</code>：用于自动注入<code>Spring IOC</code> 容器中的对象</li>
-<li><code>@RequestBody</code>：只能用于获取<code>Post</code>请求中的请求体</li>
-<li><code>@PathVarible</code>：用于获取<code>RESTful</code>风格的<code>get</code>请求参数</li>
-<li><code>@RequestParam</code>：用于获取<code>post/get</code>请求方式的请求体中的数据，如果变量名不一致，可以手动配置</li>
-</ul>
 ]]></content>
       <categories>
         <category>Java</category>
@@ -2486,6 +2442,50 @@
       </categories>
       <tags>
         <tag>SpringMVC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot(四):注解开发</title>
+    <url>/2021/06/15/SpringBoot%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
+    <content><![CDATA[<blockquote>
+<p>可以说注解是SpringBoot的精髓，有着非常非常多的注解，这篇博客将持续更新我平时所用到的注解~~</p>
+<p>当然了，这篇博客主要是为了作为一份备忘录，具体的底层解析，会另外写博客进行分析~</p>
+</blockquote>
+<h1 id="🎁类注解"><a href="#🎁类注解" class="headerlink" title="🎁类注解"></a>🎁类注解</h1><ul>
+<li><code>@Component</code> ：当不明确类属于哪一层架构时，用于注册<code>Spring</code>组件.</li>
+<li><code>@Repository</code> ：对应持久层即<code>Dao</code>层，主要用于数据库相关操作.</li>
+<li><code>@Service</code> ：对应服务层，主要涉及一些复杂的逻辑，需要用到 <code>Dao </code>层.</li>
+<li><code>@Controller</code> ：对应MVC 控制层，用户接受用户请求并调用 <code>Service </code>层返回数据给前端页面.</li>
+<li><code>@RestController</code>：相较于<code>@Controller</code> 而言，限制了控制器中的方法返回值只能为<code>return</code>中内容本身</li>
+<li><code>@SpringBootAplication</code>：用于标注SpringBoot启动类，也是启动自动配置扫描的注解</li>
+<li><code>@SpringBootTest</code>：用于进行单元测试</li>
+<li><code>@Configuration</code>：用于声明某个类为配置类，多用于<code>Spring</code>应用中，相当于在全局配置文件中进行相关配置</li>
+<li><code>@SpringBootConfiguration</code>：更多的用于<code>SpringBoot</code>应用中，效果同<code>@Configuration</code></li>
+<li><code>@ComponentScan</code>：使<code>SpringBoot</code>应用自动扫描<code>@SpringBootApplication</code>所在类的同级包以及它的子包中的配置</li>
+<li><code>@EnableAutoConfiguration</code>：使<code>SpringBoot</code>根据当前应用项目的依赖进行相关的配置</li>
+<li><code>@ConfigurationProperties(prefix = &quot;xxxx&quot;)</code>：用于读取配置文件中的数据</li>
+<li><code>@PropertySource</code>：可以指定需要加载的配置文件，可以一个也可以多个(多个使用{}括起来即可)，读取数据需要使用<code>@Value</code></li>
+</ul>
+<h1 id="🎫方法注解"><a href="#🎫方法注解" class="headerlink" title="🎫方法注解"></a>🎫方法注解</h1><ul>
+<li><code>@RequestMapping</code>：请求映射路径</li>
+<li><code>@GetMapping</code>：<code>get</code>请求映射路径，只接受<code>get</code>请求</li>
+<li><code>@PostMapping</code>: <code>post</code>请求映射路径，只接受<code>post</code>请求</li>
+<li><code>@ResponseBody</code>: 当使用<code>@controller</code>的时候，在方法上加次注解等价于使用<code>@RestController</code></li>
+<li><code>@Test</code>：标注测试方法，让方法可以独立运行</li>
+</ul>
+<h1 id="🎨属性注解"><a href="#🎨属性注解" class="headerlink" title="🎨属性注解"></a>🎨属性注解</h1><ul>
+<li><code>@Value</code> : 用于读取配置文件中值</li>
+<li><code>@Autowired</code>：用于自动注入<code>Spring IOC</code> 容器中的对象</li>
+<li><code>@RequestBody</code>：只能用于获取<code>Post</code>请求中的请求体</li>
+<li><code>@PathVarible</code>：用于获取<code>RESTful</code>风格的<code>get</code>请求参数</li>
+<li><code>@RequestParam</code>：用于获取<code>post/get</code>请求方式的请求体中的数据，如果变量名不一致，可以手动配置</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
       </tags>
   </entry>
   <entry>
@@ -2727,27 +2727,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringSecurity(四):结合Vue实现异步登录</title>
-    <url>/2021/07/16/SpringSecurity%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="🏁问题分析"><a href="#🏁问题分析" class="headerlink" title="🏁问题分析"></a>🏁问题分析</h1><p>&emsp;&emsp;使用异步<code>axios</code>请求的方式进行登录与直接使用 <code>postman</code> 发送 <code>post</code> 请求进行测试 ，提交数据的方式似乎不太一样，<code>postman</code>能跑通，而使用<code>axios</code> ，后台<code>loadUserByusername</code>获取不到用户名，这就很奇怪，奈何看不太懂源码，主要是各种设计模式没学过以及底层的封装层数太多了，看的使人心累，于是开始逛论坛以及开源网站看别人的代码，后来才发现，<code>axios</code>提交的参数是存放在请求体当中的，而<code>SpringSecurity</code>中的处理逻辑使用了 <code>request.getParameter</code> 进行参数获取，有过原始表单或者 <code>servlet</code> 开发经验的人都知道 ， 此方法只能获取到类似于 <code>get</code>请求 以及 以原始表单格式提交的<code>post</code> 数据 ， 然而尝试过后发现 ，利用<code>axios</code>请求，将请求头设置一下，即<code>Content-Type: application/x-www-form-urlencoded``;charset=utf-8</code> ， 安全框架仍然解析不到<code>username</code>，此时心态已经崩了，然而就在此时，翻到一篇博客，记述到可以将传统原生的表单提交格式更改为 <code>get</code> 提交数据的数据格式，当然了只是更改了数据格式，并没有更改请求方式哈.</p>
-<h1 id="😎解决方案"><a href="#😎解决方案" class="headerlink" title="😎解决方案"></a>😎解决方案</h1><p>利用<code>qs</code> 包 中的 <code>stringify</code> 方法格式化数据.</p>
-<p>具体：</p>
-<ul>
-<li>先安装该包 <code>npm install qs --save</code></li>
-<li>修改前端提交数据的格式</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> http.request(&#123;</span><br><span class="line">    method: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    url: <span class="string">&#x27;login&#x27;</span>,</span><br><span class="line">    data: qs.stringify(data)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>测试过后可以请求成功，狂喜~</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>SpringSecurity</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Vue(一):介绍与起步使用</title>
     <url>/2021/06/01/Vue%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<h1 id="Vue-js介绍"><a href="#Vue-js介绍" class="headerlink" title="Vue.js介绍"></a>Vue.js介绍</h1><p>​        Vue (读音 /vjuː/，类似于 <strong>view</strong>) 是一套用于构建用户界面的<strong>渐进式框架</strong>。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与<a href="https://cn.vuejs.org/v2/guide/single-file-components.html">现代化的工具链</a>以及各种<a href="https://github.com/vuejs/awesome-vue#libraries--plugins">支持类库</a>结合使用时，Vue 也完全能够为复杂的单页应用提供驱动，并且采用了<code>SPA</code>的设计思想来对页面进行开发，让开发十分便携且可维护性得到提高.</p>
@@ -2815,6 +2794,27 @@
       </categories>
       <tags>
         <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringSecurity(四):结合Vue实现异步登录</title>
+    <url>/2021/07/16/SpringSecurity%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="🏁问题分析"><a href="#🏁问题分析" class="headerlink" title="🏁问题分析"></a>🏁问题分析</h1><p>&emsp;&emsp;使用异步<code>axios</code>请求的方式进行登录与直接使用 <code>postman</code> 发送 <code>post</code> 请求进行测试 ，提交数据的方式似乎不太一样，<code>postman</code>能跑通，而使用<code>axios</code> ，后台<code>loadUserByusername</code>获取不到用户名，这就很奇怪，奈何看不太懂源码，主要是各种设计模式没学过以及底层的封装层数太多了，看的使人心累，于是开始逛论坛以及开源网站看别人的代码，后来才发现，<code>axios</code>提交的参数是存放在请求体当中的，而<code>SpringSecurity</code>中的处理逻辑使用了 <code>request.getParameter</code> 进行参数获取，有过原始表单或者 <code>servlet</code> 开发经验的人都知道 ， 此方法只能获取到类似于 <code>get</code>请求 以及 以原始表单格式提交的<code>post</code> 数据 ， 然而尝试过后发现 ，利用<code>axios</code>请求，将请求头设置一下，即<code>Content-Type: application/x-www-form-urlencoded``;charset=utf-8</code> ， 安全框架仍然解析不到<code>username</code>，此时心态已经崩了，然而就在此时，翻到一篇博客，记述到可以将传统原生的表单提交格式更改为 <code>get</code> 提交数据的数据格式，当然了只是更改了数据格式，并没有更改请求方式哈.</p>
+<h1 id="😎解决方案"><a href="#😎解决方案" class="headerlink" title="😎解决方案"></a>😎解决方案</h1><p>利用<code>qs</code> 包 中的 <code>stringify</code> 方法格式化数据.</p>
+<p>具体：</p>
+<ul>
+<li>先安装该包 <code>npm install qs --save</code></li>
+<li>修改前端提交数据的格式</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> http.request(&#123;</span><br><span class="line">    method: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    url: <span class="string">&#x27;login&#x27;</span>,</span><br><span class="line">    data: qs.stringify(data)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试过后可以请求成功，狂喜~</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>SpringSecurity</tag>
       </tags>
   </entry>
   <entry>
