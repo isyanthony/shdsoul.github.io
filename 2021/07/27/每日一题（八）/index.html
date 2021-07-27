@@ -38,32 +38,30 @@
 
 
 <meta name="hexo-config" content="{&quot;hostname&quot;:&quot;shdsoul.github.io&quot;,&quot;root&quot;:&quot;/&quot;,&quot;images&quot;:&quot;/images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;/search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}">
-<meta name="description" content="题目:打家劫舍.">
+<meta name="description" content="题目：删除并获得点数">
 <meta property="og:type" content="article">
-<meta property="og:title" content="每日一题(七):动态规划">
-<meta property="og:url" content="https://shdsoul.github.io/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/index.html">
+<meta property="og:title" content="每日一题(八):动态规划">
+<meta property="og:url" content="https://shdsoul.github.io/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%85%AB%EF%BC%89/index.html">
 <meta property="og:site_name" content="Luke">
-<meta property="og:description" content="题目:打家劫舍.">
+<meta property="og:description" content="题目：删除并获得点数">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://shdsoul.github.io/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/1.png">
-<meta property="og:image" content="https://shdsoul.github.io/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/2.png">
-<meta property="og:image" content="https://shdsoul.github.io/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/3.png">
-<meta property="article:published_time" content="2021-07-26T16:06:48.000Z">
-<meta property="article:modified_time" content="2021-07-27T13:50:59.597Z">
+<meta property="og:image" content="https://shdsoul.github.io/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%85%AB%EF%BC%89/1.png">
+<meta property="article:published_time" content="2021-07-27T13:27:47.000Z">
+<meta property="article:modified_time" content="2021-07-27T13:50:33.226Z">
 <meta property="article:author" content="Soucat">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="每日一题">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://shdsoul.github.io/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/1.png">
+<meta name="twitter:image" content="https://shdsoul.github.io/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%85%AB%EF%BC%89/1.png">
 
 
-<link rel="canonical" href="https://shdsoul.github.io/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/">
+<link rel="canonical" href="https://shdsoul.github.io/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%85%AB%EF%BC%89/">
 
 
 
 <meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;}">
 <meta name="hexo-config-calendar" content="">
-<title>每日一题(七):动态规划 | Luke</title><script data-pjax src="/js/load-config.js"></script>
+<title>每日一题(八):动态规划 | Luke</title><script data-pjax src="/js/load-config.js"></script>
   
 
 
@@ -171,7 +169,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">思路分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#C"><span class="nav-number">3.1.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java"><span class="nav-number">3.2.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go"><span class="nav-number">3.3.</span> <span class="nav-text">Go</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">思路分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#C"><span class="nav-number">3.1.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java"><span class="nav-number">3.2.</span> <span class="nav-text">Java</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Go"><span class="nav-number">4.</span> <span class="nav-text">Go</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -248,7 +246,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://shdsoul.github.io/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/">
+    <link itemprop="mainEntityOfPage" href="https://shdsoul.github.io/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%85%AB%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/./images/tx.jpg">
@@ -261,7 +259,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          每日一题(七):动态规划
+          每日一题(八):动态规划
         </h1>
 
         <div class="post-meta-container">
@@ -273,7 +271,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-07-27 00:06:48 / 修改时间：21:50:59" itemprop="dateCreated datePublished" datetime="2021-07-27T00:06:48+08:00">2021-07-27</time>
+      <time title="创建时间：2021-07-27 21:27:47 / 修改时间：21:50:33" itemprop="dateCreated datePublished" datetime="2021-07-27T21:27:47+08:00">2021-07-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -293,18 +291,18 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.5k</span>
+      <span>1.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
-            <div class="post-description">题目:打家劫舍.</div>
+            <div class="post-description">题目：删除并获得点数</div>
         </div>
       </header>
 
@@ -312,27 +310,20 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><img src="/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/1.png" class>
+        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><img src="/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%85%AB%EF%BC%89/1.png" class>
 
-<p>原题连接: <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/house-robber/">点这里</a></p>
-<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><p>看到这题，很明显能感觉到要用动态规划，实际上，拿草稿纸试了一试能写出递推，果然可以用动态规划，当然了我们需要先确定状态方程的含义，<code>dp[i] </code> 表示前<code>i</code> 间房子能偷的最大金额(这一点也需要想清楚，这是因为本质上，最大金额是由局部最大叠加导致的，即保证前面能取到最大，相应的后面的也取最大就能保证这一段区间内取到最大，即dp[i] 的值取决于 dp[i-1] ，dp[i-2]等等的值的大小)，这里粘上大佬画的图(白嫖怪狂喜)</p>
-<img src="/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/2.png" class>
-
-<p>我们可以从只有 1 间房子 和 只有 2 间房子然后再只要 3 间房子乃至 4、5····依次手动计算一下，然后可以慢慢的写出表达式，写的表达式要具有普遍性，纯理论分析的话就如下图这般，动态规划问题本质上就是能将问题抽象成递推关系，如何找出递推关系就是动态规划的难点.</p>
-<img src="/2021/07/27/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B8%83%EF%BC%89/3.png" class>
+<p>原题链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/delete-and-earn/">点这里</a></p>
+<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><p>删除数组中数值为<code>i</code> 的数，那么则需要同时删除所有数值为 <code>i-1</code> 和 <code>i+1</code> 的值，并且同时获得所删除的数值大小的点数，可以操作多次，这就让人想到打家劫舍中的一个设定，不能偷相邻的俩家，这俩个设定有点如出一辙，我们不妨将原数组进行变换，我们将数组中的<code>数值</code>作为下标，<code>数值 * 出现次数</code> 作为对应的值，这样以来就完全变成了<code>打家劫舍</code>，唯一不同的是，新的数组中并不是连续的，存在数值为 0 的值存在，正因为是 0 所以并不影响计算，状态表达式：</p>
+<p><code>dp[i] = max(dp[i-2]+trans[i] , dp[i-1])</code></p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">rob</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt; &amp;nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> size = nums.<span class="built_in">size</span>();</span><br><span class="line">        vector&lt;<span class="keyword">int</span>&gt; dp = vector&lt;<span class="keyword">int</span>&gt;(size , <span class="number">0</span>);</span><br><span class="line">        dp[<span class="number">0</span>] = nums[<span class="number">0</span>], dp[<span class="number">1</span>] = <span class="built_in">max</span>(nums[<span class="number">0</span>], nums[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; size; i++) &#123;</span><br><span class="line">            dp[i] = <span class="built_in">max</span>(dp[i<span class="number">-2</span>]+nums[i] , dp[i<span class="number">-1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[size<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">deleteAndEarn</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt; &amp;nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> maxVal = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//取最大值便于确定数组长度,也可以直接开巨大</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> val : nums) &#123;</span><br><span class="line">            maxVal = <span class="built_in">max</span>(maxVal, val);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">sum</span><span class="params">(maxVal + <span class="number">1</span>)</span></span>;</span><br><span class="line">        <span class="comment">//将原数组进行转换</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> val : nums) &#123;</span><br><span class="line">            sum[val] += val;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//后面跟打家劫舍是一样的了</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">rob</span>(sum);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 
-<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">rob</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//判断是否为空</span></span><br><span class="line">        <span class="keyword">if</span> (nums.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> size = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="comment">//只有一间的时候</span></span><br><span class="line">        <span class="keyword">if</span> (size == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//定义vector数组</span></span><br><span class="line">        vector&lt;<span class="keyword">int</span>&gt; dp = vector&lt;<span class="keyword">int</span>&gt;(size, <span class="number">0</span>);</span><br><span class="line">        dp[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        dp[<span class="number">1</span>] = <span class="built_in">max</span>(nums[<span class="number">0</span>], nums[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; size; i++) &#123;</span><br><span class="line">            <span class="comment">//递推表达式</span></span><br><span class="line">            dp[i] = <span class="built_in">max</span>(dp[i - <span class="number">2</span>] + nums[i], dp[i - <span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[size - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">deleteAndEarn</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> [] trans = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10005</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; nums.length ; i++)</span><br><span class="line">            trans[nums[i]] += nums[i];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10005</span>];</span><br><span class="line">        dp[<span class="number">0</span>] = trans[<span class="number">0</span>];</span><br><span class="line">        dp[<span class="number">1</span>] = Math.max(trans[<span class="number">0</span>] , trans[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span> ; i &lt; dp.length ; i++)</span><br><span class="line">            dp[i] = Math.max(dp[i-<span class="number">2</span>]+trans[i],dp[i-<span class="number">1</span>]);</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> dp[dp.length-<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.length;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">1</span>) <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;<span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> [] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">5</span>];</span><br><span class="line">        dp[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        dp[<span class="number">1</span>] = Math.max(nums[<span class="number">0</span>],nums[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span> ; i &lt; n ; i++)&#123;</span><br><span class="line">          dp[i] = Math.max(dp[i-<span class="number">2</span>]+nums[i],dp[i-<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n-<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h2><p>十分想吐槽一下<code>Go</code>的<code>Api</code> , 数学类的<code>api</code>形参类型也太局限了，还不支持 三目表达式，确实很有效的统一了编码风格hhh</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">rob</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    n := <span class="built_in">len</span>(nums)</span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">1</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> nums[<span class="number">0</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    dp := <span class="built_in">make</span>([]<span class="keyword">int</span> , n+<span class="number">5</span>)</span><br><span class="line">    dp[<span class="number">0</span>] = nums[<span class="number">0</span>]</span><br><span class="line">    dp[<span class="number">1</span>] = max(nums[<span class="number">0</span>] , nums[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">2</span> ; i &lt; n ; i++ &#123;</span><br><span class="line">        dp[i] = max(dp[i<span class="number">-2</span>]+nums[i],dp[i<span class="number">-1</span>])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n<span class="number">-1</span>];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">max</span><span class="params">(x , y <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> x &gt; y &#123;</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">deleteAndEarn</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    maxVal:=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> _,val:=<span class="keyword">range</span> nums&#123;</span><br><span class="line">        maxVal=max(maxVal,val)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// sum[v] 代表 序号为v的 和，也就是nums中所有的v的和</span></span><br><span class="line">    sum:=<span class="built_in">make</span>([]<span class="keyword">int</span>,maxVal+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> _,v:=<span class="keyword">range</span> nums&#123;</span><br><span class="line">        sum[v]+=v </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> rob(sum)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">rob</span><span class="params">(nums []<span class="keyword">int</span>)</span><span class="title">int</span></span>&#123;</span><br><span class="line">    <span class="comment">//dp[i] 代表 第i个 删除的时候的所有的和</span></span><br><span class="line">    dp:=<span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="built_in">len</span>(nums))</span><br><span class="line">    dp[<span class="number">0</span>]=nums[<span class="number">0</span>]</span><br><span class="line">    dp[<span class="number">1</span>]=max(dp[<span class="number">0</span>],nums[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">2</span>;i&lt;<span class="built_in">len</span>(nums);i++ &#123;</span><br><span class="line">        dp[i]=max(dp[i<span class="number">-1</span>],dp[i<span class="number">-2</span>]+nums[i])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[<span class="built_in">len</span>(nums)<span class="number">-1</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">max</span><span class="params">(a,b <span class="keyword">int</span>)</span><span class="title">int</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> a &gt; b &#123;</span><br><span class="line">        <span class="keyword">return</span> a </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> b </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
       <div>
@@ -375,14 +366,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/07/25/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%85%AD%EF%BC%89/" rel="prev" title="每日一题(六):动态规划">
-                  <i class="fa fa-chevron-left"></i> 每日一题(六):动态规划
+                <a href="/2021/07/27/SpringBoot%EF%BC%88%E4%B9%9D%EF%BC%89/" rel="prev" title="SpringBoot(九):日志记录">
+                  <i class="fa fa-chevron-left"></i> SpringBoot(九):日志记录
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/07/27/Docker%EF%BC%88%E4%B8%89%EF%BC%89/" rel="next" title="Docker(三):Dockerfile">
-                  Docker(三):Dockerfile <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -489,7 +477,7 @@ setInterval("createtime()",250);
 <script>
 NexT.utils.loadComments('#lv-container', () => {
   window.livereOptions = {
-    refer: "2021/07/27/每日一题（七）/"
+    refer: "2021/07/27/每日一题（八）/"
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
