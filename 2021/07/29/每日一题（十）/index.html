@@ -38,30 +38,31 @@
 
 
 <meta name="hexo-config" content="{&quot;hostname&quot;:&quot;shdsoul.github.io&quot;,&quot;root&quot;:&quot;/&quot;,&quot;images&quot;:&quot;/images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;/search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}">
-<meta name="description" content="题目:最大子序列和.">
+<meta name="description" content="题目:环形子数组的最大和.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="每日一题(九):动态规划">
-<meta property="og:url" content="https://shdsoul.github.io/2021/07/28/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B9%9D%EF%BC%89/index.html">
+<meta property="og:title" content="每日一题(十):动态规划">
+<meta property="og:url" content="https://shdsoul.github.io/2021/07/29/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%8D%81%EF%BC%89/index.html">
 <meta property="og:site_name" content="Luke">
-<meta property="og:description" content="题目:最大子序列和.">
+<meta property="og:description" content="题目:环形子数组的最大和.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://shdsoul.github.io/2021/07/28/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B9%9D%EF%BC%89/1.png">
-<meta property="article:published_time" content="2021-07-28T15:27:52.000Z">
-<meta property="article:modified_time" content="2021-07-28T15:27:52.378Z">
+<meta property="og:image" content="https://shdsoul.github.io/2021/07/29/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%8D%81%EF%BC%89/1.png">
+<meta property="article:published_time" content="2021-07-29T08:04:28.000Z">
+<meta property="article:modified_time" content="2021-07-29T08:04:28.804Z">
 <meta property="article:author" content="Soucat">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="每日一题">
+<meta property="article:tag" content="动态规划">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://shdsoul.github.io/2021/07/28/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B9%9D%EF%BC%89/1.png">
+<meta name="twitter:image" content="https://shdsoul.github.io/2021/07/29/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%8D%81%EF%BC%89/1.png">
 
 
-<link rel="canonical" href="https://shdsoul.github.io/2021/07/28/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B9%9D%EF%BC%89/">
+<link rel="canonical" href="https://shdsoul.github.io/2021/07/29/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%8D%81%EF%BC%89/">
 
 
 
 <meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;}">
 <meta name="hexo-config-calendar" content="">
-<title>每日一题(九):动态规划 | Luke</title><script data-pjax src="/js/load-config.js"></script>
+<title>每日一题(十):动态规划 | Luke</title><script data-pjax src="/js/load-config.js"></script>
   
 
 
@@ -246,7 +247,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://shdsoul.github.io/2021/07/28/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B9%9D%EF%BC%89/">
+    <link itemprop="mainEntityOfPage" href="https://shdsoul.github.io/2021/07/29/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%8D%81%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/./images/tx.jpg">
@@ -259,7 +260,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          每日一题(九):动态规划
+          每日一题(十):动态规划
         </h1>
 
         <div class="post-meta-container">
@@ -270,7 +271,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-07-28 23:27:52" itemprop="dateCreated datePublished" datetime="2021-07-28T23:27:52+08:00">2021-07-28</time>
+      <time title="创建时间：2021-07-29 16:04:28" itemprop="dateCreated datePublished" datetime="2021-07-29T16:04:28+08:00">2021-07-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -290,18 +291,18 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.3k</span>
+      <span>2.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
-            <div class="post-description">题目:最大子序列和.</div>
+            <div class="post-description">题目:环形子数组的最大和.</div>
         </div>
       </header>
 
@@ -309,23 +310,19 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><img src="/2021/07/28/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B9%9D%EF%BC%89/1.png" class>
+        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><img src="/2021/07/29/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%8D%81%EF%BC%89/1.png" class>
 
-<p>原题链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-subarray/">点这里</a></p>
-<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><p><strong>方案一：</strong>  暴力求解</p>
-<p>利用双重循环进行遍历，比较记录最大值，返回即可.</p>
-<p><strong>方案二：</strong>动态规划</p>
-<p>采用动态规划的思想，拆分成子问题，当只有 <code>[-2,-1]</code>的时候，此时总共有三种情况，分别是<code>[-2] 、[-1] 、[-2,-1]</code> 我们只需要进行大小比较即可，显然 <code>[-1]</code> 更大，为了得到状态方程，我们需要确定<code>dp数组</code>的作用，为了建立递推关系，显然我们可以将<code>[-2,-1]</code>的数组看成由 <code>[-2]</code> 单个数组，后来增加了<code>[-1]</code>，那么对于 <code>-2</code> 单数组而言其最大和为 <code>-2</code> ，不妨设<code>dp[i]</code> 为 数组中下标<code>[0,i]</code>的连续子串的最大和，于是对于<code>[-2,-1]</code> 而言，需要对于 <code>( -2 + -1 ) 与 -1</code> 进行比较，<strong>注意 <code>dp[i]</code>的值是一定与<code>原数组[i]</code>有关系的，但不一定是最大和</strong>，于是我们需要用一个变量去实时记录这个最大值，于是很容易就可以写出状态转移方程.</p>
-<p><code>dp[i] = max(dp[i-1]+nums[i] , nums[i])</code></p>
-<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span></span><br><span class="line"><span class="function">        <span class="keyword">int</span> vector&lt;<span class="keyword">int</span>&gt; dp </span>= vector&lt;<span class="keyword">int</span>&gt;(nums.<span class="built_in">size</span>(),<span class="number">0</span>);</span><br><span class="line">    	<span class="comment">//记录最大值</span></span><br><span class="line">    	<span class="keyword">int</span> maxAns = nums[<span class="number">0</span>];</span><br><span class="line">    	dp[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt; nums.<span class="built_in">size</span>() ; i++ ) &#123;</span><br><span class="line">            dp[i]= <span class="built_in">max</span>(dp[i<span class="number">-1</span>] + nums[i], nums[i]);</span><br><span class="line">            maxAns = <span class="built_in">max</span>(maxAns, dp[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxAns;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>原题链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-sum-circular-subarray/">点这里</a></p>
+<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><p>这道题和上一道题很像，就是多了一种情况，那就是取边界值，这种情况下可以通过求子数组的最小值然后通过数组值总和减去这个最小值即可.</p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxSubarraySumCircular</span><span class="params">(vector&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() == <span class="number">1</span>) <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">if</span>(nums.<span class="built_in">size</span>() == <span class="number">2</span>) <span class="keyword">return</span> <span class="built_in">max</span>(nums[<span class="number">0</span>] , nums[<span class="number">1</span>]);</span><br><span class="line">        vector&lt;<span class="keyword">int</span>&gt; dp = vector&lt;<span class="keyword">int</span>&gt;(nums.<span class="built_in">size</span>(),<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">int</span> maxValue = nums[<span class="number">0</span>] , minValue = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> sum = nums[<span class="number">0</span>];</span><br><span class="line">        dp[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">//求最大值</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt; nums.<span class="built_in">size</span>() ; i++)&#123;</span><br><span class="line">            sum += nums[i];</span><br><span class="line">            dp[i] = nums[i] + <span class="built_in">max</span>(<span class="number">0</span> , dp[i<span class="number">-1</span>]);</span><br><span class="line">            maxValue = <span class="built_in">max</span>(dp[i] , maxValue);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//求最小值</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt; nums.<span class="built_in">size</span>() - <span class="number">1</span> ; i++)&#123;</span><br><span class="line">            dp[i] = nums[i] + <span class="built_in">min</span>(<span class="number">0</span> , dp[i<span class="number">-1</span>]);</span><br><span class="line">             minValue = <span class="built_in">min</span>(dp[i] ,  minValue);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(sum- minValue , maxValue);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.length == <span class="number">1</span>) <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> [] dp = <span class="keyword">new</span> <span class="keyword">int</span>[nums.length];</span><br><span class="line">        <span class="keyword">int</span> ans = nums[<span class="number">0</span>];</span><br><span class="line">        dp[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt; nums.length ; i++)&#123;</span><br><span class="line">            dp[i] = Math.max(dp[i-<span class="number">1</span>] + nums[i] , nums[i]);</span><br><span class="line">            ans = ans &gt;= dp[i] ? ans : dp[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxSubarraySumCircular</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.length == <span class="number">1</span>) <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">if</span>(nums.length == <span class="number">2</span>) <span class="keyword">return</span> Math.max(nums[<span class="number">0</span>] ,nums[<span class="number">1</span>]);</span><br><span class="line">        <span class="comment">//分别开俩个数组分别求最大子串和最小子串，这个地方也可以优化为一个数组</span></span><br><span class="line">        <span class="comment">//只是需要把 for 要拆成 2 个进行计算</span></span><br><span class="line">        <span class="keyword">int</span> [] dpMax = <span class="keyword">new</span> <span class="keyword">int</span>[nums.length]; </span><br><span class="line">        <span class="keyword">int</span> [] dpMin = <span class="keyword">new</span> <span class="keyword">int</span>[nums.length]; </span><br><span class="line">        dpMax[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        dpMin[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> max = nums[<span class="number">0</span>] , min = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt; nums.length ; i++)&#123;</span><br><span class="line">            dpMax[i] = Math.max(dpMax[i-<span class="number">1</span>]+nums[i] , nums[i]);</span><br><span class="line">            dpMin[i] = Math.min(dpMin[i-<span class="number">1</span>]+nums[i] , nums[i]);</span><br><span class="line">            max = Math.max(dpMax[i] , max);</span><br><span class="line">            min = Math.min(dpMin[i] , min);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i : nums)&#123;</span><br><span class="line">            sum += i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//用一个 for 循环的弊端就是 取的最小值 是全部数组中的 而不是 掐头去尾的子串</span></span><br><span class="line">        <span class="comment">//所以这个地方还需要判断一下</span></span><br><span class="line">        <span class="keyword">if</span>(max &lt; <span class="number">0</span>) <span class="keyword">return</span> max;</span><br><span class="line">        <span class="keyword">return</span> Math.max(sum-min , max);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">maxSubArray</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    dp := <span class="built_in">make</span>([]<span class="keyword">int</span> , <span class="built_in">len</span>(nums))</span><br><span class="line">    ans := nums[<span class="number">0</span>]</span><br><span class="line">    dp[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">1</span> ; i &lt; <span class="built_in">len</span>(nums) ; i++ &#123;</span><br><span class="line">        dp[i] = max(dp[i<span class="number">-1</span>] + nums[i] , nums[i])</span><br><span class="line">        <span class="keyword">if</span> ans &lt; dp[i] &#123;</span><br><span class="line">            ans = dp[i]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">max</span><span class="params">( x , y <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> x &gt; y &#123;</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">maxSubarraySumCircular</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(nums) == <span class="number">1</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> nums[<span class="number">0</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(nums) == <span class="number">2</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> max(nums[<span class="number">0</span>],nums[<span class="number">1</span>])</span><br><span class="line">    &#125;</span><br><span class="line">    dp := <span class="built_in">make</span>([]<span class="keyword">int</span> , <span class="built_in">len</span>(nums) + <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">var</span> maxValue , minValue , sum <span class="keyword">int</span></span><br><span class="line">    maxValue = nums[<span class="number">0</span>]</span><br><span class="line">    minValue = nums[<span class="number">0</span>]</span><br><span class="line">    sum = nums[<span class="number">0</span>]</span><br><span class="line">    dp[<span class="number">0</span>] = nums[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment">//求最大值</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">1</span> ; i &lt; <span class="built_in">len</span>(nums) ; i++ &#123;</span><br><span class="line">        sum += nums[i]</span><br><span class="line">        dp[i] = nums[i] + max(<span class="number">0</span> , dp[i<span class="number">-1</span>])</span><br><span class="line">        maxValue = max(maxValue , dp[i])</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//求最小值</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">1</span> ; i &lt; <span class="built_in">len</span>(nums) - <span class="number">1</span> ; i++ &#123;</span><br><span class="line">        dp[i] = nums[i] + min(<span class="number">0</span> , dp[i<span class="number">-1</span>])</span><br><span class="line">        minValue = min(minValue , dp[i])</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> max( sum - minValue , maxValue)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">min</span><span class="params">(x , y <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> x &gt; y &#123;</span><br><span class="line">        <span class="keyword">return</span> y</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">max</span><span class="params">(x , y <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> x &gt; y &#123;</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
       <div>
@@ -362,20 +359,18 @@
           <div class="post-tags">
               <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
               <a href="/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" rel="tag"><i class="fa fa-tag"></i> 每日一题</a>
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"><i class="fa fa-tag"></i> 动态规划</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/07/28/Docker%EF%BC%88%E5%9B%9B%EF%BC%89/" rel="prev" title="Docker(四):Docker-compose的使用">
-                  <i class="fa fa-chevron-left"></i> Docker(四):Docker-compose的使用
+                <a href="/2021/07/28/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E4%B9%9D%EF%BC%89/" rel="prev" title="每日一题(九):动态规划">
+                  <i class="fa fa-chevron-left"></i> 每日一题(九):动态规划
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/07/29/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%8D%81%EF%BC%89/" rel="next" title="每日一题(十):动态规划">
-                  每日一题(十):动态规划 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -482,7 +477,7 @@ setInterval("createtime()",250);
 <script>
 NexT.utils.loadComments('#lv-container', () => {
   window.livereOptions = {
-    refer: "2021/07/28/每日一题（九）/"
+    refer: "2021/07/29/每日一题（十）/"
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
