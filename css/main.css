@@ -222,7 +222,6 @@ p {
 }
 a {
   color: #42b983;
-  #font-weight: 600;
   padding: 0 2px;
   border-bottom: 1px solid #999;
   color: var(--link-color);
@@ -253,6 +252,8 @@ hr {
 
 blockquote {
     border-left: 4px solid #42b983;
+    padding: 10px 15px;
+    width: 100%;
     color: #777;
     background-color: rgba(66, 185, 131, .1);
 }
