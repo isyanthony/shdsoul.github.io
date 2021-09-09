@@ -48,6 +48,13 @@ pre {
 a {
   background: transparent;
 }
+
+p a {
+    color: #42b983;
+    font-weight: 600;
+    padding: 0 2px;
+    text-decoration: none;
+}
 abbr[title] {
   border-bottom: none; /* 1 */
   text-decoration: underline; /* 2 */
