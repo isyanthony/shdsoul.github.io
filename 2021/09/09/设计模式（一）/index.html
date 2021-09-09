@@ -45,14 +45,14 @@
 <meta property="og:site_name" content="Luke">
 <meta property="og:description" content="本文用于记录学习设计模式的过程，想要手撸框架还是得先学学设计模式.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1401554-94e9cf665266753d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/578/format/webp">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1401554-bf39d78b0326e43e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/778/format/webp">
+<meta property="og:image" content="https://shdsoul.github.io/2021/09/09/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%B8%80%EF%BC%89/1.png">
+<meta property="og:image" content="https://shdsoul.github.io/2021/09/09/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%B8%80%EF%BC%89/2.png">
 <meta property="article:published_time" content="2021-09-09T08:04:48.000Z">
-<meta property="article:modified_time" content="2021-09-09T08:04:48.337Z">
+<meta property="article:modified_time" content="2021-09-09T15:45:16.971Z">
 <meta property="article:author" content="Soucat">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1401554-94e9cf665266753d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/578/format/webp">
+<meta name="twitter:image" content="https://shdsoul.github.io/2021/09/09/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%B8%80%EF%BC%89/1.png">
 
 
 <link rel="canonical" href="https://shdsoul.github.io/2021/09/09/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%B8%80%EF%BC%89/">
@@ -111,7 +111,7 @@
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">30</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">14</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">64</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">65</span></a></li>
         <li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -185,7 +185,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-count">65</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -269,8 +269,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2021-09-09 16:04:48" itemprop="dateCreated datePublished" datetime="2021-09-09T16:04:48+08:00">2021-09-09</time>
+      <time title="创建时间：2021-09-09 16:04:48 / 修改时间：23:45:16" itemprop="dateCreated datePublished" datetime="2021-09-09T16:04:48+08:00">2021-09-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -336,9 +337,11 @@
 </ul>
 <p>遵守开闭原则的软件，其稳定性高和延续性强，从而易于扩展和维护</p>
 <h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><p>如图，这是一个设计图相关的类，父类为<code>CharDisplay</code> 其它俩个为其子类，想要画出不同的线，我们只需要在<code>CharDisplay</code>中进行更改，增加判断逻辑即可，但是如果，子类越来越多，父类中的判断逻辑会显得十分臃肿，显然这样并不是一个好的设计.</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/1401554-94e9cf665266753d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/578/format/webp" alt="img"></p>
+<img src="/2021/09/09/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%B8%80%EF%BC%89/1.png" class>
+
 <p>于是，我们需要重新进行设计，我们需要解决的问题是尽可能减少对初始设计的更改，只需要对新加入的东西进行编写.那么我们可以考虑进行一定的抽象化，即对各种类的进行一定的特征提取，然后作为抽象类，那么子类只需要去继承这个抽象类即可.</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/1401554-bf39d78b0326e43e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/778/format/webp" alt="img"></p>
+<img src="/2021/09/09/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%B8%80%EF%BC%89/2.png" class>
+
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 最简单的使用(使用接口或者继承类，直接重写方法，当然了对于固定的一些步骤仍然还是需要再进行封装，这么写仍然无法解决对于复杂方法的重写)</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;圆！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;正方形&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -423,13 +426,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">276k</span>
+    <span title="站点总字数">277k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:11</span>
+    <span title="站点阅读时长">4:12</span>
   </span>
 </div>
  <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
