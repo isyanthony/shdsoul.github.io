@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+<!-- ӣ����Ч -->
+  
+      <script async src="./js/fairyDustCursor.js"></script>
+  
+ 	
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "90c946b0"
+    });
+  daovoice('update');
+  </script>
+
+
+<meta name="hexo-config" content="{&quot;hostname&quot;:&quot;shdsoul.github.io&quot;,&quot;root&quot;:&quot;/&quot;,&quot;images&quot;:&quot;/images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;/search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}">
+<meta name="description" content="本文用于记录使用Vue制作Web端音乐播放的过程以及一些坑.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue(四):制作Web端音乐播放器">
+<meta property="og:url" content="https://shdsoul.github.io/2021/09/09/Vue%EF%BC%88%E5%9B%9B%EF%BC%89/index.html">
+<meta property="og:site_name" content="Luke">
+<meta property="og:description" content="本文用于记录使用Vue制作Web端音乐播放的过程以及一些坑.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://shdsoul.github.io/2021/09/09/Vue%EF%BC%88%E5%9B%9B%EF%BC%89/Users/user/AppData/Roaming/Typora/typora-user-images/image-20210904125857918.png">
+<meta property="og:image" content="https://shdsoul.github.io/2021/09/09/Vue%EF%BC%88%E5%9B%9B%EF%BC%89/Users/user/AppData/Roaming/Typora/typora-user-images/image-20210904130616886.png">
+<meta property="article:published_time" content="2021-09-09T08:04:24.000Z">
+<meta property="article:modified_time" content="2021-09-09T08:04:24.859Z">
+<meta property="article:author" content="Soucat">
+<meta property="article:tag" content="Vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shdsoul.github.io/2021/09/09/Vue%EF%BC%88%E5%9B%9B%EF%BC%89/Users/user/AppData/Roaming/Typora/typora-user-images/image-20210904125857918.png">
+
+
+<link rel="canonical" href="https://shdsoul.github.io/2021/09/09/Vue%EF%BC%88%E5%9B%9B%EF%BC%89/">
+
+
+
+<meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;}">
+<meta name="hexo-config-calendar" content="">
+<title>Vue(四):制作Web端音乐播放器 | Luke</title><script data-pjax src="/js/load-config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Luke</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Everything will be better</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">30</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">14</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">64</span></a></li>
+        <li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%88%E6%9E%9C%E5%9B%BE"><span class="nav-number">1.</span> <span class="nav-text">效果图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lt-audio-gt-%E6%A0%87%E7%AD%BE"><span class="nav-number">2.</span> <span class="nav-text">&lt;audio&#x2F;&gt;标签</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7"><span class="nav-number">2.1.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6"><span class="nav-number">2.2.</span> <span class="nav-text">事件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">开发流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B%E5%9B%BE%E8%AE%BE%E8%AE%A1"><span class="nav-number">3.1.</span> <span class="nav-text">原型图设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E5%BC%80%E5%8F%91"><span class="nav-number">3.2.</span> <span class="nav-text">页面开发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript"><span class="nav-number">3.3.</span> <span class="nav-text">JavaScript</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E6%9B%B2%E5%BE%AA%E7%8E%AF"><span class="nav-number">3.3.1.</span> <span class="nav-text">单曲循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%92%AD%E6%94%BE"><span class="nav-number">3.3.2.</span> <span class="nav-text">随机播放</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E6%92%AD%E6%94%BE"><span class="nav-number">3.3.3.</span> <span class="nav-text">顺序播放</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E6%9D%A1"><span class="nav-number">3.3.4.</span> <span class="nav-text">时间条</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9F%B3%E9%87%8F%E8%B0%83%E8%8A%82"><span class="nav-number">3.3.5.</span> <span class="nav-text">音量调节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E5%87%BB%E6%AD%8C%E5%8D%95%E6%92%AD%E6%94%BE"><span class="nav-number">3.3.6.</span> <span class="nav-text">双击歌单播放</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BA%90%E7%A0%81"><span class="nav-number">4.</span> <span class="nav-text">源码</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Soucat"
+      src="/./images/tx.jpg">
+  <p class="site-author-name" itemprop="name">Soucat</p>
+  <div class="site-description" itemprop="description">醉后不知天在水，满床清梦压星河</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shdsoul" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shdsoul" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+         
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://shdsoul.github.io/2021/09/09/Vue%EF%BC%88%E5%9B%9B%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/./images/tx.jpg">
+      <meta itemprop="name" content="Soucat">
+      <meta itemprop="description" content="醉后不知天在水，满床清梦压星河">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Luke">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue(四):制作Web端音乐播放器
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-09 16:04:24" itemprop="dateCreated datePublished" datetime="2021-09-09T16:04:24+08:00">2021-09-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+        </span>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>16k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>15 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">本文用于记录使用Vue制作Web端音乐播放的过程以及一些坑.</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h1><p><img src="/2021/09/09/Vue%EF%BC%88%E5%9B%9B%EF%BC%89/Users\user\AppData\Roaming\Typora\typora-user-images\image-20210904125857918.png" alt="image-20210904125857918"></p>
+<p><strong>功能一览</strong>：</p>
+<ul>
+<li>支持单曲循环、随机播放、顺序循环</li>
+<li>支持上一首、下一首切换</li>
+<li>支持海报处点击暂停</li>
+<li>支持拖动进度条条件当前时间</li>
+<li>支持音量条的拖动改变音量</li>
+<li>支持列表中点击切换相对应的歌曲</li>
+</ul>
+<h1 id="lt-audio-gt-标签"><a href="#lt-audio-gt-标签" class="headerlink" title="&lt;audio/&gt;标签"></a><code>&lt;audio/&gt;</code>标签</h1><p>播放音频需要使用特定的 <code>html</code>标签，例如<code>video</code>、<code>audio</code>标签，这里只讨论使用<code>audio</code>标签，因为我用的就是<code>audio</code>标签.这里也给出相关的标签文档，<code>MDN Audio</code> 标签文档[链接](<audio> - HTML（超文本标记语言） | MDN (mozilla.org))，大部分内容也从这份文档中学习到的.</audio></p>
+<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p>这里只列举比较常用的属性</p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>autoplay</td>
+<td>boolean</td>
+<td>是否开启自动播放</td>
+</tr>
+<tr>
+<td>controls</td>
+<td></td>
+<td>声明了该属性，浏览器将提供一个包含声音，播放进度，播放暂停的控制面板，让用户可以控制音频的播放</td>
+</tr>
+<tr>
+<td>currentTime</td>
+<td>double</td>
+<td>读取 <code>currentTime</code> 属性将返回一个双精度浮点值，用以标明以秒为单位的当前音频的播放位置</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>double</td>
+<td>音频在时间轴中的持续时间（总长度），以秒为单位。</td>
+</tr>
+<tr>
+<td>loop</td>
+<td>boolean</td>
+<td>循环播放音频</td>
+</tr>
+<tr>
+<td>muted</td>
+<td>boolean</td>
+<td>是否静音</td>
+</tr>
+<tr>
+<td>preload</td>
+<td>none | metadata | auto</td>
+<td>预加载模式，可以加载音频长度或者完整内容</td>
+</tr>
+<tr>
+<td>src</td>
+<td>string</td>
+<td>音频地址，可以是http地址</td>
+</tr>
+<tr>
+<td>volume</td>
+<td>int</td>
+<td>声音大小，最高为 100</td>
+</tr>
+</tbody></table>
+<h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><table>
+<thead>
+<tr>
+<th>事件名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>play</td>
+<td>播放开始</td>
+</tr>
+<tr>
+<td>pause</td>
+<td>播放停止</td>
+</tr>
+<tr>
+<td>timeupdate</td>
+<td>当 currentTime 时间更新</td>
+</tr>
+<tr>
+<td>ended</td>
+<td>播放结束时</td>
+</tr>
+<tr>
+<td>volumechange</td>
+<td>声音改变时</td>
+</tr>
+</tbody></table>
+<h1 id="开发流程"><a href="#开发流程" class="headerlink" title="开发流程"></a>开发流程</h1><h2 id="原型图设计"><a href="#原型图设计" class="headerlink" title="原型图设计"></a>原型图设计</h2><p>原先写前端完全纯凭着感觉写，边写边调，效率十分低效，后来了解到原型图这种东西，于是尝试先画原型图再进行开发的模式，这样可以完全分离设计与开发，从开发体验上来讲还是很不错的，我所设计的原型图如下：</p>
+<p><img src="/2021/09/09/Vue%EF%BC%88%E5%9B%9B%EF%BC%89/Users\user\AppData\Roaming\Typora\typora-user-images\image-20210904130616886.png" alt="image-20210904130616886"></p>
+<p>就还原度上来讲，还算可以，总之，第一次尝试使用原型图还算成功.</p>
+<h2 id="页面开发"><a href="#页面开发" class="headerlink" title="页面开发"></a>页面开发</h2><p>页面开发这部分就不说了，采用了<code>flex</code>布局进行实现</p>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><h3 id="单曲循环"><a href="#单曲循环" class="headerlink" title="单曲循环"></a>单曲循环</h3><p>注意到 <code>audio</code>具有<code>loop</code>属性，可以通过布尔值进行设置，并且在<code>ended</code>的事件中判断当前状态是否为单曲循环，从而确定是否切换至下一首，如何接触单曲循环呢？第一种方式，切换播放模式，第二种方式，点击列表中的歌曲切换歌(这个地方其实有点不合理，但是为了偷懒hhh)</p>
+<h3 id="随机播放"><a href="#随机播放" class="headerlink" title="随机播放"></a>随机播放</h3><p>这里使用了随机打乱数组的算法，将播放列表打乱，然后顺序播放，这也是所谓的伪随机播放，事实上，市面上所有音乐播放器的随机播放都是伪随机，毕竟真真的随机是极有可能会出现重复播放的，然而用户体验的话这样不是很好.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">shuffle</span>(<span class="params">arr</span>)</span> &#123;</span><br><span class="line">     <span class="keyword">let</span> i = arr.length;</span><br><span class="line">     <span class="keyword">while</span> (i) &#123;</span><br><span class="line">       <span class="keyword">let</span> j = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * i--);</span><br><span class="line">       [arr[j], arr[i]] = [arr[i], arr[j]];</span><br><span class="line">     &#125;</span><br><span class="line">    <span class="comment">//打乱完成后开始从第一首播放</span></span><br><span class="line">     <span class="built_in">this</span>.autoPlay()</span><br><span class="line">    <span class="comment">//关闭单曲循环</span></span><br><span class="line">     <span class="built_in">this</span>.forevered = <span class="literal">false</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="顺序播放"><a href="#顺序播放" class="headerlink" title="顺序播放"></a>顺序播放</h3><p>由于，列表歌单和播放歌单我采用了俩个变量进行存储，于是只需要将列表歌单和播放歌单进行合并即可，我这里使用了<code>Object.assign</code>这个方法进行数组合并</p>
+<h3 id="时间条"><a href="#时间条" class="headerlink" title="时间条"></a>时间条</h3><p>使用了事件  <code>timeupdate</code>，以及属性<code>currentTime</code>、<code>duration</code>，当<code>currentTime</code>，同时更新进度条，所绑定的值 <code>curr</code>，<code>curr = (currentTime / duration ) * 100</code>，对于时间条拖动/点击，则通过 <code>curr</code>反解出 <code>currentTime</code>重新赋值给属性值即可，完成效果.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">nextTime</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> lenght = <span class="built_in">this</span>.getAudio().duration</span><br><span class="line">  <span class="keyword">let</span> curr = <span class="built_in">this</span>.getAudio().currentTime</span><br><span class="line">  <span class="built_in">this</span>.getAudio().currentTime  = (<span class="built_in">this</span>.music.curr * lenght)/<span class="number">100</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="function"><span class="title">updateTime</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> lenght =<span class="built_in">this</span>.getAudio().duration</span><br><span class="line">  <span class="keyword">let</span> curr = <span class="built_in">this</span>.getAudio().currentTime</span><br><span class="line">  <span class="built_in">this</span>.music.curr = (curr / lenght ) * <span class="number">100</span>;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="音量调节"><a href="#音量调节" class="headerlink" title="音量调节"></a>音量调节</h3><p>原理和时间条的原理差不多，几乎是一样的，只需要检测值的拖动变化就可以了.</p>
+<h3 id="双击歌单播放"><a href="#双击歌单播放" class="headerlink" title="双击歌单播放"></a>双击歌单播放</h3><p>如何判断双击？使用计数器进行记录，再加上定时器，在一定时间后清楚计数器即可，这个时间不能太长，我这里采用的500ms，体验下来感觉还不错.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">changeMusic</span>(<span class="params">index</span>)</span>&#123;</span><br><span class="line">  <span class="comment">//防止点击数大于 2 </span></span><br><span class="line">  <span class="built_in">this</span>.clickNum %= <span class="number">3</span>;</span><br><span class="line">  <span class="built_in">this</span>.clickNum += <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span>(<span class="built_in">this</span>.clickNum === <span class="number">2</span>)&#123;</span><br><span class="line">    <span class="built_in">this</span>.music.playIndex = index</span><br><span class="line">    <span class="built_in">this</span>.music.isActive = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">this</span>.order();</span><br><span class="line">    <span class="built_in">this</span>.autoPlay()</span><br><span class="line">    <span class="built_in">this</span>.clickNum = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">this</span>.record()</span><br><span class="line">&#125;,</span><br><span class="line"><span class="function"><span class="title">record</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.clickNum = <span class="number">0</span></span><br><span class="line">  &#125;,<span class="number">500</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;box&quot; ref&#x3D;&quot;box&quot; @click.stop&#x3D;&quot;controlVoice &#x3D; false&quot;&gt;</span><br><span class="line">      &lt;audio class&#x3D;&quot;music&quot; @timeupdate&#x3D;&quot;updateTime&quot;</span><br><span class="line">             id&#x3D;&quot;audio&quot;</span><br><span class="line">             ref&#x3D;&quot;music&quot;</span><br><span class="line">             :src&#x3D;&quot;playingList[music.playIndex].url&quot;</span><br><span class="line">             preload&#x3D;&quot;auto&quot;</span><br><span class="line">             muted&#x3D;&quot;muted&quot;</span><br><span class="line">             @ended&#x3D;&quot;ended()&quot; :loop&#x3D;&quot;forevered&quot;&gt;</span><br><span class="line">      &lt;&#x2F;audio&gt;</span><br><span class="line">      &lt;div class&#x3D;&quot;header&quot;&gt;</span><br><span class="line">          &lt;div class&#x3D;&quot;post&quot;&gt;</span><br><span class="line">            &lt;img :src&#x3D;&quot;playingList[music.playIndex].image&quot; style&#x3D;&quot;width: 100%; height: 100%; border-radius: 8px;&quot; alt&#x3D;&quot;&quot;&gt;</span><br><span class="line">            &lt;div class&#x3D;&quot;shadow&quot; @click&#x3D;&quot;stopMusic&quot;&gt;</span><br><span class="line">              &lt;svg v-if&#x3D;&quot;!isPlay&quot; style&#x3D;&quot;margin: 15px 15px&quot; t&#x3D;&quot;1630327886993&quot; class&#x3D;&quot;icon&quot; viewBox&#x3D;&quot;0 0 1024 1024&quot; version&#x3D;&quot;1.1&quot; xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&quot; p-id&#x3D;&quot;25112&quot; width&#x3D;&quot;48&quot; height&#x3D;&quot;48&quot;&gt;&lt;path d&#x3D;&quot;M175.50336 138.24a40.96 40.96 0 1 1 81.92 0v747.52a40.96 40.96 0 0 1-81.92 0V138.24zM771.69664 138.24a40.96 40.96 0 1 1 81.92 0v747.52a40.96 40.96 0 1 1-81.92 0V138.24z&quot; fill&#x3D;&quot;#bfbfbf&quot; p-id&#x3D;&quot;25113&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;</span><br><span class="line">              &lt;div v-else class&#x3D;&quot;iconfont&quot; style&#x3D;&quot;font-size: 45px;margin: 8px 20px&quot;&gt;&amp;#xe600;&lt;&#x2F;div&gt;</span><br><span class="line">            &lt;&#x2F;div&gt;</span><br><span class="line">          &lt;&#x2F;div&gt;</span><br><span class="line">          &lt;div class&#x3D;&quot;info&quot;&gt;</span><br><span class="line">            &lt;div class&#x3D;&quot;name&quot;&gt;</span><br><span class="line">              &lt;span v-html&#x3D;&quot;playingList[music.playIndex].name&quot;&gt;&lt;&#x2F;span&gt;</span><br><span class="line">              &lt;span&gt;&#123;&#123;playingList[music.playIndex].singer&#125;&#125;&lt;&#x2F;span&gt;</span><br><span class="line">            &lt;&#x2F;div&gt;</span><br><span class="line">            &lt;div class&#x3D;&quot;verticle&quot; v-show &#x3D; &quot;controlVoice&quot;&gt;</span><br><span class="line">              &lt;el-slider</span><br><span class="line">                v-model&#x3D;&quot;music.voice&quot;</span><br><span class="line">                vertical</span><br><span class="line">                :show-tooltip&#x3D;&quot;false&quot;</span><br><span class="line">                height&#x3D;&quot;40px&quot;</span><br><span class="line">                @change&#x3D;&quot;changeVoice&quot;&gt;</span><br><span class="line">              &lt;&#x2F;el-slider&gt;</span><br><span class="line">            &lt;&#x2F;div&gt;</span><br><span class="line">            &lt;div class&#x3D;&quot;play&quot;&gt;</span><br><span class="line">              &lt;!--音量--&gt;</span><br><span class="line">              &lt;i class&#x3D;&quot;iconfont icons&quot; style&#x3D;&quot;margin-left: 12px&quot; @click.stop&#x3D;&quot;showVoice&quot;&gt;&amp;#xe67f;&lt;&#x2F;i&gt;</span><br><span class="line">              &lt;!--上一首--&gt;</span><br><span class="line">              &lt;i class&#x3D;&quot;iconfont icons&quot; @click.stop&#x3D;&quot;prev()&quot; &gt;&amp;#xe636;&lt;&#x2F;i&gt;</span><br><span class="line">              &lt;!--播放&#x2F;停止--&gt;</span><br><span class="line">              &lt;i class&#x3D;&quot;iconfont icons&quot; style&#x3D;&quot;font-size: 21px&quot; v-if&#x3D;&quot;!isPlay&quot; @click.stop&#x3D;&quot;stopMusic&quot;&gt;&amp;#xe606;&lt;&#x2F;i&gt;</span><br><span class="line">              &lt;i class&#x3D;&quot;iconfont icons&quot; style&#x3D;&quot;font-size: 21px&quot; v-else @click.stop&#x3D;&quot;stopMusic&quot; &gt;&amp;#xe612;&lt;&#x2F;i&gt;</span><br><span class="line">              &lt;!--下一首--&gt;</span><br><span class="line">              &lt;i class&#x3D;&quot;iconfont icons&quot; @click.stop&#x3D;&quot;next()&quot;&gt;&amp;#xe637;&lt;&#x2F;i&gt;</span><br><span class="line">              &lt;!--顺序播放--&gt;</span><br><span class="line">              &lt;i class&#x3D;&quot;iconfont icons&quot; style&#x3D;&quot;font-size: 19px&quot; v-if&#x3D;&quot;isActive &#x3D;&#x3D;&#x3D; 0&quot; @click.stop&#x3D;&quot;changePattern()&quot; &gt;&amp;#xe802;&lt;&#x2F;i&gt;</span><br><span class="line">              &lt;!--单曲循环--&gt;</span><br><span class="line">              &lt;i class&#x3D;&quot;iconfont icons&quot; style&#x3D;&quot;font-size: 19px&quot; v-if&#x3D;&quot;isActive &#x3D;&#x3D;&#x3D; 1&quot; @click.stop&#x3D;&quot;changePattern()&quot; &gt;&amp;#xe6e2;&lt;&#x2F;i&gt;</span><br><span class="line">              &lt;!--随机播放--&gt;</span><br><span class="line">              &lt;i class&#x3D;&quot;iconfont icons&quot; style&#x3D;&quot;font-size: 19px&quot; v-if&#x3D;&quot;isActive &#x3D;&#x3D;&#x3D; 2&quot; @click.stop&#x3D;&quot;changePattern()&quot; &gt;&amp;#xe6ae;&lt;&#x2F;i&gt;</span><br><span class="line">            &lt;&#x2F;div&gt;</span><br><span class="line">          &lt;&#x2F;div&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">      &lt;div class&#x3D;&quot;dividerBox&quot;&gt;</span><br><span class="line">        &lt;el-slider class&#x3D;&quot;divide&quot; v-model&#x3D;&quot;music.curr&quot; :show-tooltip&#x3D;&quot;false&quot; @change&#x3D;&quot;nextTime()&quot;&gt;&lt;&#x2F;el-slider&gt;</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">      &lt;div class&#x3D;&quot;music-list&quot;&gt;</span><br><span class="line">        &lt;div class&#x3D;&quot;song&quot; v-for&#x3D;&quot;(item , index) in songs&quot; :key&#x3D;&quot;index&quot; @click.stop&#x3D;&quot;changeMusic(index)&quot;&gt;</span><br><span class="line">          &lt;span class&#x3D;&quot;index&quot;&gt;&#123;&#123;index+1&#125;&#125;&lt;&#x2F;span&gt;</span><br><span class="line">          &lt;span class&#x3D;&quot;song-name&quot;&gt;&#123;&#123;item.name&#125;&#125;&lt;&#x2F;span&gt;</span><br><span class="line">          &lt;span class&#x3D;&quot;song-singer&quot;&gt;&#123;&#123;item.singer&#125;&#125;&lt;&#x2F;span&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;index&quot;,</span><br><span class="line">  data()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      isPlay: true,</span><br><span class="line">      isActive: 0,</span><br><span class="line">      isMouseDown: false,</span><br><span class="line">      clickNum: 0,</span><br><span class="line">      forevered: false,</span><br><span class="line">      controlVoice: false,</span><br><span class="line">      songs:[</span><br><span class="line">        &#123;</span><br><span class="line">          url: &#39;http:&#x2F;&#x2F;music.163.com&#x2F;song&#x2F;media&#x2F;outer&#x2F;url?id&#x3D;1330348068&#39;,</span><br><span class="line">          name: &#39;起风了&#39;,</span><br><span class="line">          image: &#39;http:&#x2F;&#x2F;p4.music.126.net&#x2F;UuyXioGw4lD8lFiDXQvpSg&#x3D;&#x3D;&#x2F;109951166006211207.jpg?param&#x3D;200y200&#39;,</span><br><span class="line">          singer: &#39;吴青峰&#39;,</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          url: &#39;http:&#x2F;&#x2F;music.163.com&#x2F;song&#x2F;media&#x2F;outer&#x2F;url?id&#x3D;1859245776&#39;,</span><br><span class="line">          name: &#39;STAY&#39;,</span><br><span class="line">          image: &#39;http:&#x2F;&#x2F;p1.music.126.net&#x2F;e5cvcdgeosDKTDrkTfZXnQ&#x3D;&#x3D;&#x2F;109951166155165682.jpg?param&#x3D;130y130&#39;,</span><br><span class="line">          singer: &#39;The Kid LAROI&#x2F;Justin Bieber&#39;,</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          url: &#39;http:&#x2F;&#x2F;music.163.com&#x2F;song&#x2F;media&#x2F;outer&#x2F;url?id&#x3D;1308818967&#39;,</span><br><span class="line">          name: &#39;飘向北方&#39;,</span><br><span class="line">          image: &#39;http:&#x2F;&#x2F;p1.music.126.net&#x2F;D-mpVLLwMrA-hPu0QPYUNQ&#x3D;&#x3D;&#x2F;109951163551410648.jpg?param&#x3D;130y130&#39;,</span><br><span class="line">          singer: &#39;那吾克热-NW&#x2F;尤长靖&#39;,</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          url: &#39;http:&#x2F;&#x2F;music.163.com&#x2F;song&#x2F;media&#x2F;outer&#x2F;url?id&#x3D;1381755293&#39;,</span><br><span class="line">          name: &#39;山楂树之恋&#39;,</span><br><span class="line">          image: &#39;http:&#x2F;&#x2F;p2.music.126.net&#x2F;G00sAe86sPi5gFQyuJHU7A&#x3D;&#x3D;&#x2F;109951164260611202.jpg?param&#x3D;130y130&#39;,</span><br><span class="line">          singer: &#39;程佳佳&#39;,</span><br><span class="line">        &#125;</span><br><span class="line">      ],</span><br><span class="line">      playingList: [</span><br><span class="line">        &#123;</span><br><span class="line">          url: &#39;http:&#x2F;&#x2F;music.163.com&#x2F;song&#x2F;media&#x2F;outer&#x2F;url?id&#x3D;1330348068&#39;,</span><br><span class="line">          name: &#39;起风了&#39;,</span><br><span class="line">          image: &#39;http:&#x2F;&#x2F;p4.music.126.net&#x2F;UuyXioGw4lD8lFiDXQvpSg&#x3D;&#x3D;&#x2F;109951166006211207.jpg?param&#x3D;200y200&#39;,</span><br><span class="line">          singer: &#39;吴青峰&#39;,</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          url: &#39;http:&#x2F;&#x2F;music.163.com&#x2F;song&#x2F;media&#x2F;outer&#x2F;url?id&#x3D;1859245776&#39;,</span><br><span class="line">          name: &#39;STAY&#39;,</span><br><span class="line">          image: &#39;http:&#x2F;&#x2F;p1.music.126.net&#x2F;e5cvcdgeosDKTDrkTfZXnQ&#x3D;&#x3D;&#x2F;109951166155165682.jpg?param&#x3D;130y130&#39;,</span><br><span class="line">          singer: &#39;The Kid LAROI&#x2F;Justin Bieber&#39;,</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          url: &#39;http:&#x2F;&#x2F;music.163.com&#x2F;song&#x2F;media&#x2F;outer&#x2F;url?id&#x3D;1308818967&#39;,</span><br><span class="line">          name: &#39;飘向北方&#39;,</span><br><span class="line">          image: &#39;http:&#x2F;&#x2F;p1.music.126.net&#x2F;D-mpVLLwMrA-hPu0QPYUNQ&#x3D;&#x3D;&#x2F;109951163551410648.jpg?param&#x3D;130y130&#39;,</span><br><span class="line">          singer: &#39;那吾克热-NW&#x2F;尤长靖&#39;,</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          url: &#39;http:&#x2F;&#x2F;music.163.com&#x2F;song&#x2F;media&#x2F;outer&#x2F;url?id&#x3D;1381755293&#39;,</span><br><span class="line">          name: &#39;山楂树之恋&#39;,</span><br><span class="line">          image: &#39;http:&#x2F;&#x2F;p2.music.126.net&#x2F;G00sAe86sPi5gFQyuJHU7A&#x3D;&#x3D;&#x2F;109951164260611202.jpg?param&#x3D;130y130&#39;,</span><br><span class="line">          singer: &#39;程佳佳&#39;,</span><br><span class="line">        &#125;</span><br><span class="line">      ],</span><br><span class="line">      music: &#123;</span><br><span class="line">        curr: 0,</span><br><span class="line">        voice: 50,</span><br><span class="line">        playIndex: 0,</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    getAudio()&#123;</span><br><span class="line">      return document.getElementById(&quot;audio&quot;);</span><br><span class="line">    &#125;,</span><br><span class="line">    changeVoice()&#123;</span><br><span class="line">      this.getAudio().volume &#x3D; this.music.voice &#x2F; 100;</span><br><span class="line">    &#125;,</span><br><span class="line">    changePattern()&#123;</span><br><span class="line">      this.isActive +&#x3D; 1;</span><br><span class="line">      this.isActive %&#x3D; 3;</span><br><span class="line">    &#125;,</span><br><span class="line">    showVoice()&#123;</span><br><span class="line">      this.controlVoice &#x3D; ! this.controlVoice;</span><br><span class="line">      let t &#x3D; setTimeout(()&#x3D;&gt;&#123;</span><br><span class="line">        this.controlVoice &#x3D; false</span><br><span class="line">      &#125;,5000)</span><br><span class="line">    &#125;,</span><br><span class="line">    shuffle(arr) &#123;</span><br><span class="line">      let i &#x3D; arr.length;</span><br><span class="line">      while (i) &#123;</span><br><span class="line">        let j &#x3D; Math.floor(Math.random() * i--);</span><br><span class="line">        [arr[j], arr[i]] &#x3D; [arr[i], arr[j]];</span><br><span class="line">      &#125;</span><br><span class="line">      this.autoPlay()</span><br><span class="line">      this.forevered &#x3D; false;</span><br><span class="line">    &#125;,</span><br><span class="line">    forever()&#123;</span><br><span class="line">      this.forevered &#x3D; true</span><br><span class="line">    &#125;,</span><br><span class="line">    nextTime()&#123;</span><br><span class="line">      let lenght &#x3D; this.getAudio().duration</span><br><span class="line">      let curr &#x3D; this.getAudio().currentTime</span><br><span class="line">      this.getAudio().currentTime  &#x3D; (this.music.curr * lenght)&#x2F;100</span><br><span class="line">    &#125;,</span><br><span class="line">    updateTime()&#123;</span><br><span class="line">      let lenght &#x3D;this.getAudio().duration</span><br><span class="line">      let curr &#x3D; this.getAudio().currentTime</span><br><span class="line">      this.music.curr &#x3D; (curr &#x2F; lenght ) * 100;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    order()&#123;</span><br><span class="line">      let temp &#x3D; this.songs;</span><br><span class="line">      Object.assign(this.playingList , temp)</span><br><span class="line">      this.forevered &#x3D; false;</span><br><span class="line">      this.autoPlay();</span><br><span class="line">    &#125;,</span><br><span class="line">    stopMusic()&#123;</span><br><span class="line">      this.isPlay &#x3D; !this.isPlay;</span><br><span class="line">      if(this.isPlay)&#123;</span><br><span class="line">        this.stop();</span><br><span class="line">      &#125;else&#123;</span><br><span class="line">        this.start()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    start()&#123;</span><br><span class="line">      this.getAudio().play()</span><br><span class="line">    &#125;,</span><br><span class="line">    stop()&#123;</span><br><span class="line">      this.getAudio().pause()</span><br><span class="line">    &#125;,</span><br><span class="line">    autoPlay()&#123;</span><br><span class="line">      setTimeout(()&#x3D;&gt;&#123;</span><br><span class="line">        this.getAudio().play()</span><br><span class="line">        this.isPlay &#x3D; false</span><br><span class="line">      &#125;,0)</span><br><span class="line">    &#125;,</span><br><span class="line">    ended()&#123;</span><br><span class="line">      if(this.isActive &#x3D;&#x3D;&#x3D; 1)&#123;</span><br><span class="line">        this.getAudio().play()</span><br><span class="line">      &#125;else&#123;</span><br><span class="line">        this.next();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    prev()&#123;</span><br><span class="line">      if(this.playIndex &lt;&#x3D; 0)&#123;</span><br><span class="line">        this.music.playIndex &#x3D; this.playingList.length</span><br><span class="line">      &#125;</span><br><span class="line">      this.playIndex -&#x3D; 1</span><br><span class="line">      this.autoPlay()</span><br><span class="line">    &#125;,</span><br><span class="line">    next()&#123;</span><br><span class="line">        this.music.playIndex +&#x3D; 1</span><br><span class="line">        this.music.playIndex %&#x3D; this.playingList.length</span><br><span class="line">        this.autoPlay()</span><br><span class="line">    &#125;,</span><br><span class="line">    changeMusic(index)&#123;</span><br><span class="line">      this.clickNum %&#x3D; 3;</span><br><span class="line">      this.clickNum +&#x3D; 1;</span><br><span class="line">      if(this.clickNum &#x3D;&#x3D;&#x3D; 2)&#123;</span><br><span class="line">        this.music.playIndex &#x3D; index</span><br><span class="line">        this.music.isActive &#x3D; 0;</span><br><span class="line">        this.order();</span><br><span class="line">        this.autoPlay()</span><br><span class="line">        this.clickNum &#x3D; 0;</span><br><span class="line">      &#125;</span><br><span class="line">      this.record()</span><br><span class="line">    &#125;,</span><br><span class="line">    record()&#123;</span><br><span class="line">      setTimeout(()&#x3D;&gt;&#123;</span><br><span class="line">        this.clickNum &#x3D; 0</span><br><span class="line">      &#125;,500)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  watch:&#123;</span><br><span class="line">    isActive: function ()&#123;</span><br><span class="line">      if(this.isActive &#x3D;&#x3D;&#x3D; 0)&#123;</span><br><span class="line">        this.order()</span><br><span class="line">      &#125;else if(this.isActive &#x3D;&#x3D;&#x3D; 1)&#123;</span><br><span class="line">        this.shuffle(this.playingList)</span><br><span class="line">      &#125;else&#123;</span><br><span class="line">        this.forever()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    music: function ()&#123;</span><br><span class="line">      this.$store.commit(&#123;</span><br><span class="line">        type: &quot;updateMusic&quot;,</span><br><span class="line">        music: this.music</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    if(this.$store.state.music.curr !&#x3D;&#x3D; 0)&#123;</span><br><span class="line">      Object.assign(this.music,this.$store.state.music)</span><br><span class="line">      console.log(this.music)</span><br><span class="line">      setTimeout(()&#x3D;&gt;&#123;</span><br><span class="line">        this.getAudio().play();</span><br><span class="line">      &#125;,100)</span><br><span class="line">    &#125;</span><br><span class="line">    this.music.voice &#x3D; this.getAudio().volume * 100;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style lang&#x3D;&quot;less&quot; scoped&gt;</span><br><span class="line">.verticle &#123;</span><br><span class="line">  position: absolute;</span><br><span class="line">  left: 107px;</span><br><span class="line">  top: 23px;</span><br><span class="line">  &#x2F;deep&#x2F; .el-slider &#123;</span><br><span class="line">    .el-slider__runway &#123;</span><br><span class="line">      margin: 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .el-slider__bar&#123;</span><br><span class="line">      --antd-wave-shadow-color: #54FF9F !important;</span><br><span class="line">      background-color:#54FF9F;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .el-slider__button &#123;</span><br><span class="line">      background-color: #CAE1FF;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">* &#123;</span><br><span class="line">  -webkit-user-select:none;</span><br><span class="line">  -moz-user-select:none;</span><br><span class="line">  -ms-user-select:none;</span><br><span class="line">  user-select:none;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">  background-color: red;</span><br><span class="line">  position: absolute;</span><br><span class="line">  width: 250px;</span><br><span class="line">  height: 300px;</span><br><span class="line">  border-radius: 5px;</span><br><span class="line">  background-color: transparent;</span><br><span class="line">  z-index: 1000;</span><br><span class="line">  padding: 0;</span><br><span class="line">&#125;</span><br><span class="line">.header &#123;</span><br><span class="line">  display: flex;</span><br><span class="line">  height: 92px;</span><br><span class="line">  width: 250px;</span><br><span class="line">  padding: 7px;</span><br><span class="line">  .shadow &#123;</span><br><span class="line">    display: none;</span><br><span class="line">    position: relative;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">    cursor: pointer;</span><br><span class="line">    top: -100%;</span><br><span class="line">    width: 80px;</span><br><span class="line">    height: 80px;</span><br><span class="line">    border-radius: 8px;</span><br><span class="line">    opacity: .7;</span><br><span class="line">    background-color: #6E6E6E;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">.post &#123;</span><br><span class="line">  width: 80px;</span><br><span class="line">  height: 80px;</span><br><span class="line">  overflow: hidden;</span><br><span class="line">  border-radius: 8px;</span><br><span class="line">  background-color: skyblue;</span><br><span class="line">&#125;</span><br><span class="line">.music &#123;</span><br><span class="line">  visibility: hidden;</span><br><span class="line">&#125;</span><br><span class="line">.post:hover &#123;</span><br><span class="line">  .shadow &#123;</span><br><span class="line">    display: block;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;deep&#x2F; .el-slider__button&#123;</span><br><span class="line">      width: 7px;</span><br><span class="line">      height: 7px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dividerBox &#x2F;deep&#x2F; .el-slider__button-wrapper&#123;</span><br><span class="line">  display: none;</span><br><span class="line">  top: -6px;</span><br><span class="line">  height: 6px;</span><br><span class="line">&#125;</span><br><span class="line">.dividerBox &#x2F;deep&#x2F; .el-slider &#123;</span><br><span class="line">  height: 10px;</span><br><span class="line">&#125;</span><br><span class="line">.dividerBox &#x2F;deep&#x2F; .el-slider__runway &#123;</span><br><span class="line">  margin: 3px 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dividerBox &#x2F;deep&#x2F; .el-slider__runway:hover .el-slider__button-wrapper &#123;</span><br><span class="line">  display: block;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dividerBox &#x2F;deep&#x2F; .el-slider__bar &#123;</span><br><span class="line">  background-color: grey;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.music-list &#123;</span><br><span class="line">  height: 204px;</span><br><span class="line">  width: 100%;</span><br><span class="line">  padding: 0 2px;</span><br><span class="line">  padding-top: 4px;</span><br><span class="line">  overflow: scroll;</span><br><span class="line">  .song &#123;</span><br><span class="line">    display: flex;</span><br><span class="line">    width: 240px;</span><br><span class="line">    height: 28px;</span><br><span class="line">    margin-left: auto;</span><br><span class="line">    margin-right: auto;</span><br><span class="line">    margin-top: 4.5px;</span><br><span class="line">    line-height: 28px;</span><br><span class="line">    box-sizing: border-box;</span><br><span class="line">    border-radius: 4px;</span><br><span class="line">    border: 1px solid #DCDCDC;</span><br><span class="line">    box-shadow: 1px 1px .5px black;</span><br><span class="line">    span &#123;</span><br><span class="line">      display: block;</span><br><span class="line">    &#125;</span><br><span class="line">    .index &#123;</span><br><span class="line">      width: 10px;</span><br><span class="line">      margin-left: 3px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .song-name &#123;</span><br><span class="line">      width: 100px;</span><br><span class="line">      height: 100%;</span><br><span class="line">      margin-left: 30px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .song-singer &#123;</span><br><span class="line">      margin-left: 13px;</span><br><span class="line">      width: 80px;</span><br><span class="line">      white-space: nowrap;</span><br><span class="line">      overflow: hidden;</span><br><span class="line">      text-overflow: ellipsis;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  .song:hover &#123;</span><br><span class="line">    background-color: #F0FFFF;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.info &#123;</span><br><span class="line">  &#x2F;&#x2F;position: absolute;</span><br><span class="line">  width: 151px;</span><br><span class="line">  height: 80px;</span><br><span class="line">  margin-left: 10px;</span><br><span class="line">  .name &#123;</span><br><span class="line">    width: 151px;</span><br><span class="line">    height: 50px;</span><br><span class="line">    text-align: center;</span><br><span class="line">    &#x2F;&#x2F;background-color: green;</span><br><span class="line">    span &#123;</span><br><span class="line">      display: block;</span><br><span class="line">      width: 151px;</span><br><span class="line">      height: 18px;</span><br><span class="line">      margin-top: 5px;</span><br><span class="line">      white-space: nowrap;</span><br><span class="line">      overflow: hidden;</span><br><span class="line">      text-overflow: ellipsis;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  .play &#123;</span><br><span class="line">    width: 151px;</span><br><span class="line">    height: 25px;</span><br><span class="line">    .icons &#123;</span><br><span class="line">      cursor: pointer;</span><br><span class="line">      margin-left: 10px;</span><br><span class="line">      font-size: 20px;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">::-webkit-scrollbar &#123;</span><br><span class="line">  display: none;</span><br><span class="line">  width: 8px;</span><br><span class="line">  background-color: transparent;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">::-webkit-scrollbar:horizontal &#123;</span><br><span class="line">  display: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">::-webkit-scrollbar-thumb &#123;</span><br><span class="line"></span><br><span class="line">  background-color: #90d7ec;</span><br><span class="line">  border-radius: 4px;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+      </div>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wxpay.jpg" alt="Soucat 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Vue/" rel="tag"><i class="fa fa-tag"></i> Vue</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/09/09/Git%EF%BC%9A%E5%85%B3%E8%81%94%E5%A4%9A%E4%B8%AA%E4%BB%93%E5%BA%93/" rel="prev" title="Git:关联多个仓库">
+                  <i class="fa fa-chevron-left"></i> Git:关联多个仓库
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/09/09/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%B8%80%EF%BC%89/" rel="next" title="设计原则(一):开闭原则">
+                  设计原则(一):开闭原则 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81MzU2My8zMDAzNg=="></div><script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Soucat</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">276k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:11</span>
+  </span>
+</div>
+ <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("04/8/2021 18:00:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+  <script>
+    NProgress.configure({
+      showSpinner: true
+    });
+    NProgress.start();
+    document.addEventListener('readystatechange', () => {
+      if (document.readyState === 'interactive') {
+        NProgress.inc(0.8);
+      }
+      if (document.readyState === 'complete') {
+        NProgress.done();
+      }
+    });
+    document.addEventListener('pjax:send', () => {
+      NProgress.start();
+    });
+    document.addEventListener('pjax:success', () => {
+      NProgress.done();
+    });
+  </script>
+
+  
+
+
+
+
+
+<script>
+NexT.utils.loadComments('#lv-container', () => {
+  window.livereOptions = {
+    refer: "2021/09/09/Vue（四）/"
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>
