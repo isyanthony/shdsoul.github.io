@@ -48,13 +48,6 @@ pre {
 a {
   background: transparent;
 }
-
-p a {
-    color: #42b983;
-    font-weight: 600;
-    padding: 0 2px;
-    text-decoration: none;
-}
 abbr[title] {
   border-bottom: none; /* 1 */
   text-decoration: underline; /* 2 */
@@ -228,8 +221,6 @@ p {
   margin: 0 0 20px;
 }
 a {
-  color: #42b983;
-  padding: 0 2px;
   border-bottom: 1px solid #999;
   color: var(--link-color);
   cursor: pointer;
@@ -256,19 +247,12 @@ hr {
   height: 3px;
   margin: 40px 0;
 }
-
 blockquote {
-    border-left: 4px solid #42b983;
-    padding-top: 10px;
-    padding-bottom: 10px;	
-    padding-left: 15px;
-    padding-right: 15px;
-    color: #777;
-    margin: 0;
-    background-color: rgba(66, 185, 131, .1);
+  border-left: 4px solid #ddd;
+  color: var(--blockquote-color);
+  margin: 0;
+  padding: 0 15px;
 }
-
-
 blockquote cite::before {
   content: '-';
   padding: 0 5px;

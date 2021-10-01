@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+<!-- ӣ����Ч -->
+  
+      <script async src="./js/fairyDustCursor.js"></script>
+  
+ 	
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "90c946b0"
+    });
+  daovoice('update');
+  </script>
+
+
+<meta name="hexo-config" content="{&quot;hostname&quot;:&quot;shdsoul.github.io&quot;,&quot;root&quot;:&quot;/&quot;,&quot;images&quot;:&quot;/images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;/search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}">
+<meta name="description" content="题目:杨辉三角(二).">
+<meta property="og:type" content="article">
+<meta property="og:title" content="每日一题(十三):动态规划">
+<meta property="og:url" content="https://shdsoul.github.io/2021/10/01/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%8D%81%E4%B8%89%EF%BC%89/index.html">
+<meta property="og:site_name" content="Luke">
+<meta property="og:description" content="题目:杨辉三角(二).">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/img/image-20211001170717921.png">
+<meta property="article:published_time" content="2021-10-01T11:50:14.000Z">
+<meta property="article:modified_time" content="2021-10-01T11:50:14.963Z">
+<meta property="article:author" content="Soucat">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="每日一题">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/img/image-20211001170717921.png">
+
+
+<link rel="canonical" href="https://shdsoul.github.io/2021/10/01/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%8D%81%E4%B8%89%EF%BC%89/">
+
+
+
+<meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;}">
+<meta name="hexo-config-calendar" content="">
+<title>每日一题(十三):动态规划 | Luke</title><script data-pjax src="/js/load-config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Luke</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Everything will be better</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">30</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">14</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">66</span></a></li>
+        <li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">思路分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E9%80%92%E6%8E%A8"><span class="nav-number">2.1.</span> <span class="nav-text">方法一：递推</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96V1-0"><span class="nav-number">2.1.1.</span> <span class="nav-text">优化V1.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96V2-0"><span class="nav-number">2.1.2.</span> <span class="nav-text">优化V2.0</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E7%BA%BF%E6%80%A7%E9%80%92%E6%8E%A8"><span class="nav-number">2.2.</span> <span class="nav-text">方法二：线性递推</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E9%80%92%E6%8E%A8-1"><span class="nav-number">3.1.</span> <span class="nav-text">方法一：递推</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java"><span class="nav-number">3.1.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C"><span class="nav-number">3.1.2.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang"><span class="nav-number">3.1.3.</span> <span class="nav-text">Golang</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96V1-0-1"><span class="nav-number">3.2.</span> <span class="nav-text">优化V1.0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang-1"><span class="nav-number">3.2.3.</span> <span class="nav-text">Golang</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96V2-0-1"><span class="nav-number">3.3.</span> <span class="nav-text">优化V2.0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-2"><span class="nav-number">3.3.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-2"><span class="nav-number">3.3.2.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang-2"><span class="nav-number">3.3.3.</span> <span class="nav-text">Golang</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E7%BA%BF%E6%80%A7%E9%80%92%E6%8E%A8-1"><span class="nav-number">3.4.</span> <span class="nav-text">方法二：线性递推</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-3"><span class="nav-number">3.4.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-3"><span class="nav-number">3.4.2.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Golang-3"><span class="nav-number">3.4.3.</span> <span class="nav-text">Golang</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Soucat"
+      src="/./images/tx.jpg">
+  <p class="site-author-name" itemprop="name">Soucat</p>
+  <div class="site-description" itemprop="description">醉后不知天在水，满床清梦压星河</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shdsoul" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shdsoul" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+         
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://shdsoul.github.io/2021/10/01/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98%EF%BC%88%E5%8D%81%E4%B8%89%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/./images/tx.jpg">
+      <meta itemprop="name" content="Soucat">
+      <meta itemprop="description" content="醉后不知天在水，满床清梦压星河">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Luke">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          每日一题(十三):动态规划
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-01 19:50:14" itemprop="dateCreated datePublished" datetime="2021-10-01T19:50:14+08:00">2021-10-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">题目:杨辉三角(二).</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/img/image-20211001170717921.png" alt="image-20211001170717921"></p>
+<p>原题链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/pascals-triangle-ii/">点击跳转</a></p>
+<h1 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h1><p>基本递推式：<code>C[i][j] = C[i - 1][j - 1] + C[i - 1][j];</code></p>
+<h2 id="方法一：递推"><a href="#方法一：递推" class="headerlink" title="方法一：递推"></a>方法一：递推</h2><p>通过上述的基本递推式，可以先把所有行的数字求出来，再根据输入的行下标，取出相应的行返回即可.</p>
+<h3 id="优化V1-0"><a href="#优化V1-0" class="headerlink" title="优化V1.0"></a>优化V1.0</h3><p>上述方式需要耗费许多不必要的内存来存储一些无关的数据，事实上我们只需要相邻俩行的数据就足够了，这样既可以节省内存也可以节约计算的时间，这种方法也仍然需要俩个数组来实现，那能否只用一个数组呢？</p>
+<h3 id="优化V2-0"><a href="#优化V2-0" class="headerlink" title="优化V2.0"></a>优化V2.0</h3><p>由组合数公式可以知道，$C_{n}^{i}$ = $C_{n-1}^{i}$+$C_{n-1}^{i-1}$ ，计算第 <code>i</code>项的时候，只需要知道 上一行的 <code>i</code> 和 <code>i-1</code>，于是可以倒着进行计算，无需多开一个数组.</p>
+<h2 id="方法二：线性递推"><a href="#方法二：线性递推" class="headerlink" title="方法二：线性递推"></a>方法二：线性递推</h2><p>由 $ \mathcal{C}_n^m=\dfrac{n!}{m!(n-m)!}$ 可以得到相邻一行的相邻组合数的关系</p>
+<p>$C_n^m=C_n^{m-1}×\frac{n-m-1}{m}$ ，由于 $C_n^0 = 1$ ，于是可以计算出第 <code>n</code> 行的所有数.</p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="方法一：递推-1"><a href="#方法一：递推-1" class="headerlink" title="方法一：递推"></a>方法一：递推</h2><h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">getRow</span><span class="params">(<span class="keyword">int</span> rowIndex)</span> </span>&#123;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= rowIndex ; i++ )&#123;</span><br><span class="line">            List&lt;Integer&gt; row = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt;= i ; j++)&#123;</span><br><span class="line">                <span class="comment">//第一个元素和最后一个元素值都为1</span></span><br><span class="line">                <span class="keyword">if</span>( j == <span class="number">0</span> || j == i)&#123;</span><br><span class="line">                    row.add(<span class="number">1</span>);</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    row.add(list.get(i-<span class="number">1</span>).get(j-<span class="number">1</span>)+list.get(i-<span class="number">1</span>).get(j));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            list.add(row);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> list.get(rowIndex);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">getRow</span><span class="params">(<span class="keyword">int</span> rowIndex)</span> </span>&#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">C</span>(rowIndex + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= rowIndex; ++i) &#123;</span><br><span class="line">            C[i].<span class="built_in">resize</span>(i + <span class="number">1</span>);</span><br><span class="line">            C[i][<span class="number">0</span>] = C[i][i] = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; i; ++j) &#123;</span><br><span class="line">                C[i][j] = C[i - <span class="number">1</span>][j - <span class="number">1</span>] + C[i - <span class="number">1</span>][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> C[rowIndex];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Golang"><a href="#Golang" class="headerlink" title="Golang"></a>Golang</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getRow</span><span class="params">(rowIndex <span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    C := <span class="built_in">make</span>([][]<span class="keyword">int</span>, rowIndex+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> i := <span class="keyword">range</span> C &#123;</span><br><span class="line">        C[i] = <span class="built_in">make</span>([]<span class="keyword">int</span>, i+<span class="number">1</span>)</span><br><span class="line">        C[i][<span class="number">0</span>], C[i][i] = <span class="number">1</span>, <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> j := <span class="number">1</span>; j &lt; i; j++ &#123;</span><br><span class="line">            C[i][j] = C[i<span class="number">-1</span>][j<span class="number">-1</span>] + C[i<span class="number">-1</span>][j]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> C[rowIndex]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="优化V1-0-1"><a href="#优化V1-0-1" class="headerlink" title="优化V1.0"></a>优化V1.0</h2><h3 id="Java-1"><a href="#Java-1" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">getRow</span><span class="params">(<span class="keyword">int</span> rowIndex)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt; pre = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= rowIndex ; i++ )&#123;</span><br><span class="line">            List&lt;Integer&gt; row = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ; j &lt;= i ; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>( j == <span class="number">0</span> || j == i)&#123;</span><br><span class="line">                    row.add(<span class="number">1</span>);</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    row.add(pre.get(j-<span class="number">1</span>)+pre.get(j));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            pre = row;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="C-1"><a href="#C-1" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">getRow</span><span class="params">(<span class="keyword">int</span> rowIndex)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="keyword">int</span>&gt; pre, cur;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= rowIndex; ++i) &#123;</span><br><span class="line">            <span class="comment">//重新初始化数组大小,增加空间</span></span><br><span class="line">            cur.<span class="built_in">resize</span>(i + <span class="number">1</span>);</span><br><span class="line">            cur[<span class="number">0</span>] = cur[i] = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; i; ++j) &#123;</span><br><span class="line">                cur[j] = pre[j - <span class="number">1</span>] + pre[j];</span><br><span class="line">            &#125;</span><br><span class="line">            pre = cur;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Golang-1"><a href="#Golang-1" class="headerlink" title="Golang"></a>Golang</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getRow</span><span class="params">(rowIndex <span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> pre, cur []<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt;= rowIndex; i++ &#123;</span><br><span class="line">        cur = <span class="built_in">make</span>([]<span class="keyword">int</span>, i+<span class="number">1</span>)</span><br><span class="line">        cur[<span class="number">0</span>], cur[i] = <span class="number">1</span>, <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> j := <span class="number">1</span>; j &lt; i; j++ &#123;</span><br><span class="line">            cur[j] = pre[j<span class="number">-1</span>] + pre[j]</span><br><span class="line">        &#125;</span><br><span class="line">        pre = cur</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pre</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="优化V2-0-1"><a href="#优化V2-0-1" class="headerlink" title="优化V2.0"></a>优化V2.0</h2><h3 id="Java-2"><a href="#Java-2" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">getRow</span><span class="params">(<span class="keyword">int</span> rowIndex)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt; row = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">        row.add(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= rowIndex; ++i) &#123;</span><br><span class="line">            row.add(<span class="number">0</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &gt; <span class="number">0</span>; --j) &#123;</span><br><span class="line">                row.set(j, row.get(j) + row.get(j - <span class="number">1</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> row;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="C-2"><a href="#C-2" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">getRow</span><span class="params">(<span class="keyword">int</span> rowIndex)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">row</span><span class="params">(rowIndex + <span class="number">1</span>)</span></span>;</span><br><span class="line">        row[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= rowIndex; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &gt; <span class="number">0</span>; --j) &#123;</span><br><span class="line">                row[j] += row[j - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> row;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Golang-2"><a href="#Golang-2" class="headerlink" title="Golang"></a>Golang</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getRow</span><span class="params">(rowIndex <span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    row := <span class="built_in">make</span>([]<span class="keyword">int</span>, rowIndex+<span class="number">1</span>)</span><br><span class="line">    row[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">1</span>; i &lt;= rowIndex; i++ &#123;</span><br><span class="line">        <span class="keyword">for</span> j := i; j &gt; <span class="number">0</span>; j-- &#123;</span><br><span class="line">            row[j] += row[j<span class="number">-1</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> row</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="方法二：线性递推-1"><a href="#方法二：线性递推-1" class="headerlink" title="方法二：线性递推"></a>方法二：线性递推</h2><h3 id="Java-3"><a href="#Java-3" class="headerlink" title="Java"></a>Java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">getRow</span><span class="params">(<span class="keyword">int</span> rowIndex)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt; row = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">        row.add(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= rowIndex; ++i) &#123;</span><br><span class="line">            row.add((<span class="keyword">int</span>) ((<span class="keyword">long</span>) row.get(i - <span class="number">1</span>) * (rowIndex - i + <span class="number">1</span>) / i));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> row;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="C-3"><a href="#C-3" class="headerlink" title="C++"></a>C++</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">getRow</span><span class="params">(<span class="keyword">int</span> rowIndex)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="keyword">int</span>&gt; <span class="title">row</span><span class="params">(rowIndex + <span class="number">1</span>)</span></span>;</span><br><span class="line">        row[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= rowIndex; ++i) &#123;</span><br><span class="line">            row[i] = <span class="number">1LL</span> * row[i - <span class="number">1</span>] * (rowIndex - i + <span class="number">1</span>) / i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> row;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="Golang-3"><a href="#Golang-3" class="headerlink" title="Golang"></a>Golang</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">func getRow(rowIndex int) []int &#123;</span><br><span class="line">    row := <span class="built_in">make</span>([]<span class="keyword">int</span>, rowIndex+<span class="number">1</span>)</span><br><span class="line">    row[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">1</span>; i &lt;= rowIndex; i++ &#123;</span><br><span class="line">        row[i] = row[i<span class="number">-1</span>] * (rowIndex - i + <span class="number">1</span>) / i</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> row</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+      </div>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wxpay.jpg" alt="Soucat 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+              <a href="/tags/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" rel="tag"><i class="fa fa-tag"></i> 每日一题</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/09/09/Vue%EF%BC%88%E4%BA%94%EF%BC%89/" rel="prev" title="Vue(五):防抖与节流">
+                  <i class="fa fa-chevron-left"></i> Vue(五):防抖与节流
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81MzU2My8zMDAzNg=="></div><script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Soucat</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">281k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:15</span>
+  </span>
+</div>
+ <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("04/8/2021 18:00:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+  <script>
+    NProgress.configure({
+      showSpinner: true
+    });
+    NProgress.start();
+    document.addEventListener('readystatechange', () => {
+      if (document.readyState === 'interactive') {
+        NProgress.inc(0.8);
+      }
+      if (document.readyState === 'complete') {
+        NProgress.done();
+      }
+    });
+    document.addEventListener('pjax:send', () => {
+      NProgress.start();
+    });
+    document.addEventListener('pjax:success', () => {
+      NProgress.done();
+    });
+  </script>
+
+  
+
+
+
+
+
+<script>
+NexT.utils.loadComments('#lv-container', () => {
+  window.livereOptions = {
+    refer: "2021/10/01/每日一题（十三）/"
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>
