@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+<!-- ӣ����Ч -->
+  
+      <script async src="./js/fairyDustCursor.js"></script>
+  
+ 	
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "90c946b0"
+    });
+  daovoice('update');
+  </script>
+
+
+<meta name="hexo-config" content="{&quot;hostname&quot;:&quot;shdsoul.github.io&quot;,&quot;root&quot;:&quot;/&quot;,&quot;images&quot;:&quot;/images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;/search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}">
+<meta name="description" content="本文主要记录使用Jenkins 2.x 版本进行持续交付的系统构建.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins(二)">
+<meta property="og:url" content="https://shdsoul.github.io/2021/11/08/Jenkins%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
+<meta property="og:site_name" content="Luke">
+<meta property="og:description" content="本文主要记录使用Jenkins 2.x 版本进行持续交付的系统构建.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/img/image-20211107235823828.png">
+<meta property="og:image" content="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/img/image-20211108001315265.png">
+<meta property="article:published_time" content="2021-11-07T16:34:04.000Z">
+<meta property="article:modified_time" content="2021-11-07T16:34:04.548Z">
+<meta property="article:author" content="Soucat">
+<meta property="article:tag" content="Jenkins">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/img/image-20211107235823828.png">
+
+
+<link rel="canonical" href="https://shdsoul.github.io/2021/11/08/Jenkins%EF%BC%88%E4%BA%8C%EF%BC%89/">
+
+
+
+<meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;}">
+<meta name="hexo-config-calendar" content="">
+<title>Jenkins(二) | Luke</title><script data-pjax src="/js/load-config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Luke</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Everything will be better</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">31</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">15</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">68</span></a></li>
+        <li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pipeline%E8%84%9A%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">Pipeline脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC%E7%94%9F%E6%88%90"><span class="nav-number">2.</span> <span class="nav-text">脚本生成</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#checkout"><span class="nav-number">4.1.</span> <span class="nav-text">checkout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tools"><span class="nav-number">4.2.</span> <span class="nav-text">tools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#trigger"><span class="nav-number">4.3.</span> <span class="nav-text">trigger</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#build"><span class="nav-number">4.4.</span> <span class="nav-text">build</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Publish"><span class="nav-number">4.5.</span> <span class="nav-text">Publish</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E8%84%9A%E6%9C%AC%E6%A8%A1%E6%9D%BF"><span class="nav-number">5.</span> <span class="nav-text">Java脚本模板</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Soucat"
+      src="/./images/tx.jpg">
+  <p class="site-author-name" itemprop="name">Soucat</p>
+  <div class="site-description" itemprop="description">醉后不知天在水，满床清梦压星河</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shdsoul" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shdsoul" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+         
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://shdsoul.github.io/2021/11/08/Jenkins%EF%BC%88%E4%BA%8C%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/./images/tx.jpg">
+      <meta itemprop="name" content="Soucat">
+      <meta itemprop="description" content="醉后不知天在水，满床清梦压星河">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Luke">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Jenkins(二)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-08 00:34:04" itemprop="dateCreated datePublished" datetime="2021-11-08T00:34:04+08:00">2021-11-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Jenkins/" itemprop="url" rel="index"><span itemprop="name">Jenkins</span></a>
+        </span>
+    </span>
+
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">本文主要记录使用Jenkins 2.x 版本进行持续交付的系统构建.</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Pipeline脚本"><a href="#Pipeline脚本" class="headerlink" title="Pipeline脚本"></a><code>Pipeline</code>脚本</h1><p><code>pipline</code>脚本的基本形式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">pipeline&#123;</span><br><span class="line">	&#x2F;&#x2F;指定流水线的执行位置 物理机&#x2F;docker&#x2F;虚拟机</span><br><span class="line">    agent any</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F; java打包工具</span><br><span class="line">    tools &#123;</span><br><span class="line">         maven &#39;maven-3.6.3&#39;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">	&#x2F;&#x2F;触发器</span><br><span class="line">    triggers &#123;</span><br><span class="line">            &#96;&#96;&#96;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;阶段</span><br><span class="line">    stages &#123;</span><br><span class="line">    	&#x2F;&#x2F; 拉取代码</span><br><span class="line">        stage(&#39;Checkout&#39;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                ····</span><br><span class="line">                &#x2F;&#x2F;命令</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">		&#x2F;&#x2F;打包</span><br><span class="line">        stage(&#39;Build&#39;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">               ····</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">		&#x2F;&#x2F; 发布到服务器</span><br><span class="line">        stage(&#39;Publish&#39;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">				···</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F; 发布消息提醒</span><br><span class="line">        stage(&#39;Notice&#39;) &#123;</span><br><span class="line">           steps &#123;</span><br><span class="line">				&#96;&#96;&#96;</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="脚本生成"><a href="#脚本生成" class="headerlink" title="脚本生成"></a>脚本生成</h1><p>想要使用<code>Jenkinsfile</code>来进行流程控制，可以新建流水线任务或者多分支流水线任务，其中 <code>stages</code>、<code>stage</code>、<code>steps</code> 是必须有的，在这其中填充这些生成的片段.<code>tools</code>、<code>trigger</code>这两个片段在与<code>stages</code>平级</p>
+<p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/img/image-20211107235823828.png" alt="image-20211107235823828"></p>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p><code>Git</code>仓库认证信息，<code>SSH</code>凭证信息 ，<code>Maven</code>全局配置文件使用阿里镜像</p>
+<h1 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h1><h2 id="checkout"><a href="#checkout" class="headerlink" title="checkout"></a><code>checkout</code></h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">checkout([</span><br><span class="line"><span class="code">	</span></span><br><span class="line"><span class="code">	$class: &#x27;GitSCM&#x27;, </span></span><br><span class="line"><span class="code">	branches: [</span></span><br><span class="line"><span class="code">		//拉取分支名称</span></span><br><span class="line"><span class="code">		[name: &#x27;*/master&#x27;]</span></span><br><span class="line"><span class="code">	], </span></span><br><span class="line"><span class="code">	extensions: [], </span></span><br><span class="line"><span class="code">	userRemoteConfigs: [</span></span><br><span class="line"><span class="code">		[</span></span><br><span class="line"><span class="code">			// git仓库认证信息id</span></span><br><span class="line"><span class="code">			credentialsId: &#x27;xxxx_gitee&#x27;, </span></span><br><span class="line"><span class="code">			//仓库地址</span></span><br><span class="line"><span class="code">			url: &#x27;https://gitee.com/xxxxxx.git&#x27;</span></span><br><span class="line"><span class="code">		]</span></span><br><span class="line"><span class="code">	]</span></span><br><span class="line"><span class="code">])</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="tools"><a href="#tools" class="headerlink" title="tools"></a><code>tools</code></h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tools &#123;</span><br><span class="line"><span class="code">		// 工具名 &#x27;全局配置中自定义的工具名&#x27;</span></span><br><span class="line"><span class="code">         maven &#x27;maven-3.6.3&#x27;</span></span><br><span class="line"><span class="code">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="trigger"><a href="#trigger" class="headerlink" title="trigger"></a><code>trigger</code></h2><p>触发器还需要在流水线配置中勾选</p>
+<p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/img/image-20211108001315265.png" alt="image-20211108001315265"></p>
+<p>并设置<code>token</code></p>
+<p>同时需要在 <code>Git</code>仓库中的 <code>webhook</code>设置中添加 </p>
+<p><code>url: http://JENKINS_URL/generic-webhook-trigger/invoke?token=YOUR_TOKEN</code></p>
+<p>无需设置密码，选择触发条件更新即可.</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> triggers &#123;</span><br><span class="line"> 			// 一般触发器</span><br><span class="line"><span class="code">            GenericTrigger (</span></span><br><span class="line"><span class="code">            	// 触发原因</span></span><br><span class="line"><span class="code">                causeString: &#x27;Triggered by develop&#x27;,</span></span><br><span class="line"><span class="code">                // 一般变量,从发来的请求中读取 .ref值 赋值给 ref</span></span><br><span class="line"><span class="code">                genericVariables: [[key: &#x27;ref&#x27;, value: &#x27;$.ref&#x27;]],</span></span><br><span class="line"><span class="code">                printContributedVariables: true,</span></span><br><span class="line"><span class="code">                printPostContent: true,</span></span><br><span class="line"><span class="code">                // 需要匹配的表达式</span></span><br><span class="line"><span class="code">                regexpFilterExpression: &#x27;refs/heads/master&#x27;,</span></span><br><span class="line"><span class="code">                // 过滤掉开头不为上方获取的 ref 的值的</span></span><br><span class="line"><span class="code">                regexpFilterText: &#x27;$ref&#x27;,</span></span><br><span class="line"><span class="code">                // Git仓库webhook密码</span></span><br><span class="line"><span class="code">                token: &#x27;xxxxx&#x27;</span></span><br><span class="line"><span class="code">            )</span></span><br><span class="line"><span class="code">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="build"><a href="#build" class="headerlink" title="build"></a><code>build</code></h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">configFileProvider(</span><br><span class="line"> 	[</span><br><span class="line"> 		configFile(</span><br><span class="line"> 			//全局设置的maven配置文件id</span><br><span class="line"> 			fileId: &#x27;maven-global-settings&#x27;,</span><br><span class="line"><span class="code">            //固定写死</span></span><br><span class="line"><span class="code"> 			variable: &#x27;MAVEN_GLOBAL_ENV&#x27;</span></span><br><span class="line"><span class="code"> 		)</span></span><br><span class="line"><span class="code"> 	]</span></span><br><span class="line"><span class="code"> ) </span></span><br><span class="line"><span class="code"> &#123;</span></span><br><span class="line"><span class="code"> 			// 使用该配置文件进行打包 -P 选择打包环境         跳过测试阶段</span></span><br><span class="line"><span class="code">     sh &#x27;mvn  -s $MAVEN_GLOBAL_ENV  -P test clean package -Dmaven.test.skip=true&#x27;</span></span><br><span class="line"><span class="code"> &#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Publish"><a href="#Publish" class="headerlink" title="Publish"></a><code>Publish</code></h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">sshPublisher(</span><br><span class="line"><span class="code">            publishers: [</span></span><br><span class="line"><span class="code">                        sshPublisherDesc(</span></span><br><span class="line"><span class="code">                        // 全局ssh凭证信息</span></span><br><span class="line"><span class="code">                        configName: &#x27;root@192.168.50.200&#x27;,</span></span><br><span class="line"><span class="code">                        transfers: [</span></span><br><span class="line"><span class="code">                            sshTransfer(</span></span><br><span class="line"><span class="code">                                cleanRemote: false,</span></span><br><span class="line"><span class="code">                                excludes: &#x27;&#x27;,</span></span><br><span class="line"><span class="code">                                //执行命令</span></span><br><span class="line"><span class="code">                                execCommand: &#x27;docker restart admin-hi-dev&#x27;,</span></span><br><span class="line"><span class="code">                                execTimeout: 120000,</span></span><br><span class="line"><span class="code">                                flatten: false,</span></span><br><span class="line"><span class="code">                                makeEmptyDirs: false,</span></span><br><span class="line"><span class="code">                                noDefaultExcludes: false,</span></span><br><span class="line"><span class="code">                                patternSeparator: &#x27;[, ]+&#x27;,</span></span><br><span class="line"><span class="code">                                //传输的远程文件夹</span></span><br><span class="line"><span class="code">                                remoteDirectory: &#x27;/www/api-java&#x27;,</span></span><br><span class="line"><span class="code">                                remoteDirectorySDF: false,</span></span><br><span class="line"><span class="code">                                //删除sourceFiles中的前缀部分</span></span><br><span class="line"><span class="code">                                removePrefix: &#x27;bluesky-admin/target&#x27;,</span></span><br><span class="line"><span class="code">                                sourceFiles: &#x27;bluesky-admin/target/bluesky-admin-1.0.jar&#x27;</span></span><br><span class="line"><span class="code">                                )</span></span><br><span class="line"><span class="code">                         ],</span></span><br><span class="line"><span class="code">                         usePromotionTimestamp: false,</span></span><br><span class="line"><span class="code">                         useWorkspaceInPromotion: false,</span></span><br><span class="line"><span class="code">                         verbose: false</span></span><br><span class="line"><span class="code">                         )</span></span><br><span class="line"><span class="code">              ]</span></span><br><span class="line"><span class="code">)</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="Java脚本模板"><a href="#Java脚本模板" class="headerlink" title="Java脚本模板"></a>Java脚本模板</h1><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line">pipeline&#123;</span><br><span class="line"><span class="code">	//指定流水线的执行位置 物理机/docker/虚拟机</span></span><br><span class="line"><span class="code">    agent any</span></span><br><span class="line"><span class="code">    </span></span><br><span class="line"><span class="code">    // java打包工具</span></span><br><span class="line"><span class="code">    tools &#123;</span></span><br><span class="line"><span class="code">         maven &#x27;maven-3.6.3&#x27;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"><span class="code">    </span></span><br><span class="line"><span class="code">	//触发器</span></span><br><span class="line"><span class="code">    triggers &#123;</span></span><br><span class="line"><span class="code"> 			// 一般触发器</span></span><br><span class="line"><span class="code">            GenericTrigger (</span></span><br><span class="line"><span class="code">            	// 触发原因</span></span><br><span class="line"><span class="code">                causeString: &#x27;Triggered by develop&#x27;,</span></span><br><span class="line"><span class="code">                // 一般变量,从发来的请求中读取 .ref值 赋值给 ref</span></span><br><span class="line"><span class="code">                genericVariables: [[key: &#x27;ref&#x27;, value: &#x27;$.ref&#x27;]],</span></span><br><span class="line"><span class="code">                printContributedVariables: true,</span></span><br><span class="line"><span class="code">                printPostContent: true,</span></span><br><span class="line"><span class="code">                // 需要匹配的表达式</span></span><br><span class="line"><span class="code">                regexpFilterExpression: &#x27;refs/heads/master&#x27;,</span></span><br><span class="line"><span class="code">                // 过滤掉开头不为上方获取的 ref 的值的</span></span><br><span class="line"><span class="code">                regexpFilterText: &#x27;$ref&#x27;,</span></span><br><span class="line"><span class="code">                // Git仓库webhook密码</span></span><br><span class="line"><span class="code">                token: &#x27;xxxxx&#x27;</span></span><br><span class="line"><span class="code">            )</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">	//阶段</span></span><br><span class="line"><span class="code">    stages &#123;</span></span><br><span class="line"><span class="code">    	// 拉取代码</span></span><br><span class="line"><span class="code">        stage(&#x27;Checkout&#x27;) &#123;</span></span><br><span class="line"><span class="code">            steps &#123;</span></span><br><span class="line"><span class="code">                checkout([</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">                    $class: &#x27;GitSCM&#x27;, </span></span><br><span class="line"><span class="code">                    branches: [</span></span><br><span class="line"><span class="code">                        //拉取分支名称</span></span><br><span class="line"><span class="code">                        [name: &#x27;*/master&#x27;]</span></span><br><span class="line"><span class="code">                    ], </span></span><br><span class="line"><span class="code">                    extensions: [], </span></span><br><span class="line"><span class="code">                    userRemoteConfigs: [</span></span><br><span class="line"><span class="code">                        [</span></span><br><span class="line"><span class="code">                            // git仓库认证信息id</span></span><br><span class="line"><span class="code">                            credentialsId: &#x27;xxxx_gitee&#x27;, </span></span><br><span class="line"><span class="code">                            //仓库地址</span></span><br><span class="line"><span class="code">                            url: &#x27;https://gitee.com/xxxxxx.git&#x27;</span></span><br><span class="line"><span class="code">                        ]</span></span><br><span class="line"><span class="code">                    ]</span></span><br><span class="line"><span class="code">                ])</span></span><br><span class="line"><span class="code">            &#125;</span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line"><span class="code">		//打包</span></span><br><span class="line"><span class="code">        stage(&#x27;Build&#x27;) &#123;</span></span><br><span class="line"><span class="code">            steps &#123;</span></span><br><span class="line"><span class="code">                configFileProvider(</span></span><br><span class="line"><span class="code">                    [</span></span><br><span class="line"><span class="code">                        configFile(</span></span><br><span class="line"><span class="code">                            //全局设置的maven配置文件id</span></span><br><span class="line"><span class="code">                            fileId: &#x27;maven-global-settings&#x27;,</span></span><br><span class="line"><span class="code">                            //固定写死</span></span><br><span class="line"><span class="code">                            variable: &#x27;MAVEN_GLOBAL_ENV&#x27;</span></span><br><span class="line"><span class="code">                        )</span></span><br><span class="line"><span class="code">                    ]</span></span><br><span class="line"><span class="code">                 ) </span></span><br><span class="line"><span class="code">                 &#123;</span></span><br><span class="line"><span class="code">                            // 使用该配置文件进行打包 -P 选择打包环境         跳过测试阶段</span></span><br><span class="line"><span class="code">                     sh &#x27;mvn  -s $MAVEN_GLOBAL_ENV  -P test clean package -Dmaven.test.skip=true&#x27;</span></span><br><span class="line"><span class="code">                 &#125;</span></span><br><span class="line"><span class="code">            &#125;</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">		// 发布到服务器</span></span><br><span class="line"><span class="code">        stage(&#x27;Publish&#x27;) &#123;</span></span><br><span class="line"><span class="code">            steps &#123;</span></span><br><span class="line"><span class="code">                sshPublisher(</span></span><br><span class="line"><span class="code">                            publishers: [</span></span><br><span class="line"><span class="code">                                        sshPublisherDesc(</span></span><br><span class="line"><span class="code">                                        // 全局ssh凭证信息</span></span><br><span class="line"><span class="code">                                        configName: &#x27;root@192.168.50.200&#x27;,</span></span><br><span class="line"><span class="code">                                        transfers: [</span></span><br><span class="line"><span class="code">                                            sshTransfer(</span></span><br><span class="line"><span class="code">                                                cleanRemote: false,</span></span><br><span class="line"><span class="code">                                                excludes: &#x27;&#x27;,</span></span><br><span class="line"><span class="code">                                                //执行命令</span></span><br><span class="line"><span class="code">                                                execCommand: &#x27;docker restart admin-hi-	dev&#x27;,</span></span><br><span class="line"><span class="code">                                                execTimeout: 120000,</span></span><br><span class="line"><span class="code">                                                flatten: false,</span></span><br><span class="line"><span class="code">                                                makeEmptyDirs: false,</span></span><br><span class="line"><span class="code">                                                noDefaultExcludes: false,</span></span><br><span class="line"><span class="code">                                                patternSeparator: &#x27;[, ]+&#x27;,</span></span><br><span class="line"><span class="code">                                                //传输的远程文件夹</span></span><br><span class="line"><span class="code">                                                remoteDirectory: &#x27;/www/api-java&#x27;,</span></span><br><span class="line"><span class="code">                                                remoteDirectorySDF: false,</span></span><br><span class="line"><span class="code">                                                //删除sourceFiles中的前缀部分</span></span><br><span class="line"><span class="code">                                                removePrefix: &#x27;bluesky-admin/target&#x27;,</span></span><br><span class="line"><span class="code">                                                sourceFiles: &#x27;bluesky-admin/target/bluesky-admin-1.0.jar&#x27;</span></span><br><span class="line"><span class="code">                                                )</span></span><br><span class="line"><span class="code">                                         ],</span></span><br><span class="line"><span class="code">                                         usePromotionTimestamp: false,</span></span><br><span class="line"><span class="code">                                         useWorkspaceInPromotion: false,</span></span><br><span class="line"><span class="code">                                         verbose: false</span></span><br><span class="line"><span class="code">                                         )</span></span><br><span class="line"><span class="code">                              ]</span></span><br><span class="line"><span class="code">                )</span></span><br><span class="line"><span class="code">            &#125;</span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line"><span class="code">		</span></span><br><span class="line"><span class="code">		// 发布消息提醒</span></span><br><span class="line"><span class="code">        stage(&#x27;Notice&#x27;) &#123;</span></span><br><span class="line"><span class="code">           steps &#123;</span></span><br></pre></td></tr></table></figure>
+<pre><code>       &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>}</p>
+<pre><code>
+</code></pre>
+
+      <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+      </div>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wxpay.jpg" alt="Soucat 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Jenkins/" rel="tag"><i class="fa fa-tag"></i> Jenkins</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/08/Jenkins%EF%BC%88%E4%B8%80%EF%BC%89/" rel="prev" title="Jenkins(一):自动化部署与持续交付">
+                  <i class="fa fa-chevron-left"></i> Jenkins(一):自动化部署与持续交付
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81MzU2My8zMDAzNg=="></div><script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Soucat</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">286k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:20</span>
+  </span>
+</div>
+ <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("04/8/2021 18:00:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+  <script>
+    NProgress.configure({
+      showSpinner: true
+    });
+    NProgress.start();
+    document.addEventListener('readystatechange', () => {
+      if (document.readyState === 'interactive') {
+        NProgress.inc(0.8);
+      }
+      if (document.readyState === 'complete') {
+        NProgress.done();
+      }
+    });
+    document.addEventListener('pjax:send', () => {
+      NProgress.start();
+    });
+    document.addEventListener('pjax:success', () => {
+      NProgress.done();
+    });
+  </script>
+
+  
+
+
+
+
+
+<script>
+NexT.utils.loadComments('#lv-container', () => {
+  window.livereOptions = {
+    refer: "2021/11/08/Jenkins（二）/"
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>
