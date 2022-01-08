@@ -45,14 +45,14 @@
 <meta property="og:site_name" content="Luke">
 <meta property="og:description" content="本文用于记录使用Vue制作Web端音乐播放的过程以及一些坑.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://shdsoul.github.io/2021/09/09/Vue%EF%BC%88%E5%9B%9B%EF%BC%89/Users/user/AppData/Roaming/Typora/typora-user-images/image-20210904125857918.png">
-<meta property="og:image" content="https://shdsoul.github.io/2021/09/09/Vue%EF%BC%88%E5%9B%9B%EF%BC%89/Users/user/AppData/Roaming/Typora/typora-user-images/image-20210904130616886.png">
+<meta property="og:image" content="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/img/image-20211123172105378.png">
+<meta property="og:image" content="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/img/image-20211123172128528.png">
 <meta property="article:published_time" content="2021-09-09T08:04:24.000Z">
-<meta property="article:modified_time" content="2021-09-09T08:04:24.859Z">
+<meta property="article:modified_time" content="2021-11-23T09:21:33.189Z">
 <meta property="article:author" content="Soucat">
 <meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://shdsoul.github.io/2021/09/09/Vue%EF%BC%88%E5%9B%9B%EF%BC%89/Users/user/AppData/Roaming/Typora/typora-user-images/image-20210904125857918.png">
+<meta name="twitter:image" content="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/img/image-20211123172105378.png">
 
 
 <link rel="canonical" href="https://shdsoul.github.io/2021/09/09/Vue%EF%BC%88%E5%9B%9B%EF%BC%89/">
@@ -272,6 +272,13 @@
 
       <time title="创建时间：2021-09-09 16:04:24" itemprop="dateCreated datePublished" datetime="2021-09-09T16:04:24+08:00">2021-09-09</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-11-23 17:21:33" itemprop="dateModified" datetime="2021-11-23T17:21:33+08:00">2021-11-23</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -309,7 +316,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h1><p><img src="/2021/09/09/Vue%EF%BC%88%E5%9B%9B%EF%BC%89/Users\user\AppData\Roaming\Typora\typora-user-images\image-20210904125857918.png" alt="image-20210904125857918"></p>
+        <h1 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h1><p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/img/image-20211123172105378.png" alt="image-20211123172105378"></p>
 <p><strong>功能一览</strong>：</p>
 <ul>
 <li>支持单曲循环、随机播放、顺序循环</li>
@@ -404,7 +411,7 @@
 </tr>
 </tbody></table>
 <h1 id="开发流程"><a href="#开发流程" class="headerlink" title="开发流程"></a>开发流程</h1><h2 id="原型图设计"><a href="#原型图设计" class="headerlink" title="原型图设计"></a>原型图设计</h2><p>原先写前端完全纯凭着感觉写，边写边调，效率十分低效，后来了解到原型图这种东西，于是尝试先画原型图再进行开发的模式，这样可以完全分离设计与开发，从开发体验上来讲还是很不错的，我所设计的原型图如下：</p>
-<p><img src="/2021/09/09/Vue%EF%BC%88%E5%9B%9B%EF%BC%89/Users\user\AppData\Roaming\Typora\typora-user-images\image-20210904130616886.png" alt="image-20210904130616886"></p>
+<p><img src="https://anthony-img-bed.oss-cn-beijing.aliyuncs.com/img/image-20211123172128528.png" alt="image-20211123172128528"></p>
 <p>就还原度上来讲，还算可以，总之，第一次尝试使用原型图还算成功.</p>
 <h2 id="页面开发"><a href="#页面开发" class="headerlink" title="页面开发"></a>页面开发</h2><p>页面开发这部分就不说了，采用了<code>flex</code>布局进行实现</p>
 <h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><h3 id="单曲循环"><a href="#单曲循环" class="headerlink" title="单曲循环"></a>单曲循环</h3><p>注意到 <code>audio</code>具有<code>loop</code>属性，可以通过布尔值进行设置，并且在<code>ended</code>的事件中判断当前状态是否为单曲循环，从而确定是否切换至下一首，如何接触单曲循环呢？第一种方式，切换播放模式，第二种方式，点击列表中的歌曲切换歌(这个地方其实有点不合理，但是为了偷懒hhh)</p>
@@ -494,7 +501,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
